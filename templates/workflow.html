@@ -1,0 +1,599 @@
+{% extends "base.html" %}
+
+{% block title %}Vibecoding Workflow - Van Idee naar App | LeerVibeCoding{% endblock %}
+
+{% block meta_description %}Leer de vibecoding workflow: van idee naar werkende app in 4 stappen. Ontdek hoe je effectieve prompts schrijft en de feedback-loop beheerst. Inclusief Prompt Builder tool.{% endblock %}
+
+{% block meta_keywords %}vibecoding workflow, prompt schrijven, AI prompts, van idee naar app, feedback loop, prompt engineering beginners{% endblock %}
+
+{% block canonical %}https://leervibecoding.nl/workflow{% endblock %}
+{% block og_url %}https://leervibecoding.nl/workflow{% endblock %}
+{% block og_title %}Vibecoding Workflow - Van Idee naar Werkende App{% endblock %}
+{% block og_description %}Leer stap voor stap hoe je van een vaag idee naar een werkend product gaat met AI.{% endblock %}
+
+{% block extra_css %}
+<style>
+    .page-header {
+        padding: 120px 0 60px;
+        text-align: center;
+        background: linear-gradient(180deg, rgba(34,197,94,0.1) 0%, transparent 100%);
+    }
+    .page-header h1 {
+        font-size: 48px;
+        margin-bottom: 16px;
+    }
+    .page-header .subtitle {
+        font-size: 20px;
+        color: rgba(255,255,255,0.7);
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    /* Timeline */
+    .timeline-section {
+        padding: 60px 0;
+    }
+    .timeline {
+        max-width: 800px;
+        margin: 0 auto;
+        position: relative;
+    }
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 50px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(180deg, #a855f7, #22c55e);
+    }
+    .timeline-step {
+        display: flex;
+        gap: 32px;
+        margin-bottom: 48px;
+        position: relative;
+    }
+    .timeline-num {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #a855f7, #8b5cf6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 36px;
+        font-weight: 700;
+        flex-shrink: 0;
+        position: relative;
+        z-index: 2;
+        box-shadow: 0 10px 40px rgba(168,85,247,0.3);
+    }
+    .timeline-content {
+        flex: 1;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 20px;
+        padding: 32px;
+    }
+    .timeline-content h3 {
+        font-size: 24px;
+        margin-bottom: 8px;
+        color: #c4b5fd;
+    }
+    .timeline-content .tag {
+        display: inline-block;
+        padding: 4px 12px;
+        background: rgba(168,85,247,0.2);
+        border-radius: 20px;
+        font-size: 12px;
+        color: #c4b5fd;
+        margin-bottom: 16px;
+    }
+    .timeline-content p {
+        color: rgba(255,255,255,0.7);
+        font-size: 16px;
+        line-height: 1.7;
+        margin-bottom: 20px;
+    }
+
+    /* Example boxes */
+    .example-box {
+        background: rgba(0,0,0,0.3);
+        border-radius: 12px;
+        padding: 20px;
+        margin-top: 16px;
+    }
+    .example-box.bad {
+        border-left: 3px solid #ef4444;
+    }
+    .example-box.good {
+        border-left: 3px solid #22c55e;
+    }
+    .example-label {
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .example-box.bad .example-label {
+        color: #f87171;
+    }
+    .example-box.good .example-label {
+        color: #4ade80;
+    }
+    .example-text {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 14px;
+        color: rgba(255,255,255,0.9);
+        line-height: 1.6;
+    }
+
+    /* Feedback Loop Diagram */
+    .feedback-diagram {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 24px;
+        padding: 32px;
+        background: rgba(255,255,255,0.03);
+        border-radius: 16px;
+        margin-top: 20px;
+    }
+    .feedback-step {
+        text-align: center;
+        padding: 20px;
+        background: rgba(255,255,255,0.05);
+        border-radius: 12px;
+        min-width: 140px;
+    }
+    .feedback-step .icon {
+        font-size: 32px;
+        margin-bottom: 8px;
+    }
+    .feedback-step span {
+        font-size: 14px;
+        color: rgba(255,255,255,0.8);
+    }
+    .feedback-arrow {
+        font-size: 24px;
+        color: rgba(255,255,255,0.3);
+    }
+
+    /* Prompt Builder Section */
+    .prompt-builder-section {
+        padding: 60px 0;
+        background: rgba(0,0,0,0.3);
+    }
+    .prompt-builder {
+        max-width: 800px;
+        margin: 40px auto 0;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 20px;
+        padding: 32px;
+    }
+    .prompt-builder h3 {
+        font-size: 20px;
+        margin-bottom: 24px;
+        text-align: center;
+    }
+    .keyword-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 24px;
+    }
+    .keyword-category {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+    .keyword-category-title {
+        font-size: 12px;
+        color: rgba(255,255,255,0.5);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+    }
+    .keyword-btn {
+        display: inline-block;
+        padding: 8px 16px;
+        background: rgba(168,85,247,0.2);
+        border: 1px solid rgba(168,85,247,0.3);
+        border-radius: 20px;
+        color: #c4b5fd;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    .keyword-btn:hover, .keyword-btn.active {
+        background: rgba(168,85,247,0.4);
+        border-color: #a855f7;
+    }
+    .prompt-output {
+        background: rgba(0,0,0,0.3);
+        border-radius: 12px;
+        padding: 20px;
+        min-height: 100px;
+    }
+    .prompt-output-label {
+        font-size: 12px;
+        color: rgba(255,255,255,0.5);
+        margin-bottom: 12px;
+    }
+    .prompt-output-text {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 14px;
+        color: rgba(255,255,255,0.9);
+        line-height: 1.6;
+    }
+    .copy-btn {
+        margin-top: 16px;
+        padding: 10px 20px;
+        background: linear-gradient(135deg, #22c55e, #16a34a);
+        border: none;
+        border-radius: 8px;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-left: auto;
+    }
+
+    /* Tips Section */
+    .tips-section {
+        padding: 60px 0;
+    }
+    .tips-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        max-width: 1000px;
+        margin: 40px auto 0;
+    }
+    .tip-card {
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 16px;
+        padding: 24px;
+    }
+    .tip-card .icon {
+        font-size: 32px;
+        margin-bottom: 12px;
+    }
+    .tip-card h4 {
+        font-size: 18px;
+        margin-bottom: 8px;
+    }
+    .tip-card p {
+        font-size: 14px;
+        color: rgba(255,255,255,0.6);
+        line-height: 1.6;
+    }
+
+    .section-title {
+        font-size: 32px;
+        text-align: center;
+        margin-bottom: 16px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+        .tips-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .page-header {
+            padding: 100px 0 40px;
+        }
+        .page-header h1 {
+            font-size: 32px;
+        }
+        .page-header .subtitle {
+            font-size: 16px;
+        }
+        .timeline-section,
+        .prompt-builder-section,
+        .tips-section {
+            padding: 40px 0;
+        }
+        .timeline::before {
+            left: 30px;
+        }
+        .timeline-num {
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+        }
+        .timeline-step {
+            gap: 20px;
+        }
+        .timeline-content {
+            padding: 24px;
+        }
+        .timeline-content h3 {
+            font-size: 20px;
+        }
+        .feedback-diagram {
+            flex-direction: column;
+            padding: 20px;
+        }
+        .feedback-arrow {
+            transform: rotate(90deg);
+        }
+        .feedback-step {
+            min-width: auto;
+            width: 100%;
+        }
+        .prompt-builder {
+            padding: 24px;
+        }
+        .section-title {
+            font-size: 26px;
+        }
+        .example-text {
+            font-size: 13px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .page-header {
+            padding: 90px 0 30px;
+        }
+        .page-header h1 {
+            font-size: 26px;
+        }
+        .timeline::before {
+            display: none;
+        }
+        .timeline-step {
+            flex-direction: column;
+        }
+        .timeline-num {
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            margin: 0 auto 16px;
+        }
+        .timeline-content {
+            padding: 20px;
+        }
+        .timeline-content h3 {
+            font-size: 18px;
+            text-align: center;
+        }
+        .timeline-content .tag {
+            display: block;
+            text-align: center;
+        }
+        .example-box {
+            padding: 14px;
+        }
+        .keyword-btn {
+            padding: 8px 12px;
+            font-size: 13px;
+        }
+        .prompt-output {
+            padding: 14px;
+        }
+        .tip-card {
+            padding: 20px;
+        }
+        .tip-card h4 {
+            font-size: 16px;
+        }
+        .section-title {
+            font-size: 22px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="container">
+        <h1>📚 De Workflow</h1>
+        <p class="subtitle">Van een vaag idee naar een werkend product. Stap voor stap uitgelegd.</p>
+    </div>
+</div>
+
+<section class="timeline-section">
+    <div class="container">
+        <div class="timeline">
+            <!-- Stap 1 -->
+            <div class="timeline-step">
+                <div class="timeline-num">1</div>
+                <div class="timeline-content">
+                    <span class="tag">De Vonk</span>
+                    <h3>Beschrijf je idee</h3>
+                    <p>
+                        Begin met opschrijven wat je wilt maken. Niet te technisch — gewoon alsof je het aan een vriend vertelt. 
+                        Wat moet het doen? Voor wie is het? Welk probleem lost het op?
+                    </p>
+                    <div class="example-box good">
+                        <div class="example-label"><i class="fas fa-check"></i> Voorbeeld</div>
+                        <div class="example-text">
+                            "Ik wil een website voor mijn hondenuitlaatservice. Bezoekers moeten kunnen zien welke diensten ik aanbied, wat het kost, en hoe ze contact kunnen opnemen."
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stap 2 -->
+            <div class="timeline-step">
+                <div class="timeline-num">2</div>
+                <div class="timeline-content">
+                    <span class="tag">De Eerste Prompt</span>
+                    <h3>Schrijf je prompt</h3>
+                    <p>
+                        Nu ga je de AI vertellen wat je wilt. Het verschil tussen een slechte en goede prompt? 
+                        Details! Hoe specifieker, hoe beter het resultaat.
+                    </p>
+                    <div class="example-box bad">
+                        <div class="example-label"><i class="fas fa-times"></i> Slechte prompt</div>
+                        <div class="example-text">"Maak een website"</div>
+                    </div>
+                    <div class="example-box good">
+                        <div class="example-label"><i class="fas fa-check"></i> Goede prompt</div>
+                        <div class="example-text">
+                            "Maak een professionele website voor mijn hondenuitlaatservice 'Blaffie's Wandelingen'. 
+                            De site moet bevatten: een header met logo en navigatie, een hero sectie met een foto van honden, 
+                            drie diensten (wandeling, dagopvang, training) met prijzen, en een contactformulier onderaan. 
+                            Gebruik warme kleuren en een vriendelijke stijl."
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stap 3 -->
+            <div class="timeline-step">
+                <div class="timeline-num">3</div>
+                <div class="timeline-content">
+                    <span class="tag">De Feedback-loop</span>
+                    <h3>Bekijk, test, verbeter</h3>
+                    <p>
+                        De AI geeft je een eerste versie. Bekijk het resultaat en vraag om aanpassingen. 
+                        Dit is het geheim van vibecoding: je blijft heen en weer praten totdat het perfect is.
+                    </p>
+                    <div class="feedback-diagram">
+                        <div class="feedback-step">
+                            <div class="icon">🤖</div>
+                            <span>AI bouwt</span>
+                        </div>
+                        <div class="feedback-arrow">→</div>
+                        <div class="feedback-step">
+                            <div class="icon">👀</div>
+                            <span>Jij bekijkt</span>
+                        </div>
+                        <div class="feedback-arrow">→</div>
+                        <div class="feedback-step">
+                            <div class="icon">💬</div>
+                            <span>Jij geeft feedback</span>
+                        </div>
+                        <div class="feedback-arrow">→</div>
+                        <div class="feedback-step">
+                            <div class="icon">🔄</div>
+                            <span>Herhalen</span>
+                        </div>
+                    </div>
+                    <div class="example-box good" style="margin-top: 20px;">
+                        <div class="example-label"><i class="fas fa-lightbulb"></i> Voorbeelden van feedback</div>
+                        <div class="example-text">
+                            • "Maak de header kleiner"<br>
+                            • "Verander de blauwe kleur naar groen"<br>
+                            • "Voeg een foto placeholder toe bij elke dienst"<br>
+                            • "Het contactformulier mist een telefoonnummer veld"
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stap 4 -->
+            <div class="timeline-step">
+                <div class="timeline-num">4</div>
+                <div class="timeline-content">
+                    <span class="tag">Het Resultaat</span>
+                    <h3>Klaar om te delen!</h3>
+                    <p>
+                        Na een paar rondes feedback heb je een werkend product. 
+                        Nu kun je het online zetten en delen met de wereld. 
+                        Zie de "Live gaan" pagina voor hoe je dat doet.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="prompt-builder-section">
+    <div class="container">
+        <h2 class="section-title">🔧 Prompt Builder</h2>
+        <p style="text-align: center; color: rgba(255,255,255,0.6);">Klik op de onderdelen die je wilt en bouw je prompt op</p>
+        
+        <div class="prompt-builder">
+            <div class="keyword-category">
+                <div class="keyword-category-title">Wat voor type?</div>
+                <button class="keyword-btn" onclick="addToPrompt('een website')">Website</button>
+                <button class="keyword-btn" onclick="addToPrompt('een web-app')">Web-app</button>
+                <button class="keyword-btn" onclick="addToPrompt('een landing page')">Landing page</button>
+                <button class="keyword-btn" onclick="addToPrompt('een dashboard')">Dashboard</button>
+                <button class="keyword-btn" onclick="addToPrompt('een formulier')">Formulier</button>
+            </div>
+            <div class="keyword-category">
+                <div class="keyword-category-title">Welke onderdelen?</div>
+                <button class="keyword-btn" onclick="addToPrompt('met een header en navigatie')">Header + nav</button>
+                <button class="keyword-btn" onclick="addToPrompt('met een hero sectie')">Hero sectie</button>
+                <button class="keyword-btn" onclick="addToPrompt('met een contactformulier')">Contactformulier</button>
+                <button class="keyword-btn" onclick="addToPrompt('met prijzen')">Prijzen</button>
+                <button class="keyword-btn" onclick="addToPrompt('met foto\'s')">Foto's</button>
+            </div>
+            <div class="keyword-category">
+                <div class="keyword-category-title">Welke stijl?</div>
+                <button class="keyword-btn" onclick="addToPrompt('in een moderne stijl')">Modern</button>
+                <button class="keyword-btn" onclick="addToPrompt('in een minimalistische stijl')">Minimalistisch</button>
+                <button class="keyword-btn" onclick="addToPrompt('in een professionele stijl')">Professioneel</button>
+                <button class="keyword-btn" onclick="addToPrompt('in een speelse stijl')">Speels</button>
+                <button class="keyword-btn" onclick="addToPrompt('met donkere kleuren')">Donker</button>
+                <button class="keyword-btn" onclick="addToPrompt('met lichte kleuren')">Licht</button>
+            </div>
+            
+            <div class="prompt-output">
+                <div class="prompt-output-label">Jouw prompt:</div>
+                <div class="prompt-output-text" id="promptOutput">Maak </div>
+            </div>
+            <button class="copy-btn" onclick="copyPrompt()">
+                <i class="fas fa-copy"></i> Kopieer prompt
+            </button>
+        </div>
+    </div>
+</section>
+
+<section class="tips-section">
+    <div class="container">
+        <h2 class="section-title">💡 Gouden tips</h2>
+        
+        <div class="tips-grid">
+            <div class="tip-card">
+                <div class="icon">🎯</div>
+                <h4>Wees specifiek</h4>
+                <p>Hoe meer details je geeft, hoe beter het resultaat. Noem kleuren, afmetingen, en exacte teksten.</p>
+            </div>
+            <div class="tip-card">
+                <div class="icon">🔄</div>
+                <h4>Kleine stapjes</h4>
+                <p>Vraag niet alles in één keer. Bouw stap voor stap op en vraag steeds om kleine aanpassingen.</p>
+            </div>
+            <div class="tip-card">
+                <div class="icon">📸</div>
+                <h4>Gebruik voorbeelden</h4>
+                <p>Zeg "maak het zoals [website]" of beschrijf een site die je mooi vindt. De AI begrijpt dat.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+let promptParts = ['Maak '];
+
+function addToPrompt(text) {
+    promptParts.push(text + ' ');
+    document.getElementById('promptOutput').textContent = promptParts.join('');
+}
+
+function copyPrompt() {
+    const text = promptParts.join('');
+    navigator.clipboard.writeText(text);
+    
+    const btn = document.querySelector('.copy-btn');
+    btn.innerHTML = '<i class="fas fa-check"></i> Gekopieerd!';
+    setTimeout(() => {
+        btn.innerHTML = '<i class="fas fa-copy"></i> Kopieer prompt';
+    }, 2000);
+}
+</script>
+{% endblock %}

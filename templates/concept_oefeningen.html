@@ -1,0 +1,763 @@
+{% extends "base.html" %}
+
+{% block title %}{{ concept.title }} - LeerVibeCoding.nl{% endblock %}
+
+{% block extra_css %}
+<style>
+    .page-header {
+        padding: 60px 0 40px;
+    }
+
+    .breadcrumb {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--text3);
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .breadcrumb a {
+        color: var(--text2);
+        text-decoration: none;
+    }
+
+    .breadcrumb a:hover { color: var(--purple); }
+
+    .concept-header {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 12px;
+    }
+
+    .concept-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, rgba(168,85,247,0.2), rgba(59,130,246,0.2));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        color: var(--purple);
+    }
+
+    .page-header h1 { font-size: 36px; margin-bottom: 8px; }
+    .page-header p { color: var(--text2); font-size: 16px; }
+
+    .concept-meta {
+        display: flex;
+        gap: 20px;
+        margin-top: 16px;
+    }
+
+    .concept-meta span {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--text3);
+        font-size: 14px;
+    }
+
+    /* Layout */
+    .exercises-layout {
+        display: grid;
+        grid-template-columns: 350px 1fr;
+        gap: 30px;
+        align-items: start;
+    }
+
+    /* Exercise List */
+    .exercise-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        position: sticky;
+        top: 100px;
+    }
+
+    .exercise-item {
+        padding: 16px;
+        cursor: pointer;
+    }
+
+    .exercise-item.active {
+        border-color: var(--purple);
+        background: rgba(168,85,247,0.1);
+    }
+
+    .exercise-item-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+
+    .exercise-item h3 { font-size: 15px; }
+
+    .exercise-xp {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        color: var(--yellow);
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .exercise-item p {
+        color: var(--text2);
+        font-size: 13px;
+    }
+
+    /* Workspace */
+    .workspace {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .workspace-header {
+        padding: 20px 24px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .workspace-title { display: flex; align-items: center; gap: 12px; }
+    .workspace-title h2 { font-size: 20px; }
+
+    .xp-counter {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        background: rgba(250,204,21,0.15);
+        border: 1px solid rgba(250,204,21,0.3);
+        border-radius: 20px;
+        color: var(--yellow);
+        font-weight: 600;
+    }
+
+    .workspace-body { padding: 24px; }
+
+    /* Task */
+    .task-section { margin-bottom: 24px; }
+    .task-section h3 {
+        font-size: 15px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .task-section h3 i { color: var(--purple); }
+
+    .task-box {
+        background: rgba(0,0,0,0.3);
+        border-left: 3px solid var(--purple);
+        border-radius: 12px;
+        padding: 16px 20px;
+        color: var(--text2);
+        line-height: 1.7;
+    }
+
+    /* Hints */
+    .hints-toggle {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: none;
+        border: none;
+        color: var(--text2);
+        font-size: 14px;
+        cursor: pointer;
+        margin-bottom: 12px;
+        font-family: inherit;
+    }
+
+    .hints-toggle:hover { color: white; }
+    .hints-toggle i:last-child { transition: transform 0.3s; }
+    .hints-toggle.open i:last-child { transform: rotate(180deg); }
+
+    .hints-list {
+        display: none;
+        background: rgba(250,204,21,0.1);
+        border: 1px solid rgba(250,204,21,0.2);
+        border-radius: 12px;
+        padding: 16px 20px;
+        margin-bottom: 24px;
+    }
+
+    .hints-list.visible { display: block; }
+    .hints-list ul { list-style: none; }
+    .hints-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 8px;
+        color: var(--text2);
+        font-size: 14px;
+    }
+    .hints-list li:last-child { margin-bottom: 0; }
+    .hints-list li i { color: var(--yellow); margin-top: 4px; }
+
+    /* Prompt */
+    .prompt-section { margin-bottom: 24px; }
+    .prompt-section label {
+        display: block;
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 12px;
+    }
+
+    .prompt-container { position: relative; }
+
+    .prompt-textarea {
+        width: 100%;
+        min-height: 160px;
+        padding: 16px;
+        background: rgba(0,0,0,0.4);
+        border: 2px solid var(--border);
+        border-radius: 12px;
+        color: white;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 14px;
+        resize: vertical;
+        transition: all 0.3s;
+    }
+
+    .prompt-textarea:focus {
+        outline: none;
+        border-color: var(--purple);
+        box-shadow: 0 0 0 4px rgba(168,85,247,0.2);
+    }
+
+    .prompt-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 16px;
+    }
+
+    .example-toggle {
+        background: none;
+        border: none;
+        color: var(--cyan);
+        font-size: 14px;
+        cursor: pointer;
+        margin-top: 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-family: inherit;
+    }
+
+    .example-content {
+        display: none;
+        margin-top: 12px;
+        padding: 16px;
+        background: rgba(34,211,238,0.1);
+        border: 1px solid rgba(34,211,238,0.2);
+        border-radius: 12px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 13px;
+        color: var(--cyan);
+    }
+
+    .example-content.visible { display: block; }
+
+    /* Response */
+    .response-section {
+        display: none;
+        margin-top: 24px;
+        padding-top: 24px;
+        border-top: 1px solid var(--border);
+    }
+
+    .response-section.visible { display: block; }
+
+    .response-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+    }
+
+    .response-header h3 {
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .tab-btn.active {
+        background: var(--purple) !important;
+        border-color: var(--purple) !important;
+    }
+
+    .response-content {
+        background: rgba(0,0,0,0.4);
+        border-radius: 12px;
+        padding: 20px;
+        max-height: 400px;
+        overflow-y: auto;
+    }
+
+    .response-content pre {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 13px;
+        white-space: pre-wrap;
+        color: var(--text2);
+        line-height: 1.7;
+    }
+
+    /* Preview */
+    .preview-container {
+        background: #fff;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+    }
+
+    .preview-frame-wrapper {
+        width: 100%;
+        height: 400px;
+        overflow: auto;
+    }
+
+    #previewFrame {
+        width: 100%;
+        height: 100%;
+        border: none;
+        background: #fff;
+    }
+
+    .preview-note {
+        background: rgba(74,222,128,0.15);
+        color: var(--green);
+        padding: 12px 16px;
+        font-size: 13px;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    /* Feedback */
+    .feedback-box {
+        margin-top: 16px;
+        padding: 16px 20px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .feedback-box.success {
+        background: rgba(74,222,128,0.15);
+        border: 1px solid rgba(74,222,128,0.3);
+    }
+
+    .feedback-box.try-again {
+        background: rgba(250,204,21,0.15);
+        border: 1px solid rgba(250,204,21,0.3);
+    }
+
+    .feedback-box i { font-size: 20px; }
+    .feedback-box.success i { color: var(--green); }
+    .feedback-box.try-again i { color: var(--yellow); }
+
+    /* Improvements */
+    .improvements-box {
+        background: rgba(59,130,246,0.1);
+        border: 1px solid rgba(59,130,246,0.3);
+        border-radius: 12px;
+        padding: 20px;
+        margin-top: 16px;
+    }
+
+    .improvements-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+        color: var(--blue);
+    }
+
+    .improvements-header h4 { font-size: 15px; margin: 0; }
+    .improvements-list { list-style: none; margin: 0; padding: 0; }
+    .improvements-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 8px 0;
+        color: var(--text2);
+        font-size: 14px;
+    }
+    .improvements-list li i { color: var(--blue); margin-top: 3px; }
+
+    #nextBtn {
+        background: linear-gradient(135deg, var(--green), #059669) !important;
+        border: none !important;
+    }
+
+    /* Loading */
+    .loading-overlay {
+        display: none;
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.7);
+        backdrop-filter: blur(4px);
+        border-radius: 12px;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .loading-overlay.active { display: flex; }
+
+    @media (max-width: 1024px) {
+        .exercises-layout { grid-template-columns: 1fr; }
+        .exercise-list { position: static; flex-direction: row; overflow-x: auto; }
+        .exercise-item { min-width: 280px; }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <div class="breadcrumb">
+            <a href="/"><i class="fas fa-home"></i></a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="/concepten">Concepten</a>
+            <i class="fas fa-chevron-right"></i>
+            <span>{{ concept.title }}</span>
+        </div>
+        
+        <div class="concept-header">
+            <div class="concept-icon">
+                <i class="fas fa-{{ concept.icon }}"></i>
+            </div>
+            <div>
+                <h1>{{ concept.title }}</h1>
+                <p>{{ concept.description }}</p>
+            </div>
+            <span class="badge badge-{{ concept.level.lower() }}" style="margin-left: auto;">{{ concept.level }}</span>
+        </div>
+        
+        <div class="concept-meta">
+            <span><i class="fas fa-book-open"></i> {{ concept.lessons }} oefeningen</span>
+            <span><i class="fas fa-clock"></i> {{ concept.duration }}</span>
+        </div>
+    </div>
+
+    <div class="exercises-layout">
+        <!-- Exercise List -->
+        <div class="exercise-list" id="exerciseList">
+            {% for ex in exercises %}
+            <div class="card exercise-item {% if loop.first %}active{% endif %}" data-id="{{ ex.id }}" onclick="selectExercise('{{ ex.id }}')">
+                <div class="exercise-item-header">
+                    <h3>{{ loop.index }}. {{ ex.title }}</h3>
+                    <span class="exercise-xp"><i class="fas fa-trophy"></i> {{ ex.points }}</span>
+                </div>
+                <p>{{ ex.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Workspace -->
+        <div class="workspace">
+            <div class="workspace-header">
+                <div class="workspace-title">
+                    <h2 id="exerciseTitle">{{ exercises[0].title if exercises else 'Geen oefeningen' }}</h2>
+                </div>
+                <div class="xp-counter">
+                    <i class="fas fa-trophy"></i>
+                    <span id="totalXp">0 XP</span>
+                </div>
+            </div>
+
+            <div class="workspace-body">
+                <!-- Task -->
+                <div class="task-section">
+                    <h3><i class="fas fa-clipboard-list"></i> Opdracht</h3>
+                    <div class="task-box" id="taskBox">{{ exercises[0].task if exercises else 'Geen opdracht' }}</div>
+                </div>
+
+                <!-- Hints -->
+                <div>
+                    <button class="hints-toggle" onclick="toggleHints()">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>Bekijk hints</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="hints-list" id="hintsList">
+                        <ul id="hintsContent">
+                            {% if exercises %}
+                            {% for hint in exercises[0].hints %}
+                            <li><i class="fas fa-lightbulb"></i> {{ hint }}</li>
+                            {% endfor %}
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Prompt Input -->
+                <div class="prompt-section">
+                    <label><i class="fas fa-pen"></i> Jouw Prompt</label>
+                    <div class="prompt-container">
+                        <textarea class="prompt-textarea" id="promptInput" placeholder="Schrijf hier je prompt voor de AI..."></textarea>
+                        <div class="loading-overlay" id="loadingOverlay">
+                            <div class="spinner"></div>
+                            <span style="color: var(--text2);">AI denkt na...</span>
+                        </div>
+                    </div>
+
+                    <div class="prompt-actions">
+                        <button class="btn btn-primary" id="submitBtn" onclick="submitPrompt()">
+                            <i class="fas fa-check-circle"></i> Controleer
+                        </button>
+                        <button class="btn btn-secondary" onclick="clearPrompt()">
+                            <i class="fas fa-eraser"></i> Wissen
+                        </button>
+                        <button class="btn btn-secondary" id="nextBtn" onclick="nextExercise()" style="display: none;">
+                            <i class="fas fa-arrow-right"></i> Volgende
+                        </button>
+                    </div>
+
+                    <button class="example-toggle" onclick="toggleExample()">
+                        <i class="fas fa-eye"></i> Bekijk voorbeeld prompt
+                    </button>
+                    <div class="example-content" id="exampleContent">{{ exercises[0].example_prompt if exercises else '' }}</div>
+                </div>
+
+                <!-- Response -->
+                <div class="response-section" id="responseSection">
+                    <div class="response-header">
+                        <h3><i class="fas fa-robot"></i> AI Response</h3>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn btn-secondary tab-btn active" onclick="showTab('code')" style="padding: 8px 16px;">
+                                <i class="fas fa-code"></i> Code
+                            </button>
+                            <button class="btn btn-secondary tab-btn" onclick="showTab('preview')" style="padding: 8px 16px;">
+                                <i class="fas fa-eye"></i> Preview
+                            </button>
+                            <button class="btn btn-secondary" onclick="copyResponse()" style="padding: 8px 16px;">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="response-content" id="codeTab">
+                        <pre id="responseContent"></pre>
+                    </div>
+                    
+                    <div class="preview-container" id="previewTab" style="display: none;">
+                        <div class="preview-frame-wrapper">
+                            <iframe id="previewFrame" sandbox="allow-scripts"></iframe>
+                        </div>
+                        <p class="preview-note"><i class="fas fa-info-circle"></i> Live preview van je resultaat</p>
+                    </div>
+
+                    <div class="feedback-box" id="feedbackBox" style="display: none;">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="feedbackText"></span>
+                    </div>
+                    
+                    <div class="improvements-box" id="improvementsBox" style="display: none;">
+                        <div class="improvements-header">
+                            <i class="fas fa-lightbulb"></i>
+                            <h4>💡 Tips om je score te verbeteren</h4>
+                        </div>
+                        <ul class="improvements-list" id="improvementsList"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const exercises = {{ exercises | tojson }};
+    let currentExercise = exercises[0] || null;
+    let totalXp = parseInt(localStorage.getItem('vibeXp') || '0');
+
+    document.addEventListener('DOMContentLoaded', () => {
+        updateXp();
+        if (currentExercise) selectExercise(currentExercise.id);
+    });
+
+    function updateXp() {
+        document.getElementById('totalXp').textContent = totalXp + ' XP';
+    }
+
+    function selectExercise(id) {
+        currentExercise = exercises.find(e => e.id === id);
+        if (!currentExercise) return;
+
+        document.querySelectorAll('.exercise-item').forEach(el => {
+            el.classList.toggle('active', el.dataset.id === id);
+        });
+
+        document.getElementById('exerciseTitle').textContent = currentExercise.title;
+        document.getElementById('taskBox').textContent = currentExercise.task;
+        document.getElementById('exampleContent').textContent = currentExercise.example_prompt;
+
+        document.getElementById('hintsContent').innerHTML = currentExercise.hints.map(h => 
+            `<li><i class="fas fa-lightbulb"></i> ${h}</li>`
+        ).join('');
+
+        document.getElementById('responseSection').classList.remove('visible');
+        document.getElementById('feedbackBox').style.display = 'none';
+        document.getElementById('improvementsBox').style.display = 'none';
+        document.getElementById('nextBtn').style.display = 'none';
+        document.getElementById('hintsList').classList.remove('visible');
+        document.getElementById('exampleContent').classList.remove('visible');
+    }
+
+    function toggleHints() {
+        document.getElementById('hintsList').classList.toggle('visible');
+    }
+
+    function toggleExample() {
+        document.getElementById('exampleContent').classList.toggle('visible');
+    }
+
+    async function submitPrompt() {
+        const prompt = document.getElementById('promptInput').value.trim();
+        if (!prompt) { showToast('Schrijf eerst een prompt', 'error'); return; }
+
+        document.getElementById('loadingOverlay').classList.add('active');
+        document.getElementById('submitBtn').disabled = true;
+
+        try {
+            const res = await fetch('/api/submit-prompt', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prompt, exercise_id: currentExercise.id })
+            });
+
+            const data = await res.json();
+
+            if (data.success) {
+                document.getElementById('responseContent').textContent = data.response;
+                document.getElementById('responseSection').classList.add('visible');
+                updatePreview(data.response);
+                
+                if (data.exercise_success) showTab('preview');
+
+                const fb = document.getElementById('feedbackBox');
+                
+                // Verwijder eventuele oude criteria score
+                const oldScore = fb.querySelector('div[style*="margin-top"]');
+                if (oldScore) oldScore.remove();
+                
+                if (data.exercise_success) {
+                    fb.className = 'feedback-box success';
+                    fb.querySelector('i').className = 'fas fa-check-circle';
+                    document.getElementById('nextBtn').style.display = 'inline-flex';
+                } else {
+                    fb.className = 'feedback-box try-again';
+                    fb.querySelector('i').className = 'fas fa-lightbulb';
+                    document.getElementById('nextBtn').style.display = 'none';
+                }
+
+                if (data.points_earned > 0) {
+                    totalXp += data.points_earned;
+                    localStorage.setItem('vibeXp', totalXp);
+                    updateXp();
+                }
+
+                document.getElementById('feedbackText').textContent = data.feedback;
+                fb.style.display = 'flex';
+
+                // Toon verbeterpunten van server
+                let improvements = data.improvement_tips || [];
+                if (improvements.length === 0) {
+                    improvements = getImprovements(prompt);
+                }
+                document.getElementById('improvementsList').innerHTML = improvements.map(imp => 
+                    `<li><i class="fas fa-arrow-right"></i> ${imp}</li>`
+                ).join('');
+                document.getElementById('improvementsBox').style.display = 'block';
+                
+                // Toon criteria score
+                if (data.criteria_met !== undefined) {
+                    const scoreDiv = document.createElement('div');
+                    scoreDiv.style.cssText = 'margin-top: 8px; font-size: 13px; color: var(--text3);';
+                    scoreDiv.textContent = `Criteria: ${data.criteria_met}/${data.total_criteria} gehaald`;
+                    fb.appendChild(scoreDiv);
+                }
+            } else {
+                showToast(data.error, 'error');
+            }
+        } catch (e) {
+            showToast('Er ging iets mis', 'error');
+        } finally {
+            document.getElementById('loadingOverlay').classList.remove('active');
+            document.getElementById('submitBtn').disabled = false;
+        }
+    }
+
+    function clearPrompt() {
+        document.getElementById('promptInput').value = '';
+        document.getElementById('responseSection').classList.remove('visible');
+        document.getElementById('feedbackBox').style.display = 'none';
+        document.getElementById('improvementsBox').style.display = 'none';
+        document.getElementById('nextBtn').style.display = 'none';
+        showTab('code');
+    }
+
+    function nextExercise() {
+        const idx = exercises.findIndex(e => e.id === currentExercise.id);
+        if (idx < exercises.length - 1) {
+            selectExercise(exercises[idx + 1].id);
+            clearPrompt();
+        } else {
+            showToast('🎉 Je hebt alle oefeningen van dit concept voltooid!', 'success');
+        }
+    }
+
+    function copyResponse() {
+        navigator.clipboard.writeText(document.getElementById('responseContent').textContent);
+        showToast('Gekopieerd!', 'success');
+    }
+
+    function showTab(tab) {
+        document.getElementById('codeTab').style.display = tab === 'code' ? 'block' : 'none';
+        document.getElementById('previewTab').style.display = tab === 'preview' ? 'block' : 'none';
+        document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+            btn.classList.toggle('active', (tab === 'code' && i === 0) || (tab === 'preview' && i === 1));
+        });
+    }
+
+    function updatePreview(response) {
+        const iframe = document.getElementById('previewFrame');
+        let html = '';
+        const match = response.match(/```html([\s\S]*?)```/i);
+        if (match) {
+            html = match[1].trim();
+        } else if (response.includes('<html') || response.includes('<!DOCTYPE')) {
+            html = response;
+        } else {
+            const code = response.match(/```[\w]*([\s\S]*?)```/)?.[1]?.trim() || response;
+            html = `<!DOCTYPE html><html><head><style>body{font-family:system-ui;padding:30px;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;margin:0}.card{background:#fff;border-radius:16px;padding:30px;max-width:600px;margin:0 auto;box-shadow:0 10px 40px rgba(0,0,0,.2)}pre{background:#1e1e1e;color:#d4d4d4;padding:20px;border-radius:12px;overflow-x:auto;white-space:pre-wrap}</style></head><body><div class="card"><h2>✅ Resultaat</h2><pre>${code.replace(/</g,'&lt;')}</pre></div></body></html>`;
+        }
+        iframe.srcdoc = html;
+    }
+
+    function getImprovements(prompt) {
+        const tips = [];
+        if (prompt.length < 50) tips.push('Maak je prompt langer en gedetailleerder');
+        if (!prompt.includes('kleur') && !prompt.includes('stijl')) tips.push('Voeg details toe over kleuren of stijl');
+        if (!prompt.includes('bijvoorbeeld') && !prompt.includes('zoals')) tips.push('Geef voorbeelden voor duidelijkere resultaten');
+        if (!prompt.includes('1)') && !prompt.includes('1.')) tips.push('Structureer je wensen in een lijstje');
+        return tips.length ? tips.slice(0, 3) : ['Uitstekende prompt! Ga zo door.'];
+    }
+</script>
+{% endblock %}

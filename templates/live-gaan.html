@@ -1,0 +1,661 @@
+{% extends "base.html" %}
+
+{% block title %}Website Online Zetten - Deployen voor Beginners | LeerVibeCoding{% endblock %}
+
+{% block meta_description %}Leer hoe je je website of app online zet. Stap-voor-stap handleidingen voor Lovable, Replit, v0.dev en Cursor. Inclusief eigen domeinnaam koppelen.{% endblock %}
+
+{% block meta_keywords %}website online zetten, deployen beginners, Lovable publish, Replit deploy, Vercel hosting, eigen domein koppelen, website live zetten{% endblock %}
+
+{% block canonical %}https://leervibecoding.nl/live-gaan{% endblock %}
+{% block og_url %}https://leervibecoding.nl/live-gaan{% endblock %}
+{% block og_title %}Je Website Online Zetten - Stap voor Stap{% endblock %}
+{% block og_description %}Van lokaal naar live in een paar klikken. Leer hoe je je creatie deelt met de wereld.{% endblock %}
+
+{% block extra_css %}
+<style>
+    .page-header {
+        padding: 120px 0 60px;
+        text-align: center;
+        background: linear-gradient(180deg, rgba(34,197,94,0.1) 0%, transparent 100%);
+    }
+    .page-header h1 {
+        font-size: 48px;
+        margin-bottom: 16px;
+    }
+    .page-header .subtitle {
+        font-size: 20px;
+        color: rgba(255,255,255,0.7);
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    .page-header .success-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 24px;
+        background: rgba(34,197,94,0.2);
+        border: 1px solid rgba(34,197,94,0.3);
+        border-radius: 30px;
+        color: #4ade80;
+        font-size: 16px;
+        margin-top: 24px;
+    }
+
+    /* Platform Selection */
+    .platform-section {
+        padding: 60px 0;
+    }
+    .section-title {
+        font-size: 32px;
+        text-align: center;
+        margin-bottom: 16px;
+    }
+    .section-subtitle {
+        text-align: center;
+        color: rgba(255,255,255,0.6);
+        font-size: 18px;
+        margin-bottom: 40px;
+    }
+    .platform-tabs {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        margin-bottom: 40px;
+        flex-wrap: wrap;
+    }
+    .platform-tab {
+        padding: 16px 32px;
+        background: rgba(255,255,255,0.05);
+        border: 2px solid rgba(255,255,255,0.1);
+        border-radius: 16px;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-align: center;
+    }
+    .platform-tab:hover {
+        background: rgba(255,255,255,0.08);
+        border-color: rgba(255,255,255,0.2);
+    }
+    .platform-tab.active {
+        background: rgba(168,85,247,0.2);
+        border-color: rgba(168,85,247,0.5);
+    }
+    .platform-tab .icon {
+        font-size: 32px;
+        display: block;
+        margin-bottom: 8px;
+    }
+    .platform-tab .name {
+        font-weight: 600;
+    }
+
+    /* Steps for each platform */
+    .platform-content {
+        max-width: 800px;
+        margin: 0 auto;
+        display: none;
+    }
+    .platform-content.active {
+        display: block;
+    }
+    .deploy-steps {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .deploy-step {
+        display: flex;
+        gap: 24px;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 20px;
+        padding: 28px;
+        align-items: flex-start;
+    }
+    .step-num {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #22c55e, #16a34a);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+    .step-content {
+        flex: 1;
+    }
+    .step-content h4 {
+        font-size: 18px;
+        margin-bottom: 8px;
+    }
+    .step-content p {
+        color: rgba(255,255,255,0.7);
+        font-size: 15px;
+        line-height: 1.6;
+    }
+    .step-screenshot {
+        margin-top: 16px;
+        background: rgba(0,0,0,0.3);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 12px;
+        padding: 16px;
+        text-align: center;
+    }
+    .step-screenshot .placeholder {
+        background: linear-gradient(135deg, #1e1b4b, #0f172a);
+        border-radius: 8px;
+        padding: 40px;
+        color: rgba(255,255,255,0.3);
+        font-size: 14px;
+    }
+    .step-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 12px;
+        padding: 10px 20px;
+        background: rgba(34,197,94,0.2);
+        border: 1px solid rgba(34,197,94,0.3);
+        border-radius: 8px;
+        color: #4ade80;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    /* Custom Domain Section */
+    .domain-section {
+        padding: 60px 0;
+        background: rgba(0,0,0,0.3);
+    }
+    .domain-card {
+        max-width: 700px;
+        margin: 0 auto;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 24px;
+        padding: 40px;
+    }
+    .domain-card h3 {
+        font-size: 24px;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .domain-card .intro {
+        color: rgba(255,255,255,0.7);
+        font-size: 16px;
+        line-height: 1.7;
+        margin-bottom: 24px;
+    }
+    .domain-steps {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+    .domain-step {
+        display: flex;
+        gap: 16px;
+        padding: 16px;
+        background: rgba(0,0,0,0.2);
+        border-radius: 12px;
+    }
+    .domain-step-num {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: rgba(168,85,247,0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: 600;
+        flex-shrink: 0;
+    }
+    .domain-step-text {
+        font-size: 14px;
+        color: rgba(255,255,255,0.8);
+        line-height: 1.5;
+    }
+    .domain-providers {
+        display: flex;
+        gap: 12px;
+        margin-top: 24px;
+        flex-wrap: wrap;
+    }
+    .domain-provider {
+        padding: 10px 16px;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 8px;
+        font-size: 13px;
+        color: rgba(255,255,255,0.7);
+    }
+
+    /* Success Section */
+    .success-section {
+        padding: 60px 0;
+        text-align: center;
+    }
+    .success-box {
+        max-width: 600px;
+        margin: 0 auto;
+        background: linear-gradient(135deg, rgba(34,197,94,0.15), rgba(168,85,247,0.1));
+        border: 2px solid rgba(34,197,94,0.4);
+        border-radius: 32px;
+        padding: 48px;
+    }
+    .success-box .icon {
+        font-size: 64px;
+        margin-bottom: 20px;
+    }
+    .success-box h2 {
+        font-size: 32px;
+        margin-bottom: 16px;
+    }
+    .success-box p {
+        color: rgba(255,255,255,0.7);
+        font-size: 18px;
+        margin-bottom: 24px;
+    }
+    .share-btns {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+    }
+    .share-btn {
+        padding: 12px 24px;
+        border-radius: 10px;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        transition: all 0.3s;
+    }
+    .share-btn.linkedin {
+        background: #0077b5;
+        color: white;
+    }
+    .share-btn.twitter {
+        background: #1da1f2;
+        color: white;
+    }
+    .share-btn:hover {
+        transform: translateY(-3px);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+        .platform-tabs {
+            flex-wrap: wrap;
+        }
+        .platform-tab {
+            flex: 1;
+            min-width: 140px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .page-header {
+            padding: 100px 0 40px;
+        }
+        .page-header h1 {
+            font-size: 32px;
+        }
+        .page-header .subtitle {
+            font-size: 16px;
+        }
+        .page-header .success-badge {
+            font-size: 14px;
+            padding: 10px 20px;
+        }
+        .platform-section,
+        .domain-section,
+        .success-section {
+            padding: 40px 0;
+        }
+        .platform-tabs {
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+        .platform-tab {
+            width: 100%;
+            max-width: 300px;
+            padding: 14px 24px;
+        }
+        .platform-tab .icon {
+            font-size: 28px;
+        }
+        .deploy-step {
+            flex-direction: column;
+            text-align: center;
+            padding: 24px;
+        }
+        .step-num {
+            margin: 0 auto 16px;
+        }
+        .step-content h4 {
+            font-size: 16px;
+        }
+        .domain-card {
+            padding: 24px;
+            border-radius: 16px;
+        }
+        .domain-card h3 {
+            font-size: 20px;
+        }
+        .section-title {
+            font-size: 26px;
+        }
+        .section-subtitle {
+            font-size: 16px;
+        }
+        .success-box {
+            padding: 32px 24px;
+            border-radius: 24px;
+        }
+        .success-box .icon {
+            font-size: 48px;
+        }
+        .success-box h2 {
+            font-size: 26px;
+        }
+        .share-btns {
+            flex-direction: column;
+        }
+        .share-btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .page-header {
+            padding: 90px 0 30px;
+        }
+        .page-header h1 {
+            font-size: 26px;
+        }
+        .page-header .success-badge {
+            font-size: 13px;
+            padding: 8px 16px;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .platform-tab {
+            padding: 12px 20px;
+        }
+        .platform-tab .icon {
+            font-size: 24px;
+        }
+        .platform-tab .name {
+            font-size: 14px;
+        }
+        .deploy-step {
+            padding: 20px;
+        }
+        .step-num {
+            width: 48px;
+            height: 48px;
+            font-size: 20px;
+        }
+        .domain-step {
+            flex-direction: column;
+            text-align: center;
+        }
+        .domain-step-num {
+            margin: 0 auto;
+        }
+        .domain-providers {
+            justify-content: center;
+        }
+        .section-title {
+            font-size: 22px;
+        }
+        .success-box h2 {
+            font-size: 22px;
+        }
+        .success-box p {
+            font-size: 16px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="container">
+        <h1>🚀 Live Gaan</h1>
+        <p class="subtitle">Je hebt iets gebouwd! Nu is het tijd om het met de wereld te delen. In een paar klikken staat je creatie online.</p>
+        <div class="success-badge">
+            <i class="fas fa-check-circle"></i>
+            Het eindresultaat: een echte website die iedereen kan bezoeken
+        </div>
+    </div>
+</div>
+
+<!-- Platform Selection -->
+<section class="platform-section">
+    <div class="container">
+        <h2 class="section-title">Waar heb je het gemaakt?</h2>
+        <p class="section-subtitle">Kies je platform en volg de stappen</p>
+        
+        <div class="platform-tabs">
+            <div class="platform-tab active" onclick="showPlatform('lovable')">
+                <span class="icon">💜</span>
+                <span class="name">Lovable</span>
+            </div>
+            <div class="platform-tab" onclick="showPlatform('replit')">
+                <span class="icon">🔷</span>
+                <span class="name">Replit</span>
+            </div>
+            <div class="platform-tab" onclick="showPlatform('v0')">
+                <span class="icon">▲</span>
+                <span class="name">v0.dev</span>
+            </div>
+            <div class="platform-tab" onclick="showPlatform('cursor')">
+                <span class="icon">📝</span>
+                <span class="name">Cursor</span>
+            </div>
+        </div>
+
+        <!-- Lovable Steps -->
+        <div class="platform-content active" id="lovable">
+            <div class="deploy-steps">
+                <div class="deploy-step">
+                    <div class="step-num">1</div>
+                    <div class="step-content">
+                        <h4>Klik op "Publish" rechtsboven</h4>
+                        <p>In de Lovable editor zie je rechtsboven een paarse "Publish" knop. Klik daarop.</p>
+                        <div class="step-screenshot">
+                            <div class="placeholder">📸 Screenshot: Publish knop in Lovable</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="deploy-step">
+                    <div class="step-num">2</div>
+                    <div class="step-content">
+                        <h4>Kies "Publish to Lovable"</h4>
+                        <p>Er verschijnt een menu. Kies de gratis optie "Publish to Lovable". Je krijgt een link zoals: jouw-project.lovable.app</p>
+                    </div>
+                </div>
+                <div class="deploy-step">
+                    <div class="step-num">3</div>
+                    <div class="step-content">
+                        <h4>Klaar! Deel je link 🎉</h4>
+                        <p>Je website is nu live! Kopieer de link en stuur hem naar vrienden, familie, of klanten.</p>
+                        <span class="step-btn"><i class="fas fa-check"></i> Gefeliciteerd!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Replit Steps -->
+        <div class="platform-content" id="replit">
+            <div class="deploy-steps">
+                <div class="deploy-step">
+                    <div class="step-num">1</div>
+                    <div class="step-content">
+                        <h4>Klik op "Run" en wacht tot alles werkt</h4>
+                        <p>Zorg eerst dat je project goed draait door op de groene "Run" knop te klikken.</p>
+                    </div>
+                </div>
+                <div class="deploy-step">
+                    <div class="step-num">2</div>
+                    <div class="step-content">
+                        <h4>Klik op "Deploy"</h4>
+                        <p>Rechtsboven zie je een "Deploy" knop. Klik daarop en kies "Reserved VM" of "Static" afhankelijk van je project.</p>
+                    </div>
+                </div>
+                <div class="deploy-step">
+                    <div class="step-num">3</div>
+                    <div class="step-content">
+                        <h4>Je krijgt een .replit.app link</h4>
+                        <p>Na even wachten krijg je een publieke link. Die werkt 24/7 en kun je met iedereen delen!</p>
+                        <span class="step-btn"><i class="fas fa-check"></i> Gefeliciteerd!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- v0 Steps -->
+        <div class="platform-content" id="v0">
+            <div class="deploy-steps">
+                <div class="deploy-step">
+                    <div class="step-num">1</div>
+                    <div class="step-content">
+                        <h4>Klik op "Deploy" in v0</h4>
+                        <p>Wanneer je tevreden bent met je preview, klik je rechtsboven op "Deploy".</p>
+                    </div>
+                </div>
+                <div class="deploy-step">
+                    <div class="step-num">2</div>
+                    <div class="step-content">
+                        <h4>Verbind met Vercel (gratis)</h4>
+                        <p>v0 gebruikt Vercel voor hosting. Maak een gratis Vercel account aan als je dat nog niet hebt.</p>
+                    </div>
+                </div>
+                <div class="deploy-step">
+                    <div class="step-num">3</div>
+                    <div class="step-content">
+                        <h4>Je krijgt een .vercel.app link</h4>
+                        <p>Vercel geeft je een snelle, professionele link. Je site is nu wereldwijd beschikbaar!</p>
+                        <span class="step-btn"><i class="fas fa-check"></i> Gefeliciteerd!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cursor Steps -->
+        <div class="platform-content" id="cursor">
+            <div class="deploy-steps">
+                <div class="deploy-step">
+                    <div class="step-num">1</div>
+                    <div class="step-content">
+                        <h4>Push naar GitHub</h4>
+                        <p>Cursor werkt lokaal, dus je moet eerst je code naar GitHub pushen. Vraag de AI: "Help me deze code naar GitHub te pushen".</p>
+                    </div>
+                </div>
+                <div class="deploy-step">
+                    <div class="step-num">2</div>
+                    <div class="step-content">
+                        <h4>Verbind met Vercel of Netlify</h4>
+                        <p>Ga naar vercel.com of netlify.com (beide gratis) en verbind je GitHub repository.</p>
+                    </div>
+                </div>
+                <div class="deploy-step">
+                    <div class="step-num">3</div>
+                    <div class="step-content">
+                        <h4>Automatische deploy</h4>
+                        <p>Zodra je verbonden bent, wordt je site automatisch online gezet. Je krijgt een publieke link!</p>
+                        <span class="step-btn"><i class="fas fa-check"></i> Gefeliciteerd!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Custom Domain Section -->
+<section class="domain-section">
+    <div class="container">
+        <div class="domain-card">
+            <h3>🌐 Eigen domeinnaam koppelen</h3>
+            <p class="intro">
+                Wil je een professionele uitstraling? Dan kun je een eigen domeinnaam koppelen, 
+                zoals www.jouwbedrijf.nl in plaats van jouw-project.lovable.app.
+            </p>
+            
+            <div class="domain-steps">
+                <div class="domain-step">
+                    <div class="domain-step-num">1</div>
+                    <div class="domain-step-text">
+                        <strong>Koop een domeinnaam</strong> - Dit kost ongeveer €10-15 per jaar bij een provider.
+                    </div>
+                </div>
+                <div class="domain-step">
+                    <div class="domain-step-num">2</div>
+                    <div class="domain-step-text">
+                        <strong>Ga naar de instellingen</strong> van je hosting platform (Lovable, Vercel, etc.) en zoek naar "Custom Domain".
+                    </div>
+                </div>
+                <div class="domain-step">
+                    <div class="domain-step-num">3</div>
+                    <div class="domain-step-text">
+                        <strong>Volg de instructies</strong> om je domein te koppelen. Meestal moet je een paar DNS-records aanpassen bij je domeinprovider.
+                    </div>
+                </div>
+            </div>
+
+            <p style="font-size: 14px; color: rgba(255,255,255,0.5); margin-top: 20px;">
+                <i class="fas fa-lightbulb" style="color: #fbbf24; margin-right: 8px;"></i>
+                Tip: Vraag de AI om je te helpen met de DNS-instellingen als je vastloopt!
+            </p>
+
+            <div class="domain-providers">
+                <span style="color: rgba(255,255,255,0.5); font-size: 13px; margin-right: 8px;">Populaire providers:</span>
+                <span class="domain-provider">TransIP</span>
+                <span class="domain-provider">Hostinger</span>
+                <span class="domain-provider">Namecheap</span>
+                <span class="domain-provider">GoDaddy</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Success Section -->
+<section class="success-section">
+    <div class="container">
+        <div class="success-box">
+            <div class="icon">🎉</div>
+            <h2>Je hebt het gedaan!</h2>
+            <p>Van idee tot live website. Deel je succes met de wereld!</p>
+            <div class="share-btns">
+                <a href="#" class="share-btn linkedin">
+                    <i class="fab fa-linkedin"></i> Deel op LinkedIn
+                </a>
+                <a href="#" class="share-btn twitter">
+                    <i class="fab fa-twitter"></i> Deel op X
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+function showPlatform(platform) {
+    // Update tabs
+    document.querySelectorAll('.platform-tab').forEach(tab => tab.classList.remove('active'));
+    event.target.closest('.platform-tab').classList.add('active');
+    
+    // Update content
+    document.querySelectorAll('.platform-content').forEach(content => content.classList.remove('active'));
+    document.getElementById(platform).classList.add('active');
+}
+</script>
+{% endblock %}

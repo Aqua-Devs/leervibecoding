@@ -1,0 +1,556 @@
+{% extends "base.html" %}
+
+{% block title %}AI Tools Vergelijken - Lovable, Cursor, Replit, v0 | LeerVibeCoding{% endblock %}
+
+{% block meta_description %}Vergelijk de beste AI coding tools: Lovable, Cursor, Replit Agent en v0.dev. Ontdek welke tool het beste past bij jouw project. Inclusief prijzen en moeilijkheidsgraad.{% endblock %}
+
+{% block meta_keywords %}AI coding tools, Lovable, Cursor, Replit Agent, v0.dev, AI programmeren tools, beste AI tool beginners, vergelijking AI tools{% endblock %}
+
+{% block canonical %}https://leervibecoding.nl/tools{% endblock %}
+{% block og_url %}https://leervibecoding.nl/tools{% endblock %}
+{% block og_title %}AI Tools Vergelijken - Welke past bij jou?{% endblock %}
+{% block og_description %}Vergelijk Lovable, Cursor, Replit en v0.dev. Vind de perfecte AI coding tool voor jouw project.{% endblock %}
+
+{% block extra_css %}
+<style>
+    .page-header {
+        padding: 120px 0 60px;
+        text-align: center;
+        background: linear-gradient(180deg, rgba(168,85,247,0.1) 0%, transparent 100%);
+    }
+    .page-header h1 {
+        font-size: 48px;
+        margin-bottom: 16px;
+    }
+    .page-header .subtitle {
+        font-size: 20px;
+        color: rgba(255,255,255,0.7);
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    /* Tools Grid */
+    .tools-section {
+        padding: 60px 0;
+    }
+    .tools-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    .tool-card {
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 20px;
+        padding: 32px;
+        transition: all 0.3s;
+        position: relative;
+        overflow: hidden;
+    }
+    .tool-card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(168,85,247,0.4);
+        background: rgba(255,255,255,0.08);
+    }
+    .tool-card.recommended {
+        border-color: rgba(34,197,94,0.5);
+        background: rgba(34,197,94,0.05);
+    }
+    .tool-card.recommended::before {
+        content: '⭐ Aanbevolen voor beginners';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(135deg, #22c55e, #16a34a);
+        color: white;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 8px;
+        text-align: center;
+    }
+    .tool-card.recommended .tool-content {
+        margin-top: 20px;
+    }
+    .tool-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 16px;
+    }
+    .tool-logo {
+        width: 56px;
+        height: 56px;
+        border-radius: 14px;
+        background: rgba(255,255,255,0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+    }
+    .tool-name {
+        font-size: 22px;
+        font-weight: 700;
+    }
+    .tool-tag {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        background: rgba(168,85,247,0.2);
+        color: #c4b5fd;
+        margin-bottom: 12px;
+    }
+    .tool-description {
+        color: rgba(255,255,255,0.7);
+        font-size: 15px;
+        line-height: 1.6;
+        margin-bottom: 16px;
+    }
+    .tool-difficulty {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        color: rgba(255,255,255,0.5);
+    }
+    .tool-difficulty .stars {
+        color: #fbbf24;
+    }
+    .tool-features {
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .tool-feature {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        color: rgba(255,255,255,0.6);
+        margin-bottom: 8px;
+    }
+    .tool-feature i {
+        color: #4ade80;
+        font-size: 12px;
+    }
+    .tool-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 16px;
+        padding: 10px 20px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 8px;
+        color: white;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.3s;
+    }
+    .tool-link:hover {
+        background: rgba(255,255,255,0.2);
+    }
+
+    /* Comparison Table */
+    .comparison-section {
+        padding: 60px 0;
+        background: rgba(0,0,0,0.3);
+    }
+    .comparison-table {
+        max-width: 900px;
+        margin: 40px auto 0;
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 16px;
+        overflow: hidden;
+    }
+    .comparison-table table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .comparison-table th,
+    .comparison-table td {
+        padding: 16px 20px;
+        text-align: left;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .comparison-table th {
+        background: rgba(255,255,255,0.05);
+        font-weight: 600;
+        font-size: 14px;
+        color: rgba(255,255,255,0.8);
+    }
+    .comparison-table td {
+        font-size: 14px;
+        color: rgba(255,255,255,0.7);
+    }
+    .comparison-table tr:last-child td {
+        border-bottom: none;
+    }
+    .price-free {
+        color: #4ade80;
+        font-weight: 600;
+    }
+    .price-paid {
+        color: #fbbf24;
+    }
+
+    /* Setup Section */
+    .setup-section {
+        padding: 60px 0;
+    }
+    .setup-card {
+        max-width: 700px;
+        margin: 0 auto;
+        background: linear-gradient(135deg, rgba(168,85,247,0.1), rgba(34,211,238,0.05));
+        border: 1px solid rgba(168,85,247,0.3);
+        border-radius: 24px;
+        padding: 40px;
+    }
+    .setup-card h3 {
+        font-size: 24px;
+        margin-bottom: 24px;
+        text-align: center;
+    }
+    .setup-steps {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+    .setup-step {
+        display: flex;
+        gap: 16px;
+        padding: 16px;
+        background: rgba(0,0,0,0.2);
+        border-radius: 12px;
+    }
+    .setup-step-num {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #a855f7, #8b5cf6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+    .setup-step-content h4 {
+        font-size: 16px;
+        margin-bottom: 4px;
+    }
+    .setup-step-content p {
+        font-size: 14px;
+        color: rgba(255,255,255,0.6);
+    }
+
+    .section-title {
+        font-size: 32px;
+        text-align: center;
+        margin-bottom: 16px;
+    }
+    .section-subtitle {
+        text-align: center;
+        color: rgba(255,255,255,0.6);
+        font-size: 18px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+        .tools-grid {
+            grid-template-columns: 1fr;
+            max-width: 500px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .page-header {
+            padding: 100px 0 40px;
+        }
+        .page-header h1 {
+            font-size: 32px;
+        }
+        .page-header .subtitle {
+            font-size: 16px;
+        }
+        .tools-section,
+        .comparison-section,
+        .setup-section {
+            padding: 40px 0;
+        }
+        .tool-card {
+            padding: 24px;
+        }
+        .tool-name {
+            font-size: 20px;
+        }
+        .section-title {
+            font-size: 26px;
+        }
+        .section-subtitle {
+            font-size: 16px;
+        }
+        .comparison-table {
+            overflow-x: auto;
+            margin: 30px auto 0;
+        }
+        .comparison-table th,
+        .comparison-table td {
+            padding: 12px 14px;
+            font-size: 13px;
+        }
+        .setup-card {
+            padding: 24px;
+            border-radius: 16px;
+        }
+        .setup-card h3 {
+            font-size: 20px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .page-header {
+            padding: 90px 0 30px;
+        }
+        .page-header h1 {
+            font-size: 26px;
+        }
+        .tool-card {
+            padding: 20px;
+        }
+        .tool-header {
+            gap: 12px;
+        }
+        .tool-logo {
+            width: 48px;
+            height: 48px;
+            font-size: 24px;
+        }
+        .tool-name {
+            font-size: 18px;
+        }
+        .tool-description {
+            font-size: 14px;
+        }
+        .tool-link {
+            width: 100%;
+            justify-content: center;
+        }
+        .section-title {
+            font-size: 22px;
+        }
+        .setup-step {
+            flex-direction: column;
+            text-align: center;
+        }
+        .setup-step-num {
+            margin: 0 auto;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="container">
+        <h1>🧰 De Gereedschapskist</h1>
+        <p class="subtitle">Kies je wapen: welke tool past bij jouw idee? Elke tool heeft z'n eigen superkracht.</p>
+    </div>
+</div>
+
+<section class="tools-section">
+    <div class="container">
+        <div class="tools-grid">
+            <!-- Lovable -->
+            <div class="tool-card recommended">
+                <div class="tool-content">
+                    <div class="tool-header">
+                        <div class="tool-logo">💜</div>
+                        <div class="tool-name">Lovable</div>
+                    </div>
+                    <span class="tool-tag">Beste voor complete web-apps</span>
+                    <p class="tool-description">
+                        De perfecte startplek voor beginners. Je beschrijft wat je wilt, en Lovable bouwt een complete website met database en alles erop en eraan.
+                    </p>
+                    <div class="tool-difficulty">
+                        <span>Moeilijkheid:</span>
+                        <span class="stars">★☆☆</span>
+                        <span>Heel makkelijk</span>
+                    </div>
+                    <div class="tool-features">
+                        <div class="tool-feature"><i class="fas fa-check"></i> Direct in je browser</div>
+                        <div class="tool-feature"><i class="fas fa-check"></i> Geen installatie nodig</div>
+                        <div class="tool-feature"><i class="fas fa-check"></i> Met één klik online zetten</div>
+                    </div>
+                    <a href="https://lovable.dev" target="_blank" class="tool-link">
+                        <i class="fas fa-external-link-alt"></i> Naar Lovable
+                    </a>
+                </div>
+            </div>
+
+            <!-- v0.dev -->
+            <div class="tool-card">
+                <div class="tool-header">
+                    <div class="tool-logo">▲</div>
+                    <div class="tool-name">v0.dev</div>
+                </div>
+                <span class="tool-tag">Beste voor snelle prototypes</span>
+                <p class="tool-description">
+                    Van Vercel, de makers van Next.js. Ideaal om snel een idee te visualiseren. Je krijgt direct een werkende preview.
+                </p>
+                <div class="tool-difficulty">
+                    <span>Moeilijkheid:</span>
+                    <span class="stars">★☆☆</span>
+                    <span>Heel makkelijk</span>
+                </div>
+                <div class="tool-features">
+                    <div class="tool-feature"><i class="fas fa-check"></i> Supersnelle previews</div>
+                    <div class="tool-feature"><i class="fas fa-check"></i> Moderne designs</div>
+                    <div class="tool-feature"><i class="fas fa-check"></i> Gratis te proberen</div>
+                </div>
+                <a href="https://v0.dev" target="_blank" class="tool-link">
+                    <i class="fas fa-external-link-alt"></i> Naar v0.dev
+                </a>
+            </div>
+
+            <!-- Replit -->
+            <div class="tool-card">
+                <div class="tool-header">
+                    <div class="tool-logo">🔷</div>
+                    <div class="tool-name">Replit Agent</div>
+                </div>
+                <span class="tool-tag">Beste voor echte programmeertaal</span>
+                <p class="tool-description">
+                    Een online programmeeromgeving met AI-hulp. Je kunt hier Python, JavaScript en meer gebruiken. Iets meer controle, iets meer te leren.
+                </p>
+                <div class="tool-difficulty">
+                    <span>Moeilijkheid:</span>
+                    <span class="stars">★★☆</span>
+                    <span>Gemiddeld</span>
+                </div>
+                <div class="tool-features">
+                    <div class="tool-feature"><i class="fas fa-check"></i> Veel programmeertalen</div>
+                    <div class="tool-feature"><i class="fas fa-check"></i> AI-assistent ingebouwd</div>
+                    <div class="tool-feature"><i class="fas fa-check"></i> Direct delen mogelijk</div>
+                </div>
+                <a href="https://replit.com" target="_blank" class="tool-link">
+                    <i class="fas fa-external-link-alt"></i> Naar Replit
+                </a>
+            </div>
+
+            <!-- Cursor -->
+            <div class="tool-card">
+                <div class="tool-header">
+                    <div class="tool-logo">📝</div>
+                    <div class="tool-name">Cursor</div>
+                </div>
+                <span class="tool-tag">Beste voor serieuze projecten</span>
+                <p class="tool-description">
+                    Een professionele code-editor met AI. Voor als je dieper wilt gaan en meer controle wilt. Je installeert dit op je computer.
+                </p>
+                <div class="tool-difficulty">
+                    <span>Moeilijkheid:</span>
+                    <span class="stars">★★★</span>
+                    <span>Gevorderd</span>
+                </div>
+                <div class="tool-features">
+                    <div class="tool-feature"><i class="fas fa-check"></i> Maximale controle</div>
+                    <div class="tool-feature"><i class="fas fa-check"></i> Professionele functies</div>
+                    <div class="tool-feature"><i class="fas fa-check"></i> Werkt met alle code</div>
+                </div>
+                <a href="https://cursor.sh" target="_blank" class="tool-link">
+                    <i class="fas fa-external-link-alt"></i> Naar Cursor
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="comparison-section">
+    <div class="container">
+        <h2 class="section-title">Vergelijking op een rijtje</h2>
+        <p class="section-subtitle">Welke past bij jou?</p>
+        
+        <div class="comparison-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tool</th>
+                        <th>Prijs</th>
+                        <th>Installatie</th>
+                        <th>Beste voor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Lovable</strong></td>
+                        <td><span class="price-free">Gratis start</span></td>
+                        <td>Nee (browser)</td>
+                        <td>Complete web-apps</td>
+                    </tr>
+                    <tr>
+                        <td><strong>v0.dev</strong></td>
+                        <td><span class="price-free">Gratis start</span></td>
+                        <td>Nee (browser)</td>
+                        <td>Snelle prototypes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Replit</strong></td>
+                        <td><span class="price-free">Gratis start</span></td>
+                        <td>Nee (browser)</td>
+                        <td>Leren programmeren</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cursor</strong></td>
+                        <td><span class="price-paid">$20/maand</span></td>
+                        <td>Ja (download)</td>
+                        <td>Serieuze projecten</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<section class="setup-section">
+    <div class="container">
+        <div class="setup-card">
+            <h3>🚀 Begin binnen 5 minuten</h3>
+            <div class="setup-steps">
+                <div class="setup-step">
+                    <div class="setup-step-num">1</div>
+                    <div class="setup-step-content">
+                        <h4>Kies Lovable (aanbevolen)</h4>
+                        <p>Ga naar lovable.dev en maak een gratis account aan met je e-mail of Google.</p>
+                    </div>
+                </div>
+                <div class="setup-step">
+                    <div class="setup-step-num">2</div>
+                    <div class="setup-step-content">
+                        <h4>Klik op "New Project"</h4>
+                        <p>Je krijgt een leeg veld waar je kunt typen wat je wilt maken.</p>
+                    </div>
+                </div>
+                <div class="setup-step">
+                    <div class="setup-step-num">3</div>
+                    <div class="setup-step-content">
+                        <h4>Beschrijf je idee</h4>
+                        <p>Typ bijvoorbeeld: "Maak een simpele website voor mijn hondenuitlaatservice"</p>
+                    </div>
+                </div>
+                <div class="setup-step">
+                    <div class="setup-step-num">4</div>
+                    <div class="setup-step-content">
+                        <h4>Bekijk het resultaat</h4>
+                        <p>Binnen een minuut heb je een werkende website. Niet tevreden? Vraag om aanpassingen!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

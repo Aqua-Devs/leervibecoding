@@ -1,0 +1,931 @@
+{% extends "base.html" %}
+
+{% block title %}Oefenruimte - Leer Vibecoding met Opdrachten | LeerVibeCoding{% endblock %}
+
+{% block meta_description %}Oefen vibecoding met interactieve opdrachten. Van HTML basics tot complete AI-apps. Krijg direct feedback op je prompts en zie je code live in actie.{% endblock %}
+
+{% block meta_keywords %}vibecoding oefenen, programmeren leren interactief, AI coding opdrachten, HTML leren, JavaScript leren, coding oefeningen Nederlands{% endblock %}
+
+{% block canonical %}https://leervibecoding.nl/oefenruimte{% endblock %}
+{% block og_url %}https://leervibecoding.nl/oefenruimte{% endblock %}
+{% block og_title %}Oefenruimte - Leer door te doen{% endblock %}
+{% block og_description %}Interactieve opdrachten om vibecoding te leren. Van beginner tot gevorderd, op je eigen tempo.{% endblock %}
+
+{% block extra_css %}
+<style>
+    body { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); overflow-x: hidden; }
+    
+    /* Header */
+    .studio-header {
+        padding: 12px 0;
+        background: rgba(0,0,0,0.4);
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        position: sticky; top: 0; z-index: 100;
+    }
+    .studio-header-inner {
+        display: flex; justify-content: space-between; align-items: center;
+        flex-wrap: wrap; gap: 12px;
+    }
+    .studio-title { font-size: 20px; display: flex; align-items: center; gap: 10px; }
+    .studio-title span { 
+        background: linear-gradient(135deg, #a855f7, #22d3ee);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        font-weight: 700;
+    }
+    
+    /* Level & XP */
+    .stats-bar { display: flex; align-items: center; gap: 20px; }
+    .level-display {
+        display: flex; align-items: center; gap: 10px;
+        background: rgba(168,85,247,0.2); padding: 8px 16px; border-radius: 20px;
+    }
+    .level-num { font-size: 18px; font-weight: 700; color: #c4b5fd; }
+    .level-name { font-size: 12px; color: rgba(255,255,255,0.6); }
+    .xp-display { font-size: 16px; color: #facc15; font-weight: 600; }
+    .xp-bar { width: 120px; height: 6px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; }
+    .xp-fill { height: 100%; background: linear-gradient(90deg, #facc15, #f59e0b); border-radius: 10px; transition: width 0.5s; }
+
+    /* Main Studio Layout */
+    .studio-main {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        height: calc(100vh - 60px);
+    }
+
+    /* Left Panel - Assignment & Input */
+    .left-panel {
+        display: flex; flex-direction: column;
+        background: rgba(0,0,0,0.2);
+        border-right: 1px solid rgba(255,255,255,0.1);
+        overflow: hidden;
+    }
+
+    /* Assignment Section */
+    .assignment-section { padding: 20px; flex: 1; overflow-y: auto; position: relative; }
+    
+    .assignment-card {
+        background: linear-gradient(135deg, rgba(168,85,247,0.15), rgba(34,211,238,0.1));
+        border: 1px solid rgba(168,85,247,0.3);
+        border-radius: 16px; padding: 20px; margin-bottom: 16px;
+    }
+    .assignment-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+    .assignment-level {
+        background: rgba(168,85,247,0.3); padding: 4px 12px; border-radius: 12px;
+        font-size: 11px; font-weight: 600; color: #c4b5fd; text-transform: uppercase;
+    }
+    .assignment-level.ai { background: rgba(34,197,94,0.3); color: #4ade80; }
+    
+    .client-info { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .client-avatar { font-size: 36px; }
+    .client-name { font-size: 18px; font-weight: 600; color: #f59e0b; }
+    
+    .scenario-text { color: rgba(255,255,255,0.85); font-size: 15px; line-height: 1.6; margin-bottom: 16px; }
+    
+    .task-box {
+        background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.4);
+        border-radius: 12px; padding: 14px; margin-bottom: 16px;
+    }
+    .task-label { font-size: 11px; color: #4ade80; font-weight: 600; text-transform: uppercase; margin-bottom: 6px; }
+    .task-text { color: white; font-size: 14px; line-height: 1.5; }
+
+    /* Requirements checklist */
+    .requirements-box { margin-bottom: 16px; }
+    .requirements-title { font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+    .requirement-item {
+        display: flex; align-items: center; gap: 8px;
+        padding: 8px 12px; margin-bottom: 6px;
+        background: rgba(255,255,255,0.05); border-radius: 8px;
+        font-size: 13px; color: rgba(255,255,255,0.7);
+    }
+    .requirement-item.met { background: rgba(34,197,94,0.15); color: #4ade80; }
+    .requirement-item.met::before { content: "✓"; color: #4ade80; font-weight: bold; }
+    .requirement-item.unmet::before { content: "○"; color: rgba(255,255,255,0.4); }
+
+    /* Hints */
+    .hints-toggle {
+        background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.3);
+        border-radius: 10px; padding: 12px; cursor: pointer;
+        display: flex; justify-content: space-between; align-items: center;
+        color: #60a5fa; font-size: 13px; font-weight: 500;
+    }
+    .hints-toggle:hover { background: rgba(59,130,246,0.15); }
+    .hints-content { display: none; padding: 12px; background: rgba(59,130,246,0.05); border-radius: 0 0 10px 10px; margin-top: -1px; }
+    .hints-content.show { display: block; }
+    .hint-item { color: rgba(255,255,255,0.7); font-size: 13px; margin-bottom: 6px; padding-left: 20px; position: relative; }
+    .hint-item::before { content: "💡"; position: absolute; left: 0; }
+
+    /* Input Section */
+    .input-section {
+        padding: 16px 20px;
+        background: rgba(0,0,0,0.3);
+        border-top: 1px solid rgba(255,255,255,0.1);
+        flex-shrink: 0;
+    }
+    .input-label { font-size: 14px; font-weight: 600; margin-bottom: 10px; color: rgba(255,255,255,0.9); }
+    .prompt-input {
+        width: 100%; min-height: 80px; padding: 14px;
+        background: rgba(0,0,0,0.4); border: 2px solid rgba(255,255,255,0.15);
+        border-radius: 12px; color: white; font-family: inherit; font-size: 14px;
+        resize: none; transition: all 0.3s;
+    }
+    .prompt-input:focus { outline: none; border-color: #a855f7; box-shadow: 0 0 20px rgba(168,85,247,0.2); }
+    
+    .btn-row { display: flex; gap: 10px; margin-top: 12px; }
+    .btn-submit {
+        flex: 1; padding: 14px;
+        background: linear-gradient(135deg, #22c55e, #16a34a);
+        border: none; border-radius: 10px; color: white;
+        font-size: 15px; font-weight: 600; cursor: pointer;
+        display: flex; align-items: center; justify-content: center; gap: 8px;
+        transition: all 0.3s;
+    }
+    .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(34,197,94,0.4); }
+    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    
+    .btn-retry {
+        flex: 1; padding: 14px;
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+        border: none; border-radius: 10px; color: white;
+        font-size: 15px; font-weight: 600; cursor: pointer;
+        display: none; align-items: center; justify-content: center; gap: 8px;
+        transition: all 0.3s;
+    }
+    .btn-retry:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(245,158,11,0.4); }
+    .btn-retry.show { display: flex; }
+    
+    .btn-new {
+        padding: 14px 20px;
+        background: rgba(168,85,247,0.2); border: 1px solid rgba(168,85,247,0.4);
+        border-radius: 10px; color: #c4b5fd;
+        font-size: 14px; cursor: pointer;
+    }
+    .btn-new:hover { background: rgba(168,85,247,0.3); }
+
+    /* Right Panel - Preview */
+    .right-panel {
+        display: flex; flex-direction: column;
+        background: linear-gradient(180deg, #0f0f1a 0%, #1a1a2e 100%);
+    }
+
+    /* Score Bar */
+    .score-bar {
+        padding: 12px 20px;
+        background: rgba(0,0,0,0.4);
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        display: flex; justify-content: space-between; align-items: center;
+    }
+    .score-label { font-size: 13px; color: rgba(255,255,255,0.6); }
+    .score-display { display: flex; align-items: center; gap: 12px; }
+    .score-percent { font-size: 24px; font-weight: 700; color: rgba(255,255,255,0.3); }
+    .score-percent.low { color: #ef4444; }
+    .score-percent.mid { color: #f59e0b; }
+    .score-percent.high { color: #22c55e; }
+    .score-percent.perfect { color: #22d3ee; text-shadow: 0 0 20px rgba(34,211,238,0.5); }
+    .score-bar-visual { width: 150px; height: 8px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; }
+    .score-bar-fill { height: 100%; border-radius: 10px; transition: all 0.5s; background: rgba(255,255,255,0.2); }
+
+    /* Preview Area */
+    .preview-area { flex: 1; position: relative; padding: 16px; overflow: hidden; }
+    
+    .preview-placeholder {
+        height: 100%;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        text-align: center; color: rgba(255,255,255,0.3);
+    }
+    .preview-placeholder-icon { font-size: 80px; margin-bottom: 16px; opacity: 0.3; }
+    .preview-placeholder-text { font-size: 18px; margin-bottom: 8px; }
+    .preview-placeholder-sub { font-size: 14px; }
+    
+    .preview-frame {
+        display: none;
+        width: 100%; height: 100%;
+        background: white; border-radius: 12px;
+        overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .preview-frame.show { display: block; }
+    .preview-frame iframe { width: 100%; height: 100%; border: none; }
+
+    /* Feedback Section */
+    .feedback-section {
+        padding: 16px 20px;
+        background: rgba(0,0,0,0.3);
+        border-top: 1px solid rgba(255,255,255,0.1);
+        display: none; max-height: 200px; overflow-y: auto;
+    }
+    .feedback-section.show { display: block; }
+    
+    .feedback-message {
+        padding: 12px; border-radius: 10px; margin-bottom: 12px;
+        font-size: 14px; font-weight: 500;
+    }
+    .feedback-message.success { background: rgba(34,197,94,0.2); border: 1px solid rgba(34,197,94,0.4); color: #4ade80; }
+    .feedback-message.partial { background: rgba(245,158,11,0.2); border: 1px solid rgba(245,158,11,0.4); color: #fbbf24; }
+    .feedback-message.fail { background: rgba(239,68,68,0.2); border: 1px solid rgba(239,68,68,0.4); color: #f87171; }
+    
+    .suggestions-box { background: rgba(255,255,255,0.05); border-radius: 10px; padding: 12px; }
+    .suggestions-title { font-size: 12px; color: rgba(255,255,255,0.5); margin-bottom: 8px; }
+    .suggestion-item {
+        display: flex; align-items: flex-start; gap: 8px;
+        padding: 8px; margin-bottom: 6px;
+        background: rgba(168,85,247,0.1); border-radius: 8px;
+        font-size: 13px; color: rgba(255,255,255,0.8);
+        cursor: pointer; transition: all 0.2s;
+    }
+    .suggestion-item:hover { background: rgba(168,85,247,0.2); }
+    .suggestion-item i { color: #a855f7; margin-top: 2px; }
+
+    /* Loading States */
+    .loading-overlay {
+        position: absolute; inset: 0;
+        background: rgba(0,0,0,0.8);
+        display: none; align-items: center; justify-content: center;
+        flex-direction: column; gap: 16px; z-index: 10;
+    }
+    .loading-overlay.show { display: flex; }
+    .spinner {
+        width: 50px; height: 50px;
+        border: 4px solid rgba(168,85,247,0.2);
+        border-top-color: #a855f7;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-text { color: rgba(255,255,255,0.7); font-size: 14px; }
+
+    /* Level Up Modal */
+    .modal-overlay {
+        position: fixed; inset: 0;
+        background: rgba(0,0,0,0.8);
+        display: none; align-items: center; justify-content: center;
+        z-index: 1000;
+    }
+    .modal-overlay.show { display: flex; }
+    .modal-box {
+        background: linear-gradient(135deg, #1e1b4b, #0f172a);
+        border: 2px solid rgba(168,85,247,0.5);
+        border-radius: 24px; padding: 40px;
+        text-align: center; max-width: 400px;
+        animation: popIn 0.3s ease;
+    }
+    @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .modal-emoji { font-size: 64px; margin-bottom: 16px; }
+    .modal-title { font-size: 28px; font-weight: 700; margin-bottom: 8px; color: #c4b5fd; }
+    .modal-text { font-size: 16px; color: rgba(255,255,255,0.7); margin-bottom: 24px; }
+    .modal-btn {
+        padding: 14px 32px;
+        background: linear-gradient(135deg, #a855f7, #8b5cf6);
+        border: none; border-radius: 12px; color: white;
+        font-size: 16px; font-weight: 600; cursor: pointer;
+    }
+
+    /* API Key Notice */
+    .api-notice {
+        padding: 16px 20px;
+        background: rgba(239,68,68,0.15);
+        border-bottom: 1px solid rgba(239,68,68,0.3);
+        display: none; align-items: center; justify-content: center; gap: 12px;
+        color: #fca5a5; font-size: 14px;
+    }
+    .api-notice.show { display: flex; }
+    .api-notice button {
+        background: rgba(239,68,68,0.3); border: 1px solid rgba(239,68,68,0.5);
+        padding: 6px 16px; border-radius: 8px; color: white; cursor: pointer;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+        .studio-header-inner {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .stats-bar {
+            width: 100%;
+            justify-content: space-between;
+        }
+    }
+
+    @media (max-width: 900px) {
+        .studio-main {
+            grid-template-columns: 1fr;
+            height: auto;
+            min-height: calc(100vh - 120px);
+        }
+        .left-panel {
+            border-right: none;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            max-height: none;
+        }
+        .right-panel {
+            min-height: 60vh;
+        }
+        .assignment-section {
+            padding: 16px;
+        }
+        .prompt-section {
+            padding: 16px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .studio-header {
+            padding: 10px 0;
+            top: 70px;
+        }
+        .studio-title {
+            font-size: 18px;
+        }
+        .stats-bar {
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .level-display {
+            padding: 6px 12px;
+        }
+        .level-num {
+            font-size: 14px;
+        }
+        .xp-display {
+            font-size: 14px;
+        }
+        .xp-bar {
+            width: 80px;
+        }
+        .assignment-card {
+            padding: 16px;
+        }
+        .client-avatar {
+            font-size: 28px;
+        }
+        .client-name {
+            font-size: 16px;
+        }
+        .scenario-text {
+            font-size: 14px;
+        }
+        .task-box {
+            padding: 12px;
+        }
+        .task-text {
+            font-size: 13px;
+        }
+        .requirement-item {
+            font-size: 12px;
+            padding: 6px 10px;
+        }
+        .right-panel {
+            min-height: 50vh;
+        }
+        .preview-header {
+            padding: 12px;
+        }
+        .score-panel {
+            padding: 12px;
+        }
+        .score-value {
+            font-size: 42px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .studio-header {
+            top: 65px;
+        }
+        .studio-header-inner {
+            gap: 8px;
+        }
+        .studio-title {
+            font-size: 16px;
+        }
+        .studio-title span {
+            font-size: 16px;
+        }
+        .stats-bar {
+            gap: 8px;
+        }
+        .level-display {
+            padding: 5px 10px;
+            gap: 6px;
+        }
+        .level-num {
+            font-size: 13px;
+        }
+        .level-name {
+            display: none;
+        }
+        .xp-display {
+            font-size: 13px;
+        }
+        .xp-bar {
+            width: 60px;
+            height: 4px;
+        }
+        .assignment-section,
+        .prompt-section {
+            padding: 12px;
+        }
+        .assignment-card {
+            padding: 14px;
+            border-radius: 12px;
+        }
+        .client-info {
+            gap: 10px;
+        }
+        .client-avatar {
+            font-size: 24px;
+        }
+        .client-name {
+            font-size: 15px;
+        }
+        .scenario-text {
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        .task-label {
+            font-size: 10px;
+        }
+        .task-text {
+            font-size: 12px;
+        }
+        .prompt-label {
+            font-size: 13px;
+        }
+        .prompt-textarea {
+            font-size: 14px;
+            padding: 12px;
+            min-height: 100px;
+        }
+        .prompt-actions {
+            flex-direction: column;
+        }
+        .prompt-actions button {
+            width: 100%;
+            justify-content: center;
+        }
+        .preview-placeholder {
+            font-size: 14px;
+        }
+        .preview-placeholder .icon {
+            font-size: 40px;
+        }
+        .api-notice {
+            flex-direction: column;
+            text-align: center;
+            padding: 12px;
+            gap: 8px;
+        }
+        .api-notice button {
+            width: 100%;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- API Key Notice -->
+<div class="api-notice" id="apiNotice">
+    <i class="fas fa-key"></i>
+    <span>Voer eerst je OpenAI API key in om te beginnen</span>
+    <button onclick="openApiKeyModal()">API Key Invoeren</button>
+</div>
+
+<!-- Header -->
+<header class="studio-header">
+    <div class="container">
+        <div class="studio-header-inner">
+            <div class="studio-title">
+                <span>🎬 Oefenruimte</span>
+            </div>
+            <div class="stats-bar">
+                <div class="level-display">
+                    <span class="level-num">Level <span id="currentLevel">1</span></span>
+                    <span class="level-name" id="levelName">HTML Basics</span>
+                </div>
+                <div class="xp-display"><span id="totalXp">0</span> XP</div>
+                <div class="xp-bar"><div class="xp-fill" id="xpFill" style="width: 0%"></div></div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Studio -->
+<main class="studio-main">
+    <!-- Left: Assignment & Input -->
+    <div class="left-panel">
+        <div class="assignment-section" id="assignmentSection">
+            <!-- Assignment Card -->
+            <div class="assignment-card" id="assignmentCard">
+                <div class="assignment-header">
+                    <span class="assignment-level" id="assignmentLevel">Level 1</span>
+                </div>
+                <div class="client-info">
+                    <span class="client-avatar" id="clientEmoji">🏪</span>
+                    <span class="client-name" id="clientName">Laden...</span>
+                </div>
+                <p class="scenario-text" id="scenarioText">Je opdracht wordt gegenereerd...</p>
+                
+                <div class="task-box">
+                    <div class="task-label">✅ Jouw Opdracht</div>
+                    <div class="task-text" id="taskText">Even geduld...</div>
+                </div>
+
+                <div class="requirements-box" id="requirementsBox">
+                    <div class="requirements-title"><i class="fas fa-list-check"></i> Requirements</div>
+                    <div id="requirementsList"></div>
+                </div>
+
+                <div class="hints-toggle" onclick="toggleHints()">
+                    <span><i class="fas fa-lightbulb"></i> Tips nodig?</span>
+                    <i class="fas fa-chevron-down" id="hintsIcon"></i>
+                </div>
+                <div class="hints-content" id="hintsContent"></div>
+            </div>
+
+            <!-- Loading for assignment -->
+            <div class="loading-overlay" id="assignmentLoading">
+                <div class="spinner"></div>
+                <div class="loading-text">Opdracht genereren...</div>
+            </div>
+        </div>
+
+        <!-- Input Section -->
+        <div class="input-section">
+            <div class="input-label">💬 Vertel de AI wat je wilt bouwen:</div>
+            <textarea class="prompt-input" id="promptInput" placeholder="Beschrijf zo specifiek mogelijk wat je wilt. Denk aan: structuur, kleuren, functionaliteit, teksten..."></textarea>
+            <div class="btn-row">
+                <button class="btn-submit" id="submitBtn" onclick="submitPrompt()">
+                    <i class="fas fa-wand-magic-sparkles"></i> Genereer!
+                </button>
+                <button class="btn-retry" id="retryBtn" onclick="retryPrompt()">
+                    <i class="fas fa-redo"></i> Opnieuw Proberen
+                </button>
+                <button class="btn-new" onclick="newAssignment()">
+                    <i class="fas fa-forward"></i> Volgende Opdracht
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right: Preview -->
+    <div class="right-panel">
+        <!-- Score Bar -->
+        <div class="score-bar">
+            <span class="score-label">Score</span>
+            <div class="score-display">
+                <span class="score-percent" id="scorePercent">--%</span>
+                <div class="score-bar-visual">
+                    <div class="score-bar-fill" id="scoreFill" style="width: 0%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Preview Area -->
+        <div class="preview-area">
+            <div class="preview-placeholder" id="previewPlaceholder">
+                <div class="preview-placeholder-icon">🖼️</div>
+                <div class="preview-placeholder-text">Hier verschijnt je creatie</div>
+                <div class="preview-placeholder-sub">Schrijf je prompt en klik op "Genereer!"</div>
+            </div>
+            
+            <div class="preview-frame" id="previewFrame">
+                <iframe id="previewIframe"></iframe>
+            </div>
+
+            <div class="loading-overlay" id="previewLoading">
+                <div class="spinner"></div>
+                <div class="loading-text">Code genereren & evalueren...</div>
+            </div>
+        </div>
+
+        <!-- Feedback Section -->
+        <div class="feedback-section" id="feedbackSection">
+            <div class="feedback-message" id="feedbackMessage"></div>
+            <div class="suggestions-box" id="suggestionsBox">
+                <div class="suggestions-title">💡 Verbeter je prompt:</div>
+                <div id="suggestionsList"></div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Level Up Modal -->
+<div class="modal-overlay" id="levelUpModal">
+    <div class="modal-box">
+        <div class="modal-emoji">🎉</div>
+        <div class="modal-title">Level Up!</div>
+        <div class="modal-text" id="levelUpText">Je hebt level 2 bereikt: Styling</div>
+        <button class="modal-btn" onclick="closeLevelUpModal()">Doorgaan</button>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// State
+let apiKey = localStorage.getItem('openai_key') || '';
+let currentLevel = parseInt(localStorage.getItem('vibe_level') || '1');
+let totalXp = parseInt(localStorage.getItem('vibe_xp') || '0');
+let completedAssignments = JSON.parse(localStorage.getItem('vibe_completed') || '[]');
+let currentAssignment = null;
+let currentBestScore = 0; // Track best score for current assignment
+let hasEarnedXpThisAssignment = false;
+
+// Level thresholds
+const levelThresholds = [0, 50, 150, 300, 500, 750, 1000, 1500, 2500];
+const levelNames = ['', 'HTML Basics', 'Styling', 'Interactie', 'Formulieren', 'AI Tekst', 'AI Chat', 'AI Tools', 'AI Apps'];
+
+// Init
+document.addEventListener('DOMContentLoaded', () => {
+    updateUI();
+    
+    if (!apiKey) {
+        document.getElementById('apiNotice').classList.add('show');
+    } else {
+        loadAssignment();
+    }
+});
+
+function updateUI() {
+    document.getElementById('currentLevel').textContent = currentLevel;
+    document.getElementById('levelName').textContent = levelNames[currentLevel] || 'Master';
+    document.getElementById('totalXp').textContent = totalXp;
+    
+    // XP progress to next level
+    const currentThreshold = levelThresholds[currentLevel - 1] || 0;
+    const nextThreshold = levelThresholds[currentLevel] || levelThresholds[levelThresholds.length - 1];
+    const progress = ((totalXp - currentThreshold) / (nextThreshold - currentThreshold)) * 100;
+    document.getElementById('xpFill').style.width = Math.min(progress, 100) + '%';
+}
+
+function openApiKeyModal() {
+    const key = prompt('Voer je OpenAI API key in:');
+    if (key && key.startsWith('sk-')) {
+        apiKey = key;
+        localStorage.setItem('openai_key', key);
+        document.getElementById('apiNotice').classList.remove('show');
+        loadAssignment();
+    }
+}
+
+async function loadAssignment() {
+    document.getElementById('assignmentLoading').classList.add('show');
+    
+    try {
+        const response = await fetch('/api/generate-assignment', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                api_key: apiKey,
+                level: currentLevel,
+                completed: completedAssignments
+            })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            currentAssignment = data.assignment;
+            displayAssignment(currentAssignment);
+        } else {
+            alert('Fout: ' + data.error);
+        }
+    } catch (e) {
+        alert('Verbindingsfout: ' + e.message);
+    } finally {
+        document.getElementById('assignmentLoading').classList.remove('show');
+    }
+}
+
+function displayAssignment(assignment) {
+    document.getElementById('assignmentLevel').textContent = `Level ${assignment.level} - ${assignment.level_name}`;
+    document.getElementById('assignmentLevel').classList.toggle('ai', assignment.ai_integration);
+    document.getElementById('clientEmoji').textContent = assignment.client_emoji || '👤';
+    document.getElementById('clientName').textContent = assignment.client_name || 'Klant';
+    document.getElementById('scenarioText').textContent = assignment.scenario;
+    document.getElementById('taskText').textContent = assignment.task;
+    
+    // Requirements
+    const reqList = document.getElementById('requirementsList');
+    reqList.innerHTML = (assignment.requirements || []).map(req => 
+        `<div class="requirement-item unmet">${req}</div>`
+    ).join('');
+    
+    // Hints
+    const hintsContent = document.getElementById('hintsContent');
+    hintsContent.innerHTML = (assignment.hints || []).map(hint =>
+        `<div class="hint-item">${hint}</div>`
+    ).join('');
+    hintsContent.classList.remove('show');
+    
+    // Reset UI
+    document.getElementById('previewPlaceholder').style.display = 'flex';
+    document.getElementById('previewFrame').classList.remove('show');
+    document.getElementById('feedbackSection').classList.remove('show');
+    document.getElementById('scorePercent').textContent = '--%';
+    document.getElementById('scorePercent').className = 'score-percent';
+    document.getElementById('scoreFill').style.width = '0%';
+    document.getElementById('promptInput').value = '';
+    document.getElementById('retryBtn').classList.remove('show');
+    
+    // Reset score tracking
+    currentBestScore = 0;
+    hasEarnedXpThisAssignment = false;
+}
+
+function toggleHints() {
+    const content = document.getElementById('hintsContent');
+    const icon = document.getElementById('hintsIcon');
+    content.classList.toggle('show');
+    icon.style.transform = content.classList.contains('show') ? 'rotate(180deg)' : '';
+}
+
+async function submitPrompt() {
+    const prompt = document.getElementById('promptInput').value.trim();
+    if (!prompt) {
+        alert('Schrijf eerst een prompt!');
+        return;
+    }
+    
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Genereren...';
+    document.getElementById('previewLoading').classList.add('show');
+    
+    try {
+        const response = await fetch('/api/submit-prompt', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                api_key: apiKey,
+                prompt: prompt,
+                assignment: currentAssignment
+            })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            displayResult(data);
+        } else {
+            alert('Fout: ' + data.error);
+        }
+    } catch (e) {
+        alert('Verbindingsfout: ' + e.message);
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-wand-magic-sparkles"></i> Genereer!';
+        document.getElementById('previewLoading').classList.remove('show');
+    }
+}
+
+function displayResult(data) {
+    // Show preview
+    document.getElementById('previewPlaceholder').style.display = 'none';
+    document.getElementById('previewFrame').classList.add('show');
+    
+    // Inject API key into iframe for AI-powered features
+    let code = data.code;
+    if (currentAssignment.ai_integration) {
+        code = code.replace(
+            '</head>',
+            `<script>window.OPENAI_API_KEY = "${apiKey}";<\/script></head>`
+        );
+    }
+    
+    document.getElementById('previewIframe').srcdoc = code;
+    
+    // Update score
+    const score = data.evaluation?.score || 0;
+    const scoreEl = document.getElementById('scorePercent');
+    scoreEl.textContent = score + '%';
+    scoreEl.className = 'score-percent ' + (
+        score >= 100 ? 'perfect' :
+        score >= 80 ? 'high' :
+        score >= 50 ? 'mid' : 'low'
+    );
+    
+    const fillEl = document.getElementById('scoreFill');
+    fillEl.style.width = score + '%';
+    fillEl.style.background = 
+        score >= 100 ? 'linear-gradient(90deg, #22d3ee, #a855f7)' :
+        score >= 80 ? '#22c55e' :
+        score >= 50 ? '#f59e0b' : '#ef4444';
+    
+    // Update requirements checklist
+    const criteriaResults = data.evaluation?.criteria_results || {};
+    const reqItems = document.querySelectorAll('.requirement-item');
+    Object.entries(criteriaResults).forEach(([key, met]) => {
+        // Find matching requirement item
+        reqItems.forEach(item => {
+            if (met && item.textContent.toLowerCase().includes(key.toLowerCase())) {
+                item.classList.remove('unmet');
+                item.classList.add('met');
+            }
+        });
+    });
+    
+    // Feedback
+    const feedbackSection = document.getElementById('feedbackSection');
+    const feedbackMessage = document.getElementById('feedbackMessage');
+    
+    feedbackSection.classList.add('show');
+    
+    let feedbackText = data.evaluation?.feedback || 'Resultaat gegenereerd';
+    if (score >= 100) {
+        feedbackText = '🎉 Perfect! ' + feedbackText;
+    } else if (score >= 85) {
+        feedbackText = '👍 Uitstekend! ' + feedbackText + ' (+XP)';
+    } else if (score >= 70) {
+        feedbackText = '✅ Goed! ' + feedbackText + ' (+XP) — Wil je nog verbeteren?';
+    } else if (score >= 50) {
+        feedbackText = '😊 Op de goede weg! ' + feedbackText + ' — Nog even doorwerken!';
+    } else {
+        feedbackText = '💪 ' + feedbackText + ' — Pas je prompt aan!';
+    }
+    
+    feedbackMessage.textContent = feedbackText;
+    feedbackMessage.className = 'feedback-message ' + (
+        score >= 85 ? 'success' :
+        score >= 70 ? 'success' :
+        score >= 50 ? 'partial' : 'fail'
+    );
+    
+    // Suggestions
+    const suggestionsList = document.getElementById('suggestionsList');
+    const suggestions = data.evaluation?.suggestions || [];
+    const missing = data.evaluation?.missing || [];
+    
+    if (suggestions.length || missing.length) {
+        document.getElementById('suggestionsBox').style.display = 'block';
+        suggestionsList.innerHTML = [
+            ...missing.map(m => `<div class="suggestion-item"><i class="fas fa-exclamation-circle"></i> Mist: ${m}</div>`),
+            ...suggestions.map(s => `<div class="suggestion-item" onclick="addToPrompt(this.dataset.text)" data-text="${s.replace(/"/g, '&quot;')}"><i class="fas fa-plus"></i> ${s}</div>`)
+        ].join('');
+    } else {
+        document.getElementById('suggestionsBox').style.display = 'none';
+    }
+    
+    // XP - meer XP bij hogere scores (70%+)
+    if (score > currentBestScore) {
+        currentBestScore = score;
+        
+        // XP bij 70% of hoger
+        if (score >= 70 && !hasEarnedXpThisAssignment) {
+            totalXp += data.xp_earned;
+            localStorage.setItem('vibe_xp', totalXp);
+            hasEarnedXpThisAssignment = true;
+            
+            if (score >= 100) {
+                completedAssignments.push(currentAssignment.title);
+                localStorage.setItem('vibe_completed', JSON.stringify(completedAssignments));
+            }
+            
+            checkLevelUp();
+        }
+        updateUI();
+    }
+    
+    // Show/hide retry button - altijd tonen behalve bij 100%
+    if (score < 100) {
+        document.getElementById('retryBtn').classList.add('show');
+    } else {
+        document.getElementById('retryBtn').classList.remove('show');
+    }
+}
+
+function addToPrompt(text) {
+    const input = document.getElementById('promptInput');
+    input.value += (input.value ? '\n' : '') + text;
+    input.focus();
+}
+
+function retryPrompt() {
+    // Focus op het prompt input veld zodat gebruiker kan aanpassen
+    document.getElementById('promptInput').focus();
+    document.getElementById('promptInput').scrollIntoView({ behavior: 'smooth' });
+}
+
+function checkLevelUp() {
+    const nextThreshold = levelThresholds[currentLevel];
+    if (nextThreshold && totalXp >= nextThreshold && currentLevel < 8) {
+        currentLevel++;
+        localStorage.setItem('vibe_level', currentLevel);
+        
+        document.getElementById('levelUpText').textContent = 
+            `Je hebt Level ${currentLevel} bereikt: ${levelNames[currentLevel]}!`;
+        document.getElementById('levelUpModal').classList.add('show');
+    }
+}
+
+function closeLevelUpModal() {
+    document.getElementById('levelUpModal').classList.remove('show');
+    updateUI();
+    // NIET automatisch nieuwe opdracht laden - gebruiker beslist zelf
+}
+
+function newAssignment() {
+    loadAssignment();
+}
+</script>
+{% endblock %}

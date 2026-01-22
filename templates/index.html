@@ -1,0 +1,1124 @@
+{% extends "base.html" %}
+
+{% block title %}LeerVibeCoding.nl - Leer Programmeren met AI | Gratis Beginnen{% endblock %}
+
+{% block meta_description %}Heb je een idee voor een app? Praat het tot leven! Leer vibecoding: bouw software door te beschrijven wat je wilt in gewoon Nederlands. Geen programmeerervaring nodig. Start gratis.{% endblock %}
+
+{% block meta_keywords %}vibecoding, leren programmeren, AI programmeren, app bouwen zonder code, website maken beginners, programmeren Nederlands, gratis cursus programmeren, no-code alternatief, AI tools{% endblock %}
+
+{% block canonical %}https://leervibecoding.nl{% endblock %}
+{% block og_url %}https://leervibecoding.nl{% endblock %}
+{% block og_title %}LeerVibeCoding.nl - Leer Programmeren met AI{% endblock %}
+{% block og_description %}Heb je een idee voor een app? Praat het tot leven! Bouw software door te beschrijven wat je wilt. Geen code typen, geen voorkennis nodig.{% endblock %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "Vibecoding Cursus",
+    "description": "Leer programmeren met AI - bouw apps door te beschrijven wat je wilt in gewoon Nederlands",
+    "provider": {
+        "@type": "Organization",
+        "name": "LeerVibeCoding.nl",
+        "url": "https://leervibecoding.nl"
+    },
+    "isAccessibleForFree": true,
+    "inLanguage": "nl-NL",
+    "audience": {
+        "@type": "Audience",
+        "audienceType": "Beginners"
+    },
+    "teaches": ["Vibecoding", "AI Programmeren", "Prompt Engineering", "Web Development"]
+}
+</script>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "Heb ik voorkennis nodig om te leren vibecoden?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Nee, passie voor bouwen is genoeg. Als je een berichtje kunt typen op WhatsApp, kun je Vibecoding leren."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Is vibecoding hetzelfde als no-code?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Nee, je hebt de kracht van echte code, maar de AI schrijft het voor je. No-code tools hebben beperkingen, met vibecoding kun je alles bouwen."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Moet ik Engels kunnen voor vibecoding?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Nee, de nieuwste AI-tools begrijpen Nederlands uitstekend."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Wat kost vibecoding?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Je kunt helemaal gratis beginnen om te kijken of het bij je past."
+            }
+        }
+    ]
+}
+</script>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* ========== HERO SECTION ========== */
+    .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+        position: relative;
+        overflow: hidden;
+        padding: 80px 0;
+    }
+    .hero::before {
+        content: '';
+        position: absolute;
+        width: 1000px; height: 1000px;
+        background: radial-gradient(circle, rgba(168,85,247,0.1) 0%, transparent 60%);
+        top: -400px; right: -300px;
+    }
+    .hero::after {
+        content: '';
+        position: absolute;
+        width: 600px; height: 600px;
+        background: radial-gradient(circle, rgba(34,197,94,0.08) 0%, transparent 60%);
+        bottom: -200px; left: -100px;
+    }
+    
+    .hero-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .hero h1 {
+        font-size: 52px;
+        line-height: 1.1;
+        font-weight: 800;
+        margin-bottom: 24px;
+        letter-spacing: -1px;
+    }
+    .hero h1 .gradient {
+        background: linear-gradient(135deg, #a855f7, #22d3ee);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    
+    .hero .subtitle {
+        font-size: 20px;
+        color: rgba(255,255,255,0.8);
+        line-height: 1.7;
+        margin-bottom: 36px;
+    }
+    .hero .subtitle strong {
+        color: #c4b5fd;
+    }
+    
+    .hero-cta {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+    .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 18px 36px;
+        font-size: 17px;
+        font-weight: 700;
+        background: linear-gradient(135deg, #22c55e, #16a34a);
+        box-shadow: 0 8px 30px rgba(34,197,94,0.4);
+        border-radius: 12px;
+        color: white;
+        text-decoration: none;
+        transition: all 0.3s;
+    }
+    .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 40px rgba(34,197,94,0.5);
+    }
+    .btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 18px 36px;
+        font-size: 17px;
+        font-weight: 600;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.2);
+        border-radius: 12px;
+        color: white;
+        text-decoration: none;
+        transition: all 0.3s;
+    }
+    .btn-secondary:hover {
+        background: rgba(255,255,255,0.1);
+        border-color: rgba(255,255,255,0.3);
+    }
+    
+    /* Demo Video/GIF Box */
+    .demo-visual {
+        background: linear-gradient(145deg, #1e1b4b, #0f172a);
+        border: 1px solid rgba(168,85,247,0.3);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 30px 100px rgba(0,0,0,0.5);
+    }
+    .demo-header {
+        padding: 14px 20px;
+        background: rgba(0,0,0,0.4);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .demo-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+    }
+    .demo-dot.red { background: #ef4444; }
+    .demo-dot.yellow { background: #fbbf24; }
+    .demo-dot.green { background: #22c55e; }
+    
+    .demo-content {
+        padding: 24px;
+    }
+    .demo-step-label {
+        font-size: 11px;
+        color: rgba(255,255,255,0.4);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+        margin-top: 16px;
+    }
+    .demo-step-label:first-child {
+        margin-top: 0;
+    }
+    .demo-prompt {
+        background: rgba(168,85,247,0.1);
+        border: 1px solid rgba(168,85,247,0.3);
+        border-radius: 12px;
+        padding: 16px;
+        font-size: 14px;
+        color: rgba(255,255,255,0.9);
+    }
+    .demo-prompt .label {
+        font-size: 11px;
+        color: #a855f7;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+    }
+    .demo-arrow {
+        text-align: center;
+        padding: 16px 0;
+    }
+    .magic-text {
+        font-size: 14px;
+        color: rgba(168,85,247,0.8);
+        animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+        0%, 100% { opacity: 0.6; }
+        50% { opacity: 1; }
+    }
+    .demo-result {
+        background: white;
+        border-radius: 12px;
+        padding: 20px;
+        color: #1e293b;
+    }
+    .demo-result-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+    }
+    .demo-result-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 18px;
+    }
+    .demo-result h4 {
+        font-size: 16px;
+        color: #1e293b;
+    }
+    .demo-result-ui {
+        background: #f8fafc;
+        border-radius: 8px;
+        padding: 16px;
+    }
+    .demo-result-ui input {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+    .demo-result-ui button {
+        width: 100%;
+        padding: 12px;
+        background: #3b82f6;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    /* ========== BENEFITS ========== */
+    .benefits-section {
+        padding: 80px 0;
+        background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.3) 100%);
+    }
+    .benefits-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+    }
+    .benefit-card {
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 16px;
+        padding: 28px;
+        text-align: center;
+        transition: all 0.3s;
+    }
+    .benefit-card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(34,197,94,0.4);
+        background: rgba(34,197,94,0.05);
+    }
+    .benefit-icon {
+        font-size: 36px;
+        margin-bottom: 16px;
+    }
+    .benefit-card h4 {
+        font-size: 17px;
+        margin-bottom: 8px;
+        color: white;
+    }
+    .benefit-card p {
+        font-size: 14px;
+        color: rgba(255,255,255,0.6);
+        line-height: 1.5;
+    }
+
+    /* ========== PROBLEM VS SOLUTION ========== */
+    .compare-section {
+        padding: 120px 0;
+        background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, transparent 100%);
+    }
+    .section-header {
+        text-align: center;
+        margin-bottom: 60px;
+    }
+    .section-label {
+        display: inline-block;
+        padding: 8px 16px;
+        background: rgba(168,85,247,0.15);
+        border-radius: 20px;
+        color: #c4b5fd;
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 16px;
+    }
+    .section-title {
+        font-size: 40px;
+        font-weight: 700;
+        margin-bottom: 16px;
+    }
+    .section-subtitle {
+        font-size: 18px;
+        color: rgba(255,255,255,0.6);
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    .compare-table {
+        max-width: 900px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+    }
+    .compare-card {
+        border-radius: 20px;
+        padding: 36px;
+    }
+    .compare-card.old {
+        background: rgba(239,68,68,0.1);
+        border: 1px solid rgba(239,68,68,0.3);
+    }
+    .compare-card.new {
+        background: rgba(34,197,94,0.1);
+        border: 1px solid rgba(34,197,94,0.3);
+    }
+    .compare-card h3 {
+        font-size: 22px;
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .compare-card.old h3 { color: #f87171; }
+    .compare-card.new h3 { color: #4ade80; }
+    
+    .compare-list {
+        list-style: none;
+        padding: 0;
+    }
+    .compare-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 14px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        font-size: 16px;
+        color: rgba(255,255,255,0.85);
+    }
+    .compare-list li:last-child {
+        border-bottom: none;
+    }
+    .compare-list li i {
+        margin-top: 3px;
+    }
+    .compare-card.old .compare-list li i { color: #f87171; }
+    .compare-card.new .compare-list li i { color: #4ade80; }
+
+    /* ========== HOW IT WORKS ========== */
+    .process-section {
+        padding: 120px 0;
+    }
+    .process-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    .process-card {
+        text-align: center;
+        position: relative;
+    }
+    .process-card::after {
+        content: '→';
+        position: absolute;
+        right: -30px;
+        top: 60px;
+        font-size: 28px;
+        color: rgba(255,255,255,0.15);
+    }
+    .process-card:last-child::after {
+        display: none;
+    }
+    .process-num {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #a855f7, #8b5cf6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        font-weight: 700;
+        margin: 0 auto 24px;
+        box-shadow: 0 10px 40px rgba(168,85,247,0.3);
+    }
+    .process-card h3 {
+        font-size: 24px;
+        margin-bottom: 8px;
+        color: #c4b5fd;
+    }
+    .process-card p {
+        font-size: 16px;
+        color: rgba(255,255,255,0.7);
+        line-height: 1.6;
+    }
+
+    /* ========== CURRICULUM ========== */
+    .curriculum-section {
+        padding: 120px 0;
+        background: rgba(0,0,0,0.3);
+    }
+    .curriculum-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    .curriculum-card {
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 16px;
+        padding: 32px;
+        transition: all 0.3s;
+    }
+    .curriculum-card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(168,85,247,0.4);
+        background: rgba(255,255,255,0.08);
+    }
+    .curriculum-icon {
+        width: 56px;
+        height: 56px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, rgba(168,85,247,0.2), rgba(34,211,238,0.2));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+    .curriculum-card h4 {
+        font-size: 20px;
+        margin-bottom: 10px;
+        color: white;
+    }
+    .curriculum-card p {
+        font-size: 15px;
+        color: rgba(255,255,255,0.6);
+        line-height: 1.6;
+    }
+
+    /* ========== TESTIMONIAL ========== */
+    .testimonial-section {
+        padding: 120px 0;
+    }
+    .testimonial-card {
+        max-width: 800px;
+        margin: 0 auto;
+        background: linear-gradient(135deg, rgba(168,85,247,0.1), rgba(34,211,238,0.05));
+        border: 1px solid rgba(168,85,247,0.3);
+        border-radius: 24px;
+        padding: 48px;
+        text-align: center;
+    }
+    .testimonial-quote {
+        font-size: 24px;
+        color: rgba(255,255,255,0.95);
+        line-height: 1.7;
+        font-style: italic;
+        margin-bottom: 32px;
+    }
+    .testimonial-quote::before {
+        content: '"';
+        font-size: 60px;
+        color: #a855f7;
+        line-height: 0;
+        display: block;
+        margin-bottom: 16px;
+    }
+    .testimonial-author {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+    }
+    .testimonial-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #f59e0b, #ea580c);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+    }
+    .testimonial-name strong {
+        display: block;
+        font-size: 18px;
+        color: white;
+    }
+    .testimonial-name span {
+        font-size: 14px;
+        color: rgba(255,255,255,0.5);
+    }
+
+    /* ========== FAQ ========== */
+    .faq-section {
+        padding: 120px 0;
+        background: rgba(0,0,0,0.3);
+    }
+    .faq-grid {
+        max-width: 800px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+    .faq-item {
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 16px;
+        overflow: hidden;
+    }
+    .faq-question {
+        padding: 24px;
+        font-size: 18px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .faq-question:hover {
+        background: rgba(255,255,255,0.03);
+    }
+    .faq-question i {
+        color: #a855f7;
+        transition: transform 0.3s;
+    }
+    .faq-answer {
+        padding: 0 24px 24px;
+        font-size: 16px;
+        color: rgba(255,255,255,0.7);
+        line-height: 1.7;
+        display: none;
+    }
+    .faq-item.open .faq-answer {
+        display: block;
+    }
+    .faq-item.open .faq-question i {
+        transform: rotate(180deg);
+    }
+    .faq-answer strong {
+        color: #c4b5fd;
+    }
+
+    /* ========== FINAL CTA ========== */
+    .final-cta {
+        padding: 120px 0;
+        text-align: center;
+    }
+    .final-box {
+        background: linear-gradient(135deg, rgba(34,197,94,0.15), rgba(168,85,247,0.1));
+        border: 2px solid rgba(34,197,94,0.4);
+        border-radius: 32px;
+        padding: 60px 40px;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+    .final-box h2 {
+        font-size: 36px;
+        margin-bottom: 16px;
+    }
+    .final-box p {
+        font-size: 18px;
+        color: rgba(255,255,255,0.7);
+        margin-bottom: 32px;
+    }
+
+    /* ========== RESPONSIVE ========== */
+    
+    /* Large Tablets */
+    @media (max-width: 1000px) {
+        .hero-grid {
+            grid-template-columns: 1fr;
+            gap: 60px;
+        }
+        .hero h1 {
+            font-size: 40px;
+        }
+        .demo-visual {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .benefits-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        .compare-table {
+            grid-template-columns: 1fr;
+        }
+        .process-grid {
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+        .process-card::after {
+            display: none;
+        }
+        .curriculum-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* Tablets */
+    @media (max-width: 768px) {
+        .hero {
+            padding: 100px 0 60px;
+            min-height: auto;
+        }
+        .hero h1 {
+            font-size: 36px;
+            letter-spacing: -0.5px;
+        }
+        .hero .subtitle {
+            font-size: 17px;
+            line-height: 1.6;
+        }
+        .hero-cta {
+            flex-direction: column;
+        }
+        .hero-cta .btn-primary,
+        .hero-cta .btn-secondary {
+            width: 100%;
+            justify-content: center;
+            text-align: center;
+        }
+        .section-title {
+            font-size: 28px;
+        }
+        .section-subtitle {
+            font-size: 16px;
+        }
+        section {
+            padding: 60px 0;
+        }
+        .demo-visual {
+            max-width: 100%;
+        }
+        .demo-content {
+            padding: 20px;
+        }
+        .faq-item summary {
+            font-size: 16px;
+            padding: 18px;
+        }
+        .faq-item p {
+            padding: 0 18px 18px;
+            font-size: 15px;
+        }
+        .testimonial-section .quote {
+            font-size: 20px;
+        }
+    }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+        .hero {
+            padding: 90px 0 50px;
+        }
+        .hero h1 {
+            font-size: 28px;
+        }
+        .hero .subtitle {
+            font-size: 16px;
+        }
+        .hero-grid {
+            gap: 40px;
+        }
+        .section-title {
+            font-size: 24px;
+        }
+        .benefits-grid {
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+        .benefit-card {
+            padding: 20px;
+        }
+        .compare-box {
+            padding: 24px;
+        }
+        .compare-box h3 {
+            font-size: 18px;
+        }
+        .process-card {
+            padding: 24px;
+        }
+        .curriculum-card {
+            padding: 24px;
+        }
+        .demo-step-label {
+            font-size: 11px;
+        }
+        .demo-prompt {
+            font-size: 14px;
+            padding: 14px;
+        }
+        .demo-result h4 {
+            font-size: 16px;
+        }
+        .magic-text {
+            font-size: 14px;
+        }
+        .testimonial-section .quote {
+            font-size: 18px;
+        }
+        .testimonial-author {
+            flex-direction: column;
+            text-align: center;
+        }
+    }
+
+    /* Small Mobile */
+    @media (max-width: 400px) {
+        .hero h1 {
+            font-size: 24px;
+        }
+        .hero .subtitle {
+            font-size: 15px;
+        }
+        .btn-primary,
+        .btn-secondary {
+            padding: 14px 20px;
+            font-size: 15px;
+        }
+        .section-title {
+            font-size: 22px;
+        }
+        .benefit-card {
+            padding: 16px;
+        }
+        .benefit-card .icon {
+            font-size: 28px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- ========== HERO SECTION ========== -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-grid">
+            <div class="hero-content">
+                <h1>
+                    Heb je een idee voor een app? <span class="gradient">Praat het tot leven.</span>
+                </h1>
+                <p class="subtitle">
+                    Je hoeft geen programmeur te zijn om software te bouwen. Met <strong>Vibecoding</strong> vertel je de computer gewoon wat je wilt in simpel Nederlands, en de AI bouwt het voor je. Geen ingewikkelde codes, geen jarenlange studie.
+                </p>
+                <div class="hero-cta">
+                    <a href="#demo" class="btn-primary">
+                        <i class="fas fa-eye"></i> Zie hoe simpel het is
+                    </a>
+                    <a href="/oefenruimte" class="btn-secondary">
+                        <i class="fas fa-rocket"></i> Direct beginnen
+                    </a>
+                </div>
+            </div>
+            
+            <div class="demo-visual" id="demo">
+                <div class="demo-header">
+                    <div class="demo-dot red"></div>
+                    <div class="demo-dot yellow"></div>
+                    <div class="demo-dot green"></div>
+                    <span style="margin-left: auto; font-size: 12px; color: rgba(255,255,255,0.4);">Probeer het zelf</span>
+                </div>
+                <div class="demo-content">
+                    <div class="demo-step-label">Stap 1: Jouw wens</div>
+                    <div class="demo-prompt">
+                        <div class="label">Wat jij typt...</div>
+                        "Maak een simpele planner voor mijn moestuin, zodat ik weet wanneer ik de tomaten water moet geven."
+                    </div>
+                    
+                    <div class="demo-step-label">Stap 2: De Transformatie</div>
+                    <div class="demo-arrow">
+                        <div class="magic-text">✨ Magie gebeurt op de achtergrond... ✨</div>
+                    </div>
+                    
+                    <div class="demo-step-label">Stap 3: Het resultaat</div>
+                    <div class="demo-result">
+                        <div class="demo-result-header">
+                            <div class="demo-result-icon" style="background: linear-gradient(135deg, #22c55e, #16a34a);">
+                                <i class="fas fa-seedling"></i>
+                            </div>
+                            <h4>🍅 Mijn Moestuin Planner</h4>
+                        </div>
+                        <div class="demo-result-ui">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 13px; color: #64748b;">
+                                <span>📅 Vandaag: Woensdag</span>
+                                <span style="color: #22c55e;">💧 Tomaten: water nodig!</span>
+                            </div>
+                            <button style="background: #22c55e;">✓ Water gegeven!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== BENEFITS ========== -->
+<section class="benefits-section">
+    <div class="container">
+        <div class="section-header" style="margin-bottom: 40px;">
+            <h2 class="section-title">Waarom dit perfect is voor jou</h2>
+        </div>
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon">💬</div>
+                <h4>Geen "computertaal" nodig</h4>
+                <p>Je praat tegen je computer zoals je tegen een vriend praat.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">🌐</div>
+                <h4>Geen installatie-gedoe</h4>
+                <p>Je kunt direct in je browser beginnen.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">⚡</div>
+                <h4>Direct resultaat</h4>
+                <p>Je ziet binnen 60 seconden je eerste resultaat op het scherm.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">💪</div>
+                <h4>Fouten maken mag</h4>
+                <p>De AI begrijpt wat je bedoelt, zelfs als je het niet perfect uitlegt.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== PROBLEM VS SOLUTION ========== -->
+<section class="compare-section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Het Verschil</span>
+            <h2 class="section-title">De oude manier vs. de nieuwe manier</h2>
+            <p class="section-subtitle">Je hoeft niet meer te leren wat al die rare symbolen betekenen.</p>
+        </div>
+        
+        <div class="compare-table">
+            <div class="compare-card old">
+                <h3><i class="fas fa-times-circle"></i> Traditioneel programmeren</h3>
+                <ul class="compare-list">
+                    <li>
+                        <i class="fas fa-xmark"></i>
+                        <span>Maanden of jaren studeren voordat je iets kunt maken</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-xmark"></i>
+                        <span>Frustrerende foutmeldingen die je niet begrijpt</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-xmark"></i>
+                        <span>Alles zelf uitzoeken en onthouden</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="compare-card new">
+                <h3><i class="fas fa-check-circle"></i> Vibecoding</h3>
+                <ul class="compare-list">
+                    <li>
+                        <i class="fas fa-check"></i>
+                        <span>Binnen een uur je eerste werkende app</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check"></i>
+                        <span>Gewoon vragen "kun je dit aanpassen?" als iets niet klopt</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check"></i>
+                        <span>De AI onthoudt alles en helpt je verder</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== HOW IT WORKS ========== -->
+<section class="process-section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Zo Simpel Is Het</span>
+            <h2 class="section-title">Van idee naar werkende app in 3 stappen</h2>
+            <p class="section-subtitle">Je hebt geen technische kennis nodig</p>
+        </div>
+        
+        <div class="process-grid">
+            <div class="process-card">
+                <div class="process-num">1</div>
+                <h3>Vertel</h3>
+                <p>Beschrijf in gewoon Nederlands wat je wilt maken. Net zoals je een vriend zou uitleggen wat je nodig hebt.</p>
+            </div>
+            <div class="process-card">
+                <div class="process-num">2</div>
+                <h3>Bekijk</h3>
+                <p>De AI maakt het voor je. Je ziet direct het resultaat op je scherm. Niet goed? Vraag om aanpassingen.</p>
+            </div>
+            <div class="process-card">
+                <div class="process-num">3</div>
+                <h3>Gebruik</h3>
+                <p>Je app werkt! Gebruik hem zelf, deel hem met vrienden, of bouw verder aan je idee.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== CURRICULUM ========== -->
+<section class="curriculum-section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Wat Je Leert</span>
+            <h2 class="section-title">Je wordt stap voor stap begeleid</h2>
+            <p class="section-subtitle">Van "ik weet niks van computers" naar "ik heb zelf een app gemaakt!"</p>
+        </div>
+        
+        <div class="curriculum-grid">
+            <div class="curriculum-card">
+                <div class="curriculum-icon">💬</div>
+                <h4>Duidelijk communiceren met AI</h4>
+                <p>Leer hoe je de AI precies vertelt wat je wilt. Hoe beter je het uitlegt, hoe beter het resultaat.</p>
+            </div>
+            <div class="curriculum-card">
+                <div class="curriculum-icon">🧩</div>
+                <h4>Begrijpen hoe apps werken</h4>
+                <p>Je leert vanzelf hoe onderdelen van een app samenwerken — zonder ingewikkelde theorie.</p>
+            </div>
+            <div class="curriculum-card">
+                <div class="curriculum-icon">🔄</div>
+                <h4>Aanpassen en verbeteren</h4>
+                <p>Leer hoe je stap voor stap je app verbetert. "Maak dit groter", "Voeg een knop toe", enzovoort.</p>
+            </div>
+            <div class="curriculum-card">
+                <div class="curriculum-icon">🌟</div>
+                <h4>Je creatie delen met de wereld</h4>
+                <p>Maak iets waar je trots op bent en deel het met vrienden, familie, of klanten.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== TESTIMONIAL ========== -->
+<section class="testimonial-section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Ervaringen</span>
+            <h2 class="section-title">Anderen gingen je voor</h2>
+        </div>
+        
+        <div class="testimonial-card">
+            <p class="testimonial-quote">
+                Ik dacht altijd dat ik "niet technisch genoeg" was. Maar binnen een middag had ik een app gemaakt voor mijn recepten. Mijn kinderen dachten dat ik een programmeur was geworden!
+            </p>
+            <div class="testimonial-author">
+                <div class="testimonial-avatar">👩‍🍳</div>
+                <div class="testimonial-name">
+                    <strong>Marieke, 52</strong>
+                    <span>Hobbykok uit Eindhoven</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== FAQ ========== -->
+<section class="faq-section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Vragen?</span>
+            <h2 class="section-title">Voor de Absolute Beginner</h2>
+            <p class="section-subtitle">Alles wat je wilt weten voordat je begint</p>
+        </div>
+        
+        <div class="faq-grid">
+            <div class="faq-item open">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Ik ben heel slecht met computers, kan ik dit?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <strong>Absoluut!</strong> Als je een berichtje kunt typen op WhatsApp, kun je Vibecoding leren. Je hoeft geen "techneut" te zijn — je vertelt gewoon in je eigen woorden wat je wilt maken.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Moet ik Engels kunnen?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <strong>Nee!</strong> De nieuwste AI-tools begrijpen Nederlands uitstekend. Je kunt gewoon in je eigen taal typen wat je wilt maken.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Is dit duur?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Je kunt <strong>helemaal gratis</strong> beginnen om te kijken of het bij je past. Je hebt alleen een gratis OpenAI account nodig, en de eerste $5 aan credits krijg je cadeau.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Is dit hetzelfde als No-Code tools?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <strong>Nee, dit is beter.</strong> No-code tools beperken je tot wat zij aanbieden. Met Vibecoding kun je alles maken wat je kunt bedenken — de AI schrijft echte, professionele code voor je.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Wat als ik het niet goed uitleg?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <strong>Geen probleem!</strong> De AI begrijpt wat je bedoelt, zelfs als je het niet perfect uitlegt. En als het resultaat niet helemaal klopt, vraag je gewoon om aanpassingen: "Maak de knop groter" of "Verander de kleur naar blauw."
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== FINAL CTA ========== -->
+<section class="final-cta">
+    <div class="container">
+        <div class="final-box">
+            <h2>🚀 Klaar om het te proberen?</h2>
+            <p>Jouw eerste app is dichter bij dan je denkt. Geen voorkennis nodig, gewoon beginnen.</p>
+            <a href="/oefenruimte" class="btn-primary" style="padding: 20px 48px; font-size: 18px;">
+                <i class="fas fa-magic"></i> Maak mijn eerste app
+            </a>
+            <p style="margin-top: 20px; font-size: 14px; color: rgba(255,255,255,0.5);">
+                Gratis te proberen • Geen account nodig • Resultaat binnen 60 seconden
+            </p>
+        </div>
+    </div>
+</section>
+
+<script>
+function toggleFaq(element) {
+    const item = element.parentElement;
+    item.classList.toggle('open');
+}
+</script>
+{% endblock %}

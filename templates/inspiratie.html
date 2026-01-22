@@ -1,0 +1,554 @@
+{% extends "base.html" %}
+
+{% block title %}Vibecoding Projecten & Inspiratie - Wat Anderen Bouwen | LeerVibeCoding{% endblock %}
+
+{% block meta_description %}Bekijk inspirerende projecten gemaakt met vibecoding. Van websites tot dashboards, van apps tot games - allemaal gebouwd door beginners zonder programmeerervaring.{% endblock %}
+
+{% block meta_keywords %}vibecoding projecten, AI gemaakte websites, inspiratie app bouwen, portfolio beginners programmeren, no-code projecten{% endblock %}
+
+{% block canonical %}https://leervibecoding.nl/inspiratie{% endblock %}
+{% block og_url %}https://leervibecoding.nl/inspiratie{% endblock %}
+{% block og_title %}Inspiratie - Bekijk wat anderen bouwen met AI{% endblock %}
+{% block og_description %}Van websites tot dashboards - bekijk wat beginners bouwen met vibecoding. Laat je inspireren!{% endblock %}
+
+{% block extra_css %}
+<style>
+    .page-header {
+        padding: 120px 0 60px;
+        text-align: center;
+        background: linear-gradient(180deg, rgba(168,85,247,0.1) 0%, transparent 100%);
+    }
+    .page-header h1 {
+        font-size: 48px;
+        margin-bottom: 16px;
+    }
+    .page-header .subtitle {
+        font-size: 20px;
+        color: rgba(255,255,255,0.7);
+        max-width: 600px;
+        margin: 0 auto 24px;
+    }
+    .submit-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 28px;
+        background: linear-gradient(135deg, #a855f7, #8b5cf6);
+        border-radius: 12px;
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s;
+    }
+    .submit-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(168,85,247,0.4);
+    }
+
+    /* Filter Tabs */
+    .filter-section {
+        padding: 20px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        position: sticky;
+        top: 70px;
+        background: rgba(15,23,42,0.95);
+        backdrop-filter: blur(10px);
+        z-index: 50;
+    }
+    .filter-tabs {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .filter-tab {
+        padding: 10px 20px;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 20px;
+        color: rgba(255,255,255,0.7);
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    .filter-tab:hover, .filter-tab.active {
+        background: rgba(168,85,247,0.2);
+        border-color: rgba(168,85,247,0.4);
+        color: white;
+    }
+
+    /* Masonry Grid */
+    .showcase-section {
+        padding: 40px 0 80px;
+    }
+    .masonry-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+    }
+    .project-card {
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 20px;
+        overflow: hidden;
+        transition: all 0.3s;
+    }
+    .project-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(168,85,247,0.4);
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .project-card:nth-child(3n+1) {
+        grid-row: span 1;
+    }
+    .project-card:nth-child(3n+2) {
+        grid-row: span 1;
+    }
+    .project-image {
+        width: 100%;
+        aspect-ratio: 16/10;
+        background: linear-gradient(135deg, #1e1b4b, #0f172a);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 48px;
+        position: relative;
+    }
+    .project-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .project-tool {
+        position: absolute;
+        bottom: 12px;
+        right: 12px;
+        padding: 6px 12px;
+        background: rgba(0,0,0,0.7);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        font-size: 12px;
+        color: rgba(255,255,255,0.9);
+    }
+    .project-content {
+        padding: 20px;
+    }
+    .project-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+    .project-desc {
+        font-size: 14px;
+        color: rgba(255,255,255,0.6);
+        line-height: 1.5;
+        margin-bottom: 16px;
+    }
+    .project-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 16px;
+        border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .project-time {
+        font-size: 13px;
+        color: rgba(255,255,255,0.5);
+    }
+    .project-time i {
+        color: #22c55e;
+        margin-right: 6px;
+    }
+    .project-author {
+        font-size: 13px;
+        color: rgba(255,255,255,0.5);
+    }
+
+    /* Quotes Section */
+    .quotes-section {
+        padding: 60px 0;
+        background: rgba(0,0,0,0.3);
+    }
+    .quotes-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        max-width: 1000px;
+        margin: 40px auto 0;
+    }
+    .quote-card {
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 16px;
+        padding: 24px;
+    }
+    .quote-text {
+        font-size: 15px;
+        color: rgba(255,255,255,0.8);
+        font-style: italic;
+        line-height: 1.7;
+        margin-bottom: 16px;
+    }
+    .quote-text::before {
+        content: '"';
+        font-size: 32px;
+        color: #a855f7;
+        line-height: 0;
+    }
+    .quote-author {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .quote-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #f59e0b, #ec4899);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+    }
+    .quote-name {
+        font-size: 14px;
+        font-weight: 500;
+    }
+    .quote-role {
+        font-size: 12px;
+        color: rgba(255,255,255,0.5);
+    }
+
+    .section-title {
+        font-size: 32px;
+        text-align: center;
+    }
+
+    /* Responsive */
+    @media (max-width: 1000px) {
+        .masonry-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        .quotes-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .page-header {
+            padding: 100px 0 40px;
+        }
+        .page-header h1 {
+            font-size: 32px;
+        }
+        .page-header .subtitle {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .submit-btn {
+            padding: 12px 24px;
+            font-size: 15px;
+        }
+        .filter-section {
+            top: 70px;
+            padding: 16px 0;
+        }
+        .filter-tabs {
+            gap: 8px;
+            justify-content: flex-start;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            -webkit-overflow-scrolling: touch;
+        }
+        .filter-tab {
+            padding: 8px 16px;
+            font-size: 13px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .showcase-section {
+            padding: 30px 0 60px;
+        }
+        .masonry-grid {
+            gap: 16px;
+        }
+        .project-card {
+            border-radius: 16px;
+        }
+        .project-content {
+            padding: 16px;
+        }
+        .project-title {
+            font-size: 16px;
+        }
+        .project-desc {
+            font-size: 13px;
+        }
+        .quotes-section {
+            padding: 50px 0;
+        }
+        .quote-card {
+            padding: 20px;
+        }
+        .quote-text {
+            font-size: 14px;
+        }
+        .section-title {
+            font-size: 26px;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .masonry-grid {
+            grid-template-columns: 1fr;
+        }
+        .page-header {
+            padding: 90px 0 30px;
+        }
+        .page-header h1 {
+            font-size: 26px;
+        }
+        .project-image {
+            aspect-ratio: 16/9;
+        }
+        .section-title {
+            font-size: 22px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .filter-tabs {
+            gap: 6px;
+        }
+        .filter-tab {
+            padding: 8px 12px;
+            font-size: 12px;
+        }
+        .project-content {
+            padding: 14px;
+        }
+        .project-meta {
+            flex-direction: column;
+            gap: 8px;
+            align-items: flex-start;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="container">
+        <h1>✨ Inspiratie</h1>
+        <p class="subtitle">Bekijk wat andere beginners hebben gebouwd. Van simpele websites tot complete apps — allemaal gemaakt met vibecoding.</p>
+        <a href="#submit" class="submit-btn">
+            <i class="fas fa-plus"></i> Deel jouw creatie
+        </a>
+    </div>
+</div>
+
+<!-- Filter Tabs -->
+<div class="filter-section">
+    <div class="container">
+        <div class="filter-tabs">
+            <div class="filter-tab active">Alles</div>
+            <div class="filter-tab">Websites</div>
+            <div class="filter-tab">Tools</div>
+            <div class="filter-tab">Dashboards</div>
+            <div class="filter-tab">Games</div>
+        </div>
+    </div>
+</div>
+
+<!-- Showcase Grid -->
+<section class="showcase-section">
+    <div class="container">
+        <div class="masonry-grid">
+            <!-- Project 1 -->
+            <div class="project-card">
+                <div class="project-image">
+                    🐕
+                    <span class="project-tool">Lovable</span>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Hondenuitlaatservice Website</h3>
+                    <p class="project-desc">Complete website met diensten, prijzen en contactformulier voor een lokale hondenuitlaatservice.</p>
+                    <div class="project-meta">
+                        <span class="project-time"><i class="fas fa-clock"></i> 45 minuten</span>
+                        <span class="project-author">door Lisa</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project-card">
+                <div class="project-image">
+                    📊
+                    <span class="project-tool">v0.dev</span>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Verkoop Dashboard</h3>
+                    <p class="project-desc">Real-time dashboard voor het bijhouden van verkoopcijfers met grafieken en filters.</p>
+                    <div class="project-meta">
+                        <span class="project-time"><i class="fas fa-clock"></i> 2 uur</span>
+                        <span class="project-author">door Mark</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project-card">
+                <div class="project-image">
+                    🍅
+                    <span class="project-tool">Lovable</span>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Moestuin Planner</h3>
+                    <p class="project-desc">App om bij te houden wanneer je planten water moet geven en wanneer je kunt oogsten.</p>
+                    <div class="project-meta">
+                        <span class="project-time"><i class="fas fa-clock"></i> 1 uur</span>
+                        <span class="project-author">door Marieke</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 4 -->
+            <div class="project-card">
+                <div class="project-image">
+                    🎂
+                    <span class="project-tool">Replit</span>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Verjaardagen Tracker</h3>
+                    <p class="project-desc">Nooit meer een verjaardag vergeten! Met herinneringen en cadeau-ideeën suggesties.</p>
+                    <div class="project-meta">
+                        <span class="project-time"><i class="fas fa-clock"></i> 30 minuten</span>
+                        <span class="project-author">door Sanne</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 5 -->
+            <div class="project-card">
+                <div class="project-image">
+                    💰
+                    <span class="project-tool">Lovable</span>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Huishoudboekje</h3>
+                    <p class="project-desc">Simpele app om inkomsten en uitgaven bij te houden met maandelijkse overzichten.</p>
+                    <div class="project-meta">
+                        <span class="project-time"><i class="fas fa-clock"></i> 1.5 uur</span>
+                        <span class="project-author">door Pieter</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 6 -->
+            <div class="project-card">
+                <div class="project-image">
+                    📝
+                    <span class="project-tool">Cursor</span>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Blog Platform</h3>
+                    <p class="project-desc">Persoonlijke blog met categorieën, zoekfunctie en responsive design.</p>
+                    <div class="project-meta">
+                        <span class="project-time"><i class="fas fa-clock"></i> 3 uur</span>
+                        <span class="project-author">door Thomas</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 7 -->
+            <div class="project-card">
+                <div class="project-image">
+                    🎮
+                    <span class="project-tool">Replit</span>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Quiz Game</h3>
+                    <p class="project-desc">Interactieve quiz over Nederlandse geschiedenis met scorebord en levels.</p>
+                    <div class="project-meta">
+                        <span class="project-time"><i class="fas fa-clock"></i> 2 uur</span>
+                        <span class="project-author">door Emma</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 8 -->
+            <div class="project-card">
+                <div class="project-image">
+                    📅
+                    <span class="project-tool">v0.dev</span>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Afspraken Planner</h3>
+                    <p class="project-desc">Boekingssysteem voor een kapper met beschikbare tijdslots en bevestigingsmails.</p>
+                    <div class="project-meta">
+                        <span class="project-time"><i class="fas fa-clock"></i> 2.5 uur</span>
+                        <span class="project-author">door Fatima</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quotes Section -->
+<section class="quotes-section">
+    <div class="container">
+        <h2 class="section-title">💬 Wat makers zeggen</h2>
+        
+        <div class="quotes-grid">
+            <div class="quote-card">
+                <p class="quote-text">Ik wist niks van code, en nu heb ik mijn eigen website live staan. Mijn klanten zijn onder de indruk!</p>
+                <div class="quote-author">
+                    <div class="quote-avatar">👩</div>
+                    <div>
+                        <div class="quote-name">Lisa van Dijk</div>
+                        <div class="quote-role">Hondenuitlaatster</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quote-card">
+                <p class="quote-text">In twee uur had ik een dashboard dat mijn baas €3000 had willen betalen aan een developer. Mind blown.</p>
+                <div class="quote-author">
+                    <div class="quote-avatar">👨</div>
+                    <div>
+                        <div class="quote-name">Mark Janssen</div>
+                        <div class="quote-role">Sales Manager</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quote-card">
+                <p class="quote-text">Mijn kinderen dachten dat ik een programmeur was geworden. Ik heb ze maar niet verteld hoe makkelijk het was!</p>
+                <div class="quote-author">
+                    <div class="quote-avatar">👩</div>
+                    <div>
+                        <div class="quote-name">Marieke, 52</div>
+                        <div class="quote-role">Hobbykok</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Submit Section -->
+<section id="submit" style="padding: 60px 0;">
+    <div class="container">
+        <div style="max-width: 600px; margin: 0 auto; text-align: center; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; padding: 40px;">
+            <h2 style="font-size: 28px; margin-bottom: 16px;">🎉 Deel jouw creatie!</h2>
+            <p style="color: rgba(255,255,255,0.7); margin-bottom: 24px;">
+                Heb je iets gebouwd waar je trots op bent? Deel het met de community!
+            </p>
+            <a href="mailto:inspiratie@leervibecoding.nl?subject=Mijn%20creatie" class="submit-btn" style="display: inline-flex;">
+                <i class="fas fa-paper-plane"></i> Stuur je project in
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

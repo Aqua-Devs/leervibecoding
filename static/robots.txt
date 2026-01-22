@@ -1,0 +1,13 @@
+# robots.txt voor LeerVibeCoding.nl
+
+User-agent: *
+Allow: /
+
+# Sitemap locatie
+Sitemap: https://leervibecoding.nl/sitemap.xml
+
+# Blokkeer admin/API routes
+Disallow: /api/
+
+# Crawl-delay voor bots
+Crawl-delay: 1

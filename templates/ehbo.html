@@ -1,0 +1,593 @@
+{% extends "base.html" %}
+
+{% block title %}AI Coding Problemen Oplossen - EHBO voor Beginners | LeerVibeCoding{% endblock %}
+
+{% block meta_description %}Loopt je AI code vast? Vind hier oplossingen voor veelvoorkomende problemen. Syntax errors, blank scherm, AI die zichzelf herhaalt - wij helpen je verder met kant-en-klare oplossingen.{% endblock %}
+
+{% block meta_keywords %}AI coding problemen, syntax error oplossen, AI debugging, vibecoding hulp, programmeer problemen beginners, AI vastgelopen{% endblock %}
+
+{% block canonical %}https://leervibecoding.nl/ehbo{% endblock %}
+{% block og_url %}https://leervibecoding.nl/ehbo{% endblock %}
+{% block og_title %}EHBO - Help, mijn AI code werkt niet!{% endblock %}
+{% block og_description %}Snelle oplossingen voor veelvoorkomende AI coding problemen. Geen paniek, wij helpen je verder.{% endblock %}
+
+{% block extra_css %}
+<style>
+    .page-header {
+        padding: 120px 0 60px;
+        text-align: center;
+        background: linear-gradient(180deg, rgba(239,68,68,0.1) 0%, transparent 100%);
+    }
+    .page-header h1 {
+        font-size: 48px;
+        margin-bottom: 16px;
+    }
+    .page-header .subtitle {
+        font-size: 20px;
+        color: rgba(255,255,255,0.7);
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    .page-header .calm {
+        background: rgba(34,197,94,0.2);
+        border: 1px solid rgba(34,197,94,0.3);
+        border-radius: 12px;
+        padding: 16px 24px;
+        margin-top: 24px;
+        display: inline-block;
+        color: #4ade80;
+        font-size: 16px;
+    }
+
+    /* Panic Button Section */
+    .panic-section {
+        padding: 60px 0;
+    }
+    .section-title {
+        font-size: 32px;
+        text-align: center;
+        margin-bottom: 16px;
+    }
+    .section-subtitle {
+        text-align: center;
+        color: rgba(255,255,255,0.6);
+        font-size: 18px;
+        margin-bottom: 40px;
+    }
+    .panic-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    .panic-card {
+        background: rgba(239,68,68,0.1);
+        border: 1px solid rgba(239,68,68,0.3);
+        border-radius: 20px;
+        padding: 28px;
+        transition: all 0.3s;
+    }
+    .panic-card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(239,68,68,0.5);
+    }
+    .panic-card .error-code {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+        color: #f87171;
+        background: rgba(239,68,68,0.2);
+        padding: 8px 12px;
+        border-radius: 8px;
+        margin-bottom: 16px;
+        display: inline-block;
+    }
+    .panic-card h3 {
+        font-size: 18px;
+        margin-bottom: 12px;
+        color: #fca5a5;
+    }
+    .panic-card .meaning {
+        color: rgba(255,255,255,0.7);
+        font-size: 15px;
+        line-height: 1.6;
+        margin-bottom: 16px;
+    }
+    .panic-card .solution {
+        background: rgba(34,197,94,0.1);
+        border: 1px solid rgba(34,197,94,0.3);
+        border-radius: 12px;
+        padding: 16px;
+    }
+    .panic-card .solution-label {
+        font-size: 12px;
+        color: #4ade80;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+    .panic-card .solution-text {
+        font-size: 14px;
+        color: rgba(255,255,255,0.8);
+        line-height: 1.5;
+    }
+
+    /* Conversation Stoppers */
+    .stoppers-section {
+        padding: 60px 0;
+        background: rgba(0,0,0,0.3);
+    }
+    .stoppers-grid {
+        max-width: 800px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+    .stopper-card {
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 16px;
+        padding: 24px;
+    }
+    .stopper-situation {
+        font-size: 14px;
+        color: rgba(255,255,255,0.5);
+        margin-bottom: 12px;
+    }
+    .stopper-situation i {
+        color: #fbbf24;
+        margin-right: 8px;
+    }
+    .stopper-text {
+        background: rgba(168,85,247,0.1);
+        border: 1px solid rgba(168,85,247,0.3);
+        border-radius: 12px;
+        padding: 16px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 14px;
+        color: rgba(255,255,255,0.9);
+        line-height: 1.6;
+        position: relative;
+    }
+    .copy-stopper {
+        position: absolute;
+        right: 12px;
+        top: 12px;
+        background: rgba(255,255,255,0.1);
+        border: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        color: rgba(255,255,255,0.6);
+        cursor: pointer;
+        font-size: 12px;
+        transition: all 0.3s;
+    }
+    .copy-stopper:hover {
+        background: rgba(255,255,255,0.2);
+        color: white;
+    }
+
+    /* Copy-Paste Section */
+    .copypaste-section {
+        padding: 60px 0;
+    }
+    .copypaste-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    .copypaste-card {
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 16px;
+        padding: 24px;
+    }
+    .copypaste-card h4 {
+        font-size: 16px;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .copypaste-card p {
+        font-size: 13px;
+        color: rgba(255,255,255,0.5);
+        margin-bottom: 12px;
+    }
+    .copypaste-text {
+        background: rgba(0,0,0,0.3);
+        border-radius: 8px;
+        padding: 14px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 13px;
+        color: rgba(255,255,255,0.8);
+        line-height: 1.5;
+        position: relative;
+    }
+    .copy-btn {
+        margin-top: 12px;
+        padding: 8px 16px;
+        background: linear-gradient(135deg, #a855f7, #8b5cf6);
+        border: none;
+        border-radius: 8px;
+        color: white;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.3s;
+    }
+    .copy-btn:hover {
+        transform: translateY(-2px);
+    }
+
+    /* FAQ Section */
+    .faq-section {
+        padding: 60px 0;
+        background: rgba(0,0,0,0.3);
+    }
+    .faq-grid {
+        max-width: 700px;
+        margin: 0 auto;
+    }
+    .faq-item {
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 12px;
+        margin-bottom: 12px;
+        overflow: hidden;
+    }
+    .faq-question {
+        padding: 20px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 500;
+    }
+    .faq-question:hover {
+        background: rgba(255,255,255,0.03);
+    }
+    .faq-answer {
+        padding: 0 20px 20px;
+        color: rgba(255,255,255,0.7);
+        font-size: 15px;
+        line-height: 1.7;
+        display: none;
+    }
+    .faq-item.open .faq-answer {
+        display: block;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+        .panic-grid {
+            grid-template-columns: 1fr;
+        }
+        .copypaste-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .page-header {
+            padding: 100px 0 40px;
+        }
+        .page-header h1 {
+            font-size: 32px;
+        }
+        .page-header .subtitle {
+            font-size: 16px;
+        }
+        .page-header .calm {
+            font-size: 14px;
+            padding: 12px 20px;
+        }
+        .panic-section,
+        .stoppers-section,
+        .copypaste-section,
+        .faq-section {
+            padding: 40px 0;
+        }
+        .panic-card {
+            padding: 24px;
+        }
+        .panic-card h3 {
+            font-size: 16px;
+        }
+        .stopper-card {
+            padding: 20px;
+        }
+        .stopper-text {
+            font-size: 13px;
+            padding: 14px;
+            padding-right: 80px;
+        }
+        .copypaste-card {
+            padding: 20px;
+        }
+        .copypaste-text {
+            font-size: 12px;
+            padding: 12px;
+        }
+        .section-title {
+            font-size: 26px;
+        }
+        .section-subtitle {
+            font-size: 16px;
+        }
+        .faq-question {
+            font-size: 15px;
+            padding: 16px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .page-header {
+            padding: 90px 0 30px;
+        }
+        .page-header h1 {
+            font-size: 26px;
+        }
+        .panic-card {
+            padding: 20px;
+        }
+        .panic-card .error-code {
+            font-size: 11px;
+            padding: 6px 10px;
+        }
+        .panic-card .solution {
+            padding: 12px;
+        }
+        .stopper-text {
+            padding-right: 14px;
+            padding-bottom: 50px;
+        }
+        .copy-stopper {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            top: auto;
+        }
+        .section-title {
+            font-size: 22px;
+        }
+        .faq-question {
+            font-size: 14px;
+            padding: 14px;
+        }
+        .faq-answer {
+            font-size: 14px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="container">
+        <h1>🆘 Help, het werkt niet!</h1>
+        <p class="subtitle">Geen paniek. Iedereen loopt hier tegenaan. Hier vind je oplossingen voor de meest voorkomende problemen.</p>
+        <div class="calm">💚 Adem even rustig. Dit is normaal. En het is op te lossen.</div>
+    </div>
+</div>
+
+<!-- Panic Button Section -->
+<section class="panic-section">
+    <div class="container">
+        <h2 class="section-title">🚨 De 3 Meest Voorkomende Problemen</h2>
+        <p class="section-subtitle">En wat ze betekenen in normale mensentaal</p>
+        
+        <div class="panic-grid">
+            <div class="panic-card">
+                <div class="error-code">❌ "Syntax Error"</div>
+                <h3>Er staat een typfout in de code</h3>
+                <p class="meaning">
+                    De AI heeft ergens een komma of haakje vergeten. Dit heeft niks met jou te maken — het gebeurt de beste programmeurs.
+                </p>
+                <div class="solution">
+                    <div class="solution-label">✅ Oplossing</div>
+                    <div class="solution-text">
+                        Kopieer de foutmelding en zeg: "Ik krijg deze foutmelding, kun je het fixen?"
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panic-card">
+                <div class="error-code">❌ "Cannot read property"</div>
+                <h3>De code zoekt iets dat er niet is</h3>
+                <p class="meaning">
+                    Stel je voor dat je in een la zoekt naar sokken, maar de la bestaat niet. Dat is wat hier gebeurt.
+                </p>
+                <div class="solution">
+                    <div class="solution-label">✅ Oplossing</div>
+                    <div class="solution-text">
+                        Zeg: "Er gaat iets mis met [onderdeel]. Kun je checken of alles goed is gedefinieerd?"
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panic-card">
+                <div class="error-code">❌ "Blank scherm"</div>
+                <h3>Er verschijnt helemaal niks</h3>
+                <p class="meaning">
+                    De code draait wel, maar er is ergens iets misgegaan waardoor je niks ziet. Vaak een kleine vergissing.
+                </p>
+                <div class="solution">
+                    <div class="solution-label">✅ Oplossing</div>
+                    <div class="solution-text">
+                        Zeg: "Het scherm is leeg. Kun je stap voor stap controleren wat er mis is?"
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Conversation Stoppers -->
+<section class="stoppers-section">
+    <div class="container">
+        <h2 class="section-title">🛑 Conversatie-Stoppers</h2>
+        <p class="section-subtitle">Zinnen die de AI weer op het juiste spoor zetten</p>
+        
+        <div class="stoppers-grid">
+            <div class="stopper-card">
+                <div class="stopper-situation">
+                    <i class="fas fa-sync"></i> Als de AI zichzelf blijft herhalen
+                </div>
+                <div class="stopper-text">
+                    "Je herhaalt jezelf. Laten we een compleet andere aanpak proberen voor dit specifieke onderdeel."
+                    <button class="copy-stopper" onclick="copyText(this)">📋 Kopieer</button>
+                </div>
+            </div>
+            
+            <div class="stopper-card">
+                <div class="stopper-situation">
+                    <i class="fas fa-question-circle"></i> Als de AI je niet begrijpt
+                </div>
+                <div class="stopper-text">
+                    "Ik merk dat we langs elkaar heen praten. Laat me opnieuw uitleggen wat ik bedoel: [jouw uitleg]"
+                    <button class="copy-stopper" onclick="copyText(this)">📋 Kopieer</button>
+                </div>
+            </div>
+            
+            <div class="stopper-card">
+                <div class="stopper-situation">
+                    <i class="fas fa-bug"></i> Als een fix andere dingen kapot maakt
+                </div>
+                <div class="stopper-text">
+                    "De vorige fix heeft [probleem X] opgelost maar nu is [probleem Y] kapot. Kun je beide tegelijk oplossen?"
+                    <button class="copy-stopper" onclick="copyText(this)">📋 Kopieer</button>
+                </div>
+            </div>
+            
+            <div class="stopper-card">
+                <div class="stopper-situation">
+                    <i class="fas fa-undo"></i> Als je helemaal opnieuw wilt beginnen
+                </div>
+                <div class="stopper-text">
+                    "Laten we stoppen en helemaal opnieuw beginnen. Vergeet alles wat we tot nu toe hebben gedaan. Hier is mijn oorspronkelijke vraag: [vraag]"
+                    <button class="copy-stopper" onclick="copyText(this)">📋 Kopieer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Copy-Paste Section -->
+<section class="copypaste-section">
+    <div class="container">
+        <h2 class="section-title">📋 Kant-en-Klare Teksten</h2>
+        <p class="section-subtitle">Kopieer en plak deze direct naar de AI</p>
+        
+        <div class="copypaste-grid">
+            <div class="copypaste-card">
+                <h4>🔄 Reset de context</h4>
+                <p>Gebruik dit als de AI in cirkels blijft draaien</p>
+                <div class="copypaste-text">
+                    Laten we even een stapje terug doen. Ik wil [DOEL]. De huidige aanpak werkt niet. Kun je 3 alternatieve manieren voorstellen om dit te bereiken?
+                </div>
+                <button class="copy-btn" onclick="copyFromCard(this)">
+                    <i class="fas fa-copy"></i> Kopieer
+                </button>
+            </div>
+            
+            <div class="copypaste-card">
+                <h4>🐛 Debug helper</h4>
+                <p>Gebruik dit om de AI systematisch te laten zoeken</p>
+                <div class="copypaste-text">
+                    Er gaat iets mis. Kun je stap voor stap door de code gaan en bij elke stap uitleggen wat er zou moeten gebeuren? Dan vinden we samen waar het fout gaat.
+                </div>
+                <button class="copy-btn" onclick="copyFromCard(this)">
+                    <i class="fas fa-copy"></i> Kopieer
+                </button>
+            </div>
+            
+            <div class="copypaste-card">
+                <h4>🎯 Specifiek maken</h4>
+                <p>Gebruik dit als het resultaat te vaag is</p>
+                <div class="copypaste-text">
+                    Dat is niet precies wat ik bedoel. Ik wil specifiek: [EXACTE BESCHRIJVING]. Kun je alleen dat onderdeel aanpassen zonder de rest te veranderen?
+                </div>
+                <button class="copy-btn" onclick="copyFromCard(this)">
+                    <i class="fas fa-copy"></i> Kopieer
+                </button>
+            </div>
+            
+            <div class="copypaste-card">
+                <h4>✨ Opschonen</h4>
+                <p>Gebruik dit als de code rommelig wordt</p>
+                <div class="copypaste-text">
+                    De code begint onoverzichtelijk te worden. Kun je de hele code opnieuw opschrijven, netjes en overzichtelijk, met alle functionaliteit die we tot nu toe hebben gebouwd?
+                </div>
+                <button class="copy-btn" onclick="copyFromCard(this)">
+                    <i class="fas fa-copy"></i> Kopieer
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+    <div class="container">
+        <h2 class="section-title">❓ Veelgestelde Vragen</h2>
+        
+        <div class="faq-grid">
+            <div class="faq-item open">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>De AI geeft steeds dezelfde fout, wat nu?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Start een nieuw gesprek en beschrijf je doel opnieuw. Soms zit de AI "vast" in een bepaalde denkwijze. Een frisse start helpt vaak.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Mijn preview laadt niet, wat moet ik doen?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Ververs de pagina (F5) en wacht even. Als dat niet helpt, vraag de AI om de volledige code opnieuw te genereren.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Is het erg als ik iets kapot maak?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <strong>Nee!</strong> Je kunt niks permanent kapot maken. De AI kan altijd opnieuw beginnen. Experimenteren is juist de bedoeling!
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+function copyText(btn) {
+    const text = btn.parentElement.textContent.replace('📋 Kopieer', '').trim();
+    navigator.clipboard.writeText(text);
+    btn.textContent = '✅ Gekopieerd!';
+    setTimeout(() => { btn.textContent = '📋 Kopieer'; }, 2000);
+}
+
+function copyFromCard(btn) {
+    const text = btn.parentElement.querySelector('.copypaste-text').textContent.trim();
+    navigator.clipboard.writeText(text);
+    btn.innerHTML = '<i class="fas fa-check"></i> Gekopieerd!';
+    setTimeout(() => { btn.innerHTML = '<i class="fas fa-copy"></i> Kopieer'; }, 2000);
+}
+
+function toggleFaq(el) {
+    el.parentElement.classList.toggle('open');
+}
+</script>
+{% endblock %}
