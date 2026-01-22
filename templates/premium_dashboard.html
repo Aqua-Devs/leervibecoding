@@ -1,0 +1,1090 @@
+{% extends "base.html" %}
+
+{% block title %}Premium Dashboard - Blueprints & Oefenruimte | LeerVibeCoding{% endblock %}
+
+{% block meta_description %}Jouw Premium dashboard met toegang tot alle blueprints, de oefenruimte en exclusieve workflows.{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Dashboard Header */
+    .dashboard-header {
+        padding: 100px 0 40px;
+        background: linear-gradient(135deg, rgba(245,158,11,0.08) 0%, rgba(147,51,234,0.04) 100%);
+        border-bottom: 1px solid var(--border);
+    }
+    [data-theme="dark"] .dashboard-header {
+        background: linear-gradient(135deg, rgba(245,158,11,0.15) 0%, rgba(147,51,234,0.08) 100%);
+    }
+    .dashboard-header-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    .dashboard-title {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+    .dashboard-title h1 {
+        font-size: 32px;
+        margin: 0;
+    }
+    .premium-badge-small {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 14px;
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+        border-radius: 20px;
+        color: white;
+        font-weight: 600;
+        font-size: 12px;
+    }
+    .dashboard-stats {
+        display: flex;
+        gap: 24px;
+    }
+    .stat-item {
+        text-align: center;
+        padding: 16px 24px;
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+    }
+    .stat-value {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--purple);
+    }
+    .stat-label {
+        font-size: 12px;
+        color: var(--text3);
+        text-transform: uppercase;
+    }
+
+    /* Tab Navigation */
+    .dashboard-tabs {
+        display: flex;
+        gap: 8px;
+        padding: 24px 0;
+        border-bottom: 1px solid var(--border);
+        overflow-x: auto;
+    }
+    .dashboard-tab {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 24px;
+        background: var(--glass);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        color: var(--text2);
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s;
+        white-space: nowrap;
+    }
+    .dashboard-tab:hover {
+        background: var(--bg2);
+        color: var(--text);
+    }
+    .dashboard-tab.active {
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+        color: white;
+        border-color: transparent;
+    }
+    .dashboard-tab .count {
+        background: rgba(255,255,255,0.2);
+        padding: 2px 8px;
+        border-radius: 10px;
+        font-size: 12px;
+    }
+    .dashboard-tab.active .count {
+        background: rgba(255,255,255,0.3);
+    }
+
+    /* Content Sections */
+    .dashboard-content {
+        padding: 40px 0;
+    }
+    .content-section {
+        display: none;
+    }
+    .content-section.active {
+        display: block;
+    }
+
+    /* API Key Setup */
+    .api-setup-card {
+        background: linear-gradient(135deg, rgba(147,51,234,0.1), rgba(37,99,235,0.05));
+        border: 2px solid rgba(147,51,234,0.3);
+        border-radius: 20px;
+        padding: 32px;
+        margin-bottom: 40px;
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        flex-wrap: wrap;
+    }
+    [data-theme="dark"] .api-setup-card {
+        background: linear-gradient(135deg, rgba(147,51,234,0.2), rgba(37,99,235,0.1));
+    }
+    .api-setup-icon {
+        width: 64px;
+        height: 64px;
+        background: linear-gradient(135deg, var(--purple), var(--blue));
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        color: white;
+        flex-shrink: 0;
+    }
+    .api-setup-content {
+        flex: 1;
+        min-width: 200px;
+    }
+    .api-setup-content h3 {
+        font-size: 20px;
+        margin-bottom: 8px;
+    }
+    .api-setup-content p {
+        color: var(--text2);
+        font-size: 14px;
+        margin-bottom: 0;
+    }
+    .api-setup-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+    .api-status {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 20px;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 500;
+    }
+    .api-status.connected {
+        background: rgba(22,163,74,0.1);
+        color: var(--green);
+    }
+    .api-status.disconnected {
+        background: rgba(234,88,12,0.1);
+        color: var(--orange);
+    }
+
+    /* Blueprints Grid */
+    .blueprints-filter {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 32px;
+        flex-wrap: wrap;
+    }
+    .filter-btn {
+        padding: 8px 20px;
+        background: var(--glass);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        color: var(--text2);
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    .filter-btn:hover, .filter-btn.active {
+        background: var(--purple);
+        color: white;
+        border-color: var(--purple);
+    }
+    .blueprints-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+    }
+    .blueprint-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        overflow: hidden;
+        transition: all 0.3s;
+        cursor: pointer;
+    }
+    .blueprint-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px var(--shadow);
+    }
+    .blueprint-image {
+        height: 140px;
+        background: linear-gradient(135deg, var(--bg2), var(--bg3));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 48px;
+        position: relative;
+    }
+    .blueprint-badge {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-size: 11px;
+        font-weight: 600;
+    }
+    .blueprint-badge.new {
+        background: var(--green);
+        color: white;
+    }
+    .blueprint-badge.popular {
+        background: var(--orange);
+        color: white;
+    }
+    .blueprint-content {
+        padding: 20px;
+    }
+    .blueprint-category {
+        display: inline-block;
+        padding: 4px 10px;
+        background: rgba(147,51,234,0.1);
+        color: var(--purple);
+        border-radius: 6px;
+        font-size: 11px;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+    .blueprint-card h3 {
+        font-size: 17px;
+        margin-bottom: 8px;
+    }
+    .blueprint-card p {
+        color: var(--text2);
+        font-size: 13px;
+        line-height: 1.5;
+        margin-bottom: 16px;
+    }
+    .blueprint-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 12px;
+        color: var(--text3);
+    }
+    .blueprint-meta .time {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        color: var(--green);
+    }
+    .blueprint-meta .difficulty {
+        display: flex;
+        gap: 2px;
+    }
+    .blueprint-meta .difficulty i {
+        color: var(--yellow);
+    }
+    .blueprint-meta .difficulty i.empty {
+        opacity: 0.3;
+    }
+
+    /* Oefenruimte Launcher */
+    .oefenruimte-launcher {
+        background: linear-gradient(135deg, rgba(245,158,11,0.1), rgba(147,51,234,0.05));
+        border: 2px solid rgba(245,158,11,0.3);
+        border-radius: 24px;
+        padding: 48px;
+        text-align: center;
+    }
+    [data-theme="dark"] .oefenruimte-launcher {
+        background: linear-gradient(135deg, rgba(245,158,11,0.15), rgba(147,51,234,0.1));
+    }
+    .oefenruimte-launcher h2 {
+        font-size: 32px;
+        margin-bottom: 16px;
+    }
+    .oefenruimte-launcher p {
+        color: var(--text2);
+        font-size: 18px;
+        max-width: 600px;
+        margin: 0 auto 32px;
+    }
+    .launch-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 20px 48px;
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+        color: white;
+        font-size: 18px;
+        font-weight: 700;
+        border-radius: 14px;
+        text-decoration: none;
+        transition: all 0.3s;
+    }
+    .launch-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 35px rgba(245,158,11,0.4);
+    }
+    .oefenruimte-features {
+        display: flex;
+        justify-content: center;
+        gap: 32px;
+        margin-top: 40px;
+        flex-wrap: wrap;
+    }
+    .oefenruimte-feature {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--text2);
+        font-size: 14px;
+    }
+    .oefenruimte-feature i {
+        color: var(--green);
+    }
+
+    /* Workflows Section */
+    .workflows-list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+    .workflow-card {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 24px;
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    .workflow-card:hover {
+        transform: translateX(5px);
+        border-color: var(--purple);
+    }
+    .workflow-icon {
+        width: 56px;
+        height: 56px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, rgba(147,51,234,0.1), rgba(37,99,235,0.1));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        flex-shrink: 0;
+    }
+    .workflow-content {
+        flex: 1;
+    }
+    .workflow-content h3 {
+        font-size: 18px;
+        margin-bottom: 4px;
+    }
+    .workflow-content p {
+        color: var(--text2);
+        font-size: 14px;
+        margin: 0;
+    }
+    .workflow-arrow {
+        color: var(--text3);
+        font-size: 20px;
+    }
+
+    /* Blueprint Modal */
+    .blueprint-modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.7);
+        backdrop-filter: blur(8px);
+        z-index: 2000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+    .blueprint-modal.active {
+        display: flex;
+    }
+    .blueprint-modal-content {
+        background: var(--card-bg);
+        border-radius: 24px;
+        max-width: 800px;
+        width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 32px;
+        border-bottom: 1px solid var(--border);
+    }
+    .modal-header h2 {
+        font-size: 28px;
+        margin-bottom: 8px;
+    }
+    .modal-close {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: var(--glass);
+        border: 1px solid var(--border);
+        color: var(--text);
+        font-size: 20px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    .modal-close:hover {
+        background: var(--red);
+        color: white;
+        border-color: var(--red);
+    }
+    .modal-body {
+        padding: 32px;
+    }
+    .prompt-section {
+        margin-bottom: 32px;
+    }
+    .prompt-section h3 {
+        font-size: 16px;
+        margin-bottom: 12px;
+        color: var(--text2);
+    }
+    .prompt-box {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 20px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 14px;
+        line-height: 1.6;
+        position: relative;
+    }
+    .copy-prompt-btn {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        padding: 8px 16px;
+        background: var(--purple);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    .copy-prompt-btn:hover {
+        transform: scale(1.05);
+    }
+    .use-blueprint-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        padding: 18px;
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    .use-blueprint-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(245,158,11,0.4);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+        .blueprints-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        .dashboard-stats {
+            gap: 12px;
+        }
+        .stat-item {
+            padding: 12px 16px;
+        }
+    }
+    @media (max-width: 768px) {
+        .dashboard-header {
+            padding: 90px 0 30px;
+        }
+        .dashboard-header-inner {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .dashboard-title h1 {
+            font-size: 26px;
+        }
+        .dashboard-stats {
+            width: 100%;
+            justify-content: space-between;
+        }
+        .api-setup-card {
+            flex-direction: column;
+            text-align: center;
+        }
+        .oefenruimte-launcher {
+            padding: 32px 24px;
+        }
+        .oefenruimte-launcher h2 {
+            font-size: 24px;
+        }
+        .modal-header {
+            padding: 24px;
+        }
+        .modal-body {
+            padding: 24px;
+        }
+    }
+    @media (max-width: 600px) {
+        .blueprints-grid {
+            grid-template-columns: 1fr;
+        }
+        .dashboard-tabs {
+            gap: 6px;
+        }
+        .dashboard-tab {
+            padding: 10px 16px;
+            font-size: 13px;
+        }
+        .workflow-card {
+            flex-direction: column;
+            text-align: center;
+        }
+        .launch-btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Dashboard Header -->
+<section class="dashboard-header">
+    <div class="container">
+        <div class="dashboard-header-inner">
+            <div class="dashboard-title">
+                <h1>Welkom terug! 👋</h1>
+                <span class="premium-badge-small"><i class="fas fa-crown"></i> Premium</span>
+            </div>
+            <div class="dashboard-stats">
+                <div class="stat-item">
+                    <div class="stat-value">54</div>
+                    <div class="stat-label">Blueprints</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">12</div>
+                    <div class="stat-label">Workflows</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">∞</div>
+                    <div class="stat-label">API Calls</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Tab Navigation -->
+<div class="container">
+    <div class="dashboard-tabs">
+        <div class="dashboard-tab active" onclick="showSection('blueprints')">
+            <i class="fas fa-cube"></i> Blueprints <span class="count">54</span>
+        </div>
+        <div class="dashboard-tab" onclick="showSection('oefenruimte')">
+            <i class="fas fa-laptop-code"></i> Oefenruimte
+        </div>
+        <div class="dashboard-tab" onclick="showSection('workflows')">
+            <i class="fas fa-project-diagram"></i> Pro Workflows <span class="count">12</span>
+        </div>
+        <div class="dashboard-tab" onclick="showSection('settings')">
+            <i class="fas fa-cog"></i> API & Instellingen
+        </div>
+    </div>
+</div>
+
+<!-- Dashboard Content -->
+<div class="dashboard-content">
+    <div class="container">
+        <!-- API Key Setup Banner -->
+        <div class="api-setup-card" id="apiSetupCard">
+            <div class="api-setup-icon">🔑</div>
+            <div class="api-setup-content">
+                <h3>Bring Your Own Key (BYOK)</h3>
+                <p>Gebruik je eigen OpenAI API key voor onbeperkte toegang. Jouw key, jouw controle, geen verborgen kosten.</p>
+            </div>
+            <div class="api-setup-actions">
+                <div class="api-status disconnected" id="apiStatusBadge">
+                    <i class="fas fa-exclamation-circle"></i> Niet verbonden
+                </div>
+                <button class="btn btn-primary" onclick="openApiKeyModal()">
+                    <i class="fas fa-key"></i> API Key instellen
+                </button>
+            </div>
+        </div>
+
+        <!-- Blueprints Section -->
+        <div class="content-section active" id="blueprints-section">
+            <div class="blueprints-filter">
+                <button class="filter-btn active" onclick="filterBlueprints('all')">Alles</button>
+                <button class="filter-btn" onclick="filterBlueprints('website')">Websites</button>
+                <button class="filter-btn" onclick="filterBlueprints('dashboard')">Dashboards</button>
+                <button class="filter-btn" onclick="filterBlueprints('ecommerce')">E-commerce</button>
+                <button class="filter-btn" onclick="filterBlueprints('tool')">Tools</button>
+                <button class="filter-btn" onclick="filterBlueprints('api')">API's</button>
+            </div>
+
+            <div class="blueprints-grid">
+                <!-- Blueprint 1 -->
+                <div class="blueprint-card" onclick="openBlueprint('webshop')" data-category="ecommerce">
+                    <div class="blueprint-image">🛒<span class="blueprint-badge popular">Populair</span></div>
+                    <div class="blueprint-content">
+                        <span class="blueprint-category">E-commerce</span>
+                        <h3>Complete Webshop</h3>
+                        <p>Productpagina's, winkelwagen, checkout en betalingsflow.</p>
+                        <div class="blueprint-meta">
+                            <span class="time"><i class="fas fa-clock"></i> 15 min</span>
+                            <span class="difficulty"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star empty"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blueprint 2 -->
+                <div class="blueprint-card" onclick="openBlueprint('dashboard')" data-category="dashboard">
+                    <div class="blueprint-image">📊<span class="blueprint-badge new">Nieuw</span></div>
+                    <div class="blueprint-content">
+                        <span class="blueprint-category">Dashboard</span>
+                        <h3>Analytics Dashboard</h3>
+                        <p>Real-time grafieken, KPI's en interactieve data-visualisaties.</p>
+                        <div class="blueprint-meta">
+                            <span class="time"><i class="fas fa-clock"></i> 10 min</span>
+                            <span class="difficulty"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star empty"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blueprint 3 -->
+                <div class="blueprint-card" onclick="openBlueprint('blog')" data-category="website">
+                    <div class="blueprint-image">✍️<span class="blueprint-badge popular">Populair</span></div>
+                    <div class="blueprint-content">
+                        <span class="blueprint-category">Content</span>
+                        <h3>SEO Blog Engine</h3>
+                        <p>Blog met categorieën, tags, sitemap en automatische meta-tags.</p>
+                        <div class="blueprint-meta">
+                            <span class="time"><i class="fas fa-clock"></i> 20 min</span>
+                            <span class="difficulty"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blueprint 4 -->
+                <div class="blueprint-card" onclick="openBlueprint('booking')" data-category="tool">
+                    <div class="blueprint-image">📅</div>
+                    <div class="blueprint-content">
+                        <span class="blueprint-category">Booking</span>
+                        <h3>Afspraken Systeem</h3>
+                        <p>Kalender, tijdslots, bevestigingsmails en herinneringen.</p>
+                        <div class="blueprint-meta">
+                            <span class="time"><i class="fas fa-clock"></i> 25 min</span>
+                            <span class="difficulty"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blueprint 5 -->
+                <div class="blueprint-card" onclick="openBlueprint('chatbot')" data-category="api">
+                    <div class="blueprint-image">🤖<span class="blueprint-badge new">Nieuw</span></div>
+                    <div class="blueprint-content">
+                        <span class="blueprint-category">AI Tools</span>
+                        <h3>AI Chatbot Widget</h3>
+                        <p>Embeddable chatbot voor klantenservice met custom training.</p>
+                        <div class="blueprint-meta">
+                            <span class="time"><i class="fas fa-clock"></i> 15 min</span>
+                            <span class="difficulty"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star empty"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blueprint 6 -->
+                <div class="blueprint-card" onclick="openBlueprint('landing')" data-category="website">
+                    <div class="blueprint-image">📱</div>
+                    <div class="blueprint-content">
+                        <span class="blueprint-category">Website</span>
+                        <h3>SaaS Landing Page</h3>
+                        <p>Conversie-geoptimaliseerde landingspagina met pricing en FAQ.</p>
+                        <div class="blueprint-meta">
+                            <span class="time"><i class="fas fa-clock"></i> 8 min</span>
+                            <span class="difficulty"><i class="fas fa-star"></i><i class="fas fa-star empty"></i><i class="fas fa-star empty"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blueprint 7 -->
+                <div class="blueprint-card" onclick="openBlueprint('crm')" data-category="tool">
+                    <div class="blueprint-image">👥</div>
+                    <div class="blueprint-content">
+                        <span class="blueprint-category">Tool</span>
+                        <h3>Mini CRM Systeem</h3>
+                        <p>Contactbeheer, pipeline tracking en notities per klant.</p>
+                        <div class="blueprint-meta">
+                            <span class="time"><i class="fas fa-clock"></i> 30 min</span>
+                            <span class="difficulty"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blueprint 8 -->
+                <div class="blueprint-card" onclick="openBlueprint('invoice')" data-category="tool">
+                    <div class="blueprint-image">📄</div>
+                    <div class="blueprint-content">
+                        <span class="blueprint-category">Financieel</span>
+                        <h3>Factuur Generator</h3>
+                        <p>Automatische facturen met PDF export en klantgegevens.</p>
+                        <div class="blueprint-meta">
+                            <span class="time"><i class="fas fa-clock"></i> 12 min</span>
+                            <span class="difficulty"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star empty"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blueprint 9 -->
+                <div class="blueprint-card" onclick="openBlueprint('portfolio')" data-category="website">
+                    <div class="blueprint-image">🎨<span class="blueprint-badge popular">Populair</span></div>
+                    <div class="blueprint-content">
+                        <span class="blueprint-category">Website</span>
+                        <h3>Portfolio Website</h3>
+                        <p>Showcase voor creatieven met projectgalerij en contact.</p>
+                        <div class="blueprint-meta">
+                            <span class="time"><i class="fas fa-clock"></i> 10 min</span>
+                            <span class="difficulty"><i class="fas fa-star"></i><i class="fas fa-star empty"></i><i class="fas fa-star empty"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Oefenruimte Section -->
+        <div class="content-section" id="oefenruimte-section">
+            <div class="oefenruimte-launcher">
+                <h2>🎬 Oefenruimte</h2>
+                <p>Leer vibecoding stap voor stap met interactieve opdrachten. Van HTML basics tot complete AI-apps, op je eigen tempo.</p>
+                <a href="/premium/oefenruimte" class="launch-btn">
+                    <i class="fas fa-play"></i> Start Oefenruimte
+                </a>
+                <div class="oefenruimte-features">
+                    <div class="oefenruimte-feature">
+                        <i class="fas fa-check-circle"></i> 8 Levels
+                    </div>
+                    <div class="oefenruimte-feature">
+                        <i class="fas fa-check-circle"></i> AI Feedback
+                    </div>
+                    <div class="oefenruimte-feature">
+                        <i class="fas fa-check-circle"></i> Live Preview
+                    </div>
+                    <div class="oefenruimte-feature">
+                        <i class="fas fa-check-circle"></i> XP Systeem
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Workflows Section -->
+        <div class="content-section" id="workflows-section">
+            <div class="workflows-list">
+                <div class="workflow-card" onclick="openWorkflow('seo-blog')">
+                    <div class="workflow-icon">📝</div>
+                    <div class="workflow-content">
+                        <h3>SEO Blog Workflow</h3>
+                        <p>Complete workflow voor het bouwen van een SEO-geoptimaliseerde blog met automatische meta-tags, sitemap en social sharing.</p>
+                    </div>
+                    <i class="fas fa-chevron-right workflow-arrow"></i>
+                </div>
+
+                <div class="workflow-card" onclick="openWorkflow('api-integration')">
+                    <div class="workflow-icon">🔗</div>
+                    <div class="workflow-content">
+                        <h3>API Koppelingen voor Webshops</h3>
+                        <p>Agent getraind voor complexe API integraties: Stripe, Mollie, PostNL, en meer.</p>
+                    </div>
+                    <i class="fas fa-chevron-right workflow-arrow"></i>
+                </div>
+
+                <div class="workflow-card" onclick="openWorkflow('dashboard-builder')">
+                    <div class="workflow-icon">📊</div>
+                    <div class="workflow-content">
+                        <h3>Dashboard Builder</h3>
+                        <p>Workflow voor data-visualisatie dashboards met Chart.js, filters en real-time updates.</p>
+                    </div>
+                    <i class="fas fa-chevron-right workflow-arrow"></i>
+                </div>
+
+                <div class="workflow-card" onclick="openWorkflow('auth-system')">
+                    <div class="workflow-icon">🔐</div>
+                    <div class="workflow-content">
+                        <h3>Authenticatie Systeem</h3>
+                        <p>Complete login/register flow met wachtwoord reset, OAuth en sessie management.</p>
+                    </div>
+                    <i class="fas fa-chevron-right workflow-arrow"></i>
+                </div>
+
+                <div class="workflow-card" onclick="openWorkflow('email-automation')">
+                    <div class="workflow-icon">📧</div>
+                    <div class="workflow-content">
+                        <h3>Email Automatisering</h3>
+                        <p>Workflow voor geautomatiseerde emails: welkomstmails, reminders en newsletters.</p>
+                    </div>
+                    <i class="fas fa-chevron-right workflow-arrow"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Section -->
+        <div class="content-section" id="settings-section">
+            <div class="api-setup-card" style="margin-bottom: 24px;">
+                <div class="api-setup-icon">🔑</div>
+                <div class="api-setup-content">
+                    <h3>OpenAI API Key</h3>
+                    <p>Je API key wordt veilig opgeslagen in je browser. Wij hebben geen toegang tot je key of je OpenAI account.</p>
+                </div>
+                <div class="api-setup-actions">
+                    <button class="btn btn-primary" onclick="openApiKeyModal()">
+                        <i class="fas fa-key"></i> API Key wijzigen
+                    </button>
+                </div>
+            </div>
+
+            <div class="card" style="padding: 32px;">
+                <h3 style="margin-bottom: 16px;">📖 Handleiding API Key</h3>
+                <ol style="color: var(--text2); line-height: 2;">
+                    <li>Ga naar <a href="https://platform.openai.com/api-keys" target="_blank" style="color: var(--purple);">platform.openai.com/api-keys</a></li>
+                    <li>Log in of maak een account aan</li>
+                    <li>Klik op "Create new secret key"</li>
+                    <li>Kopieer de key (begint met sk-...)</li>
+                    <li>Plak de key hierboven en sla op</li>
+                </ol>
+                <p style="margin-top: 16px; padding: 16px; background: rgba(245,158,11,0.1); border-radius: 12px; font-size: 14px;">
+                    <strong>💡 Tip:</strong> Stel een spending limit in op je OpenAI account om onverwachte kosten te voorkomen.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Blueprint Modal -->
+<div class="blueprint-modal" id="blueprintModal">
+    <div class="blueprint-modal-content">
+        <div class="modal-header">
+            <div>
+                <h2 id="modalTitle">Blueprint Naam</h2>
+                <p style="color: var(--text2); margin: 0;" id="modalDescription">Beschrijving</p>
+            </div>
+            <button class="modal-close" onclick="closeBlueprintModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="prompt-section">
+                <h3>📝 Stap 1: Start Prompt</h3>
+                <div class="prompt-box">
+                    <button class="copy-prompt-btn" onclick="copyPrompt('prompt1')"><i class="fas fa-copy"></i> Kopieer</button>
+                    <div id="prompt1">
+Maak een complete webshop met de volgende specificaties:
+
+- Homepage met featured producten
+- Productpagina met afbeeldingen, beschrijving, prijs
+- Winkelwagen met quantity selector
+- Checkout formulier met verzendgegevens
+- Responsive design (mobile-first)
+- Modern kleurenschema (neutraal met accent kleur)
+
+Technologie: HTML, CSS, JavaScript
+Stijl: Clean, minimalistisch, professioneel
+                    </div>
+                </div>
+            </div>
+
+            <div class="prompt-section">
+                <h3>🔧 Stap 2: Aanpassingen</h3>
+                <div class="prompt-box">
+                    <button class="copy-prompt-btn" onclick="copyPrompt('prompt2')"><i class="fas fa-copy"></i> Kopieer</button>
+                    <div id="prompt2">
+Voeg de volgende functionaliteiten toe:
+
+1. Voeg een zoekbalk toe in de header
+2. Maak een filter sidebar voor categorieën
+3. Voeg een "Toevoegen aan wishlist" knop toe
+4. Implementeer een kortingscode veld in checkout
+                    </div>
+                </div>
+            </div>
+
+            <button class="use-blueprint-btn" onclick="useBlueprint()">
+                <i class="fas fa-rocket"></i> Open in Oefenruimte
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+// Check for valid access code on page load
+(function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+    
+    // Simple validation - in production this would be server-side
+    const validCodes = ['PREMIUM2024', 'VIBE2024', 'MASTERMIND'];
+    
+    if (!code || !validCodes.includes(code.toUpperCase())) {
+        // Redirect to premium page if no valid code
+        // window.location.href = '/premium';
+    }
+    
+    // Store code in session
+    if (code) {
+        sessionStorage.setItem('premiumCode', code);
+    }
+})();
+
+// Tab switching
+function showSection(section) {
+    // Update tabs
+    document.querySelectorAll('.dashboard-tab').forEach(tab => tab.classList.remove('active'));
+    event.target.closest('.dashboard-tab').classList.add('active');
+    
+    // Update content
+    document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+    document.getElementById(section + '-section').classList.add('active');
+}
+
+// Blueprint filtering
+function filterBlueprints(category) {
+    // Update filter buttons
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    
+    // Filter cards
+    document.querySelectorAll('.blueprint-card').forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+// Blueprint modal
+const blueprintData = {
+    webshop: {
+        title: '🛒 Complete Webshop',
+        description: 'E-commerce platform met alle essentiële functionaliteiten',
+        prompt1: `Maak een complete webshop met de volgende specificaties:
+
+- Homepage met featured producten (grid layout)
+- Productpagina met afbeeldingen, beschrijving, prijs
+- Winkelwagen met quantity selector
+- Checkout formulier met verzendgegevens
+- Responsive design (mobile-first)
+- Modern kleurenschema (neutraal met accent kleur)
+
+Technologie: HTML, CSS, JavaScript
+Stijl: Clean, minimalistisch, professioneel`,
+        prompt2: `Voeg de volgende functionaliteiten toe:
+
+1. Zoekbalk in de header met autocomplete
+2. Filter sidebar voor categorieën en prijsrange
+3. "Toevoegen aan wishlist" knop per product
+4. Kortingscode veld in checkout
+5. Verzendkosten berekening op basis van gewicht`
+    },
+    dashboard: {
+        title: '📊 Analytics Dashboard',
+        description: 'Data visualisatie met real-time grafieken en KPIs',
+        prompt1: `Maak een analytics dashboard met:
+
+- Header met datum selector en refresh knop
+- 4 KPI kaarten (omzet, bezoekers, conversie, orders)
+- Lijndiagram voor omzet over tijd
+- Staafdiagram voor verkopen per categorie
+- Donut chart voor traffic bronnen
+- Recente transacties tabel
+
+Gebruik Chart.js voor grafieken
+Responsive grid layout
+Dark/light mode toggle`,
+        prompt2: `Verbeter het dashboard met:
+
+1. Datum range picker (vandaag, week, maand, custom)
+2. Export naar PDF/CSV functie
+3. Real-time updates simulatie
+4. Drill-down functionaliteit op grafieken`
+    }
+};
+
+function openBlueprint(id) {
+    const data = blueprintData[id] || blueprintData.webshop;
+    document.getElementById('modalTitle').textContent = data.title;
+    document.getElementById('modalDescription').textContent = data.description;
+    document.getElementById('prompt1').textContent = data.prompt1;
+    document.getElementById('prompt2').textContent = data.prompt2;
+    document.getElementById('blueprintModal').classList.add('active');
+}
+
+function closeBlueprintModal() {
+    document.getElementById('blueprintModal').classList.remove('active');
+}
+
+function copyPrompt(id) {
+    const text = document.getElementById(id).textContent;
+    navigator.clipboard.writeText(text);
+    event.target.innerHTML = '<i class="fas fa-check"></i> Gekopieerd!';
+    setTimeout(() => {
+        event.target.innerHTML = '<i class="fas fa-copy"></i> Kopieer';
+    }, 2000);
+}
+
+function useBlueprint() {
+    closeBlueprintModal();
+    // Navigate to oefenruimte with pre-filled prompt
+    window.location.href = '/premium/oefenruimte';
+}
+
+function openWorkflow(id) {
+    alert('Workflow: ' + id + '\n\nDeze workflow wordt binnenkort beschikbaar!');
+}
+
+// Close modal on backdrop click
+document.getElementById('blueprintModal').addEventListener('click', (e) => {
+    if (e.target.id === 'blueprintModal') closeBlueprintModal();
+});
+
+// Check API key status
+async function checkApiStatus() {
+    try {
+        const res = await fetch('/api/check-key');
+        const data = await res.json();
+        const badge = document.getElementById('apiStatusBadge');
+        
+        if (data.has_key) {
+            badge.className = 'api-status connected';
+            badge.innerHTML = '<i class="fas fa-check-circle"></i> Verbonden';
+        }
+    } catch (e) {
+        console.log('API check failed');
+    }
+}
+
+checkApiStatus();
+</script>
+{% endblock %}

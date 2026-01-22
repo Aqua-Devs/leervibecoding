@@ -3,7 +3,7 @@ LeerVibeCoding.nl - AI-Powered Vibe Coding Platform
 Dynamische opdrachten gegenereerd door OpenAI met progressieve moeilijkheid
 """
 
-from flask import Flask, render_template, request, jsonify, session, send_from_directory
+from flask import Flask, render_template, request, jsonify, session, send_from_directory, redirect
 import requests
 import secrets
 import json
@@ -331,21 +331,55 @@ Beoordeel eerlijk maar rechtvaardig."""
 def index():
     return render_template('index.html')
 
+# Oude oefenruimte routes redirecten naar premium
 @app.route('/bouwen')
 def bouwen():
-    return render_template('studio.html', levels=DIFFICULTY_LEVELS)
+    return redirect('/premium')
 
 @app.route('/oefenruimte')
 def oefenruimte():
-    return render_template('studio.html', levels=DIFFICULTY_LEVELS)
+    return redirect('/premium')
 
 @app.route('/studio')
 def studio():
-    return render_template('studio.html', levels=DIFFICULTY_LEVELS)
+    return redirect('/premium')
 
 @app.route('/oefeningen')
 def oefeningen():
+    return redirect('/premium')
+
+# Premium routes
+@app.route('/premium')
+def premium():
+    return render_template('premium.html')
+
+@app.route('/premium/dashboard')
+def premium_dashboard():
+    # Check for access code
+    code = request.args.get('code', '')
+    valid_codes = ['PREMIUM2024', 'VIBE2024', 'MASTERMIND', 'LEERVIBE']
+    
+    if code.upper() not in valid_codes:
+        return redirect('/premium#login')
+    
+    return render_template('premium_dashboard.html')
+
+@app.route('/premium/oefenruimte')
+def premium_oefenruimte():
     return render_template('studio.html', levels=DIFFICULTY_LEVELS)
+
+@app.route('/api/verify-code', methods=['POST'])
+def verify_code():
+    """Verify premium access code"""
+    data = request.json
+    code = data.get('code', '').strip().upper()
+    
+    valid_codes = ['PREMIUM2024', 'VIBE2024', 'MASTERMIND', 'LEERVIBE']
+    
+    if code in valid_codes:
+        return jsonify({'valid': True, 'redirect': f'/premium/dashboard?code={code}'})
+    else:
+        return jsonify({'valid': False, 'error': 'Ongeldige toegangscode'})
 
 @app.route('/tools')
 def tools():
