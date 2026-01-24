@@ -1,2127 +1,989 @@
 {% extends "base.html" %}
 
-{% block title %}LeerVibeCoding.nl - Bouw Je Eigen App Zonder Developer | Bespaar €10.000+{% endblock %}
-
-{% block meta_description %}Bouw je eigen app, website of tool zonder developer in te huren. Met onze kant-en-klare blueprints bespaar je €10.000+ aan development kosten. Start vandaag nog.{% endblock %}
-
-{% block meta_keywords %}app bouwen zonder developer, bespaar development kosten, blueprints, zelf app maken, goedkoop app laten maken{% endblock %}
-
+{% block title %}LeerVibeCoding.nl - Bouw Je Eigen App Zonder Developer{% endblock %}
+{% block meta_description %}Bouw je eigen app zonder developer. Bespaar €10.000+ met kant-en-klare blueprints.{% endblock %}
+{% block meta_keywords %}app bouwen zonder developer, blueprints, zelf app maken{% endblock %}
 {% block canonical %}https://leervibecoding.nl{% endblock %}
 {% block og_url %}https://leervibecoding.nl{% endblock %}
-{% block og_title %}Bouw Je Eigen App Zonder Developer - Bespaar €10.000+{% endblock %}
-{% block og_description %}Stop met wachten op developers. Bouw je eigen app met onze bewezen blueprints. Van idee naar werkende app in één weekend.{% endblock %}
+{% block og_title %}Bouw Je Eigen App Zonder Developer{% endblock %}
+{% block og_description %}Van idee naar werkende app in één weekend. Bespaar €10.000+{% endblock %}
 
 {% block extra_css %}
 <style>
-    /* ========== MOBILE-FIRST COMPACT DESIGN ========== */
-    /* Typography: Inter font with weight hierarchy */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+/* ===========================================
+   EDITORIAL MINIMAL - Clean, Typography-first
+   =========================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+* { box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Layout */
+.container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+section { padding: 60px 0; }
+
+/* ===========================================
+   HERO - Compact & Bold
+   =========================================== */
+.hero {
+    padding: 100px 0 50px;
+    border-bottom: 1px solid var(--border);
+}
+
+.hero-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 16px;
+    display: block;
+}
+
+.hero h1 {
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--text1);
+    margin-bottom: 16px;
+    letter-spacing: -0.03em;
+}
+
+.hero h1 .red { color: var(--primary); }
+
+.hero-sub {
+    font-size: 17px;
+    color: var(--text2);
+    margin-bottom: 32px;
+    max-width: 500px;
+    line-height: 1.6;
+}
+
+/* Stats inline */
+.hero-stats {
+    display: flex;
+    gap: 32px;
+    padding: 20px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 32px;
+}
+
+.hero-stats .stat strong {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--primary);
+    display: block;
+}
+
+.hero-stats .stat span {
+    font-size: 12px;
+    color: var(--text3);
+}
+
+/* CTA */
+.hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
+.btn-primary:hover { background: var(--primary-dark); }
+
+.btn-outline {
+    background: transparent;
+    color: var(--text1);
+    border: 1px solid var(--border);
+}
+.btn-outline:hover { border-color: var(--text1); }
+
+.hero-note {
+    margin-top: 20px;
+    font-size: 13px;
+    color: var(--text3);
+    display: flex;
+    gap: 16px;
+}
+.hero-note i { color: var(--green); margin-right: 4px; }
+
+/* ===========================================
+   VALUE PROP - Side by side
+   =========================================== */
+.value-section {
+    background: var(--bg2);
+    padding: 50px 0;
+}
+
+.value-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+}
+
+.value-grid h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+}
+
+.value-grid p {
+    font-size: 15px;
+    color: var(--text2);
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.pain-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.pain-list li {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text2);
+    display: flex;
+    gap: 10px;
+}
+.pain-list li:last-child { border-bottom: none; }
+.pain-list .x { color: var(--primary); }
+
+.solution-box {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 28px;
+}
+
+.solution-box h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    padding-left: 14px;
+    border-left: 3px solid var(--primary);
+}
+
+.solution-box p {
+    font-size: 14px;
+    color: var(--text2);
+    margin-bottom: 16px;
+    line-height: 1.6;
+}
+
+.check-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.check-list li {
+    padding: 6px 0;
+    font-size: 14px;
+    color: var(--text2);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.check-list i { color: var(--primary); font-size: 12px; }
+
+/* ===========================================
+   COMPARISON - Clean Table
+   =========================================== */
+.compare-section { padding: 50px 0; }
+
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+.section-title h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+}
+.section-title p {
+    font-size: 15px;
+    color: var(--text3);
+}
+
+/* Desktop Table */
+.compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.compare-table th, .compare-table td {
+    padding: 14px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+.compare-table th {
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text3);
+}
+
+.compare-table th:last-child {
+    background: var(--primary);
+    color: white;
+}
+
+.compare-table td:last-child {
+    background: var(--primary-light);
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.compare-table .neg { color: var(--text3); }
+.compare-table .pos { color: var(--green); }
+
+/* Mobile Cards */
+.compare-mobile { display: none; }
+
+.compare-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 20px;
+    margin-bottom: 12px;
+}
+.compare-card.featured {
+    border-color: var(--primary);
+    border-width: 2px;
+}
+.compare-card h4 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+.compare-card.featured h4 { color: var(--primary); }
+
+.compare-card .row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border);
+}
+.compare-card .row:last-child { border-bottom: none; }
+.compare-card .label { color: var(--text3); }
+.compare-card .good { color: var(--green); font-weight: 600; }
+.compare-card .bad { color: var(--text3); }
+
+/* ===========================================
+   BLUEPRINTS - Grid
+   =========================================== */
+.blueprints-section {
+    background: var(--bg2);
+    padding: 50px 0;
+}
+
+.bp-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.bp-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+}
+
+.bp-card-head {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.bp-card-body { padding: 8px; }
+
+.bp-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 12px;
+    font-size: 13px;
+    color: var(--text2);
+    text-decoration: none;
+    border-radius: 4px;
+}
+.bp-item:hover { background: var(--bg2); color: var(--text1); }
+.bp-item .price { color: var(--primary); font-weight: 600; }
+
+.bp-cta { text-align: center; }
+
+/* ===========================================
+   PRICING - 3 Cards
+   =========================================== */
+.pricing-section { padding: 50px 0; }
+
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 850px;
+    margin: 0 auto 24px;
+}
+
+.price-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 28px;
+    position: relative;
+}
+
+.price-card.pop {
+    border-color: var(--primary);
+    border-width: 2px;
+}
+
+.price-card.pop::before {
+    content: 'Populair';
+    position: absolute;
+    top: -11px;
+    left: 20px;
+    background: var(--primary);
+    color: white;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 4px 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.price-card h3 { font-size: 16px; margin-bottom: 4px; }
+.price-card .sub { font-size: 12px; color: var(--text3); margin-bottom: 16px; }
+
+.price-card .amount {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--text1);
+    line-height: 1;
+}
+.price-card.pop .amount { color: var(--primary); }
+.price-card .period { font-size: 12px; color: var(--text3); margin-bottom: 20px; }
+
+.price-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+}
+.price-card li {
+    padding: 8px 0;
+    font-size: 13px;
+    color: var(--text2);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.price-card li:last-child { border-bottom: none; }
+.price-card li i { color: var(--primary); font-size: 11px; }
+
+.price-card .btn { width: 100%; justify-content: center; }
+
+.guarantee {
+    max-width: 450px;
+    margin: 0 auto;
+    padding: 14px 20px;
+    background: var(--green-light);
+    border: 1px solid var(--green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 13px;
+}
+.guarantee i { color: var(--green); }
+
+/* ===========================================
+   TESTIMONIALS
+   =========================================== */
+.testimonials-section {
+    background: var(--bg2);
+    padding: 50px 0;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.testi-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 24px;
+}
+
+.testi-card p {
+    font-size: 14px;
+    color: var(--text2);
+    line-height: 1.7;
+    margin-bottom: 16px;
+    font-style: italic;
+}
+
+.testi-card .author {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.testi-card .avatar {
+    width: 36px;
+    height: 36px;
+    background: var(--primary-light);
+    color: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.testi-card .name { font-size: 13px; font-weight: 600; }
+.testi-card .role { font-size: 11px; color: var(--text3); }
+
+/* ===========================================
+   FAQ
+   =========================================== */
+.faq-section { padding: 50px 0; }
+
+.faq-list { max-width: 650px; margin: 0 auto; }
+
+.faq-item { border-bottom: 1px solid var(--border); }
+
+.faq-q {
+    padding: 18px 0;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.faq-q i { color: var(--text3); transition: transform 0.2s; }
+.faq-item.open .faq-q i { transform: rotate(180deg); }
+
+.faq-a {
+    display: none;
+    padding-bottom: 18px;
+    font-size: 14px;
+    color: var(--text2);
+    line-height: 1.7;
+}
+.faq-item.open .faq-a { display: block; }
+
+/* ===========================================
+   FINAL CTA
+   =========================================== */
+.final-cta {
+    background: var(--text1);
+    padding: 60px 0;
+    text-align: center;
+}
+
+.final-cta h2 {
+    font-size: 32px;
+    color: white;
+    margin-bottom: 12px;
+}
+
+.final-cta p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 24px;
+}
+
+.final-cta .btn-primary:hover {
+    background: white;
+    color: var(--text1);
+}
+
+/* ===========================================
+   EBOOK MODAL
+   =========================================== */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.modal-overlay.active { display: flex; }
+
+.modal-box {
+    background: var(--card-bg);
+    max-width: 400px;
+    width: 100%;
+    padding: 32px;
+    position: relative;
+}
+
+.modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: var(--text3);
+    cursor: pointer;
+}
+
+.modal-box h2 { font-size: 22px; margin-bottom: 8px; }
+.modal-box .sub { font-size: 13px; color: var(--text3); margin-bottom: 20px; }
+
+.modal-box ul {
+    list-style: none;
+    padding: 16px;
+    background: var(--bg2);
+    margin-bottom: 20px;
+}
+.modal-box li {
+    padding: 6px 0;
+    font-size: 13px;
+    display: flex;
+    gap: 8px;
+}
+.modal-box li i { color: var(--primary); }
+
+.modal-form { display: flex; gap: 8px; }
+.modal-form input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid var(--border);
+    font-size: 14px;
+    background: var(--bg);
+    color: var(--text);
+}
+.modal-form button {
+    padding: 12px 20px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.modal-privacy { font-size: 11px; color: var(--text3); margin-top: 10px; }
+
+.modal-success { text-align: center; padding: 20px 0; }
+.modal-success .icon { font-size: 40px; margin-bottom: 12px; }
+.modal-success h3 { font-size: 18px; margin-bottom: 6px; }
+.modal-success p { font-size: 13px; color: var(--text3); }
+
+.coupon-box {
+    background: var(--green-light);
+    border: 1px dashed var(--green);
+    padding: 12px;
+    margin: 16px 0;
+}
+.coupon-code { font-size: 20px; font-weight: 700; color: var(--green); letter-spacing: 2px; }
+
+/* ===========================================
+   RESPONSIVE
+   =========================================== */
+@media (max-width: 800px) {
+    .hero h1 { font-size: 32px; }
+    .hero-stats { flex-wrap: wrap; gap: 20px; }
+    .hero-stats .stat { flex: 1; min-width: 80px; }
     
-    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+    .value-grid { grid-template-columns: 1fr; gap: 30px; }
     
-    /* ========== HERO SECTION - COMPACT ========== */
-    .hero {
-        padding: 80px 0 40px;
-        background: var(--bg);
-        position: relative;
-    }
-    .hero::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(180deg, var(--primary-light) 0%, transparent 50%);
-        pointer-events: none;
-    }
-    .hero-content {
-        position: relative;
-        z-index: 1;
-    }
-    .hero-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        background: var(--primary);
-        color: white;
-        padding: 8px 14px;
-        border-radius: 6px;
-        font-size: 13px;
-        font-weight: 600;
-        margin-bottom: 16px;
-        letter-spacing: 0.02em;
-    }
-    .hero h1 {
-        font-size: clamp(28px, 6vw, 48px);
-        font-weight: 800;
-        line-height: 1.1;
-        color: var(--text1);
-        margin-bottom: 16px;
-        letter-spacing: -0.02em;
-    }
-    .hero h1 .highlight {
-        color: var(--primary);
-    }
-    .hero .subtitle {
-        font-size: 16px;
-        line-height: 1.6;
-        color: var(--text2);
-        margin-bottom: 24px;
-        font-weight: 400;
-    }
+    .compare-table { display: none; }
+    .compare-mobile { display: block; }
     
-    /* Compact Stats Grid */
-    .hero-stats {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 12px;
-        margin-bottom: 24px;
-        background: var(--card-bg);
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 16px;
-    }
-    .hero-stat {
-        text-align: center;
-        padding: 8px 4px;
-    }
-    .hero-stat:not(:last-child) {
-        border-right: 1px solid var(--border);
-    }
-    .hero-stat .number {
-        font-size: 20px;
-        font-weight: 800;
-        color: var(--primary);
-        display: block;
-        margin-bottom: 2px;
-    }
-    .hero-stat .label {
-        font-size: 11px;
-        color: var(--text3);
-        font-weight: 500;
-        line-height: 1.3;
-    }
+    .bp-grid { grid-template-columns: 1fr 1fr; }
     
-    /* CTA Buttons */
-    .hero-cta {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 16px;
-    }
-    .btn-primary {
-        flex: 1;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        padding: 14px 20px;
-        background: var(--primary);
-        color: white;
-        border: none;
-        border-radius: 10px;
-        font-size: 15px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s;
-        text-decoration: none;
-    }
-    .btn-primary:hover {
-        background: var(--primary-dark);
-        transform: translateY(-1px);
-    }
-    .btn-secondary {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        padding: 14px 20px;
-        background: transparent;
-        color: var(--text1);
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        font-size: 15px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s;
-        text-decoration: none;
-    }
-    .btn-secondary:hover {
-        border-color: var(--primary);
-        color: var(--primary);
-    }
+    .pricing-grid { grid-template-columns: 1fr; max-width: 350px; }
     
-    /* Trust Notes */
-    .hero-notes {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-    }
-    .hero-note {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        font-size: 13px;
-        color: var(--text3);
-        font-weight: 500;
-    }
-    .hero-note i {
-        color: var(--primary);
-        font-size: 12px;
-    }
+    .testimonials-grid { grid-template-columns: 1fr; }
+}
 
-    /* ========== SECTIONS - COMPACT PADDING ========== */
-    section {
-        padding: 40px 0;
-    }
-    .section-header {
-        margin-bottom: 24px;
-    }
-    .section-header h2 {
-        font-size: 24px;
-        font-weight: 700;
-        color: var(--text1);
-        margin-bottom: 6px;
-        letter-spacing: -0.01em;
-    }
-    .section-header p {
-        font-size: 14px;
-        color: var(--text3);
-    }
-
-    /* ========== PROBLEM SECTION - COMPACT ========== */
-    .problem-section {
-        background: var(--bg2);
-        padding: 32px 0;
-    }
-    .problem-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
-    }
-    .problem-content h2 {
-        font-size: 22px;
-        font-weight: 700;
-        color: var(--text1);
-        margin-bottom: 12px;
-    }
-    .problem-intro {
-        font-size: 14px;
-        color: var(--text2);
-        line-height: 1.6;
-        margin-bottom: 16px;
-    }
-    .problem-list {
-        list-style: none;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-    .problem-list li {
-        display: flex;
-        align-items: flex-start;
-        gap: 10px;
-        font-size: 14px;
-        color: var(--text2);
-        line-height: 1.5;
-    }
-    .problem-list .icon {
-        width: 20px;
-        height: 20px;
-        background: var(--red-light);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        margin-top: 2px;
-    }
-    .problem-list .icon i {
-        font-size: 10px;
-        color: var(--red);
-    }
+@media (max-width: 500px) {
+    section { padding: 40px 0; }
+    .hero { padding: 80px 0 40px; }
+    .hero h1 { font-size: 28px; }
+    .hero-sub { font-size: 15px; }
+    .hero-cta { flex-direction: column; }
+    .btn { width: 100%; justify-content: center; }
+    .hero-note { flex-direction: column; gap: 6px; }
     
-    /* Solution Box - Compact Card */
-    .solution-box {
-        background: var(--card-bg);
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 20px;
-    }
-    .solution-box h3 {
-        font-size: 18px;
-        font-weight: 700;
-        color: var(--text1);
-        margin-bottom: 10px;
-    }
-    .solution-box > p {
-        font-size: 14px;
-        color: var(--text2);
-        line-height: 1.6;
-        margin-bottom: 16px;
-    }
-    .solution-features {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-    }
-    .solution-features .feature {
-        display: flex;
-        align-items: flex-start;
-        gap: 8px;
-        font-size: 13px;
-        color: var(--text1);
-        line-height: 1.5;
-    }
-    .solution-features .feature i {
-        color: var(--primary);
-        margin-top: 3px;
-        font-size: 11px;
-        flex-shrink: 0;
-    }
-
-    /* ========== AUDIENCE/VISION SECTION - COMPACT ========== */
-    .audience-section {
-        padding: 32px 0;
-    }
-    .vision-content {
-        max-width: 100%;
-    }
-    .vision-intro {
-        font-size: 15px;
-        color: var(--text2);
-        line-height: 1.7;
-        text-align: left;
-        margin-bottom: 32px;
-    }
-    .why-title {
-        font-size: 18px;
-        font-weight: 700;
-        color: var(--text1);
-        margin-bottom: 16px;
-        text-align: left;
-    }
+    .bp-grid { grid-template-columns: 1fr; }
     
-    /* Benefits - Compact Bento Grid */
-    .benefits-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-        margin-bottom: 32px;
-    }
-    .benefit-card {
-        background: var(--card-bg);
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        padding: 16px;
-        transition: all 0.2s;
-    }
-    .benefit-card:hover {
-        border-color: var(--primary);
-    }
-    .benefit-icon {
-        font-size: 24px;
-        margin-bottom: 10px;
-    }
-    .benefit-card h4 {
-        font-size: 14px;
-        font-weight: 600;
-        color: var(--text1);
-        margin-bottom: 6px;
-        line-height: 1.3;
-    }
-    .benefit-card p {
-        font-size: 12px;
-        color: var(--text3);
-        line-height: 1.5;
-    }
-
-    /* ========== COMPARISON - MOBILE CARDS ========== */
-    .comparison-title {
-        font-size: 18px;
-        font-weight: 700;
-        color: var(--text1);
-        text-align: left;
-        margin-bottom: 8px;
-    }
-    .comparison-subtitle {
-        font-size: 14px;
-        color: var(--text3);
-        margin-bottom: 16px;
-        text-align: left;
-    }
-    
-    /* Mobile Comparison Cards */
-    .comparison-table {
-        display: none;
-    }
-    .comparison-cards {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
-    .comparison-card {
-        background: var(--card-bg);
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 16px;
-        position: relative;
-    }
-    .comparison-card.featured {
-        border-color: var(--primary);
-        background: linear-gradient(135deg, var(--primary-light), transparent);
-    }
-    .comparison-card.featured::before {
-        content: 'AANBEVOLEN';
-        position: absolute;
-        top: -10px;
-        left: 16px;
-        background: var(--primary);
-        color: white;
-        font-size: 10px;
-        font-weight: 700;
-        padding: 4px 10px;
-        border-radius: 4px;
-        letter-spacing: 0.05em;
-    }
-    .comparison-card h4 {
-        font-size: 16px;
-        font-weight: 700;
-        color: var(--text1);
-        margin-bottom: 12px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-    .comparison-card h4 i {
-        font-size: 14px;
-    }
-    .comparison-card.featured h4 {
-        color: var(--primary-dark);
-    }
-    .comparison-card .card-stats {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
-    }
-    .comparison-card .stat-item {
-        display: flex;
-        flex-direction: column;
-    }
-    .comparison-card .stat-label {
-        font-size: 11px;
-        color: var(--text3);
-        font-weight: 500;
-    }
-    .comparison-card .stat-value {
-        font-size: 13px;
-        font-weight: 600;
-    }
-    .comparison-card .stat-value.good { color: var(--primary); }
-    .comparison-card .stat-value.bad { color: var(--red); }
-    .comparison-card .stat-value.mid { color: var(--orange); }
-
-    /* ========== SHOWCASE - COMPACT MOBILE ========== */
-    .social-proof {
-        padding: 32px 0;
-        background: var(--bg2);
-    }
-    .showcase-gallery {
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
-        margin-bottom: 32px;
-    }
-    .showcase-item {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-    }
-    .showcase-item.reverse {
-        flex-direction: column;
-    }
-    .showcase-item.reverse .showcase-visual,
-    .showcase-item.reverse .showcase-info {
-        order: unset;
-    }
-    
-    /* Compact Browser Frame */
-    .browser-frame {
-        background: var(--card-bg);
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 4px 20px var(--shadow);
-    }
-    .browser-header {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        padding: 8px 12px;
-        background: var(--bg3);
-        border-bottom: 1px solid var(--border);
-    }
-    .browser-header .dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-    }
-    .browser-header .dot.red { background: #ff5f56; }
-    .browser-header .dot.yellow { background: #ffbd2e; }
-    .browser-header .dot.green { background: #27ca40; }
-    .browser-header .url {
-        margin-left: auto;
-        font-size: 10px;
-        color: var(--text3);
-        background: var(--bg2);
-        padding: 2px 8px;
-        border-radius: 4px;
-    }
-    .browser-content {
-        min-height: 140px;
-        padding: 12px;
-        background: var(--bg);
-    }
-    
-    /* Dashboard Preview - Compact */
-    .dashboard-preview {
-        display: grid;
-        grid-template-columns: 40px 1fr;
-        gap: 0;
-        padding: 0;
-    }
-    .dash-sidebar {
-        background: var(--accent);
-        padding: 10px 6px;
-    }
-    .dash-logo {
-        width: 20px;
-        height: 20px;
-        background: rgba(255,255,255,0.3);
-        border-radius: 4px;
-        margin: 0 auto 12px;
-    }
-    .dash-nav span {
-        display: block;
-        width: 20px;
-        height: 4px;
-        background: rgba(255,255,255,0.2);
-        border-radius: 2px;
-        margin: 0 auto 8px;
-    }
-    .dash-nav span:first-child {
-        background: rgba(255,255,255,0.5);
-    }
-    .dash-main {
-        padding: 10px;
-    }
-    .dash-topbar {
-        height: 8px;
-        background: var(--bg2);
-        border-radius: 2px;
-        margin-bottom: 10px;
-    }
-    .dash-stats {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 6px;
-        margin-bottom: 10px;
-    }
-    .stat-card {
-        height: 30px;
-        border-radius: 4px;
-        opacity: 0.7;
-    }
-    .stat-card.purple { background: var(--primary-light); border: 1px solid var(--primary); }
-    .stat-card.blue { background: var(--blue-light); border: 1px solid var(--blue); }
-    .stat-card.green { background: var(--green-light); border: 1px solid var(--green); }
-    .stat-card.orange { background: var(--yellow-light); border: 1px solid var(--yellow); }
-    .dash-chart {
-        height: 50px;
-        background: linear-gradient(135deg, var(--primary-light), var(--blue-light));
-        border-radius: 4px;
-        margin-bottom: 10px;
-    }
-    .dash-table .table-row {
-        height: 8px;
-        background: var(--bg2);
-        border-radius: 2px;
-        margin-bottom: 4px;
-    }
-    
-    /* Showcase Info - Compact */
-    .showcase-info {
-        padding: 0;
-    }
-    .showcase-badge {
-        display: inline-block;
-        padding: 4px 10px;
-        background: var(--primary-light);
-        color: var(--primary);
-        border-radius: 4px;
-        font-size: 10px;
-        font-weight: 700;
-        margin-bottom: 8px;
-        letter-spacing: 0.03em;
-    }
-    .showcase-info h3 {
-        font-size: 18px;
-        font-weight: 700;
-        color: var(--text1);
-        margin-bottom: 8px;
-    }
-    .showcase-info > p {
-        font-size: 13px;
-        color: var(--text2);
-        line-height: 1.6;
-        margin-bottom: 12px;
-    }
-    .showcase-stats {
-        display: flex;
-        gap: 24px;
-        margin-bottom: 12px;
-    }
-    .showcase-stat strong {
-        display: block;
-        font-size: 20px;
-        color: var(--primary);
-        font-weight: 800;
-    }
-    .showcase-stat span {
-        font-size: 11px;
-        color: var(--text3);
-    }
-    .showcase-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        color: var(--primary);
-        font-size: 13px;
-        font-weight: 600;
-        text-decoration: none;
-    }
-    .showcase-link i {
-        font-size: 10px;
-    }
-
-    /* Other Preview Styles - Compact */
-    .booking-preview, .landing-preview, .tool-preview {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        padding: 8px;
-    }
-    .booking-header, .landing-nav, .tool-header {
-        height: 12px;
-        background: var(--bg2);
-        border-radius: 2px;
-    }
-    .booking-calendar, .landing-hero, .tool-form {
-        height: 60px;
-        background: var(--bg3);
-        border-radius: 4px;
-    }
-    .booking-times, .landing-features, .tool-preview-doc {
-        display: flex;
-        gap: 4px;
-    }
-    .booking-times span, .landing-features span, .tool-preview-doc span {
-        flex: 1;
-        height: 20px;
-        background: var(--bg2);
-        border-radius: 2px;
-    }
-    .booking-btn, .tool-btn {
-        height: 24px;
-        background: var(--primary);
-        border-radius: 4px;
-    }
-
-    /* ========== BLUEPRINT CATEGORIES - HORIZONTAL SCROLL ========== */
-    .blueprints-section {
-        padding: 32px 0;
-    }
-    .blueprints-categories {
-        display: flex;
-        gap: 10px;
-        overflow-x: auto;
-        padding-bottom: 12px;
-        margin-bottom: 16px;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-    }
-    .blueprints-categories::-webkit-scrollbar {
-        display: none;
-    }
-    .bp-category {
-        flex-shrink: 0;
-        background: var(--card-bg);
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        width: 200px;
-    }
-    .bp-category-header {
-        padding: 12px;
-        background: var(--bg2);
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        border-bottom: 1px solid var(--border);
-    }
-    .bp-cat-icon {
-        font-size: 18px;
-    }
-    .bp-category-header h4 {
-        font-size: 13px;
-        font-weight: 600;
-        color: var(--text1);
-    }
-    .bp-category-items {
-        padding: 8px;
-    }
-    .bp-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 8px 10px;
-        font-size: 12px;
-        color: var(--text2);
-        text-decoration: none;
-        border-radius: 6px;
-        transition: background 0.2s;
-    }
-    .bp-item:hover {
-        background: var(--bg2);
-        color: var(--text1);
-    }
-    .bp-item span {
-        color: var(--primary);
-        font-weight: 600;
-    }
-    .bp-cta {
-        text-align: center;
-        padding-top: 16px;
-    }
-    .bp-cta a {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 12px 24px;
-        background: var(--accent);
-        color: white;
-        text-decoration: none;
-        border-radius: 8px;
-        font-size: 14px;
-        font-weight: 600;
-    }
-
-    /* ========== PRICING - GLASSMORPHISM CARDS ========== */
-    .pricing-section {
-        padding: 32px 0;
-        background: var(--bg2);
-    }
-    .pricing-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
-    .pricing-card {
-        background: var(--card-bg);
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 20px;
-        position: relative;
-    }
-    .pricing-card.featured {
-        border-color: var(--primary);
-        background: linear-gradient(135deg, rgba(16,185,129,0.05), transparent);
-    }
-    .pricing-card.featured::before {
-        content: 'BESTE KEUZE';
-        position: absolute;
-        top: -10px;
-        left: 20px;
-        background: var(--primary);
-        color: white;
-        font-size: 10px;
-        font-weight: 700;
-        padding: 4px 10px;
-        border-radius: 4px;
-        letter-spacing: 0.05em;
-    }
-    .pricing-card h3 {
-        font-size: 18px;
-        font-weight: 700;
-        color: var(--text1);
-        margin-bottom: 4px;
-    }
-    .pricing-card .desc {
-        font-size: 13px;
-        color: var(--text3);
-        margin-bottom: 12px;
-    }
-    .pricing-card .price {
-        font-size: 32px;
-        font-weight: 800;
-        color: var(--text1);
-        margin-bottom: 4px;
-    }
-    .pricing-card.featured .price {
-        color: var(--primary);
-    }
-    .pricing-card .period {
-        font-size: 12px;
-        color: var(--text3);
-        margin-bottom: 16px;
-    }
-    .pricing-card ul {
-        list-style: none;
-        margin-bottom: 16px;
-    }
-    .pricing-card li {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 13px;
-        color: var(--text2);
-        padding: 6px 0;
-    }
-    .pricing-card li i {
-        color: var(--primary);
-        font-size: 11px;
-    }
-    .pricing-card .btn {
-        display: block;
-        width: 100%;
-        padding: 12px;
-        text-align: center;
-        border-radius: 8px;
-        font-size: 14px;
-        font-weight: 600;
-        text-decoration: none;
-        transition: all 0.2s;
-    }
-    .pricing-card .btn-primary {
-        background: var(--primary);
-        color: white;
-    }
-    .pricing-card .btn-outline {
-        background: transparent;
-        color: var(--text1);
-        border: 1px solid var(--border);
-    }
-    .pricing-card .btn-outline:hover {
-        border-color: var(--primary);
-        color: var(--primary);
-    }
-    
-    /* Guarantee Banner - Compact */
-    .guarantee-banner {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        padding: 12px;
-        background: var(--green-light);
-        border-radius: 8px;
-        margin-top: 16px;
-    }
-    .guarantee-banner i {
-        color: var(--primary);
-        font-size: 16px;
-    }
-    .guarantee-text {
-        font-size: 12px;
-    }
-    .guarantee-text strong {
-        display: block;
-        color: var(--text1);
-    }
-    .guarantee-text span {
-        color: var(--text3);
-    }
-
-    /* ========== TESTIMONIALS - COMPACT ========== */
-    .testimonials-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
-    .testimonial-card {
-        background: var(--card-bg);
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        padding: 16px;
-    }
-    .testimonial-card .stars {
-        color: var(--yellow);
-        font-size: 12px;
-        margin-bottom: 8px;
-        letter-spacing: 2px;
-    }
-    .testimonial-card p {
-        font-size: 13px;
-        color: var(--text2);
-        line-height: 1.6;
-        margin-bottom: 12px;
-        font-style: italic;
-    }
-    .testimonial-card .author {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    .testimonial-card .avatar {
-        width: 36px;
-        height: 36px;
-        background: var(--primary-light);
-        color: var(--primary);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 12px;
-        font-weight: 700;
-    }
-    .testimonial-card .author-info h4 {
-        font-size: 13px;
-        font-weight: 600;
-        color: var(--text1);
-    }
-    .testimonial-card .author-info span {
-        font-size: 11px;
-        color: var(--text3);
-    }
-
-    /* ========== FAQ - COMPACT ACCORDION ========== */
-    .faq-section {
-        padding: 32px 0;
-    }
-    .faq-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-    }
-    .faq-item {
-        background: var(--card-bg);
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        overflow: hidden;
-    }
-    .faq-question {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 14px 16px;
-        cursor: pointer;
-        font-size: 14px;
-        font-weight: 600;
-        color: var(--text1);
-    }
-    .faq-question i {
-        font-size: 12px;
-        color: var(--text3);
-        transition: transform 0.2s;
-    }
-    .faq-item.open .faq-question i {
-        transform: rotate(180deg);
-    }
-    .faq-answer {
-        display: none;
-        padding: 0 16px 14px;
-        font-size: 13px;
-        color: var(--text2);
-        line-height: 1.6;
-    }
-    .faq-item.open .faq-answer {
-        display: block;
-    }
-
-    /* ========== FINAL CTA - COMPACT ========== */
-    .final-cta {
-        padding: 40px 0;
-        background: var(--accent);
-        text-align: center;
-    }
-    .final-cta h2 {
-        font-size: 24px;
-        font-weight: 700;
-        color: white;
-        margin-bottom: 8px;
-    }
-    .final-cta p {
-        font-size: 14px;
-        color: rgba(255,255,255,0.7);
-        margin-bottom: 20px;
-    }
-    .final-cta-buttons {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        max-width: 300px;
-        margin: 0 auto;
-    }
-    .final-cta .btn-white {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        padding: 14px 24px;
-        background: white;
-        color: var(--accent);
-        border-radius: 10px;
-        font-size: 15px;
-        font-weight: 600;
-        text-decoration: none;
-    }
-    .final-cta .btn-ghost {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        padding: 14px 24px;
-        background: transparent;
-        color: white;
-        border: 1px solid rgba(255,255,255,0.3);
-        border-radius: 10px;
-        font-size: 15px;
-        font-weight: 600;
-        cursor: pointer;
-    }
-
-    /* ========== E-BOOK MODAL - COMPACT ========== */
-    .ebook-modal-overlay {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.8);
-        backdrop-filter: blur(4px);
-        z-index: 2000;
-        align-items: center;
-        justify-content: center;
-        padding: 16px;
-    }
-    .ebook-modal-overlay.active {
-        display: flex;
-    }
-    .ebook-modal {
-        background: var(--card-bg);
-        border-radius: 16px;
-        max-width: 440px;
-        width: 100%;
-        max-height: 90vh;
-        overflow-y: auto;
-        position: relative;
-    }
-    .ebook-modal-close {
-        position: absolute;
-        top: 12px;
-        right: 12px;
-        width: 32px;
-        height: 32px;
-        background: var(--bg2);
-        border: none;
-        border-radius: 50%;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--text3);
-        font-size: 16px;
-        z-index: 10;
-    }
-    .ebook-modal-content {
-        padding: 24px;
-    }
-    .ebook-visual {
-        text-align: center;
-        margin-bottom: 20px;
-    }
-    .ebook-cover {
-        display: inline-block;
-        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-        padding: 20px 16px;
-        border-radius: 8px;
-        box-shadow: 0 10px 30px rgba(16,185,129,0.3);
-    }
-    .ebook-cover-inner {
-        color: white;
-    }
-    .ebook-badge {
-        font-size: 10px;
-        font-weight: 700;
-        background: rgba(255,255,255,0.2);
-        padding: 4px 8px;
-        border-radius: 4px;
-        margin-bottom: 8px;
-        display: inline-block;
-    }
-    .ebook-icon {
-        font-size: 36px;
-        margin-bottom: 8px;
-    }
-    .ebook-cover h3 {
-        font-size: 18px;
-        font-weight: 700;
-        margin-bottom: 4px;
-    }
-    .ebook-cover p {
-        font-size: 12px;
-        opacity: 0.8;
-    }
-    .ebook-pages {
-        font-size: 11px;
-        margin-top: 8px;
-        background: rgba(0,0,0,0.2);
-        padding: 4px 8px;
-        border-radius: 4px;
-        display: inline-block;
-    }
-    .ebook-stats {
-        display: flex;
-        justify-content: center;
-        gap: 16px;
-        margin-top: 12px;
-    }
-    .ebook-stats .stat {
-        font-size: 11px;
-        color: var(--text3);
-    }
-    .ebook-stats .stat i {
-        color: var(--primary);
-        margin-right: 4px;
-    }
-    .ebook-info {
-        text-align: center;
-    }
-    .ebook-label {
-        font-size: 12px;
-        font-weight: 700;
-        color: var(--primary);
-        margin-bottom: 8px;
-    }
-    .ebook-info h2 {
-        font-size: 20px;
-        font-weight: 700;
-        color: var(--text1);
-        margin-bottom: 8px;
-    }
-    .ebook-subtitle {
-        font-size: 13px;
-        color: var(--text2);
-        margin-bottom: 16px;
-    }
-    .ebook-contents {
-        text-align: left;
-        background: var(--bg2);
-        border-radius: 10px;
-        padding: 16px;
-        margin-bottom: 16px;
-    }
-    .ebook-contents h4 {
-        font-size: 14px;
-        font-weight: 600;
-        color: var(--text1);
-        margin-bottom: 10px;
-    }
-    .ebook-contents ul {
-        list-style: none;
-    }
-    .ebook-contents li {
-        display: flex;
-        align-items: flex-start;
-        gap: 8px;
-        font-size: 12px;
-        color: var(--text2);
-        padding: 4px 0;
-    }
-    .ebook-contents li i {
-        color: var(--primary);
-        margin-top: 2px;
-        font-size: 10px;
-    }
-    .ebook-form .form-group {
-        display: flex;
-        gap: 8px;
-    }
-    .ebook-form input {
-        flex: 1;
-        padding: 12px 14px;
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        font-size: 14px;
-        background: var(--bg);
-        color: var(--text1);
-    }
-    .ebook-submit-btn {
-        padding: 12px 20px;
-        background: var(--primary);
-        color: white;
-        border: none;
-        border-radius: 8px;
-        font-size: 14px;
-        font-weight: 600;
-        cursor: pointer;
-    }
-    .ebook-privacy {
-        font-size: 11px;
-        color: var(--text3);
-        margin-top: 10px;
-    }
-    .ebook-privacy i {
-        margin-right: 4px;
-    }
-    .ebook-success {
-        text-align: center;
-        padding: 20px 0;
-    }
-    .success-icon {
-        font-size: 48px;
-        margin-bottom: 12px;
-    }
-    .ebook-success h3 {
-        font-size: 20px;
-        font-weight: 700;
-        color: var(--text1);
-        margin-bottom: 8px;
-    }
-    .ebook-success p {
-        font-size: 13px;
-        color: var(--text2);
-    }
-    .coupon-box {
-        background: var(--green-light);
-        border: 1px dashed var(--primary);
-        border-radius: 8px;
-        padding: 12px;
-        margin: 16px 0;
-    }
-    .coupon-label {
-        display: block;
-        font-size: 12px;
-        color: var(--text2);
-        margin-bottom: 6px;
-    }
-    .coupon-code {
-        font-size: 20px;
-        font-weight: 700;
-        color: var(--primary);
-        letter-spacing: 2px;
-    }
-    .success-note {
-        font-size: 11px;
-        color: var(--text3);
-    }
-
-    /* ========== DESKTOP RESPONSIVE ========== */
-    @media (min-width: 768px) {
-        section {
-            padding: 60px 0;
-        }
-        .hero {
-            padding: 100px 0 60px;
-        }
-        .hero h1 {
-            font-size: 48px;
-        }
-        .hero .subtitle {
-            font-size: 18px;
-        }
-        .hero-stats {
-            max-width: 500px;
-        }
-        .hero-cta {
-            flex-direction: row;
-        }
-        .btn-primary, .btn-secondary {
-            flex: none;
-        }
-        .problem-grid {
-            flex-direction: row;
-            gap: 40px;
-        }
-        .problem-content, .solution-box {
-            flex: 1;
-        }
-        .benefits-grid {
-            grid-template-columns: repeat(4, 1fr);
-        }
-        .comparison-cards {
-            display: none;
-        }
-        .comparison-table {
-            display: block;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
-        }
-        .comparison-header {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr 1fr 1fr;
-            background: var(--bg2);
-            font-weight: 600;
-            font-size: 14px;
-        }
-        .comparison-header span {
-            padding: 16px 12px;
-            text-align: center;
-            border-right: 1px solid var(--border);
-        }
-        .comparison-header span:last-child {
-            border-right: none;
-        }
-        .comparison-header .highlight-col {
-            background: var(--primary);
-            color: white;
-        }
-        .comparison-body .comparison-row-full {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr 1fr 1fr;
-            border-top: 1px solid var(--border);
-        }
-        .comparison-row-full span {
-            padding: 14px 12px;
-            text-align: center;
-            font-size: 14px;
-            border-right: 1px solid var(--border);
-        }
-        .comparison-row-full span:first-child {
-            font-weight: 600;
-            text-align: left;
-            color: var(--text1);
-        }
-        .comparison-row-full span:last-child {
-            border-right: none;
-        }
-        .comparison-row-full .highlight-col {
-            background: var(--primary-light);
-        }
-        .comparison-row-full .red { color: var(--red); }
-        .comparison-row-full .orange { color: var(--orange); }
-        .comparison-row-full .green { color: var(--green); font-weight: 600; }
-        .blueprints-categories {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-            overflow: visible;
-        }
-        .bp-category {
-            width: auto;
-        }
-        .pricing-grid {
-            flex-direction: row;
-        }
-        .pricing-card {
-            flex: 1;
-        }
-        .testimonials-grid {
-            flex-direction: row;
-        }
-        .testimonial-card {
-            flex: 1;
-        }
-        .showcase-item {
-            flex-direction: row;
-            gap: 40px;
-        }
-        .showcase-item.reverse {
-            flex-direction: row-reverse;
-        }
-        .showcase-visual, .showcase-info {
-            flex: 1;
-        }
-        .final-cta-buttons {
-            flex-direction: row;
-            max-width: none;
-            justify-content: center;
-        }
-    }
+    .final-cta h2 { font-size: 24px; }
+}
 </style>
 {% endblock %}
 
 {% block content %}
-<!-- ========== HERO ========== -->
+<!-- HERO -->
 <section class="hero">
     <div class="container">
-        <div class="hero-content">
-            <div class="hero-badge">
-                <i class="fas fa-bolt"></i> Nieuw: 80 kant-en-klare blueprints
-            </div>
-            <h1>
-                Lanceer je app.<br>
-                <span class="highlight">In één weekend.</span>
-            </h1>
-            <p class="subtitle">
-                Bespaar duizenden euro's aan developers. Met onze kant-en-klare blueprints bouw je zelf professionele websites, tools en klantportalen. Volg de stappen en je hebt een werkend resultaat.
-            </p>
-            <div class="hero-stats">
-                <div class="hero-stat">
-                    <div class="number">€10.000+</div>
-                    <div class="label">Bespaar aan dev kosten</div>
-                </div>
-                <div class="hero-stat">
-                    <div class="number">1 weekend</div>
-                    <div class="label">Van idee naar werkende app</div>
-                </div>
-                <div class="hero-stat">
-                    <div class="number">80+</div>
-                    <div class="label">Kant-en-klare blueprints</div>
-                </div>
-            </div>
-            <div class="hero-cta">
-                <a href="/blueprints" class="btn-primary">
-                    <i class="fas fa-rocket"></i> Bekijk Blueprints
-                </a>
-                <button onclick="openEbookModal()" class="btn-secondary">
-                    <i class="fas fa-book"></i> Gratis E-book
-                </button>
-            </div>
-            <div class="hero-notes">
-                <p class="hero-note">
-                    <i class="fas fa-check-circle"></i> Geen programmeerkennis nodig
-                </p>
-                <p class="hero-note">
-                    <i class="fas fa-lock-open"></i> 100% eigendom van je code, geen maandelijkse platform kosten
-                </p>
-            </div>
+        <span class="hero-label">80+ Kant-en-klare Blueprints</span>
+        <h1>Lanceer je app.<br><span class="red">In één weekend.</span></h1>
+        <p class="hero-sub">Bespaar duizenden euro's aan developers. Met onze blueprints bouw je zelf professionele apps, tools en portalen.</p>
+        
+        <div class="hero-stats">
+            <div class="stat"><strong>€10.000+</strong><span>Bespaard</span></div>
+            <div class="stat"><strong>1 weekend</strong><span>Bouwtijd</span></div>
+            <div class="stat"><strong>80+</strong><span>Blueprints</span></div>
+        </div>
+        
+        <div class="hero-cta">
+            <a href="/blueprints" class="btn btn-primary">Bekijk Blueprints <i class="fas fa-arrow-right"></i></a>
+            <button onclick="openModal()" class="btn btn-outline"><i class="fas fa-book"></i> Gratis Startersgids</button>
+        </div>
+        
+        <div class="hero-note">
+            <span><i class="fas fa-check"></i> Geen programmeerkennis nodig</span>
+            <span><i class="fas fa-check"></i> 100% eigendom van je code</span>
         </div>
     </div>
 </section>
 
-<!-- ========== PROBLEEM / OPLOSSING ========== -->
-<section class="problem-section">
+<!-- VALUE PROP -->
+<section class="value-section">
     <div class="container">
-        <div class="problem-grid">
-            <div class="problem-content">
-                <h2>Jouw Idee Verdient een Vliegende Start</h2>
-                <p class="problem-intro"><strong>Heb jij een briljant idee?</strong><br>Je ziet de kansen in de markt. Je weet precies welke tool je klanten nodig hebben of hoe je jouw processen kunt automatiseren. Maar dan...</p>
-                <ul class="problem-list">
-                    <li>
-                        <span class="icon"><i class="fas fa-times"></i></span>
-                        <span><strong>De technische muur:</strong> Je hebt het idee in je hoofd, maar de code nog niet in je vingers.</span>
-                    </li>
-                    <li>
-                        <span class="icon"><i class="fas fa-times"></i></span>
-                        <span><strong>De drempelvrees:</strong> Waar begin je? Welke tool kies je? En hoe zorg je dat het ook echt werkt?</span>
-                    </li>
-                    <li>
-                        <span class="icon"><i class="fas fa-times"></i></span>
-                        <span><strong>De angst voor stilstand:</strong> Je wilt niet dat je idee op de plank blijft liggen terwijl de concurrentie je inhaalt.</span>
-                    </li>
+        <div class="value-grid">
+            <div>
+                <h2>Het probleem met development</h2>
+                <p>Je hebt een idee, maar de weg naar realisatie kost tijd en geld.</p>
+                <ul class="pain-list">
+                    <li><span class="x"><i class="fas fa-times"></i></span> Developer: €5.000 - €50.000+ en maanden wachten</li>
+                    <li><span class="x"><i class="fas fa-times"></i></span> Platforms: €50+/maand die steeds duurder worden</li>
+                    <li><span class="x"><i class="fas fa-times"></i></span> Zelf leren: Jaren voordat je resultaat ziet</li>
                 </ul>
             </div>
             <div class="solution-box">
-                <h3>Onze Blueprints helpen je verder</h3>
-                <p>
-                    Wij geloven dat techniek nooit een barrière mag zijn voor innovatie. Onze blueprints zijn de brug tussen jouw visie en een werkend product.
-                </p>
-                <div class="solution-features">
-                    <div class="feature"><i class="fas fa-check"></i> <strong>Vertaal je visie direct naar resultaat:</strong> Sla het gepuzzel over en start met een bewezen fundering.</div>
-                    <div class="feature"><i class="fas fa-check"></i> <strong>Focus op wat telt:</strong> Besteed je tijd aan je businessmodel en je klanten, terwijl de techniek als een huis staat.</div>
-                    <div class="feature"><i class="fas fa-check"></i> <strong>Directe validatie:</strong> Test je idee vandaag nog in de praktijk, zonder eerst een kapitaal te investeren.</div>
-                    <div class="feature"><i class="fas fa-check"></i> <strong>Jij bent de architect:</strong> Pas de blueprint aan tot hij 100% aansluit bij jouw unieke concept.</div>
-                </div>
+                <h3>De Blueprint Oplossing</h3>
+                <p>Kant-en-klare bouwplannen. Volg de stappen, pas aan, klaar.</p>
+                <ul class="check-list">
+                    <li><i class="fas fa-check"></i> Bouw in uren, niet maanden</li>
+                    <li><i class="fas fa-check"></i> Geen technische kennis nodig</li>
+                    <li><i class="fas fa-check"></i> 100% eigendom, geen abonnement</li>
+                </ul>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ========== DOELGROEPEN ========== -->
-<section class="audience-section">
+<!-- COMPARISON -->
+<section class="compare-section">
     <div class="container">
-        <div class="section-header">
-            <h2>Van Visie naar Vastgoed: Bouw je eigen Software-Asset</h2>
-            <p>Je hebt het idee. Wij hebben het fundament.</p>
+        <div class="section-title">
+            <h2>Vergelijk je opties</h2>
+            <p>Waar investeer je je tijd en geld?</p>
         </div>
-        <div class="vision-content">
-            <p class="vision-intro">
-                Je ziet een kans in de markt of een manier om je bedrijf efficiënter te maken. Je wilt niet vastzitten in de "abonnementen-val" van dure platforms en je wilt niet maanden wachten op een developer. Je wilt <strong>nu resultaat</strong>, met de zekerheid dat het product 100% van jou blijft.
-            </p>
-            
-            <h3 class="why-title">Waarom ondernemers voor Blueprints kiezen:</h3>
-            <div class="benefits-grid">
-                <div class="benefit-card">
-                    <div class="benefit-icon">⚡</div>
-                    <h4>Snelheid als Strategie</h4>
-                    <p>Valideer je concept in dagen. Terwijl de concurrentie nog vergadert over de offerte, staat jouw eerste versie al live.</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">🔐</div>
-                    <h4>100% Intellectueel Eigendom</h4>
-                    <p>Geen maandelijkse kosten per gebruiker of commissies. De code is jouw eigendom, punt.</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">📈</div>
-                    <h4>Onbeperkte Schaalbaarheid</h4>
-                    <p>Je bouwt op een professionele fundering die meegroeit met je succes, zonder de beperkingen van standaard platform-blokken.</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">🎯</div>
-                    <h4>Focus op Business, niet op Bugs</h4>
-                    <p>Onze blueprints regelen de techniek, zodat jij je kunt focussen op marketing, sales en groei.</p>
-                </div>
+        
+        <table class="compare-table">
+            <thead>
+                <tr>
+                    <th>Factor</th>
+                    <th>Developer</th>
+                    <th>Platform</th>
+                    <th>Blueprint</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Investering</td><td class="neg">€5.000 - €50.000+</td><td class="neg">€50+/maand</td><td>€29 - €149 eenmalig</td></tr>
+                <tr><td>Tijdsduur</td><td class="neg">Maanden</td><td>Dagen</td><td>Uren</td></tr>
+                <tr><td>Eigendom</td><td class="pos">Volledig</td><td class="neg">Geen</td><td>Volledig</td></tr>
+                <tr><td>Vrijheid</td><td>Afhankelijk</td><td class="neg">Beperkt</td><td>Onbeperkt</td></tr>
+            </tbody>
+        </table>
+        
+        <div class="compare-mobile">
+            <div class="compare-card featured">
+                <h4><i class="fas fa-check-circle"></i> Blueprint (Aanbevolen)</h4>
+                <div class="row"><span class="label">Investering</span><span class="good">€29 - €149</span></div>
+                <div class="row"><span class="label">Tijdsduur</span><span class="good">Uren</span></div>
+                <div class="row"><span class="label">Eigendom</span><span class="good">Volledig</span></div>
+                <div class="row"><span class="label">Vrijheid</span><span class="good">Onbeperkt</span></div>
             </div>
-            
-            <h3 class="comparison-title">De Strategische Keuze</h3>
-            <p class="comparison-subtitle">Ondernemers maken de rekensom. Waar investeer je je tijd en kapitaal?</p>
-            
-            <!-- Mobile Comparison Cards -->
-            <div class="comparison-cards">
-                <div class="comparison-card featured">
-                    <h4><i class="fas fa-check-circle"></i> De Blueprint-route</h4>
-                    <div class="card-stats">
-                        <div class="stat-item">
-                            <span class="stat-label">Investering</span>
-                            <span class="stat-value good">€29 - €149 eenmalig</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Snelheid</span>
-                            <span class="stat-value good">Direct (uren)</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Eigendom</span>
-                            <span class="stat-value good">100% van jou</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Vrijheid</span>
-                            <span class="stat-value good">Onbeperkt</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="comparison-card">
-                    <h4><i class="fas fa-code"></i> De Developer-route</h4>
-                    <div class="card-stats">
-                        <div class="stat-item">
-                            <span class="stat-label">Investering</span>
-                            <span class="stat-value bad">€5.000 - €50.000+</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Snelheid</span>
-                            <span class="stat-value bad">Maanden</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Eigendom</span>
-                            <span class="stat-value good">Volledig</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Vrijheid</span>
-                            <span class="stat-value mid">Afhankelijk</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="comparison-card">
-                    <h4><i class="fas fa-puzzle-piece"></i> De Platform-route</h4>
-                    <div class="card-stats">
-                        <div class="stat-item">
-                            <span class="stat-label">Investering</span>
-                            <span class="stat-value mid">€50+/maand</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Snelheid</span>
-                            <span class="stat-value mid">Dagen</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Eigendom</span>
-                            <span class="stat-value bad">Geen (je huurt)</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Vrijheid</span>
-                            <span class="stat-value bad">Beperkt</span>
-                        </div>
-                    </div>
-                </div>
+            <div class="compare-card">
+                <h4>Developer</h4>
+                <div class="row"><span class="label">Investering</span><span class="bad">€5.000 - €50.000+</span></div>
+                <div class="row"><span class="label">Tijdsduur</span><span class="bad">Maanden</span></div>
+                <div class="row"><span class="label">Eigendom</span><span class="good">Volledig</span></div>
+                <div class="row"><span class="label">Vrijheid</span><span>Afhankelijk</span></div>
             </div>
-            
-            <!-- Desktop Comparison Table (hidden on mobile) -->
-            <div class="comparison-table">
-                <div class="comparison-header">
-                    <span>Factor</span>
-                    <span>De Developer-route</span>
-                    <span>De Platform-route</span>
-                    <span class="highlight-col">De Blueprint-route</span>
-                </div>
-                <div class="comparison-body">
-                    <div class="comparison-row-full">
-                        <span>Investering</span>
-                        <span class="red">Hoog (€5.000 - €50.000+)</span>
-                        <span class="orange">Maandelijks terugkerend (€€€)</span>
-                        <span class="green highlight-col">Eénmalig laag (€29 - €149)</span>
-                    </div>
-                    <div class="comparison-row-full">
-                        <span>Snelheid</span>
-                        <span class="red">Traag (maanden)</span>
-                        <span class="orange">Snel (dagen)</span>
-                        <span class="green highlight-col">Direct (uren)</span>
-                    </div>
-                    <div class="comparison-row-full">
-                        <span>Eigendom</span>
-                        <span class="green">Volledig</span>
-                        <span class="red">Geen (je huurt je app)</span>
-                        <span class="green highlight-col">Volledig (Asset)</span>
-                    </div>
-                    <div class="comparison-row-full">
-                        <span>Vrijheid</span>
-                        <span class="orange">Afhankelijk van bureau</span>
-                        <span class="red">Beperkt door platform</span>
-                        <span class="green highlight-col">Onbeperkt (Open code)</span>
-                    </div>
-                </div>
+            <div class="compare-card">
+                <h4>Platform</h4>
+                <div class="row"><span class="label">Investering</span><span class="bad">€50+/maand</span></div>
+                <div class="row"><span class="label">Tijdsduur</span><span>Dagen</span></div>
+                <div class="row"><span class="label">Eigendom</span><span class="bad">Geen</span></div>
+                <div class="row"><span class="label">Vrijheid</span><span class="bad">Beperkt</span></div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ========== BLUEPRINTS PREVIEW ========== -->
+<!-- BLUEPRINTS -->
 <section class="blueprints-section">
     <div class="container">
-        <div class="section-header">
-            <h2>Wat wil je bereiken?</h2>
-            <p>Kies je doel en ontdek de perfecte blueprints</p>
+        <div class="section-title">
+            <h2>Populaire Blueprints</h2>
+            <p>Kies je doel, start direct</p>
         </div>
-        <div class="blueprints-categories">
-            <div class="bp-category">
-                <div class="bp-category-header">
-                    <span class="bp-cat-icon">💰</span>
-                    <h4>Meer Klanten & Sales</h4>
-                </div>
-                <div class="bp-category-items">
-                    <a href="/blueprints?filter=leads" class="bp-item">Landing Page <span>€19</span></a>
-                    <a href="/blueprints?filter=leads" class="bp-item">Booking Systeem <span>€39</span></a>
-                    <a href="/blueprints?filter=leads" class="bp-item">Quiz Funnel <span>€39</span></a>
+        
+        <div class="bp-grid">
+            <div class="bp-card">
+                <div class="bp-card-head">💰 Meer Klanten</div>
+                <div class="bp-card-body">
+                    <a href="/blueprints" class="bp-item"><span>Landing Page</span><span class="price">€19</span></a>
+                    <a href="/blueprints" class="bp-item"><span>Booking Systeem</span><span class="price">€39</span></a>
+                    <a href="/blueprints" class="bp-item"><span>Quiz Funnel</span><span class="price">€39</span></a>
                 </div>
             </div>
-            <div class="bp-category">
-                <div class="bp-category-header">
-                    <span class="bp-cat-icon">👥</span>
-                    <h4>Klanten Beter Helpen</h4>
-                </div>
-                <div class="bp-category-items">
-                    <a href="/blueprints?filter=portals" class="bp-item">Klant Dashboard <span>€39</span></a>
-                    <a href="/blueprints?filter=portals" class="bp-item">Support Portaal <span>€39</span></a>
-                    <a href="/blueprints?filter=portals" class="bp-item">Leerplatform <span>€49</span></a>
+            <div class="bp-card">
+                <div class="bp-card-head">🤝 Klant Portalen</div>
+                <div class="bp-card-body">
+                    <a href="/blueprints" class="bp-item"><span>Dashboard</span><span class="price">€39</span></a>
+                    <a href="/blueprints" class="bp-item"><span>Support Portaal</span><span class="price">€39</span></a>
+                    <a href="/blueprints" class="bp-item"><span>Leerplatform</span><span class="price">€49</span></a>
                 </div>
             </div>
-            <div class="bp-category">
-                <div class="bp-category-header">
-                    <span class="bp-cat-icon">⏱️</span>
-                    <h4>Tijd Besparen</h4>
-                </div>
-                <div class="bp-category-items">
-                    <a href="/blueprints?filter=automation" class="bp-item">AI Content Generator <span>€29</span></a>
-                    <a href="/blueprints?filter=automation" class="bp-item">CRM Systeem <span>€39</span></a>
-                    <a href="/blueprints?filter=automation" class="bp-item">Factuur Generator <span>€29</span></a>
+            <div class="bp-card">
+                <div class="bp-card-head">⚡ Automatisering</div>
+                <div class="bp-card-body">
+                    <a href="/blueprints" class="bp-item"><span>Content Generator</span><span class="price">€29</span></a>
+                    <a href="/blueprints" class="bp-item"><span>CRM Systeem</span><span class="price">€39</span></a>
+                    <a href="/blueprints" class="bp-item"><span>Factuur Tool</span><span class="price">€29</span></a>
                 </div>
             </div>
-            <div class="bp-category">
-                <div class="bp-category-header">
-                    <span class="bp-cat-icon">🚀</span>
-                    <h4>Nieuwe Inkomsten</h4>
-                </div>
-                <div class="bp-category-items">
-                    <a href="/blueprints?filter=income" class="bp-item">SaaS Starter Kit <span>€49</span></a>
-                    <a href="/blueprints?filter=income" class="bp-item">Membership Platform <span>€49</span></a>
-                    <a href="/blueprints?filter=income" class="bp-item">Cursus Platform <span>€49</span></a>
+            <div class="bp-card">
+                <div class="bp-card-head">🚀 Nieuwe Inkomsten</div>
+                <div class="bp-card-body">
+                    <a href="/blueprints" class="bp-item"><span>SaaS Starter</span><span class="price">€49</span></a>
+                    <a href="/blueprints" class="bp-item"><span>Membership</span><span class="price">€49</span></a>
+                    <a href="/blueprints" class="bp-item"><span>Cursus Platform</span><span class="price">€49</span></a>
                 </div>
             </div>
         </div>
-        <div class="blueprints-cta">
-            <a href="/blueprints" class="btn-primary">
-                <i class="fas fa-th-large"></i> Bekijk Alle 80 Blueprints
-            </a>
+        
+        <div class="bp-cta">
+            <a href="/blueprints" class="btn btn-primary">Bekijk alle 80 Blueprints <i class="fas fa-arrow-right"></i></a>
         </div>
     </div>
 </section>
 
-<!-- ========== PRIJZEN ========== -->
+<!-- PRICING -->
 <section class="pricing-section">
     <div class="container">
-        <div class="section-header">
+        <div class="section-title">
             <h2>Kies je pakket</h2>
-            <p>Eenmalige betaling, geen abonnement. Code is 100% van jou.</p>
+            <p>Eenmalige betaling, levenslang toegang</p>
         </div>
+        
         <div class="pricing-grid">
-            <div class="pricing-card">
+            <div class="price-card">
                 <h3>Starter</h3>
-                <p class="desc">Perfect om te beginnen</p>
-                <div class="price">€49</div>
+                <p class="sub">Om te beginnen</p>
+                <div class="amount">€49</div>
                 <p class="period">eenmalig</p>
                 <ul>
-                    <li><i class="fas fa-check"></i> 5 blueprints naar keuze</li>
-                    <li><i class="fas fa-check"></i> Inclusief documentatie</li>
+                    <li><i class="fas fa-check"></i> 5 blueprints</li>
+                    <li><i class="fas fa-check"></i> Documentatie</li>
                     <li><i class="fas fa-check"></i> Email support</li>
                 </ul>
-                <a href="/blueprints" class="btn btn-outline">Kies Blueprints</a>
+                <a href="/blueprints" class="btn btn-outline">Kies Starter</a>
             </div>
-            <div class="pricing-card featured">
-                <span class="popular">BESTE KEUZE VOOR PROJECTEN</span>
+            
+            <div class="price-card pop">
                 <h3>Ondernemer</h3>
-                <p class="desc">Voor serieuze zakelijke projecten</p>
-                <div class="price">€99</div>
+                <p class="sub">Beste waarde</p>
+                <div class="amount">€99</div>
                 <p class="period">eenmalig</p>
                 <ul>
-                    <li><i class="fas fa-check"></i> <strong>15 blueprints</strong> naar keuze</li>
+                    <li><i class="fas fa-check"></i> 15 blueprints</li>
                     <li><i class="fas fa-check"></i> Alle documentatie</li>
                     <li><i class="fas fa-check"></i> Priority support</li>
-                    <li><i class="fas fa-check"></i> Bonus: deployment guide</li>
-                    <li><i class="fas fa-check"></i> <strong>65% besparing</strong> t.o.v. los</li>
                 </ul>
-                <a href="/blueprints" class="btn btn-primary">Start Nu</a>
+                <a href="/blueprints" class="btn btn-primary">Kies Ondernemer</a>
             </div>
-            <div class="pricing-card">
-                <h3>Complete Bundel</h3>
-                <p class="desc">Alles wat we hebben</p>
-                <div class="price">€149</div>
+            
+            <div class="price-card">
+                <h3>Complete</h3>
+                <p class="sub">Alles erbij</p>
+                <div class="amount">€149</div>
                 <p class="period">eenmalig</p>
                 <ul>
                     <li><i class="fas fa-check"></i> Alle 80 blueprints</li>
-                    <li><i class="fas fa-check"></i> Alle toekomstige updates</li>
-                    <li><i class="fas fa-check"></i> 1-op-1 onboarding call</li>
-                    <li><i class="fas fa-check"></i> Lifetime access</li>
+                    <li><i class="fas fa-check"></i> Lifetime updates</li>
+                    <li><i class="fas fa-check"></i> 1-op-1 onboarding</li>
                 </ul>
-                <a href="/blueprints" class="btn btn-outline">Alles Krijgen</a>
+                <a href="/blueprints" class="btn btn-outline">Kies Complete</a>
             </div>
         </div>
-        <div class="guarantee-banner">
+        
+        <div class="guarantee">
             <i class="fas fa-shield-alt"></i>
-            <div class="guarantee-text">
-                <strong>14 dagen geld-terug garantie</strong>
-                <span>Niet tevreden? Geld terug, geen vragen.</span>
-            </div>
+            <span><strong>14 dagen geld-terug garantie</strong></span>
         </div>
     </div>
 </section>
 
-<!-- ========== SOCIAL PROOF ========== -->
-<section class="social-proof">
+<!-- TESTIMONIALS -->
+<section class="testimonials-section">
     <div class="container">
-        <div class="section-header">
-            <h2>Gebouwd met onze blueprints</h2>
-            <p>Van blueprint naar werkend product. Bekijk wat anderen hebben gerealiseerd.</p>
-        </div>
-        
-        <div class="showcase-gallery">
-            <!-- Showcase 1: Klant Dashboard -->
-            <div class="showcase-item">
-                <div class="showcase-visual">
-                    <div class="browser-frame">
-                        <div class="browser-header">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                            <span class="url">dashboard.bedrijf.nl</span>
-                        </div>
-                        <div class="browser-content dashboard-preview">
-                            <div class="dash-sidebar">
-                                <div class="dash-logo"></div>
-                                <div class="dash-nav"><span></span><span></span><span></span><span></span></div>
-                            </div>
-                            <div class="dash-main">
-                                <div class="dash-topbar"></div>
-                                <div class="dash-stats">
-                                    <div class="stat-card purple"></div>
-                                    <div class="stat-card blue"></div>
-                                    <div class="stat-card green"></div>
-                                    <div class="stat-card orange"></div>
-                                </div>
-                                <div class="dash-chart"></div>
-                                <div class="dash-table">
-                                    <div class="table-row"></div>
-                                    <div class="table-row"></div>
-                                    <div class="table-row"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="showcase-info">
-                    <span class="showcase-badge">Klant Portaal</span>
-                    <h3>Analytics Dashboard</h3>
-                    <p>Een ondernemer bouwde dit complete klantportaal in één weekend. Klanten loggen in, bekijken hun statistieken en beheren hun account.</p>
-                    <div class="showcase-stats">
-                        <div class="showcase-stat">
-                            <strong>500+</strong>
-                            <span>Actieve gebruikers</span>
-                        </div>
-                        <div class="showcase-stat">
-                            <strong>€15.000</strong>
-                            <span>Bespaard vs developer</span>
-                        </div>
-                    </div>
-                    <a href="/blueprints?filter=portals" class="showcase-link">Bekijk blueprint <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-            
-            <!-- Showcase 2: Booking Systeem -->
-            <div class="showcase-item reverse">
-                <div class="showcase-visual">
-                    <div class="browser-frame">
-                        <div class="browser-header">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                            <span class="url">reserveren.salon.nl</span>
-                        </div>
-                        <div class="browser-content booking-preview">
-                            <div class="booking-header"></div>
-                            <div class="booking-calendar">
-                                <div class="cal-header"></div>
-                                <div class="cal-grid">
-                                    <span></span><span></span><span class="available"></span><span class="available"></span><span></span><span class="available"></span><span></span>
-                                    <span class="available"></span><span></span><span class="available"></span><span></span><span class="available"></span><span></span><span class="available"></span>
-                                </div>
-                            </div>
-                            <div class="booking-times">
-                                <span class="time-slot available">09:00</span>
-                                <span class="time-slot available">10:30</span>
-                                <span class="time-slot booked">12:00</span>
-                                <span class="time-slot available">14:00</span>
-                            </div>
-                            <div class="booking-btn"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="showcase-info">
-                    <span class="showcase-badge">Automatisering</span>
-                    <h3>Online Reserveringssysteem</h3>
-                    <p>Een kapsalon verving hun telefonische afspraken door dit online boekingssysteem. Klanten kiezen zelf hun tijd, automatische herinneringen inbegrepen.</p>
-                    <div class="showcase-stats">
-                        <div class="showcase-stat">
-                            <strong>200+</strong>
-                            <span>Boekingen per maand</span>
-                        </div>
-                        <div class="showcase-stat">
-                            <strong>5 uur</strong>
-                            <span>Per week bespaard</span>
-                        </div>
-                    </div>
-                    <a href="/blueprints?filter=leads" class="showcase-link">Bekijk blueprint <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-            
-            <!-- Showcase 3: Landing Page -->
-            <div class="showcase-item">
-                <div class="showcase-visual">
-                    <div class="browser-frame">
-                        <div class="browser-header">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                            <span class="url">www.consultancy.nl</span>
-                        </div>
-                        <div class="browser-content landing-preview">
-                            <div class="landing-nav"></div>
-                            <div class="landing-hero">
-                                <div class="hero-text">
-                                    <div class="hero-title"></div>
-                                    <div class="hero-subtitle"></div>
-                                    <div class="hero-btn"></div>
-                                </div>
-                                <div class="hero-image"></div>
-                            </div>
-                            <div class="landing-features">
-                                <div class="feature-box"></div>
-                                <div class="feature-box"></div>
-                                <div class="feature-box"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="showcase-info">
-                    <span class="showcase-badge">Lead Generatie</span>
-                    <h3>High-Converting Landing Page</h3>
-                    <p>Een consultant lanceerde deze landingspagina voor zijn nieuwe dienst. Geoptimaliseerd voor conversie met testimonials, pricing en lead capture.</p>
-                    <div class="showcase-stats">
-                        <div class="showcase-stat">
-                            <strong>15%</strong>
-                            <span>Conversie ratio</span>
-                        </div>
-                        <div class="showcase-stat">
-                            <strong>48 uur</strong>
-                            <span>Van idee naar live</span>
-                        </div>
-                    </div>
-                    <a href="/blueprints?filter=leads" class="showcase-link">Bekijk blueprint <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-            
-            <!-- Showcase 4: Interne Tool -->
-            <div class="showcase-item reverse">
-                <div class="showcase-visual">
-                    <div class="browser-frame">
-                        <div class="browser-header">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                            <span class="url">intern.bedrijf.nl/facturen</span>
-                        </div>
-                        <div class="browser-content tool-preview">
-                            <div class="tool-header">
-                                <div class="tool-title"></div>
-                                <div class="tool-btn"></div>
-                            </div>
-                            <div class="tool-form">
-                                <div class="form-row"><span class="label"></span><span class="input"></span></div>
-                                <div class="form-row"><span class="label"></span><span class="input"></span></div>
-                                <div class="form-row"><span class="label"></span><span class="input wide"></span></div>
-                            </div>
-                            <div class="tool-preview-doc">
-                                <div class="doc-header"></div>
-                                <div class="doc-lines">
-                                    <span></span><span></span><span></span>
-                                </div>
-                                <div class="doc-total"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="showcase-info">
-                    <span class="showcase-badge">Tijd Besparen</span>
-                    <h3>Factuur Generator</h3>
-                    <p>Een freelancer automatiseerde zijn facturatie met deze tool. Klantgegevens invullen, regels toevoegen, PDF genereren. Klaar.</p>
-                    <div class="showcase-stats">
-                        <div class="showcase-stat">
-                            <strong>2 uur</strong>
-                            <span>Per maand bespaard</span>
-                        </div>
-                        <div class="showcase-stat">
-                            <strong>€0</strong>
-                            <span>Software kosten</span>
-                        </div>
-                    </div>
-                    <a href="/blueprints?filter=automation" class="showcase-link">Bekijk blueprint <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
+        <div class="section-title">
+            <h2>Wat anderen zeggen</h2>
         </div>
         
         <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <div class="stars">★★★★★</div>
-                <p>"Ik heb mijn eerste klantportaal gebouwd in een weekend. Een developer had me €15.000 gevraagd voor hetzelfde. Nu draait het en levert het maandelijks op."</p>
+            <div class="testi-card">
+                <p>"Mijn eerste klantportaal in een weekend gebouwd. Developer vroeg €15.000."</p>
                 <div class="author">
                     <div class="avatar">MV</div>
-                    <div class="author-info">
-                        <h4>Mark V.</h4>
-                        <span>Ondernemer, Amsterdam</span>
-                    </div>
+                    <div><div class="name">Mark V.</div><div class="role">Ondernemer</div></div>
                 </div>
             </div>
-            <div class="testimonial-card">
-                <div class="stars">★★★★★</div>
-                <p>"Ik betaalde €89/maand aan een website platform. Nu heb ik mijn eigen site, geen maandelijkse kosten meer, en het is sneller ook nog. Blueprint betaalde zichzelf in 2 maanden terug."</p>
+            <div class="testi-card">
+                <p>"Betaalde €89/maand aan een platform. Nu eigen site zonder kosten."</p>
                 <div class="author">
                     <div class="avatar">SJ</div>
-                    <div class="author-info">
-                        <h4>Sophie J.</h4>
-                        <span>Freelance Designer</span>
-                    </div>
+                    <div><div class="name">Sophie J.</div><div class="role">Freelancer</div></div>
                 </div>
             </div>
-            <div class="testimonial-card">
-                <div class="stars">★★★★★</div>
-                <p>"Eindelijk een manier om mijn ideeën zelf te bouwen. Geen gedoe met developers die niet snappen wat ik wil. Volg de stappen, aanpassen, klaar."</p>
+            <div class="testi-card">
+                <p>"Eindelijk mijn ideeën zelf bouwen zonder developers die niet snappen wat ik wil."</p>
                 <div class="author">
                     <div class="avatar">RK</div>
-                    <div class="author-info">
-                        <h4>Robin K.</h4>
-                        <span>Startup Founder, Utrecht</span>
-                    </div>
+                    <div><div class="name">Robin K.</div><div class="role">Startup Founder</div></div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ========== FAQ ========== -->
+<!-- FAQ -->
 <section class="faq-section">
     <div class="container">
-        <div class="section-header">
+        <div class="section-title">
             <h2>Veelgestelde vragen</h2>
         </div>
-        <div class="faq-grid">
+        
+        <div class="faq-list">
             <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    Heb ik programmeerkennis nodig?
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    Nee, absoluut niet. Onze blueprints zijn ontworpen voor mensen zonder technische achtergrond. Je volgt de stappen, past aan wat je nodig hebt, en krijgt een werkend resultaat.
-                </div>
+                <div class="faq-q" onclick="toggleFaq(this)"><span>Hoe werken de blueprints?</span><i class="fas fa-chevron-down"></i></div>
+                <div class="faq-a">Je volgt de stappen, past aan wat je nodig hebt, en hebt een werkend resultaat. Elke blueprint bevat instructies en code.</div>
             </div>
             <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    Welke tools heb ik nodig?
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    Elke blueprint bevat een lijst met benodigde tools. De meeste zijn gratis of hebben een gratis versie. In ons e-book leggen we precies uit welke tool het beste bij jouw project past.
-                </div>
+                <div class="faq-q" onclick="toggleFaq(this)"><span>Heb ik programmeerkennis nodig?</span><i class="fas fa-chevron-down"></i></div>
+                <div class="faq-a">Nee. De blueprints zijn zo ontworpen dat iedereen ze kan volgen met AI-tools.</div>
             </div>
             <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    Wat als het niet werkt?
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    Elke blueprint bevat troubleshooting tips. Daarnaast heb je toegang tot onze support. Werkt het echt niet? Dan krijg je je geld terug binnen 14 dagen.
-                </div>
+                <div class="faq-q" onclick="toggleFaq(this)"><span>Is de code echt van mij?</span><i class="fas fa-chevron-down"></i></div>
+                <div class="faq-a">Ja, 100%. Geen maandelijkse kosten, geen vendor lock-in. Volledig van jou.</div>
             </div>
             <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    Is dit hetzelfde als website builders?
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    Nee, en dat is juist de kracht. Met website builders zit je vast aan hun beperkingen en betaal je maandelijks. Met onze blueprints krijg je echte code die je volledig bezit en onbeperkt kunt aanpassen.
-                </div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    Kan ik de apps commercieel gebruiken?
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    Ja! Alles wat je bouwt met onze blueprints is 100% van jou. Je kunt het verkopen, als dienst aanbieden, of wat je maar wilt.
-                </div>
+                <div class="faq-q" onclick="toggleFaq(this)"><span>Wat als ik vastloop?</span><i class="fas fa-chevron-down"></i></div>
+                <div class="faq-a">Alle pakketten bevatten support. Ondernemer en Complete krijgen priority support.</div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ========== FINAL CTA ========== -->
+<!-- FINAL CTA -->
 <section class="final-cta">
     <div class="container">
         <h2>Klaar om te beginnen?</h2>
-        <p>Start gratis met ons e-book, of ga direct aan de slag met de blueprints.</p>
-        <div class="final-cta-buttons">
-            <a href="/blueprints" class="btn-white">
-                <i class="fas fa-shopping-cart"></i> Bekijk Blueprints
-            </a>
-            <button onclick="openEbookModal()" class="btn-ghost">
-                <i class="fas fa-book"></i> Gratis E-book Downloaden
-            </button>
-        </div>
+        <p>Start vandaag met bouwen aan je idee</p>
+        <a href="/blueprints" class="btn btn-primary">Bekijk Blueprints <i class="fas fa-arrow-right"></i></a>
     </div>
 </section>
 
-<!-- E-book Modal -->
-<div class="ebook-modal-overlay" id="ebookModal">
-    <div class="ebook-modal">
-        <button class="ebook-modal-close" onclick="closeEbookModal()">
-            <i class="fas fa-times"></i>
-        </button>
+<!-- MODAL -->
+<div class="modal-overlay" id="ebookModal">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
         
-        <div class="ebook-modal-content">
-            <div class="ebook-visual">
-                <div class="ebook-cover">
-                    <div class="ebook-cover-inner">
-                        <div class="ebook-badge">GRATIS</div>
-                        <div class="ebook-icon">📘</div>
-                        <h3>Blueprint<br>Startersgids</h3>
-                        <p>Van idee tot werkende app</p>
-                        <div class="ebook-pages">80+ pagina's</div>
-                    </div>
-                </div>
-                <div class="ebook-stats">
-                    <div class="stat"><i class="fas fa-download"></i> 2.847+ downloads</div>
-                    <div class="stat"><i class="fas fa-star"></i> 4.9/5 rating</div>
-                </div>
+        <div id="formContent">
+            <h2>Gratis Startersgids</h2>
+            <p class="sub">80+ pagina's - alles wat je moet weten</p>
+            <ul>
+                <li><i class="fas fa-check"></i> Hoe blueprints werken</li>
+                <li><i class="fas fa-check"></i> De beste tools uitgelegd</li>
+                <li><i class="fas fa-check"></i> Stap-voor-stap instructies</li>
+            </ul>
+            <div class="modal-form">
+                <input type="email" id="emailInput" placeholder="Je e-mailadres">
+                <button onclick="submitForm()">Download</button>
             </div>
-            
-            <div class="ebook-info">
-                <div class="ebook-label">🎁 GRATIS E-BOOK</div>
-                <h2>De Complete Blueprint Startersgids</h2>
-                <p class="ebook-subtitle">Alles wat je nodig hebt om je eerste app te bouwen. Zonder programmeerkennis.</p>
-                
-                <div class="ebook-contents">
-                    <h4>📖 Wat je leert:</h4>
-                    <ul>
-                        <li><i class="fas fa-check"></i> <strong>Hoofdstuk 1-2:</strong> Hoe blueprints werken + beste tools</li>
-                        <li><i class="fas fa-check"></i> <strong>Hoofdstuk 3:</strong> Je eerste project in 30 minuten</li>
-                        <li><i class="fas fa-check"></i> <strong>Hoofdstuk 4:</strong> 25 kant-en-klare voorbeelden</li>
-                        <li><i class="fas fa-check"></i> <strong>Hoofdstuk 5-6:</strong> Problemen oplossen + live gaan</li>
-                        <li><i class="fas fa-check"></i> <strong>Bonus:</strong> 10 project-ideeën om mee te starten</li>
-                    </ul>
-                </div>
-                
-                <form class="ebook-form" onsubmit="submitEbookForm(event)">
-                    <div class="form-group">
-                        <input type="email" id="ebookEmail" placeholder="jouw@email.nl" required>
-                        <button type="submit" class="ebook-submit-btn">
-                            <i class="fas fa-paper-plane"></i> Verstuur
-                        </button>
-                    </div>
-                    <p class="ebook-privacy">
-                        <i class="fas fa-lock"></i> Geen spam. Je kunt je altijd uitschrijven.
-                    </p>
-                </form>
-                
-                <div class="ebook-success" id="ebookSuccess" style="display: none;">
-                    <div class="success-icon">🎉</div>
-                    <h3>Check je inbox!</h3>
-                    <p>Het e-book is onderweg naar <strong id="emailConfirm"></strong></p>
-                    <div class="coupon-box">
-                        <span class="coupon-label">🎁 Bonus: 10% korting op je eerste blueprint</span>
-                        <span class="coupon-code">EBOOK10</span>
-                    </div>
-                    <p class="success-note">Niet ontvangen? Check je spam folder.</p>
+            <p class="modal-privacy"><i class="fas fa-lock"></i> We delen nooit je gegevens</p>
+        </div>
+        
+        <div id="successContent" style="display:none;">
+            <div class="modal-success">
+                <div class="icon">🎉</div>
+                <h3>Check je inbox!</h3>
+                <p>Je e-book is onderweg.</p>
+                <div class="coupon-box">
+                    <small style="color:var(--text3)">Bonus: 10% korting</small>
+                    <div class="coupon-code">EBOOK10</div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+{% endblock %}
 
+{% block extra_js %}
 <script>
-function toggleFaq(element) {
-    const item = element.parentElement;
-    item.classList.toggle('open');
-}
-
-function openEbookModal() {
+function openModal() {
     document.getElementById('ebookModal').classList.add('active');
     document.body.style.overflow = 'hidden';
 }
-
-function closeEbookModal() {
+function closeModal() {
     document.getElementById('ebookModal').classList.remove('active');
     document.body.style.overflow = '';
 }
-
-function submitEbookForm(e) {
-    e.preventDefault();
-    const email = document.getElementById('ebookEmail').value;
-    const btn = document.querySelector('.ebook-submit-btn');
-    
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-    btn.disabled = true;
-    
-    setTimeout(() => {
-        document.querySelector('.ebook-form').style.display = 'none';
-        document.getElementById('ebookSuccess').style.display = 'block';
-        document.getElementById('emailConfirm').textContent = email;
-        
-        const emails = JSON.parse(localStorage.getItem('ebookEmails') || '[]');
-        emails.push({ email: email, date: new Date().toISOString() });
-        localStorage.setItem('ebookEmails', JSON.stringify(emails));
-    }, 1500);
+function submitForm() {
+    const email = document.getElementById('emailInput').value;
+    if (email && email.includes('@')) {
+        document.getElementById('formContent').style.display = 'none';
+        document.getElementById('successContent').style.display = 'block';
+    }
 }
-
-document.getElementById('ebookModal').addEventListener('click', function(e) {
-    if (e.target === this) closeEbookModal();
-});
-
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeEbookModal();
-});
-
-// Demo Blueprint Loader
-function loadDemoBlueprint(type) {
-    const demos = {
-        dashboard: 'Bouw een professioneel klant dashboard met: sidebar navigatie, 4 KPI cards bovenaan (omzet, klanten, orders, groei), een lijndiagram voor maandelijkse omzet, een tabel met recente bestellingen, en een dark/light mode toggle. Gebruik een moderne paarse kleurenschema.',
-        content: 'Maak een AI content generator tool met: een tekstveld voor onderwerp input, dropdown voor content type (blog, social media, email), een "Genereer" knop, en een resultaat sectie waar de gegenereerde tekst verschijnt. Voeg ook een "Kopieer" knop toe.',
-        booking: 'Bouw een online afsprakenplanner met: een weekkalender view, beschikbare tijdslots als klikbare knoppen (groen = vrij, grijs = bezet), een formulier voor naam + email + telefoon, en een bevestigingsscherm na boeking. Stijl het professioneel.'
-    };
-    
-    // Store in sessionStorage and redirect to studio
-    sessionStorage.setItem('demoBlueprint', demos[type]);
-    window.location.href = '/studio?demo=' + type;
+function toggleFaq(el) {
+    el.parentElement.classList.toggle('open');
 }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+document.getElementById('ebookModal').addEventListener('click', e => { if (e.target.id === 'ebookModal') closeModal(); });
 </script>
 {% endblock %}
