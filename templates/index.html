@@ -4,7 +4,7 @@
 
 {% block meta_description %}Bouw je eigen app, website of tool zonder developer in te huren. Met onze kant-en-klare blueprints bespaar je €10.000+ aan development kosten. Start vandaag nog.{% endblock %}
 
-{% block meta_keywords %}app bouwen zonder developer, bespaar development kosten, vibecoding blueprints, zelf app maken, no-code alternatief, AI app bouwen, goedkoop app laten maken{% endblock %}
+{% block meta_keywords %}app bouwen zonder developer, bespaar development kosten, blueprints, zelf app maken, goedkoop app laten maken{% endblock %}
 
 {% block canonical %}https://leervibecoding.nl{% endblock %}
 {% block og_url %}https://leervibecoding.nl{% endblock %}
@@ -557,6 +557,11 @@
         grid-template-columns: 1fr 1fr;
         gap: 30px;
     }
+    .audience-grid.single {
+        grid-template-columns: 1fr;
+        max-width: 700px;
+        margin: 0 auto;
+    }
     .audience-card {
         background: var(--card-bg);
         border: 1px solid var(--border);
@@ -749,6 +754,9 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 24px;
         margin-bottom: 50px;
+    }
+    .offer-grid.three {
+        grid-template-columns: repeat(3, 1fr);
     }
     .offer-card {
         background: rgba(255,255,255,0.1);
@@ -1177,8 +1185,8 @@
         .problem-grid,
         .audience-grid,
         .offer-grid,
-        .testimonials-grid,
-        .try-content {
+        .offer-grid.three,
+        .testimonials-grid {
             grid-template-columns: 1fr;
         }
         .blueprints-categories {
@@ -1558,7 +1566,7 @@
                 <span class="highlight">In één weekend.</span>
             </h1>
             <p class="subtitle">
-                Lanceer je MVP, automatiseer interne processen of bouw een SaaS-product — zonder technische overhead. Met onze bewezen blueprints krijg je exacte prompts die direct werken.
+                Bespaar duizenden euro's aan developers. Met onze kant-en-klare blueprints bouw je zelf professionele websites, tools en klantportalen. Volg de stappen en je hebt een werkend resultaat.
             </p>
             <div class="hero-stats">
                 <div class="hero-stat">
@@ -1587,7 +1595,7 @@
                     <i class="fas fa-check-circle"></i> Geen programmeerkennis nodig
                 </p>
                 <p class="hero-note">
-                    <i class="fas fa-lock-open"></i> 100% eigendom van je code — geen maandelijkse no-code kosten
+                    <i class="fas fa-lock-open"></i> 100% eigendom van je code, geen maandelijkse platform kosten
                 </p>
             </div>
         </div>
@@ -1611,7 +1619,7 @@
                     </li>
                     <li>
                         <span class="icon"><i class="fas fa-times"></i></span>
-                        <span>No-code tools zijn <strong>beperkt</strong> en zien er allemaal hetzelfde uit</span>
+                        <span>Online platforms zijn <strong>beperkt</strong> en worden steeds duurder</span>
                     </li>
                     <li>
                         <span class="icon"><i class="fas fa-times"></i></span>
@@ -1620,9 +1628,9 @@
                 </ul>
             </div>
             <div class="solution-box">
-                <h3>Vibecoding + Blueprints</h3>
+                <h3>Blueprints: De Slimme Shortcut</h3>
                 <p>
-                    Met vibecoding vertel je AI wat je wilt bouwen in gewoon Nederlands. De AI schrijft de code. Onze blueprints geven je de exacte prompts die bewezen werken.
+                    Onze blueprints zijn kant-en-klare bouwplannen voor complete apps. Je volgt de stappen, past aan wat je wilt, en hebt een werkend resultaat. Zonder technische achtergrond.
                 </p>
                 <div class="solution-features">
                     <div class="feature"><i class="fas fa-check"></i> Bouw in uren, niet maanden</div>
@@ -1640,25 +1648,25 @@
     <div class="container">
         <div class="section-header">
             <h2>Voor wie is dit?</h2>
-            <p>Of je nu een serieus business idee hebt of gewoon wilt experimenteren</p>
+            <p>Ondernemers die zelf de controle willen over hun digitale tools</p>
         </div>
-        <div class="audience-grid">
+        <div class="audience-grid single">
             <div class="audience-card">
                 <div class="icon">💼</div>
-                <h3>De Ondernemer</h3>
-                <div class="tagline">Bespaar €10.000+ én stop de vendor lock-in</div>
+                <h3>Voor Ondernemers & Bedrijven</h3>
+                <div class="tagline">Bespaar €10.000+ én behoud volledige controle</div>
                 <p>
-                    Je hebt een app-idee maar geen budget voor een developer. Of je betaalt nu €50+/maand aan no-code tools die steeds duurder worden naarmate je groeit.
+                    Je hebt een app-idee maar geen budget voor een developer. Of je betaalt nu €50+/maand aan platforms die steeds duurder worden naarmate je groeit.
                 </p>
                 <ul>
-                    <li><i class="fas fa-check"></i> Bouw je eigen SaaS, portal of platform</li>
-                    <li><i class="fas fa-check"></i> <strong>100% eigendom</strong> — geen maandelijkse kosten</li>
+                    <li><i class="fas fa-check"></i> Bouw je eigen klantportaal, tool of platform</li>
+                    <li><i class="fas fa-check"></i> <strong>100% eigendom</strong>, geen maandelijkse kosten</li>
                     <li><i class="fas fa-check"></i> Test je idee voordat je investeert</li>
                     <li><i class="fas fa-check"></i> Schaal zonder limieten van platforms</li>
                 </ul>
                 <div class="comparison-mini">
                     <div class="comparison-row header">
-                        <span></span><span>Developer</span><span>No-code</span><span>Blueprint</span>
+                        <span></span><span>Developer</span><span>Platform</span><span>Blueprint</span>
                     </div>
                     <div class="comparison-row">
                         <span>Kosten</span><span class="red">€150/uur</span><span class="orange">€50/mnd</span><span class="green">€29 éénmalig</span>
@@ -1668,86 +1676,6 @@
                     </div>
                     <div class="comparison-row">
                         <span>Lock-in</span><span class="green">Geen</span><span class="red">Hoog</span><span class="green">Geen</span>
-                    </div>
-                </div>
-            </div>
-            <div class="audience-card">
-                <div class="icon">🎨</div>
-                <h3>De Hobbyist</h3>
-                <div class="tagline">Van idee naar werkende app in 1 weekend</div>
-                <p>
-                    Je wilt gewoon coole dingen bouwen. Een game, een persoonlijke tool, of iets om indruk te maken op je vrienden.
-                </p>
-                <ul>
-                    <li><i class="fas fa-check"></i> Leer een nieuwe, waardevolle skill</li>
-                    <li><i class="fas fa-check"></i> Bouw wat je maar wilt</li>
-                    <li><i class="fas fa-check"></i> Geen saaie theorie, direct resultaat</li>
-                    <li><i class="fas fa-check"></i> Perfect voor in het weekend</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ========== PROBEER HET ZELF ========== -->
-<section class="try-section">
-    <div class="container">
-        <div class="try-content">
-            <div class="try-text">
-                <h2>🎮 Probeer het zelf — nu meteen</h2>
-                <p>Geen account nodig, geen installatie. Voer je eigen OpenAI API key in en begin direct met bouwen. Zie met je eigen ogen hoe makkelijk vibecoding is.</p>
-                
-                <div class="demo-blueprints">
-                    <span class="demo-label">Laad een demo blueprint:</span>
-                    <div class="demo-buttons">
-                        <button class="demo-btn" onclick="loadDemoBlueprint('dashboard')">
-                            <i class="fas fa-chart-bar"></i> Klant Dashboard
-                        </button>
-                        <button class="demo-btn" onclick="loadDemoBlueprint('content')">
-                            <i class="fas fa-robot"></i> AI Content Tool
-                        </button>
-                        <button class="demo-btn" onclick="loadDemoBlueprint('booking')">
-                            <i class="fas fa-calendar"></i> Booking Systeem
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="try-features">
-                    <div class="try-feature">
-                        <i class="fas fa-clock"></i>
-                        <span>Binnen 5 minuten je eerste app</span>
-                    </div>
-                    <div class="try-feature">
-                        <i class="fas fa-key"></i>
-                        <span>Je eigen API key (veilig & privé)</span>
-                    </div>
-                    <div class="try-feature">
-                        <i class="fas fa-graduation-cap"></i>
-                        <span>30 oefenscenario's beschikbaar</span>
-                    </div>
-                </div>
-                <a href="/studio" class="btn-try">
-                    <i class="fas fa-play-circle"></i> Open de Speeltuin
-                </a>
-            </div>
-            <div class="try-visual">
-                <div class="try-demo">
-                    <div class="demo-header">
-                        <div class="demo-dot" style="background: #ef4444;"></div>
-                        <div class="demo-dot" style="background: #f59e0b;"></div>
-                        <div class="demo-dot" style="background: #22c55e;"></div>
-                        <span>VibeStudio</span>
-                    </div>
-                    <div class="demo-body">
-                        <div class="demo-line typing">
-                            <span class="prompt">&gt;</span> Maak een todo app met dark mode...
-                        </div>
-                        <div class="demo-response">
-                            <i class="fas fa-magic"></i> Generating your app...
-                        </div>
-                        <div class="demo-result">
-                            <i class="fas fa-check-circle"></i> ✅ App klaar! Preview beschikbaar
-                        </div>
                     </div>
                 </div>
             </div>
@@ -1762,36 +1690,25 @@
             <h2>Dit krijg je van ons</h2>
             <p>Gratis starten, upgraden wanneer je er klaar voor bent</p>
         </div>
-        <div class="offer-grid">
+        <div class="offer-grid three">
             <div class="offer-card free">
                 <span class="badge">GRATIS</span>
-                <h3>E-book + Tutorials</h3>
-                <p>Alles wat je nodig hebt om te beginnen met vibecoding. Leer de basics en bouw je eerste simpele app.</p>
+                <h3>Gratis E-book</h3>
+                <p>De complete startersgids. Alles wat je nodig hebt om je eerste project te bouwen.</p>
                 <ul>
-                    <li><i class="fas fa-check"></i> 80+ pagina's e-book</li>
-                    <li><i class="fas fa-check"></i> Stap-voor-stap tutorials</li>
+                    <li><i class="fas fa-check"></i> 80+ pagina's handleiding</li>
+                    <li><i class="fas fa-check"></i> Stap-voor-stap instructies</li>
                     <li><i class="fas fa-check"></i> Tool vergelijkingen</li>
-                    <li><i class="fas fa-check"></i> Basis prompts</li>
-                </ul>
-            </div>
-            <div class="offer-card free">
-                <span class="badge">GRATIS</span>
-                <h3>Gratis Leren Sectie</h3>
-                <p>Uitgebreide handleidingen over tools, workflows en het oplossen van problemen.</p>
-                <ul>
-                    <li><i class="fas fa-check"></i> Welke AI-tool kiezen</li>
-                    <li><i class="fas fa-check"></i> De perfecte workflow</li>
-                    <li><i class="fas fa-check"></i> EHBO bij errors</li>
-                    <li><i class="fas fa-check"></i> Live gaan met je app</li>
+                    <li><i class="fas fa-check"></i> Basis voorbeelden</li>
                 </ul>
             </div>
             <div class="offer-card paid">
                 <span class="badge">BETAALD</span>
                 <h3>Blueprint Shop</h3>
-                <p>Kant-en-klare prompts voor complete apps. Copy-paste en je hebt een werkend resultaat.</p>
+                <p>Kant-en-klare bouwplannen voor complete apps. Volg de stappen en je hebt een werkend resultaat.</p>
                 <ul>
                     <li><i class="fas fa-check"></i> 80 complete blueprints</li>
-                    <li><i class="fas fa-check"></i> Exacte prompts (copy-paste)</li>
+                    <li><i class="fas fa-check"></i> Exacte instructies</li>
                     <li><i class="fas fa-check"></i> Bewezen resultaten</li>
                     <li><i class="fas fa-check"></i> Uren werk bespaard</li>
                 </ul>
@@ -1882,7 +1799,7 @@
     <div class="container">
         <div class="section-header">
             <h2>Kies je pakket</h2>
-            <p>Eenmalige betaling, geen abonnement — code is 100% van jou</p>
+            <p>Eenmalige betaling, geen abonnement. Code is 100% van jou.</p>
         </div>
         <div class="pricing-grid">
             <div class="pricing-card">
@@ -1991,7 +1908,7 @@
         <div class="testimonials-grid">
             <div class="testimonial-card">
                 <div class="stars">★★★★★</div>
-                <p>"Ik heb mijn eerste SaaS gebouwd in een weekend. Een developer had me €15.000 gevraagd voor hetzelfde. Nu draait het en levert het maandelijks op."</p>
+                <p>"Ik heb mijn eerste klantportaal gebouwd in een weekend. Een developer had me €15.000 gevraagd voor hetzelfde. Nu draait het en levert het maandelijks op."</p>
                 <div class="author">
                     <div class="avatar">MV</div>
                     <div class="author-info">
@@ -2002,7 +1919,7 @@
             </div>
             <div class="testimonial-card">
                 <div class="stars">★★★★★</div>
-                <p>"Ik betaalde €89/maand aan Bubble. Nu heb ik mijn eigen code, geen maandelijkse kosten meer, en het is sneller ook nog. Blueprint betaalde zichzelf in 2 maanden terug."</p>
+                <p>"Ik betaalde €89/maand aan een website platform. Nu heb ik mijn eigen site, geen maandelijkse kosten meer, en het is sneller ook nog. Blueprint betaalde zichzelf in 2 maanden terug."</p>
                 <div class="author">
                     <div class="avatar">SJ</div>
                     <div class="author-info">
@@ -2013,7 +1930,7 @@
             </div>
             <div class="testimonial-card">
                 <div class="stars">★★★★★</div>
-                <p>"Eindelijk een manier om mijn ideeën zelf te bouwen. Geen gedoe met developers die niet snappen wat ik wil. Copy-paste, aanpassen, klaar."</p>
+                <p>"Eindelijk een manier om mijn ideeën zelf te bouwen. Geen gedoe met developers die niet snappen wat ik wil. Volg de stappen, aanpassen, klaar."</p>
                 <div class="author">
                     <div class="avatar">RK</div>
                     <div class="author-info">
@@ -2039,16 +1956,16 @@
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="faq-answer">
-                    Nee, absoluut niet. Onze blueprints zijn ontworpen voor mensen zonder technische achtergrond. Je kopieert de prompts, plakt ze in een AI-tool, en krijgt werkende code terug.
+                    Nee, absoluut niet. Onze blueprints zijn ontworpen voor mensen zonder technische achtergrond. Je volgt de stappen, past aan wat je nodig hebt, en krijgt een werkend resultaat.
                 </div>
             </div>
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">
-                    Welke AI-tool heb ik nodig?
+                    Welke tools heb ik nodig?
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="faq-answer">
-                    Onze blueprints werken met Claude, ChatGPT en Cursor. Je kunt gratis beginnen met de gratis versies van deze tools. In ons gratis e-book leggen we uit welke tool het beste bij jou past.
+                    Elke blueprint bevat een lijst met benodigde tools. De meeste zijn gratis of hebben een gratis versie. In ons e-book leggen we precies uit welke tool het beste bij jouw project past.
                 </div>
             </div>
             <div class="faq-item">
@@ -2062,11 +1979,11 @@
             </div>
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">
-                    Is dit hetzelfde als no-code tools?
+                    Is dit hetzelfde als website builders?
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="faq-answer">
-                    Nee, en dat is juist de kracht. Met no-code tools zit je vast aan hun beperkingen. Met vibecoding krijg je echte code die je volledig kunt aanpassen en uitbreiden. Geen vendor lock-in.
+                    Nee, en dat is juist de kracht. Met website builders zit je vast aan hun beperkingen en betaal je maandelijks. Met onze blueprints krijg je echte code die je volledig bezit en onbeperkt kunt aanpassen.
                 </div>
             </div>
             <div class="faq-item">
@@ -2075,7 +1992,7 @@
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="faq-answer">
-                    Ja! Alles wat je bouwt met onze blueprints is 100% van jou. Je kunt het verkopen, als SaaS aanbieden, of wat je maar wilt.
+                    Ja! Alles wat je bouwt met onze blueprints is 100% van jou. Je kunt het verkopen, als dienst aanbieden, of wat je maar wilt.
                 </div>
             </div>
         </div>
@@ -2111,7 +2028,7 @@
                     <div class="ebook-cover-inner">
                         <div class="ebook-badge">GRATIS</div>
                         <div class="ebook-icon">📘</div>
-                        <h3>Vibecoding<br>Masterguide</h3>
+                        <h3>Blueprint<br>Startersgids</h3>
                         <p>Van idee tot werkende app</p>
                         <div class="ebook-pages">80+ pagina's</div>
                     </div>
@@ -2124,17 +2041,17 @@
             
             <div class="ebook-info">
                 <div class="ebook-label">🎁 GRATIS E-BOOK</div>
-                <h2>De Complete Vibecoding Masterguide</h2>
-                <p class="ebook-subtitle">Alles wat je nodig hebt om je eerste app te bouwen — zonder programmeerkennis.</p>
+                <h2>De Complete Blueprint Startersgids</h2>
+                <p class="ebook-subtitle">Alles wat je nodig hebt om je eerste app te bouwen. Zonder programmeerkennis.</p>
                 
                 <div class="ebook-contents">
                     <h4>📖 Wat je leert:</h4>
                     <ul>
-                        <li><i class="fas fa-check"></i> <strong>Hoofdstuk 1-2:</strong> Wat is vibecoding + beste AI-tools</li>
-                        <li><i class="fas fa-check"></i> <strong>Hoofdstuk 3:</strong> Je eerste app in 30 minuten</li>
-                        <li><i class="fas fa-check"></i> <strong>Hoofdstuk 4:</strong> 25 copy-paste prompts</li>
-                        <li><i class="fas fa-check"></i> <strong>Hoofdstuk 5-6:</strong> Errors fixen + live gaan</li>
-                        <li><i class="fas fa-check"></i> <strong>Bonus:</strong> 10 app-ideeën om mee te starten</li>
+                        <li><i class="fas fa-check"></i> <strong>Hoofdstuk 1-2:</strong> Hoe blueprints werken + beste tools</li>
+                        <li><i class="fas fa-check"></i> <strong>Hoofdstuk 3:</strong> Je eerste project in 30 minuten</li>
+                        <li><i class="fas fa-check"></i> <strong>Hoofdstuk 4:</strong> 25 kant-en-klare voorbeelden</li>
+                        <li><i class="fas fa-check"></i> <strong>Hoofdstuk 5-6:</strong> Problemen oplossen + live gaan</li>
+                        <li><i class="fas fa-check"></i> <strong>Bonus:</strong> 10 project-ideeën om mee te starten</li>
                     </ul>
                 </div>
                 
