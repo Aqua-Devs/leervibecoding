@@ -157,11 +157,25 @@ body { overflow-x: hidden; }
     color: var(--primary);
 }
 
-.scenario-text {
-    color: var(--text2);
-    font-size: 15px;
-    line-height: 1.6;
+.scenario-box {
     margin-bottom: 20px;
+}
+
+.scenario-label {
+    font-size: 13px;
+    color: var(--text3);
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.scenario-text {
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.7;
+    margin: 0;
+    padding: 16px;
+    background: var(--bg);
+    border-left: 3px solid var(--primary);
 }
 
 .task-box {
@@ -712,18 +726,18 @@ body { overflow-x: hidden; }
         <div class="assignment-section">
             <!-- API Key Notice -->
             <div class="api-notice" id="apiNotice" style="display: none;">
-                <h3>🔑 API Key Vereist</h3>
-                <p>Je hebt een OpenAI API key nodig om de oefenruimte te gebruiken.</p>
+                <h3>🔑 Eerst even je sleutel instellen</h3>
+                <p>Je hebt een OpenAI API key nodig. Geen zorgen, het is makkelijker dan het klinkt!</p>
                 <button class="btn" onclick="openApiKeyModal()">API Key Instellen</button>
             </div>
 
             <!-- Empty State - shown when API key exists but no assignment yet -->
             <div class="empty-state" id="emptyState" style="display: none;">
-                <div class="icon">🎯</div>
-                <h3>Klaar om te beginnen?</h3>
-                <p>Klik op de knop om je eerste opdracht te ontvangen.</p>
+                <div class="icon">🎮</div>
+                <h3>Klaar voor je eerste uitdaging?</h3>
+                <p>Je gaat websites bouwen door simpelweg te beschrijven wat je wilt. De AI doet de rest!</p>
                 <button class="btn btn-primary" onclick="generateAssignment()" style="padding: 14px 28px; background: var(--primary); color: white; border: none; font-size: 15px; font-weight: 600; cursor: pointer;">
-                    <i class="fas fa-play"></i> Start Opdracht
+                    <i class="fas fa-play"></i> Start Mijn Eerste Opdracht!
                 </button>
             </div>
 
@@ -731,28 +745,34 @@ body { overflow-x: hidden; }
             <div class="assignment-card" id="assignmentCard" style="display: none;">
                 <div class="assignment-header">
                     <span class="assignment-level" id="assignmentLevel">Level 1</span>
-                    <span id="assignmentXP" style="color: var(--yellow); font-weight: 600;">+30 XP</span>
+                    <span id="assignmentXP" style="color: var(--green); font-weight: 600;">+30 XP</span>
                 </div>
                 
                 <div class="client-info">
                     <span class="client-avatar" id="clientEmoji">👩‍💼</span>
-                    <span class="client-name" id="clientName">Klant</span>
+                    <div>
+                        <span class="client-name" id="clientName">Klant</span>
+                        <span style="display: block; font-size: 12px; color: var(--text3);">heeft je hulp nodig!</span>
+                    </div>
                 </div>
                 
-                <p class="scenario-text" id="scenarioText">Laadt...</p>
+                <div class="scenario-box">
+                    <div class="scenario-label">📖 Het Verhaal</div>
+                    <p class="scenario-text" id="scenarioText">Laadt...</p>
+                </div>
                 
                 <div class="task-box">
-                    <div class="task-label">📋 Opdracht</div>
+                    <div class="task-label">🎯 Wat moet je maken?</div>
                     <div class="task-text" id="taskText">Laadt...</div>
                 </div>
                 
                 <div class="requirements-box">
-                    <div class="requirements-title"><i class="fas fa-check-circle"></i> Vereisten</div>
+                    <div class="requirements-title"><i class="fas fa-list-check"></i> Dit moet erop komen</div>
                     <div id="requirementsList"></div>
                 </div>
                 
                 <div class="hints-toggle" onclick="toggleHints()">
-                    <span>💡 Tips bekijken</span>
+                    <span>💡 Tips nodig? Klik hier!</span>
                     <i class="fas fa-chevron-down" id="hintsIcon"></i>
                 </div>
                 <div class="hints-content" id="hintsContent"></div>
@@ -761,20 +781,21 @@ body { overflow-x: hidden; }
             <!-- Loading - initially shown -->
             <div class="loading-overlay show" id="assignmentLoading">
                 <div class="spinner"></div>
-                <div class="loading-text">Laden...</div>
+                <div class="loading-text">Even een leuke opdracht verzinnen... 🎲</div>
             </div>
         </div>
 
         <!-- Input Section -->
         <div class="input-section">
-            <div class="input-label">✍️ Beschrijf wat je wilt bouwen</div>
-            <textarea class="prompt-input" id="promptInput" placeholder="Beschrijf in je eigen woorden wat de website moet doen en hoe het eruit moet zien..."></textarea>
+            <div class="input-label">✍️ Vertel de AI wat je wilt</div>
+            <p style="font-size: 13px; color: var(--text3); margin-bottom: 12px;">Beschrijf in je eigen woorden wat er op de pagina moet komen. De AI maakt het voor je!</p>
+            <textarea class="prompt-input" id="promptInput" placeholder="Bijvoorbeeld: Ik wil een pagina voor een bakkerij. Bovenaan moet de naam staan in grote letters. Dan een foto van brood. Daaronder de openingstijden en het adres. Maak het gezellig met warme kleuren."></textarea>
             <div class="btn-row">
                 <button class="btn-submit" id="submitBtn" onclick="submitPrompt()" disabled>
-                    <i class="fas fa-magic"></i> Genereer Code
+                    <i class="fas fa-magic"></i> Maak Het!
                 </button>
                 <button class="btn-new" onclick="generateAssignment()">
-                    <i class="fas fa-sync"></i> Nieuwe Opdracht
+                    <i class="fas fa-sync"></i> Andere Opdracht
                 </button>
             </div>
         </div>
@@ -783,7 +804,7 @@ body { overflow-x: hidden; }
     <!-- Right Panel -->
     <div class="right-panel">
         <div class="score-bar">
-            <span class="score-label">Score</span>
+            <span class="score-label">Hoe goed deed je het?</span>
             <div class="score-display">
                 <span class="score-percent" id="scorePercent">-</span>
                 <div class="score-bar-visual">
@@ -794,9 +815,9 @@ body { overflow-x: hidden; }
 
         <div class="preview-area">
             <div class="preview-placeholder" id="previewPlaceholder">
-                <div class="preview-placeholder-icon">👁️</div>
-                <div class="preview-placeholder-text">Preview</div>
-                <div class="preview-placeholder-sub">Je code verschijnt hier</div>
+                <div class="preview-placeholder-icon">🖼️</div>
+                <div class="preview-placeholder-text">Hier verschijnt jouw creatie!</div>
+                <div class="preview-placeholder-sub">Beschrijf wat je wilt en klik op "Maak Het!"</div>
             </div>
             <div class="preview-frame" id="previewFrame">
                 <iframe id="previewIframe"></iframe>
@@ -804,7 +825,7 @@ body { overflow-x: hidden; }
 
             <div class="loading-overlay" id="codeLoading">
                 <div class="spinner"></div>
-                <div class="loading-text">Code genereren...</div>
+                <div class="loading-text">De AI is aan het bouwen... ✨</div>
             </div>
         </div>
 
@@ -819,8 +840,9 @@ body { overflow-x: hidden; }
     <div class="levelup-box">
         <div class="levelup-emoji">🎉</div>
         <div class="levelup-title">Level Up!</div>
-        <div class="levelup-text" id="levelupText">Je bent nu Level 2!</div>
-        <button class="levelup-btn" onclick="closeLevelUp()">Doorgaan</button>
+        <div class="levelup-text" id="levelupText">Je hebt een nieuw niveau bereikt!</div>
+        <p style="color: var(--text3); font-size: 14px; margin-bottom: 24px;">De opdrachten worden nu iets uitdagender. Je kunt het!</p>
+        <button class="levelup-btn" onclick="closeLevelUp()">Yes! Laten we gaan! 🚀</button>
     </div>
 </div>
 {% endblock %}
@@ -838,14 +860,14 @@ let stats = {
 
 // Level thresholds
 const LEVELS = [
-    { level: 1, name: "HTML Basics", minXP: 0 },
-    { level: 2, name: "Styling", minXP: 50 },
-    { level: 3, name: "Interactie", minXP: 150 },
+    { level: 1, name: "Je Eerste Stapjes", minXP: 0 },
+    { level: 2, name: "Maak Het Mooi", minXP: 50 },
+    { level: 3, name: "Knoppen & Actie", minXP: 150 },
     { level: 4, name: "Formulieren", minXP: 300 },
-    { level: 5, name: "AI Tekst", minXP: 500 },
-    { level: 6, name: "AI Chat", minXP: 750 },
-    { level: 7, name: "AI Tools", minXP: 1000 },
-    { level: 8, name: "AI Apps", minXP: 1500 }
+    { level: 5, name: "AI Schrijft Mee", minXP: 500 },
+    { level: 6, name: "Pratende Robots", minXP: 750 },
+    { level: 7, name: "Slimme Tools", minXP: 1000 },
+    { level: 8, name: "AI Meester", minXP: 1500 }
 ];
 
 // Init
@@ -940,7 +962,13 @@ async function generateAssignment() {
     
     // Update loading text en toon
     const loadingEl = document.getElementById('assignmentLoading');
-    loadingEl.querySelector('.loading-text').textContent = 'Opdracht genereren...';
+    const loadingTexts = [
+        "Even een leuke opdracht verzinnen... 🎲",
+        "Op zoek naar een grappige klant... 🔍",
+        "Creativiteit wordt geladen... ✨",
+        "Een verhaal aan het bedenken... 📖"
+    ];
+    loadingEl.querySelector('.loading-text').textContent = loadingTexts[Math.floor(Math.random() * loadingTexts.length)];
     loadingEl.classList.add('show');
     
     document.getElementById('emptyState').style.display = 'none';
@@ -1086,7 +1114,15 @@ function displayResult(data) {
     
     if (score >= 85) {
         feedbackMessage.className = 'feedback-message success';
-        feedbackMessage.innerHTML = `<i class="fas fa-check-circle"></i> Uitstekend! ${data.evaluation?.feedback || ''}`;
+        const successMessages = [
+            "🎉 Wauw, je bent een natuurtalent!",
+            "🚀 Dat ging als een raket!",
+            "⭐ Je klant gaat helemaal uit z'n dak!",
+            "🏆 Dit is echt professioneel werk!",
+            "🎯 Recht in de roos!"
+        ];
+        const msg = successMessages[Math.floor(Math.random() * successMessages.length)];
+        feedbackMessage.innerHTML = `<i class="fas fa-check-circle"></i> ${msg}`;
         
         // Add XP
         if (data.xp_earned > 0) {
@@ -1096,22 +1132,37 @@ function displayResult(data) {
             saveStats();
             updateUI();
             
-            showToast(`+${data.xp_earned} XP verdiend!`, 'success');
+            showToast(`+${data.xp_earned} XP verdiend! 🎉`, 'success');
             
             // Check level up
             if (stats.level > oldLevel) {
                 setTimeout(() => {
-                    document.getElementById('levelupText').textContent = `Je bent nu Level ${stats.level}!`;
+                    const levelName = LEVELS.find(l => l.level === stats.level)?.name || `Level ${stats.level}`;
+                    document.getElementById('levelupText').textContent = `Je hebt "${levelName}" bereikt!`;
                     document.getElementById('levelupModal').classList.add('show');
                 }, 500);
             }
         }
     } else if (score >= 50) {
         feedbackMessage.className = 'feedback-message partial';
-        feedbackMessage.innerHTML = `<i class="fas fa-exclamation-circle"></i> Bijna! ${data.evaluation?.feedback || 'Probeer specifieker te zijn.'}`;
+        const partialMessages = [
+            "🤔 Bijna! Nog een klein beetje...",
+            "💪 Je bent op de goede weg!",
+            "🔧 Nog een paar dingetjes missen...",
+            "📝 Check even de lijst hierboven!"
+        ];
+        const msg = partialMessages[Math.floor(Math.random() * partialMessages.length)];
+        feedbackMessage.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${msg} Kijk welke dingen nog niet zijn afgevinkt.`;
     } else {
         feedbackMessage.className = 'feedback-message fail';
-        feedbackMessage.innerHTML = `<i class="fas fa-times-circle"></i> Nog niet helemaal. ${data.evaluation?.feedback || 'Lees de vereisten goed door.'}`;
+        const failMessages = [
+            "🧐 Hmm, dit mist nog wat...",
+            "🎯 Net naast! Probeer het nog eens.",
+            "📖 Lees het verhaal nog eens goed door!",
+            "💡 Tip: beschrijf precies wat er op moet komen."
+        ];
+        const msg = failMessages[Math.floor(Math.random() * failMessages.length)];
+        feedbackMessage.innerHTML = `<i class="fas fa-info-circle"></i> ${msg}`;
     }
     
     // Update requirements

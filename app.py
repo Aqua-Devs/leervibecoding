@@ -14,16 +14,16 @@ app = Flask(__name__, static_folder='static')
 app.secret_key = os.environ.get('SECRET_KEY', secrets.token_hex(32))
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=30)
 
-# Difficulty progression - van basis HTML naar AI-powered apps
+# Difficulty progression - van basis naar AI-powered apps
 DIFFICULTY_LEVELS = [
-    {"level": 1, "name": "HTML Basics", "focus": "Simpele HTML structuur en tekst", "ai_integration": False, "min_xp": 0},
-    {"level": 2, "name": "Styling", "focus": "CSS styling, kleuren, layout", "ai_integration": False, "min_xp": 50},
-    {"level": 3, "name": "Interactie", "focus": "JavaScript buttons, events", "ai_integration": False, "min_xp": 150},
-    {"level": 4, "name": "Formulieren", "focus": "Forms, validatie, data", "ai_integration": False, "min_xp": 300},
-    {"level": 5, "name": "AI Tekst", "focus": "AI-gegenereerde content", "ai_integration": True, "min_xp": 500},
-    {"level": 6, "name": "AI Chat", "focus": "Chatbot integratie", "ai_integration": True, "min_xp": 750},
-    {"level": 7, "name": "AI Tools", "focus": "AI-powered tools en analyse", "ai_integration": True, "min_xp": 1000},
-    {"level": 8, "name": "AI Apps", "focus": "Complete AI-applicaties", "ai_integration": True, "min_xp": 1500},
+    {"level": 1, "name": "Je Eerste Stapjes", "focus": "Tekst en plaatjes op een pagina", "ai_integration": False, "min_xp": 0},
+    {"level": 2, "name": "Maak Het Mooi", "focus": "Kleuren, lettertypes en layout", "ai_integration": False, "min_xp": 50},
+    {"level": 3, "name": "Knoppen & Actie", "focus": "Dingen die bewegen en reageren", "ai_integration": False, "min_xp": 150},
+    {"level": 4, "name": "Formulieren", "focus": "Gegevens verzamelen van bezoekers", "ai_integration": False, "min_xp": 300},
+    {"level": 5, "name": "AI Schrijft Mee", "focus": "Laat AI teksten schrijven", "ai_integration": True, "min_xp": 500},
+    {"level": 6, "name": "Pratende Robots", "focus": "Bouw een chatbot", "ai_integration": True, "min_xp": 750},
+    {"level": 7, "name": "Slimme Tools", "focus": "AI-powered hulpmiddelen", "ai_integration": True, "min_xp": 1000},
+    {"level": 8, "name": "AI Meester", "focus": "Complete AI-applicaties", "ai_integration": True, "min_xp": 1500},
 ]
 
 def call_openai(api_key, messages, model="gpt-4o-mini", max_tokens=4000):
@@ -68,89 +68,181 @@ def generate_assignment(api_key, level, completed_assignments):
     # Build context about what user has already done
     history_context = ""
     if completed_assignments:
-        recent = completed_assignments[-3:]  # Last 3 assignments
-        history_context = f"De gebruiker heeft al {len(completed_assignments)} opdrachten gedaan. Recent: {', '.join(recent)}. Geef iets NIEUWS."
+        recent = completed_assignments[-3:]
+        history_context = f"De gebruiker heeft al {len(completed_assignments)} opdrachten afgerond. Recent: {', '.join(recent)}. Verzin iets COMPLEET ANDERS."
     
-    system_prompt = """Je bent een creatieve opdracht-generator voor LeerVibeCoding, een platform waar mensen leren AI te gebruiken om websites te bouwen.
+    assignment_number = len(completed_assignments) + 1
+    
+    system_prompt = """Je bent een creatieve verhalenverteller die opdrachten verzint voor mensen die willen leren websites te bouwen met AI.
 
-Je genereert UITDAGENDE, REALISTISCHE opdrachten in het Nederlands.
+JOUW STIJL:
+- Schrijf alsof je een grappige vriend bent die een verhaal vertelt
+- GEEN technische termen gebruiken (geen "HTML", "CSS", "JavaScript", "code", "programmeren")
+- Schrijf in simpele, alledaagse Nederlandse taal
+- Voeg humor toe: grappige situaties, overdrijvingen, herkenbare frustraties
+- Maak het verhaal LEVENDIG met details en emotie
+- Spreek de lezer direct aan met "je" en "jij"
 
-BELANGRIJK:
-- Maak het scenario herkenbaar (lokale bedrijven, studenten, verenigingen, startups)
-- De opdracht moet CONCREET zijn met duidelijke, meetbare requirements
-- Geef 5 specifieke SUCCESS CRITERIA waaraan het resultaat MOET voldoen
-- Criteria moeten CHECKBAAR zijn (zoekwoorden die in de code moeten voorkomen)
+SCENARIO LENGTE:
+- Schrijf een UITGEBREID verhaal van 4-6 zinnen
+- Schets de situatie, de klant, het probleem, en waarom het urgent is
+- Maak het persoonlijk en herkenbaar
+
+HUMOR ELEMENTEN (kies er minimaal 2):
+- Een gestresste ondernemer met een deadline
+- Een excentrieke klant met rare wensen
+- Een grappige achtergrondverhaal
+- Overdreven urgentie ("morgen komt de koningin op bezoek!")
+- Herkenbare drama ("de printer is weer stuk, de kat zit op het toetsenbord")
+- Typisch Nederlandse situaties (bitterballencrisis, fietsproblemen, weer-klachten)
 
 OUTPUT ALLEEN VALID JSON:
 {
-    "title": "Korte pakkende titel",
-    "client_name": "Naam van de fictieve klant",
-    "client_emoji": "Een emoji voor de klant (bijv: 👩‍🍳, 🏪, 💼)",
-    "scenario": "Het verhaal (2-3 zinnen, spreek de gebruiker aan met 'je')",
-    "task": "Concrete opdracht (1-2 zinnen)",
-    "requirements": ["Vereiste 1", "Vereiste 2", "Vereiste 3", "Vereiste 4", "Vereiste 5"],
-    "success_criteria": ["keyword1", "keyword2", "keyword3", "keyword4", "keyword5"],
-    "hints": ["Tip 1", "Tip 2", "Tip 3"]
-}"""
+    "title": "Pakkende titel (max 5 woorden)",
+    "client_name": "Grappige naam voor de klant",
+    "client_emoji": "Passende emoji",
+    "scenario": "UITGEBREID verhaal (4-6 zinnen) met humor en details. Geen technische termen!",
+    "task": "Wat moet er gemaakt worden in simpele woorden (1-2 zinnen). Geen technische termen!",
+    "requirements": ["Wat er op moet staan 1", "Wat er op moet staan 2", "etc - in normale mensentaal"],
+    "success_criteria": ["zoekwoord1", "zoekwoord2", "zoekwoord3", "zoekwoord4", "zoekwoord5"],
+    "hints": ["Praktische tip 1 in mensentaal", "Tip 2", "Tip 3"]
+}
 
-    if level_info["ai_integration"]:
+BELANGRIJK VOOR REQUIREMENTS:
+- Schrijf ze alsof je tegen je oma uitlegt wat er op de website moet komen
+- NIET: "Implementeer een responsive header"
+- WEL: "Bovenaan moet de naam van de bakkerij staan"
+- NIET: "Gebruik flexbox voor de layout"
+- WEL: "De taarten moeten naast elkaar staan, niet onder elkaar"
+
+BELANGRIJK VOOR HINTS:
+- Geef tips over WAT ze aan de AI moeten vragen
+- NIET: "Gebruik CSS grid"
+- WEL: "Vraag de AI om de producten in een mooi rijtje te zetten"
+- NIET: "Voeg een event listener toe"
+- WEL: "Vraag de AI om een knop die iets doet als je erop klikt\""""
+
+    # Difficulty progression
+    if level == 1:
         level_prompt = f"""
-NIVEAU: {level_info['level']} - {level_info['name']}
-FOCUS: {level_info['focus']}
-OPDRACHT NUMMER: {len(completed_assignments) + 1}
-
+NIVEAU: Absolute Beginner (Opdracht #{assignment_number})
 {history_context}
 
-Dit niveau VEREIST AI-INTEGRATIE! De gebruiker moet een website maken die:
-- De OpenAI API aanroept vanuit JavaScript in de browser
-- AI-gegenereerde content toont aan de gebruiker
-- ECHT WERKT en indrukwekkend is
+Dit is voor iemand die nog NOOIT iets met websites heeft gedaan.
 
-VOORBEELDEN VAN AI-INTEGRATIES:
-Level 5 (AI Tekst):
-- Blog post generator
-- Product beschrijving schrijver
-- Email template maker
-- Slogan generator voor bedrijven
+MOEILIJKHEIDSGRAAD: Super simpel
+- Alleen tekst en plaatjes
+- Geen knoppen of bewegende dingen
+- Denk aan een simpele poster of flyer, maar dan digitaal
 
-Level 6 (AI Chat):
-- Klantenservice chatbot
-- Persoonlijke assistent
-- FAQ beantwoorder
-- Virtuele verkoper
+VOORBEELDEN VAN GOEDE SCENARIOS:
+- Een bakker die zijn openingstijden online wil zetten
+- Een oppas die zichzelf wil voorstellen aan ouders  
+- Een voetbalclub die de teamleden wil tonen
+- Een oma die haar breipatronen wil delen
 
-Level 7 (AI Tools):
-- Sentiment analyzer voor reviews
-- Tekst samenvatten tool
-- Vertaal applicatie
-- Code uitleg tool
+Maak het scenario HERKENBAAR en GRAPPIG. Voeg een humoristisch element toe.
+De opdracht moet HEEL SIMPEL zijn - gewoon wat tekst op een pagina."""
 
-Level 8 (AI Apps):
-- Volledige AI-powered dashboard
-- Interactieve leer-applicatie
-- AI content management systeem
-- Multi-functie AI werkplek
+    elif level == 2:
+        level_prompt = f"""
+NIVEAU: Beginner met Stijl (Opdracht #{assignment_number})
+{history_context}
 
-De success_criteria MOETEN bevatten: "fetch", "openai", "async" en relevante UI elementen.
-Genereer een INDRUKWEKKENDE opdracht die de gebruiker laat zien wat mogelijk is!"""
+De gebruiker snapt nu dat je tekst op een pagina kunt zetten. Nu gaan we het MOOI maken.
+
+MOEILIJKHEIDSGRAAD: Iets uitdagender
+- Nu met kleuren en mooie lettertypes
+- Dingen moeten er professioneel uitzien
+- Nog steeds geen knoppen die iets doen
+
+VOORBEELDEN VAN GOEDE SCENARIOS:
+- Een hippe koffietent die een menukaart wil die er "instagrammable" uitziet
+- Een wedding planner die haar portfolio wil showen
+- Een makelaar die een huis wil presenteren alsof het een paleis is
+- Een personal trainer die er "fit en succesvol" uit wil zien
+
+Focus op UITERLIJK: kleuren, lettertypes, hoe dingen geplaatst zijn.
+Voeg humor toe over klanten die HEEL SPECIFIEK zijn over hoe iets eruit moet zien."""
+
+    elif level == 3:
+        level_prompt = f"""
+NIVEAU: Nu Wordt Het Interactief (Opdracht #{assignment_number})
+{history_context}
+
+De gebruiker kan nu mooie pagina's maken. Tijd voor ACTIE - dingen die bewegen of reageren!
+
+MOEILIJKHEIDSGRAAD: Gemiddeld
+- Knoppen die iets doen (tonen/verbergen, kleuren veranderen)
+- Dingen die bewegen of animeren
+- Interactie met de bezoeker
+
+VOORBEELDEN VAN GOEDE SCENARIOS:
+- Een goochelaar die een "klik om te onthullen" truc wil
+- Een restaurant met een menu dat je kunt openklappen per categorie
+- Een escape room die hints wil verbergen achter knoppen
+- Een verjaardagspagina met confetti als je op een knop drukt
+
+De humor zit in klanten die OVERDREVEN enthousiast zijn over simpele functies.
+"Als je op de knop drukt moet er CONFETTI komen! En MUZIEK! En VUURWERK!" """
+
+    elif level == 4:
+        level_prompt = f"""
+NIVEAU: Formulieren en Gegevens (Opdracht #{assignment_number})
+{history_context}
+
+Nu wordt het serieus - we gaan INFORMATIE verzamelen van bezoekers.
+
+MOEILIJKHEIDSGRAAD: Pittig
+- Formulieren waar mensen dingen kunnen invullen
+- Controleren of mensen wel alles goed invullen
+- Gegevens opslaan of verwerken
+
+VOORBEELDEN VAN GOEDE SCENARIOS:
+- Een pizzeria die online bestellingen wil ontvangen
+- Een huisarts die een intake-formulier nodig heeft
+- Een escape room die boekingen wil bijhouden
+- Een sportschool die aanmeldingen wil verwerken
+
+De humor zit in de CHAOS van verkeerde invoer: "Mensen vullen hun telefoonnummer in bij email!"
+Of klanten die VEEL TE VEEL velden willen: "En ook hun bloedgroep! En hun favoriete kleur!" """
+
+    elif level >= 5:
+        ai_type = {
+            5: ("AI Tekst Generatie", "tekst laten schrijven door AI", "Een slager die elke dag een nieuwe slogan wil, een blogger die geen inspiratie heeft, een makelaar die huizenbeschrijvingen wil"),
+            6: ("AI Chatbot", "een pratende assistent bouwen", "Een klantenservice die 24/7 beschikbaar moet zijn, een museum dat vragen wil beantwoorden, een webshop met een virtuele verkoper"),
+            7: ("AI Tools", "slimme tools bouwen", "Een restaurant dat reviews wil analyseren, een vertaalbureau, een school die samenvattingen wil maken"),
+            8: ("AI Applicatie", "een complete AI-app bouwen", "Een compleet dashboard, een leerplatform, een content management systeem")
+        }.get(level, ("AI Applicatie", "iets geweldigs met AI", "Een ambitieus project"))
+        
+        level_prompt = f"""
+NIVEAU: {ai_type[0]} (Opdracht #{assignment_number})
+{history_context}
+
+WOW - de gebruiker is gevorderd! Nu gaan we echte AI-magie toevoegen.
+
+MOEILIJKHEIDSGRAAD: Gevorderd
+- De website moet {ai_type[1]}
+- Dit is INDRUKWEKKEND spul
+- De AI doet echt werk voor de bezoeker
+
+VOORBEELDEN: {ai_type[2]}
+
+De humor zit in klanten die NIET SNAPPEN hoe krachtig AI is:
+"Kan die robot ook mijn belastingaangifte doen?"
+"Wordt de AI niet moe als er veel bezoekers zijn?"
+
+SUCCESS CRITERIA MOETEN BEVATTEN: "fetch", "openai", "async" (dit zijn technische checks, niet voor de gebruiker)
+
+Maak het scenario EPISCH - dit is het eindbaas-niveau!"""
+
     else:
         level_prompt = f"""
-NIVEAU: {level_info['level']} - {level_info['name']}
-FOCUS: {level_info['focus']}
-OPDRACHT NUMMER: {len(completed_assignments) + 1}
-
+NIVEAU: {level_info['level']} - {level_info['name']} (Opdracht #{assignment_number})
 {history_context}
 
-Dit niveau focust op: {level_info['focus']}
-
-PROGRESSIE PER NIVEAU:
-Level 1 (HTML): Tekst, koppen, lijsten, structuur, semantische HTML
-Level 2 (Styling): Kleuren, fonts, layout, flexbox, moderne CSS
-Level 3 (Interactie): Buttons, click events, DOM manipulatie, animaties
-Level 4 (Formulieren): Input velden, validatie, form handling, data verwerking
-
-Maak de opdracht UITDAGEND maar haalbaar voor dit niveau.
-Success criteria moeten relevante HTML/CSS/JS keywords bevatten die in de code voorkomen."""
+Genereer een passende opdracht voor dit niveau.
+Focus: {level_info['focus']}"""
 
     messages = [
         {"role": "system", "content": system_prompt},
