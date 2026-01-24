@@ -4,6 +4,7 @@ Dynamische opdrachten gegenereerd door OpenAI met progressieve moeilijkheid
 """
 
 from flask import Flask, render_template, request, jsonify, session, send_from_directory, redirect
+from datetime import timedelta
 import requests
 import secrets
 import json
@@ -11,6 +12,7 @@ import os
 
 app = Flask(__name__, static_folder='static')
 app.secret_key = os.environ.get('SECRET_KEY', secrets.token_hex(32))
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=30)
 
 # Difficulty progression - van basis HTML naar AI-powered apps
 DIFFICULTY_LEVELS = [
@@ -43,9 +45,18 @@ def call_openai(api_key, messages, model="gpt-4o-mini", max_tokens=4000):
         )
         if response.status_code == 200:
             return response.json()['choices'][0]['message']['content']
+        elif response.status_code == 401:
+            print(f"OpenAI error: Invalid API key")
+            return None
+        elif response.status_code == 429:
+            print(f"OpenAI error: Rate limit or quota exceeded")
+            return None
         else:
             print(f"OpenAI error: {response.status_code} - {response.text}")
             return None
+    except requests.exceptions.Timeout:
+        print("OpenAI timeout")
+        return None
     except Exception as e:
         print(f"OpenAI exception: {e}")
         return None
@@ -425,6 +436,53 @@ def og_image():
 @app.route('/logo.svg')
 def logo():
     return send_from_directory(app.static_folder, 'logo.svg', mimetype='image/svg+xml')
+
+@app.route('/api/check-key', methods=['GET'])
+def check_key():
+    """Check if API key is set in session"""
+    has_key = 'openai_api_key' in session and session['openai_api_key']
+    return jsonify({'has_key': bool(has_key)})
+
+@app.route('/api/set-key', methods=['POST'])
+def set_key():
+    """Set OpenAI API key in session"""
+    try:
+        data = request.json
+        api_key = data.get('api_key', '').strip()
+        
+        if not api_key:
+            return jsonify({'success': False, 'error': 'Geen API key opgegeven'})
+        
+        # Accept both sk- and sk-proj- keys
+        if not (api_key.startswith('sk-') or api_key.startswith('sk-proj-')):
+            return jsonify({'success': False, 'error': 'Ongeldige key format (moet beginnen met sk-)'})
+        
+        # Test the key with a simple call
+        test = call_openai(api_key, [{"role": "user", "content": "test"}], max_tokens=5)
+        
+        if test:
+            session.permanent = True
+            session['openai_api_key'] = api_key
+            return jsonify({'success': True})
+        else:
+            # Even if test fails, save the key - user may have quota issues
+            # But warn them
+            session.permanent = True
+            session['openai_api_key'] = api_key
+            return jsonify({'success': True, 'warning': 'Key opgeslagen maar kon niet getest worden. Mogelijk geen credits.'})
+    except Exception as e:
+        print(f"Error in set_key: {e}")
+        return jsonify({'success': False, 'error': f'Server error: {str(e)}'})
+
+@app.route('/api/get-key', methods=['GET'])
+def get_key():
+    """Get API key from session (for client-side use)"""
+    api_key = session.get('openai_api_key', '')
+    if api_key:
+        # Return masked key for display
+        masked = api_key[:7] + '...' + api_key[-4:]
+        return jsonify({'has_key': True, 'masked_key': masked, 'key': api_key})
+    return jsonify({'has_key': False})
 
 @app.route('/api/validate-key', methods=['POST'])
 def validate_key():
