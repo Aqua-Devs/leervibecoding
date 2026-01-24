@@ -2,36 +2,16 @@
 
 {% block title %}LeerVibeCoding.nl - Bouw Je Eigen App Zonder Developer{% endblock %}
 {% block meta_description %}Bouw je eigen app zonder developer. Bespaar €10.000+ met kant-en-klare blueprints.{% endblock %}
-{% block meta_keywords %}app bouwen zonder developer, blueprints, zelf app maken{% endblock %}
-{% block canonical %}https://leervibecoding.nl{% endblock %}
-{% block og_url %}https://leervibecoding.nl{% endblock %}
-{% block og_title %}Bouw Je Eigen App Zonder Developer{% endblock %}
-{% block og_description %}Van idee naar werkende app in één weekend. Bespaar €10.000+{% endblock %}
 
 {% block extra_css %}
 <style>
 /* ===========================================
-   EDITORIAL MINIMAL - Clean, Typography-first
+   HOMEPAGE - Dark Mode with Red Accent
    =========================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-
-* { box-sizing: border-box; }
-
-body {
-    font-family: 'Inter', -apple-system, sans-serif;
-    -webkit-font-smoothing: antialiased;
-}
-
-/* Layout */
-.container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
-section { padding: 60px 0; }
-
-/* ===========================================
-   HERO - Compact & Bold
-   =========================================== */
+/* Hero */
 .hero {
-    padding: 100px 0 50px;
+    padding: 80px 0 60px;
     border-bottom: 1px solid var(--border);
 }
 
@@ -41,101 +21,86 @@ section { padding: 60px 0; }
     color: var(--primary);
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
     display: block;
 }
 
 .hero h1 {
-    font-size: 48px;
+    font-size: 52px;
     font-weight: 800;
     line-height: 1.1;
     color: var(--text1);
-    margin-bottom: 16px;
+    margin-bottom: 20px;
     letter-spacing: -0.03em;
 }
 
 .hero h1 .red { color: var(--primary); }
 
 .hero-sub {
-    font-size: 17px;
+    font-size: 18px;
     color: var(--text2);
-    margin-bottom: 32px;
-    max-width: 500px;
+    margin-bottom: 40px;
+    max-width: 520px;
     line-height: 1.6;
 }
 
-/* Stats inline */
 .hero-stats {
     display: flex;
-    gap: 32px;
-    padding: 20px 0;
+    gap: 48px;
+    padding: 24px 0;
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
-    margin-bottom: 32px;
+    margin-bottom: 40px;
 }
 
 .hero-stats .stat strong {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: 800;
     color: var(--primary);
     display: block;
+    line-height: 1;
+    margin-bottom: 4px;
 }
 
 .hero-stats .stat span {
-    font-size: 12px;
+    font-size: 13px;
     color: var(--text3);
 }
 
-/* CTA */
-.hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
-
-.btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 14px 28px;
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    transition: all 0.15s;
+.hero-cta {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
-.btn-primary {
-    background: var(--primary);
-    color: white;
+.hero-cta .btn {
+    padding: 16px 32px;
+    font-size: 15px;
 }
-.btn-primary:hover { background: var(--primary-dark); }
-
-.btn-outline {
-    background: transparent;
-    color: var(--text1);
-    border: 1px solid var(--border);
-}
-.btn-outline:hover { border-color: var(--text1); }
 
 .hero-note {
-    margin-top: 20px;
+    margin-top: 24px;
     font-size: 13px;
     color: var(--text3);
     display: flex;
-    gap: 16px;
+    gap: 20px;
 }
-.hero-note i { color: var(--green); margin-right: 4px; }
 
-/* ===========================================
-   VALUE PROP - Side by side
-   =========================================== */
+.hero-note i {
+    color: var(--green);
+    margin-right: 6px;
+}
+
+/* Value Section */
 .value-section {
+    padding: 60px 0;
     background: var(--bg2);
-    padding: 50px 0;
 }
 
 .value-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 50px;
+    gap: 60px;
 }
 
 .value-grid h2 {
@@ -145,106 +110,115 @@ section { padding: 60px 0; }
     letter-spacing: -0.02em;
 }
 
-.value-grid p {
+.value-grid > div > p {
     font-size: 15px;
     color: var(--text2);
     line-height: 1.6;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
 }
 
 .pain-list {
     list-style: none;
-    padding: 0;
-    margin: 0;
 }
 
 .pain-list li {
-    padding: 12px 0;
+    padding: 14px 0;
     border-bottom: 1px solid var(--border);
     font-size: 14px;
     color: var(--text2);
     display: flex;
-    gap: 10px;
+    gap: 12px;
 }
+
 .pain-list li:last-child { border-bottom: none; }
-.pain-list .x { color: var(--primary); }
+
+.pain-list .x {
+    color: var(--primary);
+    flex-shrink: 0;
+}
 
 .solution-box {
-    background: var(--card-bg);
+    background: var(--card);
     border: 1px solid var(--border);
-    padding: 28px;
+    padding: 32px;
 }
 
 .solution-box h3 {
     font-size: 18px;
     font-weight: 700;
-    margin-bottom: 12px;
-    padding-left: 14px;
+    margin-bottom: 16px;
+    padding-left: 16px;
     border-left: 3px solid var(--primary);
 }
 
-.solution-box p {
+.solution-box > p {
     font-size: 14px;
     color: var(--text2);
-    margin-bottom: 16px;
+    margin-bottom: 20px;
     line-height: 1.6;
 }
 
 .check-list {
     list-style: none;
-    padding: 0;
-    margin: 0;
 }
 
 .check-list li {
-    padding: 6px 0;
+    padding: 8px 0;
     font-size: 14px;
     color: var(--text2);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
 }
-.check-list i { color: var(--primary); font-size: 12px; }
 
-/* ===========================================
-   COMPARISON - Clean Table
-   =========================================== */
-.compare-section { padding: 50px 0; }
+.check-list i {
+    color: var(--primary);
+    font-size: 12px;
+}
 
+/* Section Title */
 .section-title {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 48px;
 }
+
 .section-title h2 {
-    font-size: 28px;
+    font-size: 32px;
     font-weight: 700;
     margin-bottom: 8px;
     letter-spacing: -0.02em;
 }
+
 .section-title p {
     font-size: 15px;
     color: var(--text3);
 }
 
-/* Desktop Table */
+/* Comparison */
+.compare-section {
+    padding: 60px 0;
+}
+
 .compare-table {
     width: 100%;
     border-collapse: collapse;
     font-size: 14px;
 }
 
-.compare-table th, .compare-table td {
-    padding: 14px 16px;
+.compare-table th,
+.compare-table td {
+    padding: 16px 20px;
     text-align: left;
     border-bottom: 1px solid var(--border);
 }
 
 .compare-table th {
     font-weight: 600;
-    font-size: 11px;
+    font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: var(--text3);
+    background: var(--bg2);
 }
 
 .compare-table th:last-child {
@@ -261,101 +235,111 @@ section { padding: 60px 0; }
 .compare-table .neg { color: var(--text3); }
 .compare-table .pos { color: var(--green); }
 
-/* Mobile Cards */
 .compare-mobile { display: none; }
 
 .compare-card {
-    background: var(--card-bg);
+    background: var(--card);
     border: 1px solid var(--border);
-    padding: 20px;
-    margin-bottom: 12px;
+    padding: 24px;
+    margin-bottom: 16px;
 }
+
 .compare-card.featured {
     border-color: var(--primary);
     border-width: 2px;
 }
+
 .compare-card h4 {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 600;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
 }
+
 .compare-card.featured h4 { color: var(--primary); }
 
 .compare-card .row {
     display: flex;
     justify-content: space-between;
-    padding: 8px 0;
-    font-size: 13px;
+    padding: 10px 0;
+    font-size: 14px;
     border-bottom: 1px solid var(--border);
 }
+
 .compare-card .row:last-child { border-bottom: none; }
 .compare-card .label { color: var(--text3); }
 .compare-card .good { color: var(--green); font-weight: 600; }
 .compare-card .bad { color: var(--text3); }
 
-/* ===========================================
-   BLUEPRINTS - Grid
-   =========================================== */
+/* Blueprints */
 .blueprints-section {
+    padding: 60px 0;
     background: var(--bg2);
-    padding: 50px 0;
 }
 
 .bp-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 16px;
-    margin-bottom: 32px;
+    margin-bottom: 40px;
 }
 
 .bp-card {
-    background: var(--card-bg);
+    background: var(--card);
     border: 1px solid var(--border);
 }
 
 .bp-card-head {
-    padding: 14px 16px;
+    padding: 16px 20px;
     border-bottom: 1px solid var(--border);
     font-size: 14px;
     font-weight: 600;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
 }
 
-.bp-card-body { padding: 8px; }
+.bp-card-body { padding: 10px; }
 
 .bp-item {
     display: flex;
     justify-content: space-between;
-    padding: 10px 12px;
-    font-size: 13px;
+    padding: 12px 14px;
+    font-size: 14px;
     color: var(--text2);
     text-decoration: none;
     border-radius: 4px;
+    transition: background 0.15s;
 }
-.bp-item:hover { background: var(--bg2); color: var(--text1); }
-.bp-item .price { color: var(--primary); font-weight: 600; }
+
+.bp-item:hover {
+    background: var(--bg);
+    color: var(--text1);
+}
+
+.bp-item .price {
+    color: var(--primary);
+    font-weight: 600;
+}
 
 .bp-cta { text-align: center; }
 
-/* ===========================================
-   PRICING - 3 Cards
-   =========================================== */
-.pricing-section { padding: 50px 0; }
+/* Pricing */
+.pricing-section {
+    padding: 60px 0;
+}
 
 .pricing-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    max-width: 850px;
-    margin: 0 auto 24px;
+    gap: 24px;
+    max-width: 900px;
+    margin: 0 auto 32px;
 }
 
 .price-card {
-    background: var(--card-bg);
+    background: var(--card);
     border: 1px solid var(--border);
-    padding: 28px;
+    padding: 32px;
     position: relative;
 }
 
@@ -367,285 +351,372 @@ section { padding: 60px 0; }
 .price-card.pop::before {
     content: 'Populair';
     position: absolute;
-    top: -11px;
-    left: 20px;
+    top: -12px;
+    left: 24px;
     background: var(--primary);
     color: white;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 600;
-    padding: 4px 10px;
+    padding: 4px 12px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
 
-.price-card h3 { font-size: 16px; margin-bottom: 4px; }
-.price-card .sub { font-size: 12px; color: var(--text3); margin-bottom: 16px; }
+.price-card h3 {
+    font-size: 18px;
+    margin-bottom: 4px;
+}
+
+.price-card .sub {
+    font-size: 13px;
+    color: var(--text3);
+    margin-bottom: 20px;
+}
 
 .price-card .amount {
-    font-size: 36px;
+    font-size: 42px;
     font-weight: 800;
     color: var(--text1);
     line-height: 1;
 }
+
 .price-card.pop .amount { color: var(--primary); }
-.price-card .period { font-size: 12px; color: var(--text3); margin-bottom: 20px; }
+
+.price-card .period {
+    font-size: 13px;
+    color: var(--text3);
+    margin-bottom: 24px;
+}
 
 .price-card ul {
     list-style: none;
-    padding: 0;
-    margin: 0 0 20px 0;
+    margin-bottom: 24px;
 }
+
 .price-card li {
-    padding: 8px 0;
-    font-size: 13px;
+    padding: 10px 0;
+    font-size: 14px;
     color: var(--text2);
     border-bottom: 1px solid var(--border);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
 }
-.price-card li:last-child { border-bottom: none; }
-.price-card li i { color: var(--primary); font-size: 11px; }
 
-.price-card .btn { width: 100%; justify-content: center; }
+.price-card li:last-child { border-bottom: none; }
+.price-card li i { color: var(--primary); font-size: 12px; }
+
+.price-card .btn {
+    width: 100%;
+    justify-content: center;
+}
 
 .guarantee {
-    max-width: 450px;
+    max-width: 500px;
     margin: 0 auto;
-    padding: 14px 20px;
+    padding: 16px 24px;
     background: var(--green-light);
     border: 1px solid var(--green);
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    font-size: 13px;
+    gap: 12px;
+    font-size: 14px;
 }
+
 .guarantee i { color: var(--green); }
 
-/* ===========================================
-   TESTIMONIALS
-   =========================================== */
+/* Testimonials */
 .testimonials-section {
+    padding: 60px 0;
     background: var(--bg2);
-    padding: 50px 0;
 }
 
 .testimonials-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    gap: 24px;
 }
 
 .testi-card {
-    background: var(--card-bg);
+    background: var(--card);
     border: 1px solid var(--border);
-    padding: 24px;
+    padding: 28px;
 }
 
 .testi-card p {
-    font-size: 14px;
+    font-size: 15px;
     color: var(--text2);
     line-height: 1.7;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
     font-style: italic;
 }
 
 .testi-card .author {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 }
 
 .testi-card .avatar {
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
     background: var(--primary-light);
     color: var(--primary);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600;
 }
 
-.testi-card .name { font-size: 13px; font-weight: 600; }
-.testi-card .role { font-size: 11px; color: var(--text3); }
+.testi-card .name {
+    font-size: 14px;
+    font-weight: 600;
+}
 
-/* ===========================================
-   FAQ
-   =========================================== */
-.faq-section { padding: 50px 0; }
+.testi-card .role {
+    font-size: 12px;
+    color: var(--text3);
+}
 
-.faq-list { max-width: 650px; margin: 0 auto; }
+/* FAQ */
+.faq-section {
+    padding: 60px 0;
+}
 
-.faq-item { border-bottom: 1px solid var(--border); }
+.faq-list {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    border-bottom: 1px solid var(--border);
+}
 
 .faq-q {
-    padding: 18px 0;
-    font-size: 15px;
+    padding: 20px 0;
+    font-size: 16px;
     font-weight: 600;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.faq-q i { color: var(--text3); transition: transform 0.2s; }
+
+.faq-q i {
+    color: var(--text3);
+    transition: transform 0.2s;
+}
+
 .faq-item.open .faq-q i { transform: rotate(180deg); }
 
 .faq-a {
     display: none;
-    padding-bottom: 18px;
-    font-size: 14px;
+    padding-bottom: 20px;
+    font-size: 15px;
     color: var(--text2);
     line-height: 1.7;
 }
+
 .faq-item.open .faq-a { display: block; }
 
-/* ===========================================
-   FINAL CTA
-   =========================================== */
+/* Final CTA */
 .final-cta {
-    background: var(--text1);
-    padding: 60px 0;
+    padding: 80px 0;
+    background: var(--primary);
     text-align: center;
 }
 
 .final-cta h2 {
-    font-size: 32px;
+    font-size: 36px;
     color: white;
     margin-bottom: 12px;
 }
 
 .final-cta p {
-    font-size: 15px;
-    color: rgba(255,255,255,0.6);
-    margin-bottom: 24px;
+    font-size: 16px;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 32px;
 }
 
-.final-cta .btn-primary:hover {
+.final-cta .btn {
     background: white;
-    color: var(--text1);
+    color: var(--primary);
 }
 
-/* ===========================================
-   EBOOK MODAL
-   =========================================== */
-.modal-overlay {
+.final-cta .btn:hover {
+    background: var(--text1);
+    color: white;
+}
+
+/* Modal */
+.ebook-modal {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.8);
     z-index: 9999;
     align-items: center;
     justify-content: center;
     padding: 20px;
 }
-.modal-overlay.active { display: flex; }
 
-.modal-box {
-    background: var(--card-bg);
-    max-width: 400px;
+.ebook-modal.active { display: flex; }
+
+.ebook-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    max-width: 420px;
     width: 100%;
-    padding: 32px;
+    padding: 36px;
     position: relative;
 }
 
-.modal-close {
+.ebook-box .close {
     position: absolute;
-    top: 12px;
-    right: 12px;
+    top: 14px;
+    right: 14px;
     background: none;
     border: none;
-    font-size: 20px;
     color: var(--text3);
+    font-size: 20px;
     cursor: pointer;
 }
 
-.modal-box h2 { font-size: 22px; margin-bottom: 8px; }
-.modal-box .sub { font-size: 13px; color: var(--text3); margin-bottom: 20px; }
-
-.modal-box ul {
-    list-style: none;
-    padding: 16px;
-    background: var(--bg2);
-    margin-bottom: 20px;
+.ebook-box h2 {
+    font-size: 22px;
+    margin-bottom: 8px;
 }
-.modal-box li {
-    padding: 6px 0;
-    font-size: 13px;
-    display: flex;
-    gap: 8px;
-}
-.modal-box li i { color: var(--primary); }
 
-.modal-form { display: flex; gap: 8px; }
-.modal-form input {
-    flex: 1;
-    padding: 12px;
-    border: 1px solid var(--border);
+.ebook-box .sub {
     font-size: 14px;
+    color: var(--text3);
+    margin-bottom: 24px;
+}
+
+.ebook-box ul {
+    list-style: none;
+    padding: 20px;
+    background: var(--bg);
+    margin-bottom: 24px;
+}
+
+.ebook-box li {
+    padding: 8px 0;
+    font-size: 14px;
+    display: flex;
+    gap: 10px;
+}
+
+.ebook-box li i { color: var(--primary); }
+
+.ebook-form {
+    display: flex;
+    gap: 10px;
+}
+
+.ebook-form input {
+    flex: 1;
+    padding: 14px;
+    border: 1px solid var(--border);
     background: var(--bg);
     color: var(--text);
+    font-size: 14px;
 }
-.modal-form button {
-    padding: 12px 20px;
+
+.ebook-form button {
+    padding: 14px 24px;
     background: var(--primary);
     color: white;
     border: none;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
     cursor: pointer;
 }
 
-.modal-privacy { font-size: 11px; color: var(--text3); margin-top: 10px; }
+.ebook-privacy {
+    font-size: 12px;
+    color: var(--text3);
+    margin-top: 12px;
+}
 
-.modal-success { text-align: center; padding: 20px 0; }
-.modal-success .icon { font-size: 40px; margin-bottom: 12px; }
-.modal-success h3 { font-size: 18px; margin-bottom: 6px; }
-.modal-success p { font-size: 13px; color: var(--text3); }
+.ebook-success {
+    text-align: center;
+    padding: 24px 0;
+}
+
+.ebook-success .icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+}
+
+.ebook-success h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.ebook-success p {
+    font-size: 14px;
+    color: var(--text3);
+}
 
 .coupon-box {
     background: var(--green-light);
     border: 1px dashed var(--green);
-    padding: 12px;
-    margin: 16px 0;
+    padding: 16px;
+    margin: 20px 0;
 }
-.coupon-code { font-size: 20px; font-weight: 700; color: var(--green); letter-spacing: 2px; }
 
-/* ===========================================
-   RESPONSIVE
-   =========================================== */
-@media (max-width: 800px) {
+.coupon-code {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--green);
+    letter-spacing: 3px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .hero h1 { font-size: 40px; }
+    .hero-stats { gap: 32px; }
+    .value-grid { grid-template-columns: 1fr; gap: 40px; }
+    .bp-grid { grid-template-columns: repeat(2, 1fr); }
+    .pricing-grid { grid-template-columns: 1fr; max-width: 380px; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+    .hero { padding: 60px 0 40px; }
     .hero h1 { font-size: 32px; }
-    .hero-stats { flex-wrap: wrap; gap: 20px; }
-    .hero-stats .stat { flex: 1; min-width: 80px; }
-    
-    .value-grid { grid-template-columns: 1fr; gap: 30px; }
+    .hero-sub { font-size: 16px; }
+    .hero-stats {
+        flex-direction: column;
+        gap: 16px;
+        padding: 20px 0;
+    }
+    .hero-stats .stat {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--border);
+    }
+    .hero-stats .stat:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+    .hero-cta { flex-direction: column; }
+    .hero-cta .btn { width: 100%; justify-content: center; }
+    .hero-note { flex-direction: column; gap: 8px; }
     
     .compare-table { display: none; }
     .compare-mobile { display: block; }
     
-    .bp-grid { grid-template-columns: 1fr 1fr; }
-    
-    .pricing-grid { grid-template-columns: 1fr; max-width: 350px; }
-    
-    .testimonials-grid { grid-template-columns: 1fr; }
-}
-
-@media (max-width: 500px) {
-    section { padding: 40px 0; }
-    .hero { padding: 80px 0 40px; }
-    .hero h1 { font-size: 28px; }
-    .hero-sub { font-size: 15px; }
-    .hero-cta { flex-direction: column; }
-    .btn { width: 100%; justify-content: center; }
-    .hero-note { flex-direction: column; gap: 6px; }
-    
     .bp-grid { grid-template-columns: 1fr; }
     
-    .final-cta h2 { font-size: 24px; }
+    .section-title h2 { font-size: 26px; }
+    .final-cta h2 { font-size: 28px; }
 }
 </style>
 {% endblock %}
@@ -666,7 +737,7 @@ section { padding: 60px 0; }
         
         <div class="hero-cta">
             <a href="/blueprints" class="btn btn-primary">Bekijk Blueprints <i class="fas fa-arrow-right"></i></a>
-            <button onclick="openModal()" class="btn btn-outline"><i class="fas fa-book"></i> Gratis Startersgids</button>
+            <button onclick="openEbook()" class="btn btn-outline"><i class="fas fa-book"></i> Gratis Startersgids</button>
         </div>
         
         <div class="hero-note">
@@ -924,16 +995,16 @@ section { padding: 60px 0; }
     <div class="container">
         <h2>Klaar om te beginnen?</h2>
         <p>Start vandaag met bouwen aan je idee</p>
-        <a href="/blueprints" class="btn btn-primary">Bekijk Blueprints <i class="fas fa-arrow-right"></i></a>
+        <a href="/blueprints" class="btn">Bekijk Blueprints <i class="fas fa-arrow-right"></i></a>
     </div>
 </section>
 
-<!-- MODAL -->
-<div class="modal-overlay" id="ebookModal">
-    <div class="modal-box">
-        <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+<!-- EBOOK MODAL -->
+<div class="ebook-modal" id="ebookModal">
+    <div class="ebook-box">
+        <button class="close" onclick="closeEbook()"><i class="fas fa-times"></i></button>
         
-        <div id="formContent">
+        <div id="ebookForm">
             <h2>Gratis Startersgids</h2>
             <p class="sub">80+ pagina's - alles wat je moet weten</p>
             <ul>
@@ -941,15 +1012,15 @@ section { padding: 60px 0; }
                 <li><i class="fas fa-check"></i> De beste tools uitgelegd</li>
                 <li><i class="fas fa-check"></i> Stap-voor-stap instructies</li>
             </ul>
-            <div class="modal-form">
-                <input type="email" id="emailInput" placeholder="Je e-mailadres">
-                <button onclick="submitForm()">Download</button>
+            <div class="ebook-form">
+                <input type="email" id="ebookEmail" placeholder="Je e-mailadres">
+                <button onclick="submitEbook()">Download</button>
             </div>
-            <p class="modal-privacy"><i class="fas fa-lock"></i> We delen nooit je gegevens</p>
+            <p class="ebook-privacy"><i class="fas fa-lock"></i> We delen nooit je gegevens</p>
         </div>
         
-        <div id="successContent" style="display:none;">
-            <div class="modal-success">
+        <div id="ebookSuccess" style="display:none;">
+            <div class="ebook-success">
                 <div class="icon">🎉</div>
                 <h3>Check je inbox!</h3>
                 <p>Je e-book is onderweg.</p>
@@ -965,25 +1036,29 @@ section { padding: 60px 0; }
 
 {% block extra_js %}
 <script>
-function openModal() {
+function openEbook() {
     document.getElementById('ebookModal').classList.add('active');
     document.body.style.overflow = 'hidden';
 }
-function closeModal() {
+
+function closeEbook() {
     document.getElementById('ebookModal').classList.remove('active');
     document.body.style.overflow = '';
 }
-function submitForm() {
-    const email = document.getElementById('emailInput').value;
+
+function submitEbook() {
+    const email = document.getElementById('ebookEmail').value;
     if (email && email.includes('@')) {
-        document.getElementById('formContent').style.display = 'none';
-        document.getElementById('successContent').style.display = 'block';
+        document.getElementById('ebookForm').style.display = 'none';
+        document.getElementById('ebookSuccess').style.display = 'block';
     }
 }
+
 function toggleFaq(el) {
     el.parentElement.classList.toggle('open');
 }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-document.getElementById('ebookModal').addEventListener('click', e => { if (e.target.id === 'ebookModal') closeModal(); });
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeEbook(); });
+document.getElementById('ebookModal').addEventListener('click', e => { if (e.target.id === 'ebookModal') closeEbook(); });
 </script>
 {% endblock %}

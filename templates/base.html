@@ -6,247 +6,98 @@
     <title>{% block title %}LeerVibeCoding.nl - Bouw Je Eigen App Zonder Developer{% endblock %}</title>
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="{% block meta_description %}Bouw professionele apps, websites en tools zonder developer. Met onze kant-en-klare blueprints bespaar je duizenden euro's. Gratis beginnen.{% endblock %}">
-    <meta name="keywords" content="{% block meta_keywords %}app bouwen, website maken, besparen op developer, kant-en-klare blueprints, zelf app maken, zonder programmeren{% endblock %}">
+    <meta name="description" content="{% block meta_description %}Bouw professionele apps, websites en tools zonder developer. Met kant-en-klare blueprints bespaar je duizenden euro's.{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}app bouwen, website maken, blueprints, zelf app maken{% endblock %}">
     <meta name="author" content="LeerVibeCoding.nl">
     <meta name="robots" content="index, follow">
-    <meta name="language" content="Dutch">
-    <meta name="revisit-after" content="7 days">
     
     <!-- Canonical URL -->
     <link rel="canonical" href="{% block canonical %}https://leervibecoding.nl{% endblock %}">
     
-    <!-- Open Graph / Facebook -->
+    <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="{% block og_url %}https://leervibecoding.nl{% endblock %}">
-    <meta property="og:title" content="{% block og_title %}LeerVibeCoding.nl - Leer Programmeren met AI{% endblock %}">
-    <meta property="og:description" content="{% block og_description %}Leer programmeren zonder code te typen. Bouw apps door te beschrijven wat je wilt. Gratis beginnen!{% endblock %}">
-    <meta property="og:image" content="https://leervibecoding.nl/og-image.png">
+    <meta property="og:title" content="{% block og_title %}LeerVibeCoding.nl{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Bouw je eigen app zonder developer{% endblock %}">
     <meta property="og:locale" content="nl_NL">
-    <meta property="og:site_name" content="LeerVibeCoding.nl">
     
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="{% block twitter_url %}https://leervibecoding.nl{% endblock %}">
-    <meta name="twitter:title" content="{% block twitter_title %}LeerVibeCoding.nl - Leer Programmeren met AI{% endblock %}">
-    <meta name="twitter:description" content="{% block twitter_description %}Leer programmeren zonder code te typen. Bouw apps door te beschrijven wat je wilt.{% endblock %}">
-    <meta name="twitter:image" content="https://leervibecoding.nl/og-image.png">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><path d='M8 8L20 32L32 8' stroke='%23a855f7' stroke-width='4' stroke-linecap='round' stroke-linejoin='round' fill='none'/><circle cx='8' cy='8' r='3' fill='%23a855f7'/><circle cx='32' cy='8' r='3' fill='%2322d3ee'/><circle cx='20' cy='32' r='3' fill='%2322c55e'/></svg>">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><rect fill='%2313131d' width='40' height='40'/><path d='M8 8L20 32L32 8' stroke='%23a855f7' stroke-width='4' stroke-linecap='round' stroke-linejoin='round' fill='none'/><circle cx='8' cy='8' r='3' fill='%23a855f7'/><circle cx='32' cy='8' r='3' fill='%2322d3ee'/><circle cx='20' cy='32' r='3' fill='%2322c55e'/></svg>">
-    
-    <!-- Preconnect for performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <!-- Favicon - Red V -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><rect fill='%230a0a0a' width='40' height='40' rx='8'/><path d='M10 12L20 28L30 12' stroke='%23ef4444' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' fill='none'/></svg>">
     
     <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- Structured Data / JSON-LD -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "LeerVibeCoding.nl",
-        "url": "https://leervibecoding.nl",
-        "description": "Leer programmeren met AI - bouw apps door te beschrijven wat je wilt",
-        "inLanguage": "nl-NL",
-        "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://leervibecoding.nl/zoeken?q={search_term_string}",
-            "query-input": "required name=search_term_string"
-        }
-    }
-    </script>
-    
-    {% block structured_data %}
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "LeerVibeCoding.nl",
-        "url": "https://leervibecoding.nl",
-        "logo": "https://leervibecoding.nl/logo.svg",
-        "sameAs": []
-    }
-    </script>
-    {% endblock %}
+    {% block structured_data %}{% endblock %}
     
     <style>
+        /* ===========================================
+           DARK MODE ONLY - Red Accent
+           =========================================== */
         :root {
-            /* Editorial Minimal - Light */
-            --bg: #ffffff;
-            --bg2: #fafafa;
-            --bg3: #f5f5f5;
-            --glass: rgba(0,0,0,0.02);
-            --border: #e5e5e5;
-            --border-light: #f0f0f0;
-            --text: #1a1a1a;
-            --text1: #0a0a0a;
-            --text2: #525252;
-            --text3: #a3a3a3;
-            --primary: #dc2626;
-            --primary-light: rgba(220,38,38,0.08);
-            --primary-dark: #b91c1c;
-            --accent: #dc2626;
-            --accent-light: rgba(220,38,38,0.08);
-            --blue: #2563eb;
-            --blue-light: rgba(37,99,235,0.1);
-            --cyan: #0891b2;
-            --green: #16a34a;
-            --green-light: rgba(22,163,74,0.08);
-            --yellow: #ca8a04;
-            --yellow-light: rgba(202,138,4,0.08);
-            --red: #dc2626;
-            --red-light: rgba(220,38,38,0.08);
-            --orange: #ea580c;
-            --orange-light: rgba(234,88,12,0.08);
-            --card-bg: #ffffff;
-            --nav-bg: rgba(255,255,255,0.95);
-            --shadow: rgba(0,0,0,0.04);
-            --icon-color: #525252;
-            --code-bg: #f5f5f5;
-            /* Legacy support */
-            --purple: #dc2626;
-            --purple-light: rgba(220,38,38,0.08);
-        }
-
-        /* Dark Mode - Editorial */
-        [data-theme="dark"] {
             --bg: #0a0a0a;
-            --bg2: #141414;
-            --bg3: #1f1f1f;
-            --glass: rgba(255,255,255,0.03);
+            --bg2: #111111;
+            --bg3: #1a1a1a;
+            --card: #111111;
+            --card-hover: #161616;
             --border: #262626;
             --border-light: #1f1f1f;
+            
             --text: #fafafa;
             --text1: #ffffff;
             --text2: #a3a3a3;
             --text3: #737373;
+            
             --primary: #ef4444;
             --primary-light: rgba(239,68,68,0.15);
             --primary-dark: #dc2626;
-            --accent: #ef4444;
-            --accent-light: rgba(239,68,68,0.15);
-            --blue: #3b82f6;
-            --blue-light: rgba(59,130,246,0.15);
-            --cyan: #22d3ee;
+            
             --green: #22c55e;
             --green-light: rgba(34,197,94,0.15);
             --yellow: #eab308;
             --yellow-light: rgba(234,179,8,0.15);
+            --blue: #3b82f6;
+            --blue-light: rgba(59,130,246,0.15);
             --red: #ef4444;
             --red-light: rgba(239,68,68,0.15);
             --orange: #f97316;
-            --orange-light: rgba(249,115,22,0.15);
-            --card-bg: #141414;
-            --nav-bg: rgba(10,10,10,0.95);
-            --shadow: rgba(0,0,0,0.5);
-            --icon-color: #a3a3a3;
-            --code-bg: #1f1f1f;
-            /* Legacy support */
+            
+            /* Legacy */
             --purple: #ef4444;
             --purple-light: rgba(239,68,68,0.15);
+            --accent: #ef4444;
+            --card-bg: #111111;
+            --nav-bg: rgba(10,10,10,0.95);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Inter', -apple-system, sans-serif;
             background: var(--bg);
             color: var(--text);
             min-height: 100vh;
             line-height: 1.6;
-            transition: background-color 0.3s, color 0.3s;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
-        /* Theme Toggle */
-        .theme-toggle {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 44px;
-            height: 44px;
-            background: var(--glass);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            cursor: pointer;
-            color: var(--text);
-            font-size: 18px;
-            transition: all 0.3s;
-        }
-        .theme-toggle:hover {
-            background: var(--purple);
-            color: white;
-            border-color: var(--purple);
-        }
-        .theme-toggle .fa-sun { display: none; }
-        .theme-toggle .fa-moon { display: block; }
-        [data-theme="dark"] .theme-toggle .fa-sun { display: block; }
-        [data-theme="dark"] .theme-toggle .fa-moon { display: none; }
-
-        /* Gradient Text */
-        .gradient-text {
-            background: linear-gradient(135deg, var(--purple), var(--blue), var(--cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* Buttons */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            border: none;
-            font-family: inherit;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #9333ea, #2563eb);
-            color: white;
-        }
-
-        .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
-
-        .btn-secondary {
-            background: var(--glass);
-            color: var(--text);
-            border: 1px solid var(--border);
-        }
-
-        .btn-secondary:hover { 
-            background: var(--purple);
-            color: white;
-            border-color: var(--purple);
-        }
-
-        .btn-large { padding: 16px 32px; font-size: 16px; }
-
-        /* Navigation */
+        /* ===========================================
+           NAVIGATION
+           =========================================== */
         nav {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 1000;
-            padding: 16px 0;
+            padding: 14px 0;
             background: var(--nav-bg);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
-            box-shadow: 0 2px 10px var(--shadow);
         }
 
         nav .container {
@@ -262,470 +113,329 @@
             text-decoration: none;
             color: var(--text);
             font-weight: 700;
-            font-size: 20px;
+            font-size: 18px;
         }
 
         .logo-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            background: rgba(147, 51, 234, 0.1);
-            border: 1px solid rgba(147, 51, 234, 0.3);
+            width: 36px;
+            height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s;
         }
 
-        .logo:hover .logo-icon {
-            background: rgba(147, 51, 234, 0.2);
-            border-color: rgba(147, 51, 234, 0.5);
-            transform: scale(1.05);
-        }
-
-        .logo:hover .logo-icon svg circle {
-            animation: pulse-node 0.6s ease-in-out;
-        }
-
-        @keyframes pulse-node {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.3); }
-        }
-
-        .logo span {
-            background: linear-gradient(135deg, var(--purple) 0%, var(--blue) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+        .logo span { color: var(--text1); }
 
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 32px;
+            gap: 28px;
         }
 
         .nav-links a {
             color: var(--text2);
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s;
+            font-size: 14px;
+            transition: color 0.2s;
         }
 
-        .nav-links a:hover, .nav-links a.active { color: var(--purple); }
+        .nav-links a:hover,
+        .nav-links a.active { color: var(--text1); }
 
-        .nav-links .nav-premium {
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 600;
-        }
-        .nav-links .nav-premium i {
-            -webkit-text-fill-color: #f59e0b;
-        }
-        .nav-links .nav-premium:hover {
-            opacity: 0.8;
-        }
+        .nav-links a i { margin-right: 6px; }
 
-        .nav-buttons { display: flex; gap: 12px; align-items: center; }
+        .nav-buttons { display: flex; gap: 10px; align-items: center; }
 
-        /* Cards */
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px var(--shadow);
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px var(--shadow);
-            transform: translateY(-4px);
-        }
-
-        /* Badges */
-        .badge {
+        .nav-shop {
             display: inline-flex;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .badge-beginner, .badge-makkelijk { background: var(--green-light); color: var(--green); }
-        .badge-gemiddeld { background: var(--yellow-light); color: var(--yellow); }
-        .badge-gevorderd, .badge-moeilijk { background: var(--red-light); color: var(--red); }
-        .badge-expert { background: var(--purple-light); color: var(--purple); }
-
-        /* Modal */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(4px);
-            z-index: 2000;
-            display: none;
             align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .modal-overlay.active { display: flex; }
-
-        .modal {
-            background: var(--bg2);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 32px;
-            max-width: 500px;
-            width: 100%;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .modal-title { font-size: 24px; font-weight: 700; }
-
-        .modal-close {
-            background: none;
-            border: none;
-            color: var(--text2);
-            font-size: 28px;
-            cursor: pointer;
-        }
-
-        .modal-close:hover { color: white; }
-
-        .api-info-section {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 16px;
-        }
-
-        .api-info-section h4 {
-            font-size: 15px;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .api-info-section h4 i {
-            color: var(--purple);
-        }
-
-        .api-info-section p {
-            color: var(--text2);
-            font-size: 14px;
-            line-height: 1.6;
-            margin: 0;
-        }
-
-        .api-info-section.security {
-            background: rgba(74,222,128,0.1);
-            border-color: rgba(74,222,128,0.3);
-        }
-
-        .api-info-section.security h4 i {
-            color: var(--green);
-        }
-
-        .api-info-section.costs {
-            background: rgba(250,204,21,0.1);
-            border-color: rgba(250,204,21,0.3);
-        }
-
-        .api-info-section.costs h4 i {
-            color: var(--yellow);
-        }
-
-        .api-info-section ul, .api-info-section ol {
-            color: var(--text2);
-            font-size: 14px;
-            margin: 10px 0 0 0;
-            padding-left: 20px;
-        }
-
-        .api-info-section li {
-            margin-bottom: 6px;
-            line-height: 1.5;
-        }
-
-        /* Forms */
-        .form-input, .form-textarea {
-            width: 100%;
-            padding: 14px 16px;
-            background: rgba(0,0,0,0.3);
-            border: 1px solid var(--border);
-            border-radius: 12px;
+            gap: 6px;
+            padding: 10px 18px;
+            background: var(--primary);
             color: white;
-            font-family: inherit;
             font-size: 14px;
-            transition: all 0.3s;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s;
         }
 
-        .form-input:focus, .form-textarea:focus {
-            outline: none;
-            border-color: var(--purple);
-            box-shadow: 0 0 0 3px rgba(16,185,129,0.2);
-        }
-
-        .form-textarea {
-            font-family: 'JetBrains Mono', monospace;
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        /* Toast */
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            padding: 16px 24px;
-            border-radius: 12px;
-            background: var(--bg2);
-            border: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transform: translateX(150%);
-            transition: transform 0.3s;
-            z-index: 3000;
-        }
-
-        .toast.active { transform: translateX(0); }
-        .toast.success { border-color: var(--green); }
-        .toast.error { border-color: var(--red); }
-
-        /* Code Block */
-        .code-block {
-            background: rgba(0,0,0,0.4);
-            border-radius: 12px;
-            padding: 20px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 13px;
-            overflow-x: auto;
-            border: 1px solid var(--border);
-            white-space: pre-wrap;
-        }
-
-        /* Loading */
-        .spinner {
-            width: 24px;
-            height: 24px;
-            border: 3px solid var(--border);
-            border-top-color: var(--purple);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* Footer */
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 40px 0;
-            margin-top: 80px;
-            text-align: center;
-            color: var(--text3);
-            background: var(--bg2);
-        }
+        .nav-shop:hover { background: var(--primary-dark); }
 
         /* Mobile Menu Toggle */
         .mobile-menu-toggle {
             display: none;
             flex-direction: column;
-            justify-content: center;
             gap: 5px;
-            width: 44px;
-            height: 44px;
-            background: var(--glass);
-            border: 1px solid var(--border);
-            border-radius: 10px;
+            padding: 8px;
+            background: none;
+            border: none;
             cursor: pointer;
-            padding: 12px;
         }
 
         .mobile-menu-toggle span {
-            display: block;
-            width: 100%;
+            width: 22px;
             height: 2px;
             background: var(--text);
-            border-radius: 2px;
             transition: all 0.3s;
         }
 
         .mobile-menu-toggle.active span:nth-child(1) {
             transform: rotate(45deg) translate(5px, 5px);
         }
-        .mobile-menu-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
+        .mobile-menu-toggle.active span:nth-child(2) { opacity: 0; }
         .mobile-menu-toggle.active span:nth-child(3) {
             transform: rotate(-45deg) translate(5px, -5px);
         }
 
-        /* Mobile Menu Overlay */
+        /* Mobile Menu */
         .mobile-menu {
             display: none;
             position: fixed;
-            top: 76px;
+            top: 65px;
             left: 0;
             right: 0;
             bottom: 0;
-            background: var(--nav-bg);
-            backdrop-filter: blur(20px);
+            background: var(--bg);
+            padding: 20px;
             z-index: 999;
-            padding: 24px;
-            flex-direction: column;
-            gap: 8px;
-            overflow-y: auto;
         }
 
-        .mobile-menu.active {
-            display: flex;
-        }
+        .mobile-menu.active { display: block; }
 
         .mobile-menu a {
+            display: block;
+            padding: 14px 0;
+            color: var(--text);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .mobile-menu a:hover { color: var(--primary); }
+
+        .mobile-menu .mobile-cta {
+            margin-top: 20px;
+            padding: 14px;
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links, .nav-buttons { display: none; }
+            .mobile-menu-toggle { display: flex; }
+        }
+
+        /* ===========================================
+           BUTTONS
+           =========================================== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        .btn-primary:hover { background: var(--primary-dark); }
+
+        .btn-secondary,
+        .btn-outline {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover,
+        .btn-outline:hover {
+            border-color: var(--text2);
+        }
+
+        /* ===========================================
+           CARDS
+           =========================================== */
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 24px;
+            transition: all 0.2s;
+        }
+
+        .card:hover {
+            background: var(--card-hover);
+            border-color: var(--border);
+        }
+
+        /* ===========================================
+           BADGES
+           =========================================== */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 4px;
+        }
+
+        .badge-new {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .badge-premium {
+            background: var(--yellow-light);
+            color: var(--yellow);
+        }
+
+        /* ===========================================
+           FOOTER
+           =========================================== */
+        footer {
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .footer-logo {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 16px 20px;
-            color: var(--text2);
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: 500;
-            border-radius: 12px;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .footer-logo span {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        footer p {
+            font-size: 13px;
+            color: var(--text3);
+        }
+
+        /* ===========================================
+           TOAST
+           =========================================== */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            z-index: 9999;
+            transform: translateY(100px);
+            opacity: 0;
             transition: all 0.3s;
         }
 
-        .mobile-menu a:hover,
-        .mobile-menu a.active {
-            background: rgba(147,51,234,0.1);
-            color: var(--purple);
+        .toast.active {
+            transform: translateY(0);
+            opacity: 1;
         }
 
-        .mobile-menu .mobile-cta {
-            margin-top: 16px;
-            padding: 18px 24px;
-            background: linear-gradient(135deg, #9333ea, #2563eb);
-            color: white !important;
-            text-align: center;
-            font-weight: 600;
+        .toast.success i { color: var(--green); }
+        .toast.error i { color: var(--red); }
+
+        /* ===========================================
+           API KEY MODAL
+           =========================================== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-overlay.active { display: flex; }
+
+        .modal-box {
+            background: var(--card);
+            border: 1px solid var(--border);
+            max-width: 480px;
+            width: 100%;
+            padding: 32px;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: var(--text3);
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .modal-box h2 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .modal-box .desc {
+            font-size: 14px;
+            color: var(--text2);
+            margin-bottom: 20px;
+        }
+
+        .modal-box input {
+            width: 100%;
+            padding: 12px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .modal-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .modal-box .btn {
+            width: 100%;
             justify-content: center;
         }
 
-        /* ============ RESPONSIVE BREAKPOINTS ============ */
-        
-        /* Tablet & Below (max-width: 1024px) */
-        @media (max-width: 1024px) {
-            .nav-links {
-                gap: 20px;
-            }
-            .nav-links a {
-                font-size: 14px;
-            }
+        .api-status {
+            margin-top: 16px;
+            padding: 12px;
+            background: var(--bg);
+            font-size: 13px;
         }
 
-        /* Mobile (max-width: 768px) */
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 16px;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .nav-buttons {
-                display: none;
-            }
-
-            .mobile-menu-toggle {
-                display: flex;
-            }
-
-            .btn {
-                padding: 14px 20px;
-                font-size: 15px;
-            }
-
-            .btn-large {
-                padding: 16px 28px;
-                font-size: 16px;
-                width: 100%;
-                justify-content: center;
-            }
-
-            .card {
-                padding: 20px;
-            }
-
-            .modal {
-                padding: 24px;
-                margin: 16px;
-                max-height: 90vh;
-                overflow-y: auto;
-            }
-
-            footer {
-                margin-top: 60px;
-                padding: 30px 0;
-            }
-
-            h1 { font-size: 28px !important; }
-            h2 { font-size: 24px !important; }
-            h3 { font-size: 20px !important; }
-        }
-
-        /* Small Mobile (max-width: 480px) */
-        @media (max-width: 480px) {
-            .container {
-                padding: 0 12px;
-            }
-
-            .logo span {
-                font-size: 16px;
-            }
-
-            .logo-icon {
-                width: 38px;
-                height: 38px;
-            }
-
-            .logo-icon svg {
-                width: 26px;
-                height: 26px;
-            }
-
-            .btn {
-                padding: 12px 16px;
-                font-size: 14px;
-            }
-
-            .card {
-                padding: 16px;
-                border-radius: 12px;
-            }
-
-            .code-block {
-                padding: 14px;
-                font-size: 12px;
-            }
-
-            footer {
-                font-size: 14px;
-            }
-        }
+        /* ===========================================
+           UTILITIES
+           =========================================== */
+        .text-primary { color: var(--primary); }
+        .text-green { color: var(--green); }
+        .text-muted { color: var(--text3); }
+        .bg-card { background: var(--card); }
     </style>
     {% block extra_css %}{% endblock %}
 </head>
@@ -735,55 +445,24 @@
         <div class="container">
             <a href="/" class="logo">
                 <div class="logo-icon">
-                    <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Background glow -->
-                        <defs>
-                            <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:#10b981"/>
-                                <stop offset="100%" style="stop-color:#22d3ee"/>
-                            </linearGradient>
-                            <filter id="glow">
-                                <feGaussianBlur stdDeviation="1" result="coloredBlur"/>
-                                <feMerge>
-                                    <feMergeNode in="coloredBlur"/>
-                                    <feMergeNode in="SourceGraphic"/>
-                                </feMerge>
-                            </filter>
-                        </defs>
-                        <!-- Main shape - stylized V with AI circuit lines -->
-                        <path d="M8 8L20 32L32 8" stroke="url(#logoGrad)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none" filter="url(#glow)"/>
-                        <!-- AI nodes/dots -->
-                        <circle cx="8" cy="8" r="3" fill="#10b981"/>
-                        <circle cx="32" cy="8" r="3" fill="#22d3ee"/>
-                        <circle cx="20" cy="32" r="3" fill="#22c55e"/>
-                        <!-- Connecting circuit lines -->
-                        <path d="M8 8L4 12M32 8L36 12M20 32L20 36" stroke="url(#logoGrad)" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
-                        <!-- Inner sparkle -->
-                        <circle cx="20" cy="16" r="2" fill="white" opacity="0.8"/>
+                    <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
+                        <path d="M10 10L20 30L30 10" stroke="#ef4444" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
                 <span>LeerVibeCoding</span>
             </a>
             
             <div class="nav-links">
-                <a href="/">Home</a>
-                <a href="/blueprints" class="nav-premium"><i class="fas fa-shopping-cart"></i> Blueprints</a>
-                <a href="/studio"><i class="fas fa-play-circle"></i> Leeromgeving</a>
+                <a href="/" class="{{ 'active' if request.path == '/' else '' }}">Home</a>
+                <a href="/blueprints" class="{{ 'active' if request.path == '/blueprints' else '' }}"><i class="fas fa-shopping-cart"></i>Blueprints</a>
+                <a href="/premium" class="{{ 'active' if request.path == '/premium' else '' }}"><i class="fas fa-play-circle"></i>Leeromgeving</a>
             </div>
             
             <div class="nav-buttons">
-                <!-- Theme Toggle -->
-                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
-                    <i class="fas fa-moon"></i>
-                    <i class="fas fa-sun"></i>
-                </button>
-                <a href="/blueprints" class="btn btn-primary">
-                    <i class="fas fa-shopping-cart"></i> <span>Shop</span>
-                </a>
+                <a href="/blueprints" class="nav-shop"><i class="fas fa-shopping-cart"></i> Shop</a>
             </div>
-
-            <!-- Mobile Menu Toggle -->
-            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Menu">
+            
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -793,59 +472,21 @@
 
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
-        <a href="/"><i class="fas fa-home"></i> Home</a>
-        <a href="/blueprints"><i class="fas fa-shopping-cart"></i> Blueprints Shop</a>
-        <a href="/studio"><i class="fas fa-play-circle"></i> Leeromgeving</a>
-        <a href="/blueprints" class="mobile-cta"><i class="fas fa-shopping-cart"></i> Bekijk Shop</a>
+        <a href="/">Home</a>
+        <a href="/blueprints"><i class="fas fa-shopping-cart"></i> Blueprints</a>
+        <a href="/premium"><i class="fas fa-play-circle"></i> Leeromgeving</a>
+        <a href="/blueprints" class="mobile-cta"><i class="fas fa-shopping-cart"></i> Shop</a>
     </div>
 
     <!-- API Key Modal -->
     <div class="modal-overlay" id="apiKeyModal">
-        <div class="modal" style="max-width: 600px;">
-            <div class="modal-header">
-                <h3 class="modal-title">🔑 OpenAI API Key</h3>
-                <button class="modal-close" onclick="closeApiKeyModal()">&times;</button>
-            </div>
-            
-            <div class="api-info-section">
-                <h4><i class="fas fa-question-circle"></i> Wat is een API key?</h4>
-                <p>Een API key is een persoonlijke sleutel waarmee jij toegang krijgt tot de AI van OpenAI (ChatGPT). Het is als een wachtwoord dat alleen jij hebt.</p>
-            </div>
-            
-            <div class="api-info-section security">
-                <h4><i class="fas fa-shield-alt"></i> Veiligheid & Privacy</h4>
-                <p><strong>Jouw key wordt NIET opgeslagen op onze servers.</strong> De key blijft alleen in je browser-sessie zolang je de website gebruikt. Zodra je de browser sluit, is de key weg. Wij hebben geen toegang tot jouw key of je OpenAI account.</p>
-            </div>
-            
-            <div class="api-info-section costs">
-                <h4><i class="fas fa-coins"></i> Wat kost het?</h4>
-                <p>OpenAI rekent per gebruik. Voor beginners zijn de kosten minimaal:</p>
-                <ul>
-                    <li><strong>GPT-3.5:</strong> ~€0,001 per oefening (vrijwel gratis)</li>
-                    <li><strong>Nieuwe gebruikers:</strong> krijgen vaak gratis tegoed van OpenAI</li>
-                    <li><strong>Gemiddeld:</strong> alle oefeningen kosten samen minder dan €0,50</li>
-                </ul>
-                <p style="margin-top: 10px; font-size: 13px;">Bekijk actuele prijzen op <a href="https://openai.com/pricing" target="_blank" style="color: var(--cyan);">openai.com/pricing</a></p>
-            </div>
-            
-            <div class="api-info-section">
-                <h4><i class="fas fa-key"></i> Hoe krijg ik een API key?</h4>
-                <ol>
-                    <li>Ga naar <a href="https://platform.openai.com/api-keys" target="_blank" style="color: var(--purple);">platform.openai.com/api-keys</a></li>
-                    <li>Maak een account aan (of log in)</li>
-                    <li>Klik op "Create new secret key"</li>
-                    <li>Kopieer de key en plak hem hieronder</li>
-                </ol>
-            </div>
-            
-            <div style="margin-top: 24px;">
-                <label style="display: block; font-size: 14px; margin-bottom: 8px; color: var(--text2);">Jouw API Key</label>
-                <input type="password" class="form-input" id="apiKeyInput" placeholder="sk-..." style="margin-bottom: 12px;">
-                <div id="apiKeyStatus" style="margin-bottom: 16px; font-size: 14px;"></div>
-                <button class="btn btn-primary" style="width: 100%;" onclick="saveApiKey()">
-                    <i class="fas fa-check"></i> Activeren
-                </button>
-            </div>
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeApiKeyModal()"><i class="fas fa-times"></i></button>
+            <h2>🔑 OpenAI API Key</h2>
+            <p class="desc">Voer je API key in om de AI-tools te gebruiken.</p>
+            <input type="password" id="apiKeyInput" placeholder="sk-...">
+            <button class="btn btn-primary" onclick="saveApiKey()">Opslaan</button>
+            <div class="api-status" id="apiKeyStatus"></div>
         </div>
     </div>
 
@@ -856,80 +497,29 @@
     </div>
 
     <!-- Main Content -->
-    <main style="padding-top: 80px;">
+    <main style="padding-top: 70px;">
         {% block content %}{% endblock %}
     </main>
 
     <!-- Footer -->
     <footer>
         <div class="container">
-            <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 8px;">
-                <svg width="24" height="24" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <linearGradient id="footerLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#10b981"/>
-                            <stop offset="100%" style="stop-color:#22d3ee"/>
-                        </linearGradient>
-                    </defs>
-                    <path d="M8 8L20 32L32 8" stroke="url(#footerLogoGrad)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                    <circle cx="8" cy="8" r="3" fill="#10b981"/>
-                    <circle cx="32" cy="8" r="3" fill="#22d3ee"/>
-                    <circle cx="20" cy="32" r="3" fill="#22c55e"/>
+            <div class="footer-logo">
+                <svg width="24" height="24" viewBox="0 0 40 40" fill="none">
+                    <path d="M10 10L20 30L30 10" stroke="#ef4444" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                <span style="font-weight: 600; background: linear-gradient(135deg, #ffffff 0%, #c4b5fd 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">LeerVibeCoding</span>
+                <span>LeerVibeCoding</span>
             </div>
-            <p>© 2026 LeerVibeCoding.nl - Leer programmeren met AI</p>
+            <p>© 2026 LeerVibeCoding.nl</p>
         </div>
     </footer>
 
     <script>
-        // Mobile Menu Toggle
+        // Mobile Menu
         function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            const toggle = document.querySelector('.mobile-menu-toggle');
-            menu.classList.toggle('active');
-            toggle.classList.toggle('active');
-            
-            // Prevent body scroll when menu is open
-            if (menu.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = '';
-            }
+            document.getElementById('mobileMenu').classList.toggle('active');
+            document.querySelector('.mobile-menu-toggle').classList.toggle('active');
         }
-
-        // Close mobile menu on link click
-        document.querySelectorAll('.mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                document.getElementById('mobileMenu').classList.remove('active');
-                document.querySelector('.mobile-menu-toggle').classList.remove('active');
-                document.body.style.overflow = '';
-            });
-        });
-
-        // Close mobile menu on escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                document.getElementById('mobileMenu').classList.remove('active');
-                document.querySelector('.mobile-menu-toggle').classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        });
-
-        // Theme Toggle
-        function toggleTheme() {
-            const html = document.documentElement;
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-        }
-
-        // Load saved theme on page load
-        (function() {
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            document.documentElement.setAttribute('data-theme', savedTheme);
-        })();
 
         // API Key Modal
         function openApiKeyModal() {
@@ -942,47 +532,57 @@
         }
 
         async function checkApiKey() {
-            const res = await fetch('/api/check-key');
-            const data = await res.json();
-            const status = document.getElementById('apiKeyStatus');
-            status.innerHTML = data.has_key 
-                ? '<span style="color: var(--green);"><i class="fas fa-check-circle"></i> API key is ingesteld</span>'
-                : '<span style="color: var(--yellow);"><i class="fas fa-exclamation-triangle"></i> Nog geen key</span>';
+            try {
+                const res = await fetch('/api/check-key');
+                const data = await res.json();
+                document.getElementById('apiKeyStatus').innerHTML = data.has_key 
+                    ? '<span style="color: var(--green);"><i class="fas fa-check-circle"></i> API key ingesteld</span>'
+                    : '<span style="color: var(--text3);"><i class="fas fa-info-circle"></i> Nog geen key</span>';
+            } catch(e) {}
         }
 
         async function saveApiKey() {
             const key = document.getElementById('apiKeyInput').value.trim();
             if (!key) { showToast('Voer een API key in', 'error'); return; }
 
-            const res = await fetch('/api/set-key', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ api_key: key })
-            });
-            const data = await res.json();
-            
-            if (data.success) {
-                showToast('API key opgeslagen!', 'success');
-                closeApiKeyModal();
-                document.getElementById('apiKeyInput').value = '';
-                if (typeof onApiKeySet === 'function') onApiKeySet();
-            } else {
-                showToast(data.error, 'error');
+            try {
+                const res = await fetch('/api/set-key', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ api_key: key })
+                });
+                const data = await res.json();
+                
+                if (data.success) {
+                    showToast('API key opgeslagen!', 'success');
+                    closeApiKeyModal();
+                    document.getElementById('apiKeyInput').value = '';
+                } else {
+                    showToast(data.error, 'error');
+                }
+            } catch(e) {
+                showToast('Fout bij opslaan', 'error');
             }
         }
 
         function showToast(message, type = 'success') {
             const toast = document.getElementById('toast');
-            const icon = document.getElementById('toastIcon');
             document.getElementById('toastMessage').textContent = message;
-            
-            toast.className = 'toast ' + type;
-            icon.className = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
-            icon.style.color = type === 'success' ? 'var(--green)' : 'var(--red)';
-            
-            toast.classList.add('active');
+            toast.className = 'toast ' + type + ' active';
+            document.getElementById('toastIcon').className = type === 'success' 
+                ? 'fas fa-check-circle' 
+                : 'fas fa-exclamation-circle';
             setTimeout(() => toast.classList.remove('active'), 4000);
         }
+
+        // Close modals on escape
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') {
+                closeApiKeyModal();
+                document.getElementById('mobileMenu').classList.remove('active');
+                document.querySelector('.mobile-menu-toggle').classList.remove('active');
+            }
+        });
 
         document.getElementById('apiKeyModal').addEventListener('click', e => {
             if (e.target.id === 'apiKeyModal') closeApiKeyModal();
