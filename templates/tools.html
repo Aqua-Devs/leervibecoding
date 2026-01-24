@@ -2,7 +2,7 @@
 
 {% block title %}AI Tools Vergelijken - Lovable, Cursor, Replit, v0 | LeerVibeCoding{% endblock %}
 
-{% block meta_description %}Vergelijk de beste AI coding tools: Lovable, Cursor, Replit Agent en v0.dev. Ontdek welke tool het beste past bij jouw project. Inclusief prijzen en moeilijkheidsgraad.{% endblock %}
+{% block meta_description %}Vergelijk de beste AI coding tools: Lovable, Cursor, Replit Agent en v0.dev. Inclusief kant-en-klare blueprints voor elk platform.{% endblock %}
 
 {% block meta_keywords %}AI coding tools, Lovable, Cursor, Replit Agent, v0.dev, AI programmeren tools, beste AI tool beginners, vergelijking AI tools{% endblock %}
 
@@ -19,15 +19,30 @@
         background: var(--bg2);
     }
     .page-header h1 {
-        font-size: 48px;
+        font-size: 42px;
         margin-bottom: 16px;
         color: var(--text1);
     }
     .page-header .subtitle {
-        font-size: 20px;
+        font-size: 18px;
         color: var(--text2);
         max-width: 600px;
-        margin: 0 auto;
+        margin: 0 auto 24px;
+        line-height: 1.6;
+    }
+    .header-insight {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--purple-light);
+        border: 1px solid var(--purple);
+        padding: 12px 20px;
+        border-radius: 50px;
+        font-size: 14px;
+        color: var(--purple);
+    }
+    .header-insight i {
+        font-size: 16px;
     }
 
     /* Tools Grid */
@@ -45,7 +60,7 @@
         background: var(--card-bg);
         border: 1px solid var(--border);
         border-radius: 20px;
-        padding: 32px;
+        padding: 28px;
         transition: all 0.3s;
         position: relative;
         overflow: hidden;
@@ -58,7 +73,6 @@
     }
     .tool-card.recommended {
         border-color: var(--green);
-        background: var(--green-light);
     }
     .tool-card.recommended::before {
         content: '⭐ Aanbevolen voor beginners';
@@ -74,99 +88,273 @@
         text-align: center;
     }
     .tool-card.recommended .tool-content {
-        margin-top: 20px;
+        margin-top: 16px;
     }
     .tool-header {
         display: flex;
         align-items: center;
-        gap: 16px;
-        margin-bottom: 16px;
+        gap: 14px;
+        margin-bottom: 12px;
     }
     .tool-logo {
-        width: 56px;
-        height: 56px;
-        border-radius: 14px;
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
         background: var(--purple-light);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 28px;
+        font-size: 24px;
     }
     .tool-name {
-        font-size: 22px;
+        font-size: 20px;
         font-weight: 700;
         color: var(--text1);
     }
     .tool-tag {
         display: inline-block;
-        padding: 4px 12px;
+        padding: 4px 10px;
         border-radius: 20px;
-        font-size: 12px;
+        font-size: 11px;
         font-weight: 600;
         background: var(--purple-light);
         color: var(--purple);
-        margin-bottom: 12px;
+        margin-bottom: 10px;
     }
     .tool-description {
         color: var(--text2);
-        font-size: 15px;
+        font-size: 14px;
         line-height: 1.6;
-        margin-bottom: 16px;
+        margin-bottom: 14px;
     }
     .tool-difficulty {
         display: flex;
         align-items: center;
         gap: 8px;
-        font-size: 14px;
+        font-size: 13px;
         color: var(--text3);
+        margin-bottom: 14px;
     }
     .tool-difficulty .stars {
         color: var(--yellow);
     }
-    .tool-features {
-        margin-top: 16px;
-        padding-top: 16px;
-        border-top: 1px solid var(--border);
+    
+    /* Blueprint Match */
+    .tool-blueprint-match {
+        background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(37,99,235,0.1));
+        border: 1px dashed var(--purple);
+        border-radius: 12px;
+        padding: 14px;
+        margin-bottom: 16px;
     }
-    .tool-feature {
+    .tool-blueprint-match .match-label {
+        font-size: 11px;
+        color: var(--purple);
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-bottom: 6px;
         display: flex;
         align-items: center;
-        gap: 8px;
-        font-size: 14px;
-        color: var(--text2);
-        margin-bottom: 8px;
+        gap: 6px;
     }
-    .tool-feature i {
-        color: var(--green);
-        font-size: 12px;
+    .tool-blueprint-match .match-text {
+        font-size: 13px;
+        color: var(--text2);
+        line-height: 1.5;
+    }
+    .tool-blueprint-match .match-text a {
+        color: var(--purple);
+        font-weight: 600;
+        text-decoration: underline;
+    }
+    
+    /* Tool Buttons */
+    .tool-buttons {
+        display: flex;
+        gap: 10px;
+        margin-top: 14px;
     }
     .tool-link {
         display: inline-flex;
         align-items: center;
-        gap: 8px;
-        margin-top: 16px;
-        padding: 10px 20px;
-        background: var(--purple);
+        justify-content: center;
+        gap: 6px;
+        padding: 10px 16px;
         border-radius: 8px;
-        color: white;
-        text-decoration: none;
-        font-size: 14px;
+        font-size: 13px;
         font-weight: 500;
         transition: all 0.3s;
+        text-decoration: none;
+        flex: 1;
     }
-    .tool-link:hover {
+    .tool-link.primary {
+        background: var(--purple);
+        color: white;
+    }
+    .tool-link.primary:hover {
         opacity: 0.9;
+    }
+    .tool-link.secondary {
+        background: var(--glass);
+        color: var(--text1);
+        border: 1px solid var(--border);
+    }
+    .tool-link.secondary:hover {
+        border-color: var(--purple);
+        color: var(--purple);
+    }
+
+    /* Problem Section */
+    .problem-section {
+        padding: 80px 0;
+        background: var(--bg2);
+    }
+    .problem-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        align-items: center;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    .problem-content h2 {
+        font-size: 32px;
+        color: var(--text1);
+        margin-bottom: 20px;
+        line-height: 1.3;
+    }
+    .problem-content p {
+        color: var(--text2);
+        font-size: 16px;
+        line-height: 1.7;
+        margin-bottom: 16px;
+    }
+    .problem-content .highlight-box {
+        background: var(--orange-light);
+        border-left: 4px solid var(--orange);
+        padding: 16px 20px;
+        border-radius: 0 12px 12px 0;
+        margin: 24px 0;
+    }
+    .problem-content .highlight-box p {
+        margin: 0;
+        color: var(--text1);
+        font-weight: 500;
+    }
+    .problem-cta {
+        margin-top: 24px;
+    }
+    .problem-cta .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 16px 28px;
+        background: linear-gradient(135deg, var(--green), #16a34a);
+        color: white;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s;
+    }
+    .problem-cta .btn:hover {
         transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(34,197,94,0.3);
+    }
+    
+    /* Comparison Visual */
+    .comparison-visual {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 15px 40px var(--shadow);
+    }
+    .comparison-header {
+        background: var(--bg2);
+        padding: 16px 20px;
+        display: flex;
+        justify-content: space-around;
+        border-bottom: 1px solid var(--border);
+    }
+    .comparison-header span {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text3);
+    }
+    .comparison-header span.good {
+        color: var(--green);
+    }
+    .comparison-body {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    .comparison-side {
+        padding: 20px;
+    }
+    .comparison-side.bad {
+        background: rgba(239,68,68,0.05);
+        border-right: 1px solid var(--border);
+    }
+    .comparison-side.good {
+        background: rgba(34,197,94,0.05);
+    }
+    .comparison-side .label {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .comparison-side.bad .label {
+        color: var(--red);
+    }
+    .comparison-side.good .label {
+        color: var(--green);
+    }
+    .comparison-side .prompt {
+        background: var(--bg2);
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 12px;
+        color: var(--text2);
+        line-height: 1.5;
+        font-family: 'Courier New', monospace;
+        margin-bottom: 12px;
+    }
+    .comparison-side .result {
+        font-size: 12px;
+        color: var(--text3);
+    }
+    .comparison-side.bad .result {
+        color: var(--red);
+    }
+    .comparison-side.good .result {
+        color: var(--green);
     }
 
     /* Comparison Table */
     .comparison-section {
         padding: 60px 0;
-        background: var(--bg2);
+        background: var(--bg1);
+    }
+    .section-title {
+        text-align: center;
+        font-size: 32px;
+        color: var(--text1);
+        margin-bottom: 12px;
+    }
+    .section-subtitle {
+        text-align: center;
+        font-size: 16px;
+        color: var(--text2);
+        margin-bottom: 40px;
     }
     .comparison-table {
         max-width: 900px;
-        margin: 40px auto 0;
+        margin: 0 auto;
         background: var(--card-bg);
         border: 1px solid var(--border);
         border-radius: 16px;
@@ -201,158 +389,336 @@
         font-weight: 600;
     }
     .price-paid {
-        color: var(--yellow);
+        color: var(--orange);
     }
 
     /* Setup Section */
     .setup-section {
         padding: 60px 0;
+        background: var(--bg2);
     }
     .setup-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        padding: 40px;
+        max-width: 800px;
+        margin: 0 auto;
+        box-shadow: 0 4px 15px var(--shadow);
+    }
+    .setup-card h3 {
+        font-size: 26px;
+        color: var(--text1);
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    .setup-steps {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .setup-step {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+    }
+    .setup-step-num {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, var(--purple), var(--blue));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 700;
+        font-size: 16px;
+        flex-shrink: 0;
+    }
+    .setup-step-content h4 {
+        font-size: 16px;
+        color: var(--text1);
+        margin-bottom: 4px;
+    }
+    .setup-step-content p {
+        font-size: 14px;
+        color: var(--text2);
+        line-height: 1.5;
+    }
+    .setup-step-content .blueprint-option {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 8px;
+        padding: 8px 14px;
+        background: var(--purple-light);
+        border-radius: 8px;
+        font-size: 13px;
+        color: var(--purple);
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.3s;
+    }
+    .setup-step-content .blueprint-option:hover {
+        background: var(--purple);
+        color: white;
+    }
+
+    /* Testimonial */
+    .testimonial-section {
+        padding: 60px 0;
+        background: var(--bg1);
+    }
+    .testimonial-card {
         max-width: 700px;
         margin: 0 auto;
         background: var(--card-bg);
         border: 1px solid var(--border);
         border-radius: 24px;
         padding: 40px;
+        text-align: center;
         box-shadow: 0 8px 30px var(--shadow);
     }
-    .setup-card h3 {
-        font-size: 24px;
-        margin-bottom: 24px;
-        text-align: center;
+    .testimonial-card .quote {
+        font-size: 20px;
         color: var(--text1);
+        line-height: 1.7;
+        font-style: italic;
+        margin-bottom: 24px;
     }
-    .setup-steps {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-    }
-    .setup-step {
-        display: flex;
-        gap: 16px;
-        padding: 16px;
-        background: var(--bg2);
-        border-radius: 12px;
-        border: 1px solid var(--border);
-    }
-    .setup-step-num {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, var(--purple), var(--blue));
+    .testimonial-card .author {
         display: flex;
         align-items: center;
         justify-content: center;
-        font-weight: 700;
-        flex-shrink: 0;
-        color: white;
+        gap: 12px;
     }
-    .setup-step-content h4 {
+    .testimonial-card .avatar {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, var(--purple), var(--blue));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 700;
+        font-size: 18px;
+    }
+    .testimonial-card .author-info {
+        text-align: left;
+    }
+    .testimonial-card .author-name {
         font-size: 16px;
-        margin-bottom: 4px;
+        font-weight: 600;
         color: var(--text1);
     }
-    .setup-step-content p {
+    .testimonial-card .author-role {
         font-size: 14px;
-        color: var(--text2);
+        color: var(--text3);
     }
 
-    .section-title {
-        font-size: 32px;
+    /* Bundle Promo */
+    .bundle-section {
+        padding: 80px 0;
+        background: linear-gradient(135deg, var(--purple) 0%, #4f46e5 100%);
+    }
+    .bundle-card {
+        max-width: 700px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 24px;
+        padding: 50px;
         text-align: center;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .bundle-card .badge {
+        display: inline-block;
+        background: var(--green);
+        color: white;
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 700;
         margin-bottom: 16px;
+    }
+    .bundle-card h2 {
+        font-size: 28px;
+        color: #1e293b;
+        margin-bottom: 12px;
+    }
+    .bundle-card .bundle-desc {
+        font-size: 16px;
+        color: #64748b;
+        margin-bottom: 24px;
+        line-height: 1.6;
+    }
+    .bundle-card .price-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        margin-bottom: 24px;
+    }
+    .bundle-card .price {
+        font-size: 48px;
+        font-weight: 800;
+        color: #7c3aed;
+    }
+    .bundle-card .original {
+        font-size: 24px;
+        color: #94a3b8;
+        text-decoration: line-through;
+    }
+    .bundle-card .includes {
+        text-align: left;
+        background: #f8fafc;
+        border-radius: 16px;
+        padding: 20px 24px;
+        margin-bottom: 24px;
+    }
+    .bundle-card .includes h4 {
+        font-size: 14px;
+        color: #64748b;
+        margin-bottom: 12px;
+    }
+    .bundle-card .includes ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .bundle-card .includes li {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 0;
+        font-size: 15px;
+        color: #1e293b;
+    }
+    .bundle-card .includes li i {
+        color: #22c55e;
+    }
+    .bundle-card .btn-bundle {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 18px 40px;
+        background: linear-gradient(135deg, #22c55e, #16a34a);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 18px;
+        font-weight: 700;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.3s;
+    }
+    .bundle-card .btn-bundle:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(34,197,94,0.4);
+    }
+
+    /* Sticky Banner */
+    .sticky-banner {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: var(--card-bg);
+        border-top: 1px solid var(--border);
+        padding: 16px 0;
+        z-index: 1000;
+        box-shadow: 0 -5px 30px var(--shadow);
+        transform: translateY(100%);
+        transition: transform 0.3s;
+    }
+    .sticky-banner.show {
+        transform: translateY(0);
+    }
+    .sticky-banner .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+    }
+    .sticky-banner .banner-text {
+        font-size: 15px;
         color: var(--text1);
     }
-    .section-subtitle {
-        text-align: center;
-        color: var(--text2);
-        font-size: 18px;
+    .sticky-banner .banner-text strong {
+        color: var(--purple);
+    }
+    .sticky-banner .btn-banner {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 24px;
+        background: var(--purple);
+        color: white;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: all 0.3s;
+    }
+    .sticky-banner .btn-banner:hover {
+        opacity: 0.9;
+    }
+    .sticky-banner .close-banner {
+        background: none;
+        border: none;
+        color: var(--text3);
+        font-size: 20px;
+        cursor: pointer;
+        padding: 8px;
     }
 
     /* Responsive */
-    @media (max-width: 900px) {
+    @media (max-width: 768px) {
+        .page-header h1 {
+            font-size: 28px;
+        }
         .tools-grid {
             grid-template-columns: 1fr;
-            max-width: 500px;
         }
-    }
-
-    @media (max-width: 768px) {
-        .page-header {
-            padding: 100px 0 40px;
+        .problem-grid {
+            grid-template-columns: 1fr;
+            gap: 30px;
         }
-        .page-header h1 {
-            font-size: 32px;
+        .comparison-body {
+            grid-template-columns: 1fr;
         }
-        .page-header .subtitle {
-            font-size: 16px;
+        .comparison-side.bad {
+            border-right: none;
+            border-bottom: 1px solid var(--border);
         }
-        .tools-section,
-        .comparison-section,
-        .setup-section {
-            padding: 40px 0;
+        .bundle-card {
+            padding: 30px 20px;
         }
-        .tool-card {
-            padding: 24px;
+        .bundle-card h2 {
+            font-size: 24px;
         }
-        .tool-name {
-            font-size: 20px;
+        .bundle-card .price {
+            font-size: 36px;
         }
-        .section-title {
-            font-size: 26px;
+        .sticky-banner .container {
+            flex-direction: column;
+            text-align: center;
         }
-        .section-subtitle {
-            font-size: 16px;
-        }
-        .comparison-table {
-            overflow-x: auto;
-            margin: 30px auto 0;
-        }
-        .comparison-table th,
-        .comparison-table td {
-            padding: 12px 14px;
-            font-size: 13px;
-        }
-        .setup-card {
-            padding: 24px;
-            border-radius: 16px;
-        }
-        .setup-card h3 {
-            font-size: 20px;
+        .sticky-banner .banner-text {
+            font-size: 14px;
         }
     }
 
     @media (max-width: 480px) {
         .page-header {
-            padding: 90px 0 30px;
-        }
-        .page-header h1 {
-            font-size: 26px;
+            padding: 100px 0 40px;
         }
         .tool-card {
             padding: 20px;
         }
-        .tool-header {
-            gap: 12px;
-        }
-        .tool-logo {
-            width: 48px;
-            height: 48px;
-            font-size: 24px;
-        }
-        .tool-name {
-            font-size: 18px;
-        }
-        .tool-description {
-            font-size: 14px;
-        }
-        .tool-link {
-            width: 100%;
-            justify-content: center;
-        }
-        .section-title {
-            font-size: 22px;
+        .tool-buttons {
+            flex-direction: column;
         }
         .setup-step {
             flex-direction: column;
@@ -368,8 +734,12 @@
 {% block content %}
 <div class="page-header">
     <div class="container">
-        <h1>🧰 De Gereedschapskist</h1>
-        <p class="subtitle">Kies je wapen: welke tool past bij jouw idee? Elke tool heeft z'n eigen superkracht.</p>
+        <h1>🧰 Kies Je Tool</h1>
+        <p class="subtitle">Elke tool is een krachtige motor. Maar zonder de juiste brandstof (prompts) kom je nergens. Wij geven je beide.</p>
+        <div class="header-insight">
+            <i class="fas fa-lightbulb"></i>
+            <span>90% van de beginners faalt door slechte prompts, niet door de tool</span>
+        </div>
     </div>
 </div>
 
@@ -385,21 +755,27 @@
                     </div>
                     <span class="tool-tag">Beste voor complete web-apps</span>
                     <p class="tool-description">
-                        De perfecte startplek voor beginners. Je beschrijft wat je wilt, en Lovable bouwt een complete website met database en alles erop en eraan.
+                        De perfecte startplek. Je beschrijft wat je wilt, en Lovable bouwt een complete website met database en alles erop en eraan.
                     </p>
                     <div class="tool-difficulty">
                         <span>Moeilijkheid:</span>
                         <span class="stars">★☆☆</span>
                         <span>Heel makkelijk</span>
                     </div>
-                    <div class="tool-features">
-                        <div class="tool-feature"><i class="fas fa-check"></i> Direct in je browser</div>
-                        <div class="tool-feature"><i class="fas fa-check"></i> Geen installatie nodig</div>
-                        <div class="tool-feature"><i class="fas fa-check"></i> Met één klik online zetten</div>
+                    
+                    <div class="tool-blueprint-match">
+                        <div class="match-label"><i class="fas fa-puzzle-piece"></i> Perfect Match</div>
+                        <p class="match-text">Werkt uitstekend met onze <a href="/blueprints">SaaS Dashboard</a> en <a href="/blueprints">Booking Systeem</a> blueprints — je basis staat binnen 2 minuten.</p>
                     </div>
-                    <a href="https://lovable.dev" target="_blank" class="tool-link">
-                        <i class="fas fa-external-link-alt"></i> Naar Lovable
-                    </a>
+                    
+                    <div class="tool-buttons">
+                        <a href="https://lovable.dev" target="_blank" class="tool-link primary">
+                            <i class="fas fa-external-link-alt"></i> Open Lovable
+                        </a>
+                        <a href="/blueprints" class="tool-link secondary">
+                            <i class="fas fa-shopping-cart"></i> Blueprints
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -418,14 +794,20 @@
                     <span class="stars">★☆☆</span>
                     <span>Heel makkelijk</span>
                 </div>
-                <div class="tool-features">
-                    <div class="tool-feature"><i class="fas fa-check"></i> Supersnelle previews</div>
-                    <div class="tool-feature"><i class="fas fa-check"></i> Moderne designs</div>
-                    <div class="tool-feature"><i class="fas fa-check"></i> Gratis te proberen</div>
+                
+                <div class="tool-blueprint-match">
+                    <div class="match-label"><i class="fas fa-puzzle-piece"></i> Perfect Match</div>
+                    <p class="match-text">Ideaal voor onze <a href="/blueprints">Landing Page</a> en <a href="/blueprints">Portfolio</a> blueprints — moderne designs in seconden.</p>
                 </div>
-                <a href="https://v0.dev" target="_blank" class="tool-link">
-                    <i class="fas fa-external-link-alt"></i> Naar v0.dev
-                </a>
+                
+                <div class="tool-buttons">
+                    <a href="https://v0.dev" target="_blank" class="tool-link primary">
+                        <i class="fas fa-external-link-alt"></i> Open v0.dev
+                    </a>
+                    <a href="/blueprints" class="tool-link secondary">
+                        <i class="fas fa-shopping-cart"></i> Blueprints
+                    </a>
+                </div>
             </div>
 
             <!-- Replit -->
@@ -434,23 +816,29 @@
                     <div class="tool-logo">🔷</div>
                     <div class="tool-name">Replit Agent</div>
                 </div>
-                <span class="tool-tag">Beste voor echte programmeertaal</span>
+                <span class="tool-tag">Beste voor volledige controle</span>
                 <p class="tool-description">
-                    Een online programmeeromgeving met AI-hulp. Je kunt hier Python, JavaScript en meer gebruiken. Iets meer controle, iets meer te leren.
+                    Een online programmeeromgeving met AI-hulp. Python, JavaScript en meer. Iets meer controle, iets meer te leren.
                 </p>
                 <div class="tool-difficulty">
                     <span>Moeilijkheid:</span>
                     <span class="stars">★★☆</span>
                     <span>Gemiddeld</span>
                 </div>
-                <div class="tool-features">
-                    <div class="tool-feature"><i class="fas fa-check"></i> Veel programmeertalen</div>
-                    <div class="tool-feature"><i class="fas fa-check"></i> AI-assistent ingebouwd</div>
-                    <div class="tool-feature"><i class="fas fa-check"></i> Direct delen mogelijk</div>
+                
+                <div class="tool-blueprint-match">
+                    <div class="match-label"><i class="fas fa-puzzle-piece"></i> Perfect Match</div>
+                    <p class="match-text">Combineer met onze <a href="/blueprints">Calculator Tools</a> en <a href="/blueprints">API Integratie</a> blueprints voor snelle resultaten.</p>
                 </div>
-                <a href="https://replit.com" target="_blank" class="tool-link">
-                    <i class="fas fa-external-link-alt"></i> Naar Replit
-                </a>
+                
+                <div class="tool-buttons">
+                    <a href="https://replit.com" target="_blank" class="tool-link primary">
+                        <i class="fas fa-external-link-alt"></i> Open Replit
+                    </a>
+                    <a href="/blueprints" class="tool-link secondary">
+                        <i class="fas fa-shopping-cart"></i> Blueprints
+                    </a>
+                </div>
             </div>
 
             <!-- Cursor -->
@@ -461,21 +849,77 @@
                 </div>
                 <span class="tool-tag">Beste voor serieuze projecten</span>
                 <p class="tool-description">
-                    Een professionele code-editor met AI. Voor als je dieper wilt gaan en meer controle wilt. Je installeert dit op je computer.
+                    Een professionele code-editor met AI. Voor als je dieper wilt gaan en maximale controle wilt. Installatie op je computer.
                 </p>
                 <div class="tool-difficulty">
                     <span>Moeilijkheid:</span>
                     <span class="stars">★★★</span>
                     <span>Gevorderd</span>
                 </div>
-                <div class="tool-features">
-                    <div class="tool-feature"><i class="fas fa-check"></i> Maximale controle</div>
-                    <div class="tool-feature"><i class="fas fa-check"></i> Professionele functies</div>
-                    <div class="tool-feature"><i class="fas fa-check"></i> Werkt met alle code</div>
+                
+                <div class="tool-blueprint-match">
+                    <div class="match-label"><i class="fas fa-puzzle-piece"></i> Perfect Match</div>
+                    <p class="match-text">Voor de gevorderde bouwer: onze <a href="/blueprints">Full-Stack App</a> blueprints geven je de juiste bestandsstructuur.</p>
                 </div>
-                <a href="https://cursor.sh" target="_blank" class="tool-link">
-                    <i class="fas fa-external-link-alt"></i> Naar Cursor
-                </a>
+                
+                <div class="tool-buttons">
+                    <a href="https://cursor.sh" target="_blank" class="tool-link primary">
+                        <i class="fas fa-external-link-alt"></i> Open Cursor
+                    </a>
+                    <a href="/blueprints" class="tool-link secondary">
+                        <i class="fas fa-shopping-cart"></i> Blueprints
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Problem Section: Tool gekozen, maar wat nu? -->
+<section class="problem-section">
+    <div class="container">
+        <div class="problem-grid">
+            <div class="problem-content">
+                <h2>Tool gekozen? 🤔<br>Nu komt het moeilijke deel...</h2>
+                <p>
+                    Je opent Lovable of v0, ziet een leeg invoerveld, en dan... niets. Wat moet je typen? Hoe gedetailleerd? Welke woorden begrijpt de AI?
+                </p>
+                <p>
+                    Dit heet <strong>"prompt-angst"</strong> en het is de #1 reden waarom mensen afhaken. Ze krijgen een matig resultaat, denken dat ze er niet geschikt voor zijn, en geven op.
+                </p>
+                
+                <div class="highlight-box">
+                    <p>💡 De tool is de hamer. Onze blueprint is de bouwtekening. Zonder bouwtekening wordt je huis scheef.</p>
+                </div>
+                
+                <p>
+                    Onze blueprints bevatten de exacte prompts die bewezen werken. Copy-paste, en de AI begrijpt precies wat je bedoelt. Geen trial-and-error meer.
+                </p>
+                
+                <div class="problem-cta">
+                    <a href="/blueprints" class="btn">
+                        <i class="fas fa-shopping-cart"></i> Bekijk de Blueprints
+                    </a>
+                </div>
+            </div>
+            
+            <div class="comparison-visual">
+                <div class="comparison-header">
+                    <span>❌ Zonder blueprint</span>
+                    <span class="good">✅ Met blueprint</span>
+                </div>
+                <div class="comparison-body">
+                    <div class="comparison-side bad">
+                        <div class="label"><i class="fas fa-times-circle"></i> Standaard prompt</div>
+                        <div class="prompt">"Maak een dashboard voor mijn bedrijf"</div>
+                        <div class="result">→ Vaag resultaat, geen structuur, uren fixen</div>
+                    </div>
+                    <div class="comparison-side good">
+                        <div class="label"><i class="fas fa-check-circle"></i> Blueprint prompt</div>
+                        <div class="prompt">"Maak een SaaS dashboard met: sidebar navigatie, 4 metric cards bovenaan, lijngrafieken voor omzet/users, tabel met recente orders, dark mode toggle..."</div>
+                        <div class="result">→ Professioneel resultaat in één keer</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -484,7 +928,7 @@
 <section class="comparison-section">
     <div class="container">
         <h2 class="section-title">Vergelijking op een rijtje</h2>
-        <p class="section-subtitle">Welke past bij jou?</p>
+        <p class="section-subtitle">Welke tool past bij jouw situatie?</p>
         
         <div class="comparison-table">
             <table>
@@ -513,7 +957,7 @@
                         <td><strong>Replit</strong></td>
                         <td><span class="price-free">Gratis start</span></td>
                         <td>Nee (browser)</td>
-                        <td>Leren programmeren</td>
+                        <td>Leren + bouwen</td>
                     </tr>
                     <tr>
                         <td><strong>Cursor</strong></td>
@@ -549,19 +993,101 @@
                 <div class="setup-step">
                     <div class="setup-step-num">3</div>
                     <div class="setup-step-content">
-                        <h4>Beschrijf je idee</h4>
-                        <p>Typ bijvoorbeeld: "Maak een simpele website voor mijn hondenuitlaatservice"</p>
+                        <h4>Gebruik een bewezen prompt</h4>
+                        <p>Zelf iets verzinnen? Kan. Maar met een blueprint weet je zeker dat het werkt.</p>
+                        <a href="/blueprints" class="blueprint-option">
+                            <i class="fas fa-download"></i> Download een kant-en-klare prompt
+                        </a>
                     </div>
                 </div>
                 <div class="setup-step">
                     <div class="setup-step-num">4</div>
                     <div class="setup-step-content">
                         <h4>Bekijk het resultaat</h4>
-                        <p>Binnen een minuut heb je een werkende website. Niet tevreden? Vraag om aanpassingen!</p>
+                        <p>Binnen een minuut heb je een werkende app. Niet tevreden? Vraag om aanpassingen!</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<section class="testimonial-section">
+    <div class="container">
+        <div class="testimonial-card">
+            <p class="quote">
+                "Ik probeerde Lovable zelf, maar kwam er niet uit. De AI begreep me niet. Met de blueprint van LeerVibeCoding snapte hij precies wat ik wilde en had ik binnen een uur een werkende booking-app online."
+            </p>
+            <div class="author">
+                <div class="avatar">DV</div>
+                <div class="author-info">
+                    <div class="author-name">Daan V.</div>
+                    <div class="author-role">Ondernemer, Den Haag</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bundle-section">
+    <div class="container">
+        <div class="bundle-card">
+            <span class="badge">🎁 STARTER DEAL</span>
+            <h2>Nieuw met Vibecoding?</h2>
+            <p class="bundle-desc">
+                Pak de Starter Bundel en bouw vandaag nog je eerste 5 apps. Inclusief stap-voor-stap handleiding voor Lovable.
+            </p>
+            <div class="price-row">
+                <span class="price">€49</span>
+                <span class="original">€95</span>
+            </div>
+            <div class="includes">
+                <h4>Dit krijg je:</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> 5 complete blueprints naar keuze</li>
+                    <li><i class="fas fa-check"></i> Lovable quick-start handleiding</li>
+                    <li><i class="fas fa-check"></i> Video walkthrough per blueprint</li>
+                    <li><i class="fas fa-check"></i> Email support bij problemen</li>
+                </ul>
+            </div>
+            <a href="/blueprints" class="btn-bundle">
+                <i class="fas fa-rocket"></i> Bestel de Starter Bundel
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Sticky Banner -->
+<div class="sticky-banner" id="stickyBanner">
+    <div class="container">
+        <span class="banner-text">
+            <strong>💡 Tip:</strong> Bekijk onze 50+ kant-en-klare blueprints voor gegarandeerd resultaat
+        </span>
+        <a href="/blueprints" class="btn-banner">
+            <i class="fas fa-shopping-cart"></i> Bekijk Blueprints
+        </a>
+        <button class="close-banner" onclick="closeBanner()">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+</div>
+
+<script>
+// Show sticky banner after scrolling
+let bannerClosed = false;
+window.addEventListener('scroll', () => {
+    if (bannerClosed) return;
+    const banner = document.getElementById('stickyBanner');
+    if (window.scrollY > 500) {
+        banner.classList.add('show');
+    } else {
+        banner.classList.remove('show');
+    }
+});
+
+function closeBanner() {
+    bannerClosed = true;
+    document.getElementById('stickyBanner').classList.remove('show');
+}
+</script>
 {% endblock %}
