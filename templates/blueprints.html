@@ -2,7 +2,7 @@
 
 {% block title %}Blueprint Shop - Kant-en-klare App Prompts | LeerVibeCoding.nl{% endblock %}
 
-{% block meta_description %}50+ kant-en-klare blueprints om je eigen apps te bouwen. Copy-paste prompts die bewezen werken. Vanaf €19.{% endblock %}
+{% block meta_description %}80+ kant-en-klare blueprints voor lead generatie, klantportalen, automatisering en nieuwe inkomstenstromen. Copy-paste prompts die bewezen werken. Vanaf €19.{% endblock %}
 
 {% block extra_css %}
 <style>
@@ -18,10 +18,11 @@
         margin-bottom: 16px;
     }
     .shop-hero p {
-        font-size: 20px;
+        font-size: 18px;
         color: var(--text2);
-        max-width: 600px;
+        max-width: 650px;
         margin: 0 auto 32px;
+        line-height: 1.6;
     }
     .shop-stats {
         display: flex;
@@ -44,117 +45,170 @@
 
     /* Filters */
     .shop-filters {
-        padding: 30px 0;
+        padding: 24px 0;
         background: var(--bg2);
         border-bottom: 1px solid var(--border);
         position: sticky;
         top: 70px;
         z-index: 100;
     }
+    .filter-label {
+        font-size: 12px;
+        color: var(--text3);
+        text-transform: uppercase;
+        font-weight: 600;
+        margin-bottom: 12px;
+        display: block;
+        text-align: center;
+    }
     .filter-row {
         display: flex;
-        gap: 12px;
+        gap: 10px;
         flex-wrap: wrap;
         justify-content: center;
     }
     .filter-btn {
-        padding: 10px 20px;
+        padding: 12px 20px;
         background: var(--card-bg);
-        border: 1px solid var(--border);
-        border-radius: 50px;
+        border: 2px solid var(--border);
+        border-radius: 12px;
         color: var(--text2);
         font-size: 14px;
+        font-weight: 500;
         cursor: pointer;
         transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
-    .filter-btn:hover,
+    .filter-btn:hover {
+        border-color: var(--purple);
+        color: var(--purple);
+    }
     .filter-btn.active {
         background: var(--purple);
         color: white;
         border-color: var(--purple);
     }
+    .filter-btn .count {
+        background: rgba(124,58,237,0.15);
+        padding: 2px 8px;
+        border-radius: 10px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+    .filter-btn.active .count {
+        background: rgba(255,255,255,0.25);
+    }
+    
+    /* Category Description */
+    .category-description {
+        text-align: center;
+        padding: 30px 0;
+        background: linear-gradient(135deg, rgba(124,58,237,0.08), rgba(37,99,235,0.08));
+        border-bottom: 1px solid var(--border);
+    }
+    .category-description h2 {
+        font-size: 26px;
+        color: var(--text1);
+        margin-bottom: 10px;
+    }
+    .category-description p {
+        font-size: 16px;
+        color: var(--text2);
+        max-width: 650px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
 
     /* Shop Grid */
     .shop-section {
-        padding: 60px 0;
+        padding: 50px 0;
         background: var(--bg1);
     }
     .shop-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         gap: 24px;
         margin-bottom: 60px;
     }
     .blueprint-card {
         background: var(--card-bg);
         border: 1px solid var(--border);
-        border-radius: 20px;
+        border-radius: 16px;
         overflow: hidden;
         transition: all 0.3s;
     }
     .blueprint-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 20px 40px var(--shadow);
+        transform: translateY(-4px);
+        box-shadow: 0 15px 35px var(--shadow);
         border-color: var(--purple);
     }
     .blueprint-card .card-header {
-        padding: 24px;
+        padding: 20px;
         background: linear-gradient(135deg, var(--purple-light), var(--blue-light));
         display: flex;
         align-items: center;
-        gap: 16px;
+        gap: 14px;
     }
     .blueprint-card .icon {
-        width: 60px;
-        height: 60px;
+        width: 52px;
+        height: 52px;
         background: var(--card-bg);
-        border-radius: 16px;
+        border-radius: 14px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 28px;
+        font-size: 24px;
+        flex-shrink: 0;
     }
-    .blueprint-card .card-header h3 {
-        font-size: 18px;
+    .blueprint-card .card-header-text h3 {
+        font-size: 16px;
         color: var(--text1);
         margin-bottom: 4px;
+        line-height: 1.3;
     }
-    .blueprint-card .card-header .category {
-        font-size: 12px;
+    .blueprint-card .industry-tag {
+        font-size: 11px;
         color: var(--purple);
         font-weight: 600;
+        background: rgba(124,58,237,0.1);
+        padding: 2px 8px;
+        border-radius: 6px;
+        display: inline-block;
     }
     .blueprint-card .card-body {
-        padding: 24px;
+        padding: 20px;
     }
     .blueprint-card .description {
         color: var(--text2);
         font-size: 14px;
-        line-height: 1.6;
-        margin-bottom: 16px;
+        line-height: 1.5;
+        margin-bottom: 14px;
+        min-height: 42px;
     }
-    .blueprint-card .features {
+    .blueprint-card .tags {
         display: flex;
         flex-wrap: wrap;
-        gap: 8px;
-        margin-bottom: 20px;
+        gap: 6px;
+        margin-bottom: 16px;
     }
-    .blueprint-card .feature-tag {
+    .blueprint-card .tag {
         padding: 4px 10px;
         background: var(--bg2);
-        border-radius: 20px;
-        font-size: 12px;
+        border-radius: 12px;
+        font-size: 11px;
         color: var(--text3);
     }
     .blueprint-card .card-footer {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding-top: 16px;
+        padding-top: 14px;
         border-top: 1px solid var(--border);
     }
     .blueprint-card .price {
-        font-size: 24px;
+        font-size: 22px;
         font-weight: 800;
         color: var(--text1);
     }
@@ -171,13 +225,26 @@
     }
     .blueprint-card .btn-buy:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(124,58,237,0.3);
+        box-shadow: 0 6px 18px rgba(124,58,237,0.3);
     }
 
     /* Bundle Section */
     .bundle-section {
         padding: 80px 0;
         background: linear-gradient(135deg, var(--purple) 0%, #4f46e5 100%);
+    }
+    .bundle-header {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+    .bundle-header h2 {
+        font-size: 36px;
+        color: white;
+        margin-bottom: 12px;
+    }
+    .bundle-header p {
+        font-size: 18px;
+        color: rgba(255,255,255,0.8);
     }
     .bundle-grid {
         display: grid;
@@ -194,11 +261,20 @@
         padding: 32px;
         text-align: center;
         color: white;
+        transition: all 0.3s;
+    }
+    .bundle-card:hover {
+        transform: translateY(-5px);
+        background: rgba(255,255,255,0.15);
     }
     .bundle-card.featured {
         background: white;
         color: var(--text1);
         transform: scale(1.05);
+        box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+    }
+    .bundle-card.featured:hover {
+        transform: scale(1.05) translateY(-5px);
     }
     .bundle-card .popular-badge {
         background: var(--orange);
@@ -227,6 +303,9 @@
         font-weight: 800;
         margin-bottom: 8px;
     }
+    .bundle-card.featured .price {
+        color: var(--purple);
+    }
     .bundle-card .original-price {
         font-size: 18px;
         text-decoration: line-through;
@@ -243,7 +322,7 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        padding: 8px 0;
+        padding: 10px 0;
         font-size: 14px;
         border-bottom: 1px solid rgba(255,255,255,0.1);
     }
@@ -266,10 +345,9 @@
         cursor: pointer;
         transition: all 0.3s;
         border: none;
-    }
-    .bundle-card .btn-bundle.primary {
-        background: linear-gradient(135deg, var(--purple), #4f46e5);
-        color: white;
+        text-decoration: none;
+        display: block;
+        text-align: center;
     }
     .bundle-card .btn-bundle.white {
         background: white;
@@ -279,23 +357,41 @@
         background: linear-gradient(135deg, var(--green), #16a34a);
         color: white;
     }
-
-    /* Section Header */
-    .section-header {
-        text-align: center;
-        margin-bottom: 40px;
+    .bundle-card .btn-bundle:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     }
-    .section-header h2 {
-        font-size: 32px;
-        color: white;
+
+    /* Guarantee */
+    .guarantee-section {
+        padding: 60px 0;
+        background: var(--bg2);
+        text-align: center;
+    }
+    .guarantee-card {
+        max-width: 600px;
+        margin: 0 auto;
+        background: var(--card-bg);
+        border: 2px solid var(--green);
+        border-radius: 20px;
+        padding: 40px;
+    }
+    .guarantee-card .icon {
+        font-size: 48px;
+        margin-bottom: 16px;
+    }
+    .guarantee-card h3 {
+        font-size: 24px;
+        color: var(--text1);
         margin-bottom: 12px;
     }
-    .section-header p {
-        color: rgba(255,255,255,0.8);
-        font-size: 18px;
+    .guarantee-card p {
+        color: var(--text2);
+        font-size: 16px;
+        line-height: 1.6;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 1024px) {
         .bundle-grid {
             grid-template-columns: 1fr;
             max-width: 400px;
@@ -304,326 +400,233 @@
             transform: none;
         }
     }
+    @media (max-width: 768px) {
+        .shop-hero h1 { font-size: 28px; }
+        .filter-row {
+            justify-content: flex-start;
+            overflow-x: auto;
+            flex-wrap: nowrap;
+            padding-bottom: 10px;
+        }
+        .filter-btn {
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .shop-grid { grid-template-columns: 1fr; }
+    }
 </style>
 {% endblock %}
 
 {% block content %}
-<!-- Hero -->
 <section class="shop-hero">
     <div class="container">
-        <h1>Blueprint Shop</h1>
-        <p>Kant-en-klare prompts voor complete apps. Copy-paste en je hebt een werkend resultaat.</p>
+        <h1>🎯 Wat wil je bereiken?</h1>
+        <p>Kies je doel en ontdek welke blueprints je helpen. Kant-en-klare prompts die je direct kunt gebruiken — geen technische kennis nodig.</p>
         <div class="shop-stats">
-            <div class="shop-stat">
-                <div class="number">50+</div>
-                <div class="label">Blueprints</div>
-            </div>
-            <div class="shop-stat">
-                <div class="number">€19</div>
-                <div class="label">Vanaf</div>
-            </div>
-            <div class="shop-stat">
-                <div class="number">100%</div>
-                <div class="label">Geld-terug garantie</div>
-            </div>
+            <div class="shop-stat"><div class="number">80</div><div class="label">Blueprints</div></div>
+            <div class="shop-stat"><div class="number">€19</div><div class="label">Vanaf</div></div>
+            <div class="shop-stat"><div class="number">14 dagen</div><div class="label">Geld-terug garantie</div></div>
         </div>
     </div>
 </section>
 
-<!-- Filters -->
 <div class="shop-filters">
     <div class="container">
+        <span class="filter-label">Wat is jouw belangrijkste doel?</span>
         <div class="filter-row">
-            <button class="filter-btn active" data-filter="all">Alles</button>
-            <button class="filter-btn" data-filter="websites">Websites</button>
-            <button class="filter-btn" data-filter="apps">Web Apps</button>
-            <button class="filter-btn" data-filter="tools">Tools</button>
-            <button class="filter-btn" data-filter="saas">SaaS</button>
-            <button class="filter-btn" data-filter="games">Games</button>
+            <button class="filter-btn active" data-filter="all">🎯 Alles <span class="count">80</span></button>
+            <button class="filter-btn" data-filter="leads">💰 Meer Klanten & Sales <span class="count">20</span></button>
+            <button class="filter-btn" data-filter="portals">👥 Klanten Beter Helpen <span class="count">20</span></button>
+            <button class="filter-btn" data-filter="automation">⏱️ Tijd Besparen <span class="count">20</span></button>
+            <button class="filter-btn" data-filter="income">🚀 Nieuwe Inkomsten <span class="count">20</span></button>
         </div>
     </div>
 </div>
 
-<!-- Shop Grid -->
+<div class="category-description" id="categoryDesc">
+    <div class="container">
+        <h2 id="categoryTitle">🎯 Alle Blueprints</h2>
+        <p id="categoryText">80 kant-en-klare prompts voor elke business uitdaging. Van lead generatie tot complete SaaS producten.</p>
+    </div>
+</div>
+
 <section class="shop-section">
     <div class="container">
-        <div class="shop-grid">
-            <!-- Blueprint 1 -->
-            <div class="blueprint-card" data-category="saas">
-                <div class="card-header">
-                    <div class="icon">📊</div>
-                    <div>
-                        <h3>SaaS Dashboard</h3>
-                        <span class="category">SaaS</span>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <p class="description">Complete admin dashboard met gebruikersbeheer, grafieken, en data tabellen. Perfect als startpunt voor je SaaS.</p>
-                    <div class="features">
-                        <span class="feature-tag">React</span>
-                        <span class="feature-tag">Charts</span>
-                        <span class="feature-tag">Auth</span>
-                    </div>
-                    <div class="card-footer">
-                        <span class="price">€29</span>
-                        <button class="btn-buy">Kopen</button>
-                    </div>
-                </div>
-            </div>
+        <div class="shop-grid" id="blueprintGrid">
+            
+            <!-- 💰 MEER KLANTEN & SALES (20) -->
+            <div class="blueprint-card" data-category="leads"><div class="card-header"><div class="icon">🎯</div><div class="card-header-text"><h3>Hoog-converterende Landingpage</h3><span class="industry-tag">Alle branches</span></div></div><div class="card-body"><p class="description">Landingpagina met bewezen conversie-elementen: hero, benefits, testimonials en sterke CTA.</p><div class="tags"><span class="tag">Conversie</span><span class="tag">Lead capture</span></div><div class="card-footer"><span class="price">€19</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="leads"><div class="card-header"><div class="icon">🛒</div><div class="card-header-text"><h3>Webshop Productpagina</h3><span class="industry-tag">E-commerce</span></div></div><div class="card-body"><p class="description">Verkooppagina met gallery, reviews, specificaties en urgentie-elementen voor maximale sales.</p><div class="tags"><span class="tag">E-commerce</span><span class="tag">Sales</span></div><div class="card-footer"><span class="price">€29</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="leads"><div class="card-header"><div class="icon">📅</div><div class="card-header-text"><h3>Online Afsprakenplanner</h3><span class="industry-tag">Dienstverlening</span></div></div><div class="card-body"><p class="description">Klanten boeken zelf afspraken. Automatische bevestigingen en herinneringen. Minder no-shows.</p><div class="tags"><span class="tag">Booking</span><span class="tag">Automatisering</span></div><div class="card-footer"><span class="price">€39</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="leads"><div class="card-header"><div class="icon">💼</div><div class="card-header-text"><h3>Freelance Portfolio</h3><span class="industry-tag">Freelancers</span></div></div><div class="card-body"><p class="description">Indrukwekkende portfolio met projecten, skills en testimonials. Win meer opdrachten.</p><div class="tags"><span class="tag">Portfolio</span><span class="tag">Personal brand</span></div><div class="card-footer"><span class="price">€19</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="leads"><div class="card-header"><div class="icon">🍽️</div><div class="card-header-text"><h3>Restaurant Website + Reservering</h3><span class="industry-tag">Horeca</span></div></div><div class="card-body"><p class="description">Menu, sfeerfotos, openingstijden en direct online reserveren. Meer gasten, minder telefoon.</p><div class="tags"><span class="tag">Horeca</span><span class="tag">Reservering</span></div><div class="card-footer"><span class="price">€29</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="leads"><div class="card-header"><div class="icon">🏠</div><div class="card-header-text"><h3>Vastgoed Listing Pagina</h3><span class="industry-tag">Vastgoed</span></div></div><div class="card-body"><p class="description">Woningpagina met 360° gallery, kenmerken, plattegrond en bezichtiging-aanvraag.</p><div class="tags"><span class="tag">Vastgoed</span><span class="tag">Makelaars</span></div><div class="card-footer"><span class="price">€29</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="leads"><div class="card-header"><div class="icon">📧</div><div class="card-header-text"><h3>Exit-Intent Popup</h3><span class="industry-tag">Marketing</span></div></div><div class="card-body"><p class="description">Slimme popup die bezoekers vangt voordat ze weggaan. 3x meer e-mailadressen verzamelen.</p><div class="tags"><span class="tag">Lead capture</span><span class="tag">Conversie</span></div><div class="card-footer"><span class="price">€19</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="leads"><div class="card-header"><div class="icon">🎓</div><div class="card-header-text"><h3>Cursus Verkooppagina</h3><span class="industry-tag">Educatie</span></div></div><div class="card-body"><p class="description">Sales page voor online cursussen met curriculum, instructor bio en overtuigende testimonials.</p><div class="tags"><span class="tag">Educatie</span><span class="tag">High-ticket</span></div><div class="card-footer"><span class="price">€29</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="leads"><div class="card-header"><div class="icon">💆</div><div class="card-header-text"><h3>Salon & Spa Website</h3><span class="industry-tag">Wellness</span></div></div><div class="card-body"><p class="description">Behandelingen, prijslijst, team en online boeken. Professionele uitstraling voor meer klanten.</p><div class="tags"><span class="tag">Wellness</span><span class="tag">Booking</span></div><div class="card-footer"><span class="price">€29</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="leads"><div class="card-header"><div class="icon">🏋️</div><div class="card-header-text"><h3>Personal Trainer Website</h3><span class="industry-tag">Sport & Fitness</span></div></div><div class="card-body"><p class="description">Transformaties, pakketten, gratis e-book download en intake formulier. Meer leads.</p><div class="tags"><span class="tag">Fitness</span><span class="tag">Lead magnet</span></div><div class="card-footer"><span class="price">€29</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="leads"><div class="card-header"><div class="icon">⚖️</div><div class="card-header-text"><h3>Consultancy Website</h3><span class="industry-tag">Zakelijke diensten</span></div></div><div class="card-body"><p class="description">Bouw autoriteit met expertise, cases en gratis strategie-sessie aanvraag.</p><div class="tags"><span class="tag">B2B</span><span class="tag">Autoriteit</span></div><div class="card-footer"><span class="price">€29</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="leads"><div class="card-header"><div class="icon">🔧</div><div class="card-header-text"><h3>Vakman/Klusbedrijf Site</h3><span class="industry-tag">Bouw & Techniek</span></div></div><div class="card-body"><p class="description">Diensten, werkgebied, foto's van projecten en offerte-aanvraag. Ideaal voor lokale bedrijven.</p><div class="tags"><span class="tag">Lokaal</span><span class="tag">Offerte</span></div><div class="card-footer"><span class="price">€19</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="leads"><div class="card-header"><div class="icon">📱</div><div class="card-header-text"><h3>App/Product Launch Page</h3><span class="industry-tag">Tech & Startups</span></div></div><div class="card-body"><p class="description">Pre-launch pagina met features, screenshots, waitlist en countdown. Bouw hype.</p><div class="tags"><span class="tag">Launch</span><span class="tag">Waitlist</span></div><div class="card-footer"><span class="price">€19</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="leads"><div class="card-header"><div class="icon">🎪</div><div class="card-header-text"><h3>Event/Webinar Pagina</h3><span class="industry-tag">Events</span></div></div><div class="card-body"><p class="description">Programma, speakers, locatie en registratie. Voor webinars, workshops en live events.</p><div class="tags"><span class="tag">Events</span><span class="tag">Registratie</span></div><div class="card-footer"><span class="price">€29</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="leads"><div class="card-header"><div class="icon">🧮</div><div class="card-header-text"><h3>Interactieve Prijscalculator</h3><span class="industry-tag">Alle branches</span></div></div><div class="card-body"><p class="description">Bezoekers berekenen zelf hun prijs. Perfect voor lead kwalificatie en hogere conversie.</p><div class="tags"><span class="tag">Calculator</span><span class="tag">Interactief</span></div><div class="card-footer"><span class="price">€29</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="leads"><div class="card-header"><div class="icon">📋</div><div class="card-header-text"><h3>Quiz/Funnel Builder</h3><span class="industry-tag">Marketing</span></div></div><div class="card-body"><p class="description">Multi-step quiz die leads kwalificeert en naar het juiste aanbod leidt. 2-3x hogere conversie.</p><div class="tags"><span class="tag">Quiz</span><span class="tag">Funnel</span></div><div class="card-footer"><span class="price">€39</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="leads"><div class="card-header"><div class="icon">⭐</div><div class="card-header-text"><h3>Testimonial Wall</h3><span class="industry-tag">Alle branches</span></div></div><div class="card-body"><p class="description">Prachtige testimonial pagina met foto's, sterren, video's en filters. Bouwt vertrouwen.</p><div class="tags"><span class="tag">Social proof</span><span class="tag">Reviews</span></div><div class="card-footer"><span class="price">€19</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="leads"><div class="card-header"><div class="icon">🎁</div><div class="card-header-text"><h3>Virale Giveaway Pagina</h3><span class="industry-tag">Marketing</span></div></div><div class="card-body"><p class="description">Weggeef-actie waar delen extra kansen geeft. Groei je e-maillijst explosief.</p><div class="tags"><span class="tag">Viral</span><span class="tag">Groei</span></div><div class="card-footer"><span class="price">€29</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="leads"><div class="card-header"><div class="icon">📰</div><div class="card-header-text"><h3>Blog met Lead Magnets</h3><span class="industry-tag">Content Marketing</span></div></div><div class="card-body"><p class="description">SEO-blog met content upgrades per artikel. Zet organisch verkeer om in leads.</p><div class="tags"><span class="tag">Blog</span><span class="tag">SEO</span></div><div class="card-footer"><span class="price">€29</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="leads"><div class="card-header"><div class="icon">💬</div><div class="card-header-text"><h3>WhatsApp Chat Widget</h3><span class="industry-tag">Communicatie</span></div></div><div class="card-body"><p class="description">Eén klik en bezoekers chatten direct via WhatsApp. Lagere drempel = meer leads.</p><div class="tags"><span class="tag">WhatsApp</span><span class="tag">Chat</span></div><div class="card-footer"><span class="price">€19</span><button class="btn-buy">Kopen</button></div></div></div>
 
-            <!-- Blueprint 2 -->
-            <div class="blueprint-card" data-category="websites">
-                <div class="card-header">
-                    <div class="icon">🛒</div>
-                    <div>
-                        <h3>Webshop Landing</h3>
-                        <span class="category">Websites</span>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <p class="description">Hoog-converterende productpagina met reviews, FAQ, en bestelformulier. Geoptimaliseerd voor conversie.</p>
-                    <div class="features">
-                        <span class="feature-tag">HTML/CSS</span>
-                        <span class="feature-tag">Responsive</span>
-                    </div>
-                    <div class="card-footer">
-                        <span class="price">€19</span>
-                        <button class="btn-buy">Kopen</button>
-                    </div>
-                </div>
-            </div>
+            <!-- 👥 KLANTEN BETER HELPEN (20) -->
+            <div class="blueprint-card" data-category="portals"><div class="card-header"><div class="icon">📊</div><div class="card-header-text"><h3>Klant Dashboard</h3><span class="industry-tag">Alle branches</span></div></div><div class="card-body"><p class="description">Persoonlijk klantportaal met bestellingen, facturen, documenten en berichten.</p><div class="tags"><span class="tag">Dashboard</span><span class="tag">Self-service</span></div><div class="card-footer"><span class="price">€39</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="portals"><div class="card-header"><div class="icon">📁</div><div class="card-header-text"><h3>Project Status Portaal</h3><span class="industry-tag">Agencies & Bureaus</span></div></div><div class="card-body"><p class="description">Klanten volgen hun project real-time: milestones, deliverables en feedback. Minder status-calls.</p><div class="tags"><span class="tag">Projecten</span><span class="tag">Transparantie</span></div><div class="card-footer"><span class="price">€39</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="portals"><div class="card-header"><div class="icon">🎫</div><div class="card-header-text"><h3>Support Ticket Systeem</h3><span class="industry-tag">Klantenservice</span></div></div><div class="card-body"><p class="description">Klanten maken tickets aan, zien status en vinden antwoorden in FAQ. Minder e-mails.</p><div class="tags"><span class="tag">Support</span><span class="tag">Helpdesk</span></div><div class="card-footer"><span class="price">€39</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="portals"><div class="card-header"><div class="icon">📚</div><div class="card-header-text"><h3>Online Leerplatform</h3><span class="industry-tag">Educatie & Coaching</span></div></div><div class="card-body"><p class="description">Video modules, voortgang tracker, quizzes en certificaten. Schaal je expertise oneindig.</p><div class="tags"><span class="tag">E-learning</span><span class="tag">Cursussen</span></div><div class="card-footer"><span class="price">€49</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="portals"><div class="card-header"><div class="icon">💳</div><div class="card-header-text"><h3>Abonnement Self-Service</h3><span class="industry-tag">Subscriptions</span></div></div><div class="card-body"><p class="description">Klanten beheren zelf: upgraden, pauzeren, betaalgegevens wijzigen. Minder admin.</p><div class="tags"><span class="tag">Billing</span><span class="tag">Selfservice</span></div><div class="card-footer"><span class="price">€39</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="portals"><div class="card-header"><div class="icon">📋</div><div class="card-header-text"><h3>Klant Onboarding Flow</h3><span class="industry-tag">Dienstverlening</span></div></div><div class="card-body"><p class="description">Stap-voor-stap intake voor nieuwe klanten. Verzamel alle info gestructureerd.</p><div class="tags"><span class="tag">Onboarding</span><span class="tag">Intake</span></div><div class="card-footer"><span class="price">€29</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="portals"><div class="card-header"><div class="icon">📄</div><div class="card-header-text"><h3>Offerte/Contract Portal</h3><span class="industry-tag">B2B Services</span></div></div><div class="card-body"><p class="description">Klanten bekijken offertes online en tekenen digitaal. Sneller deals closen.</p><div class="tags"><span class="tag">Offertes</span><span class="tag">E-sign</span></div><div class="card-footer"><span class="price">€39</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="portals"><div class="card-header"><div class="icon">📦</div><div class="card-header-text"><h3>Order Tracking Pagina</h3><span class="industry-tag">E-commerce</span></div></div><div class="card-body"><p class="description">Klanten volgen bestellingen real-time. Minder "waar blijft mijn pakket" vragen.</p><div class="tags"><span class="tag">Tracking</span><span class="tag">Orders</span></div><div class="card-footer"><span class="price">€29</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="portals"><div class="card-header"><div class="icon">📈</div><div class="card-header-text"><h3>Klant Rapportage Dashboard</h3><span class="industry-tag">Marketing & Agencies</span></div></div><div class="card-body"><p class="description">Deel resultaten met klanten via live dashboards. KPIs, grafieken en exports.</p><div class="tags"><span class="tag">Rapportage</span><span class="tag">Analytics</span></div><div class="card-footer"><span class="price">€39</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="portals"><div class="card-header"><div class="icon">🗓️</div><div class="card-header-text"><h3>Afspraken Portaal</h3><span class="industry-tag">Zorg & Wellness</span></div></div><div class="card-body"><p class="description">Klanten zien hun afspraken, verzetten en krijgen herinneringen. Minder no-shows.</p><div class="tags"><span class="tag">Afspraken</span><span class="tag">Kalender</span></div><div class="card-footer"><span class="price">€29</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="portals"><div class="card-header"><div class="icon">📝</div><div class="card-header-text"><h3>Feedback Collector</h3><span class="industry-tag">Alle branches</span></div></div><div class="card-body"><p class="description">Verzamel klantfeedback automatisch. NPS scores, reviews en verbeterpunten.</p><div class="tags"><span class="tag">Feedback</span><span class="tag">NPS</span></div><div class="card-footer"><span class="price">€19</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="portals"><div class="card-header"><div class="icon">🎯</div><div class="card-header-text"><h3>Loyalty & Spaarpunten</h3><span class="industry-tag">Retail & Horeca</span></div></div><div class="card-body"><p class="description">Klanten zien punten, beloningen en inwisselmogelijkheden. Verhoog klantloyaliteit.</p><div class="tags"><span class="tag">Loyalty</span><span class="tag">Rewards</span></div><div class="card-footer"><span class="price">€29</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="portals"><div class="card-header"><div class="icon">👥</div><div class="card-header-text"><h3>Community Platform</h3><span class="industry-tag">Community & Membership</span></div></div><div class="card-body"><p class="description">Besloten community met discussies, Q&A en leden directory. Verbind je klanten.</p><div class="tags"><span class="tag">Community</span><span class="tag">Forum</span></div><div class="card-footer"><span class="price">€39</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="portals"><div class="card-header"><div class="icon">📱</div><div class="card-header-text"><h3>Notificatie Centrum</h3><span class="industry-tag">Alle branches</span></div></div><div class="card-body"><p class="description">Centraal overzicht van updates, deadlines en berichten. Klanten missen niets.</p><div class="tags"><span class="tag">Notificaties</span><span class="tag">Updates</span></div><div class="card-footer"><span class="price">€19</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="portals"><div class="card-header"><div class="icon">📊</div><div class="card-header-text"><h3>Voortgang Tracker</h3><span class="industry-tag">Coaching & Training</span></div></div><div class="card-body"><p class="description">Klanten loggen voortgang en zien grafieken. Ideaal voor coaches en trainers.</p><div class="tags"><span class="tag">Tracking</span><span class="tag">Goals</span></div><div class="card-footer"><span class="price">€29</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="portals"><div class="card-header"><div class="icon">📑</div><div class="card-header-text"><h3>Document Bibliotheek</h3><span class="industry-tag">B2B Services</span></div></div><div class="card-body"><p class="description">Deel documenten veilig: handleidingen, templates, contracten. Alles op één plek.</p><div class="tags"><span class="tag">Documenten</span><span class="tag">Delen</span></div><div class="card-footer"><span class="price">€19</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="portals"><div class="card-header"><div class="icon">🎬</div><div class="card-header-text"><h3>Video Content Portal</h3><span class="industry-tag">Educatie & Media</span></div></div><div class="card-body"><p class="description">Exclusieve video content met categorieën, zoeken en watch history.</p><div class="tags"><span class="tag">Video</span><span class="tag">Content</span></div><div class="card-footer"><span class="price">€29</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="portals"><div class="card-header"><div class="icon">💼</div><div class="card-header-text"><h3>Freelancer/Partner Portal</h3><span class="industry-tag">HR & Operations</span></div></div><div class="card-body"><p class="description">Externe medewerkers loggen uren, zien projecten en dienen facturen in.</p><div class="tags"><span class="tag">Freelance</span><span class="tag">Partners</span></div><div class="card-footer"><span class="price">€39</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="portals"><div class="card-header"><div class="icon">🏆</div><div class="card-header-text"><h3>Certificaten Systeem</h3><span class="industry-tag">Educatie</span></div></div><div class="card-body"><p class="description">Automatisch certificaten genereren na voltooiing. Professioneel en deelbaar.</p><div class="tags"><span class="tag">Certificaten</span><span class="tag">Badges</span></div><div class="card-footer"><span class="price">€29</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="portals"><div class="card-header"><div class="icon">🔐</div><div class="card-header-text"><h3>Veilig Delen Platform</h3><span class="industry-tag">Juridisch & Financieel</span></div></div><div class="card-body"><p class="description">Deel gevoelige informatie veilig. Encryptie, audit logs en toegangscontrole.</p><div class="tags"><span class="tag">Security</span><span class="tag">Compliance</span></div><div class="card-footer"><span class="price">€49</span><button class="btn-buy">Kopen</button></div></div></div>
 
-            <!-- Blueprint 3 -->
-            <div class="blueprint-card" data-category="apps">
-                <div class="card-header">
-                    <div class="icon">📝</div>
-                    <div>
-                        <h3>Blog Platform</h3>
-                        <span class="category">Web Apps</span>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <p class="description">Complete blog met markdown editor, categorieën, zoekfunctie en SEO-optimalisatie.</p>
-                    <div class="features">
-                        <span class="feature-tag">CMS</span>
-                        <span class="feature-tag">SEO</span>
-                        <span class="feature-tag">Markdown</span>
-                    </div>
-                    <div class="card-footer">
-                        <span class="price">€29</span>
-                        <button class="btn-buy">Kopen</button>
-                    </div>
-                </div>
-            </div>
+            <!-- ⏱️ TIJD BESPAREN (20) -->
+            <div class="blueprint-card" data-category="automation"><div class="card-header"><div class="icon">✅</div><div class="card-header-text"><h3>Kanban Taakbord</h3><span class="industry-tag">Alle teams</span></div></div><div class="card-body"><p class="description">Visueel projectbord met drag-and-drop taken, deadlines en team-toewijzingen.</p><div class="tags"><span class="tag">Kanban</span><span class="tag">Taken</span></div><div class="card-footer"><span class="price">€29</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="automation"><div class="card-header"><div class="icon">🤖</div><div class="card-header-text"><h3>AI Content Generator</h3><span class="industry-tag">Marketing</span></div></div><div class="card-body"><p class="description">Genereer social posts, e-mails en beschrijvingen met AI. Bespaar uren schrijfwerk.</p><div class="tags"><span class="tag">AI</span><span class="tag">Content</span></div><div class="card-footer"><span class="price">€29</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="automation"><div class="card-header"><div class="icon">📊</div><div class="card-header-text"><h3>KPI Dashboard Builder</h3><span class="industry-tag">Management</span></div></div><div class="card-body"><p class="description">Visualiseer je belangrijkste cijfers op één scherm. Real-time updates, geen spreadsheets.</p><div class="tags"><span class="tag">Analytics</span><span class="tag">KPIs</span></div><div class="card-footer"><span class="price">€39</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="automation"><div class="card-header"><div class="icon">📧</div><div class="card-header-text"><h3>Email Template Builder</h3><span class="industry-tag">Marketing</span></div></div><div class="card-body"><p class="description">Drag-and-drop nieuwsbrieven maken. Export naar Mailchimp, Brevo etc.</p><div class="tags"><span class="tag">Email</span><span class="tag">Templates</span></div><div class="card-footer"><span class="price">€29</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="automation"><div class="card-header"><div class="icon">🧮</div><div class="card-header-text"><h3>ROI & Marge Calculator</h3><span class="industry-tag">Finance</span></div></div><div class="card-body"><p class="description">Bereken ROI, marges en break-even automatisch. Maak betere beslissingen, sneller.</p><div class="tags"><span class="tag">Finance</span><span class="tag">Calculator</span></div><div class="card-footer"><span class="price">€19</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="automation"><div class="card-header"><div class="icon">⏰</div><div class="card-header-text"><h3>Urenregistratie Tool</h3><span class="industry-tag">HR & Projecten</span></div></div><div class="card-body"><p class="description">Team logt uren per project met één klik. Automatische rapporten en facturatie-export.</p><div class="tags"><span class="tag">Timetracking</span><span class="tag">Uren</span></div><div class="card-footer"><span class="price">€29</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="automation"><div class="card-header"><div class="icon">📋</div><div class="card-header-text"><h3>Checklist & SOP Manager</h3><span class="industry-tag">Operations</span></div></div><div class="card-body"><p class="description">Digitaliseer je procedures. Team volgt checklists, jij ziet voltooiing. Minder fouten.</p><div class="tags"><span class="tag">SOP</span><span class="tag">Checklists</span></div><div class="card-footer"><span class="price">€19</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="automation"><div class="card-header"><div class="icon">📦</div><div class="card-header-text"><h3>Voorraad Management</h3><span class="industry-tag">Retail & E-commerce</span></div></div><div class="card-body"><p class="description">Houd voorraad bij, krijg alerts bij lage stock. Nooit meer "uitverkocht" zeggen.</p><div class="tags"><span class="tag">Inventory</span><span class="tag">Stock</span></div><div class="card-footer"><span class="price">€29</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="automation"><div class="card-header"><div class="icon">👥</div><div class="card-header-text"><h3>Simpel CRM Systeem</h3><span class="industry-tag">Sales</span></div></div><div class="card-body"><p class="description">Klanten, notities, deals en opvolg-herinneringen. Effectiever dan Excel.</p><div class="tags"><span class="tag">CRM</span><span class="tag">Klanten</span></div><div class="card-footer"><span class="price">€39</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="automation"><div class="card-header"><div class="icon">📄</div><div class="card-header-text"><h3>Offerte Generator</h3><span class="industry-tag">B2B Services</span></div></div><div class="card-body"><p class="description">Professionele offertes in 2 minuten. Templates, prijslijsten en PDF export.</p><div class="tags"><span class="tag">Offertes</span><span class="tag">PDF</span></div><div class="card-footer"><span class="price">€29</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="automation"><div class="card-header"><div class="icon">💰</div><div class="card-header-text"><h3>Factuur Generator</h3><span class="industry-tag">Finance</span></div></div><div class="card-body"><p class="description">Genereer facturen, verstuur per email en houd betalingen bij. Eindelijk orde.</p><div class="tags"><span class="tag">Facturen</span><span class="tag">Boekhouding</span></div><div class="card-footer"><span class="price">€29</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="automation"><div class="card-header"><div class="icon">🗓️</div><div class="card-header-text"><h3>Team Rooster Planner</h3><span class="industry-tag">HR & Retail</span></div></div><div class="card-body"><p class="description">Plan diensten, vakantie en beschikbaarheid. Team ziet rooster online.</p><div class="tags"><span class="tag">Planning</span><span class="tag">Rooster</span></div><div class="card-footer"><span class="price">€29</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="automation"><div class="card-header"><div class="icon">📝</div><div class="card-header-text"><h3>Meeting Notes Tool</h3><span class="industry-tag">Alle teams</span></div></div><div class="card-body"><p class="description">Vergadernotities vastleggen, actiepunten toewijzen en automatisch opvolgen.</p><div class="tags"><span class="tag">Meetings</span><span class="tag">Acties</span></div><div class="card-footer"><span class="price">€19</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="automation"><div class="card-header"><div class="icon">🎯</div><div class="card-header-text"><h3>OKR & Doelen Tracker</h3><span class="industry-tag">Management</span></div></div><div class="card-body"><p class="description">Stel team doelen, meet voortgang en vier successen. Iedereen gefocust.</p><div class="tags"><span class="tag">OKR</span><span class="tag">Goals</span></div><div class="card-footer"><span class="price">€29</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="automation"><div class="card-header"><div class="icon">📊</div><div class="card-header-text"><h3>Enquête/Survey Tool</h3><span class="industry-tag">HR & Marketing</span></div></div><div class="card-body"><p class="description">Maak enquêtes voor klanten of team. Analyseer resultaten met grafieken.</p><div class="tags"><span class="tag">Surveys</span><span class="tag">Feedback</span></div><div class="card-footer"><span class="price">€19</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="automation"><div class="card-header"><div class="icon">📁</div><div class="card-header-text"><h3>Interne Kennisbank</h3><span class="industry-tag">Alle teams</span></div></div><div class="card-body"><p class="description">Centrale plek voor bedrijfskennis. Zoeken en versiebeheer. Onboarding in uren ipv weken.</p><div class="tags"><span class="tag">Wiki</span><span class="tag">Kennis</span></div><div class="card-footer"><span class="price">€29</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="automation"><div class="card-header"><div class="icon">💼</div><div class="card-header-text"><h3>Declaratie Tool</h3><span class="industry-tag">Finance & HR</span></div></div><div class="card-body"><p class="description">Declaraties indienen met bonnetjes, goedkeuring workflow en export. Geen Excel.</p><div class="tags"><span class="tag">Expenses</span><span class="tag">Declaraties</span></div><div class="card-footer"><span class="price">€29</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="automation"><div class="card-header"><div class="icon">🔄</div><div class="card-header-text"><h3>Workflow Automator</h3><span class="industry-tag">Operations</span></div></div><div class="card-body"><p class="description">Bouw simpele "als-dan" automatiseringen. Bespaar repetitief werk zonder code.</p><div class="tags"><span class="tag">Automation</span><span class="tag">Workflow</span></div><div class="card-footer"><span class="price">€39</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="automation"><div class="card-header"><div class="icon">📱</div><div class="card-header-text"><h3>QR Code Generator</h3><span class="industry-tag">Marketing</span></div></div><div class="card-body"><p class="description">Genereer QR codes voor links, WiFi, contacten en meer. Met je eigen logo.</p><div class="tags"><span class="tag">QR</span><span class="tag">Generator</span></div><div class="card-footer"><span class="price">€19</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="automation"><div class="card-header"><div class="icon">🔔</div><div class="card-header-text"><h3>Interne Alert Systeem</h3><span class="industry-tag">Operations</span></div></div><div class="card-body"><p class="description">Automatische meldingen bij belangrijke events. Nooit meer kritieke zaken missen.</p><div class="tags"><span class="tag">Alerts</span><span class="tag">Monitoring</span></div><div class="card-footer"><span class="price">€29</span><button class="btn-buy">Kopen</button></div></div></div>
 
-            <!-- Blueprint 4 -->
-            <div class="blueprint-card" data-category="tools">
-                <div class="card-header">
-                    <div class="icon">🔧</div>
-                    <div>
-                        <h3>Calculator Suite</h3>
-                        <span class="category">Tools</span>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <p class="description">5 verschillende calculators: hypotheek, BMI, tip splitter, leeftijd, en valuta converter.</p>
-                    <div class="features">
-                        <span class="feature-tag">5-in-1</span>
-                        <span class="feature-tag">Interactief</span>
-                    </div>
-                    <div class="card-footer">
-                        <span class="price">€19</span>
-                        <button class="btn-buy">Kopen</button>
-                    </div>
-                </div>
-            </div>
+            <!-- 🚀 NIEUWE INKOMSTEN (20) -->
+            <div class="blueprint-card" data-category="income"><div class="card-header"><div class="icon">💎</div><div class="card-header-text"><h3>Membership Platform</h3><span class="industry-tag">Alle branches</span></div></div><div class="card-body"><p class="description">Start een betaalde community met exclusieve content. Maandelijkse terugkerende inkomsten.</p><div class="tags"><span class="tag">Membership</span><span class="tag">Recurring</span></div><div class="card-footer"><span class="price">€49</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="income"><div class="card-header"><div class="icon">📚</div><div class="card-header-text"><h3>Online Cursus Business</h3><span class="industry-tag">Educatie</span></div></div><div class="card-body"><p class="description">Verkoop je kennis als cursus. Video modules, quizzes en betalingen. Passief inkomen.</p><div class="tags"><span class="tag">Cursussen</span><span class="tag">Passief</span></div><div class="card-footer"><span class="price">€49</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="income"><div class="card-header"><div class="icon">📊</div><div class="card-header-text"><h3>SaaS Starter Kit</h3><span class="industry-tag">Tech & Software</span></div></div><div class="card-body"><p class="description">Complete SaaS basis: login, dashboard, billing, admin. Start je eigen software product.</p><div class="tags"><span class="tag">SaaS</span><span class="tag">Boilerplate</span></div><div class="card-footer"><span class="price">€49</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="income"><div class="card-header"><div class="icon">🛒</div><div class="card-header-text"><h3>Marktplaats Platform</h3><span class="industry-tag">E-commerce</span></div></div><div class="card-body"><p class="description">Bouw je eigen marktplaats. Anderen verkopen, jij verdient commissie per transactie.</p><div class="tags"><span class="tag">Marketplace</span><span class="tag">Commissie</span></div><div class="card-footer"><span class="price">€49</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="income"><div class="card-header"><div class="icon">🎯</div><div class="card-header-text"><h3>Affiliate Programma</h3><span class="industry-tag">Marketing</span></div></div><div class="card-body"><p class="description">Partners promoten jouw product, automatische tracking en uitbetalingen.</p><div class="tags"><span class="tag">Affiliate</span><span class="tag">Partners</span></div><div class="card-footer"><span class="price">€39</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="income"><div class="card-header"><div class="icon">📅</div><div class="card-header-text"><h3>Coaching Booking Platform</h3><span class="industry-tag">Coaching</span></div></div><div class="card-body"><p class="description">Klanten boeken en betalen sessies online. Verkoop ook aan andere coaches.</p><div class="tags"><span class="tag">Coaching</span><span class="tag">Platform</span></div><div class="card-footer"><span class="price">€39</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="income"><div class="card-header"><div class="icon">📧</div><div class="card-header-text"><h3>Betaalde Nieuwsbrief</h3><span class="industry-tag">Media & Content</span></div></div><div class="card-body"><p class="description">Gratis + premium tiers, archief en sponsorships. Je eigen Substack.</p><div class="tags"><span class="tag">Newsletter</span><span class="tag">Subscriptions</span></div><div class="card-footer"><span class="price">€39</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="income"><div class="card-header"><div class="icon">🎨</div><div class="card-header-text"><h3>Digital Products Shop</h3><span class="industry-tag">Creators</span></div></div><div class="card-body"><p class="description">Verkoop templates, fonts, presets of e-books. Automatische levering, passief inkomen.</p><div class="tags"><span class="tag">Digital</span><span class="tag">Downloads</span></div><div class="card-footer"><span class="price">€29</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="income"><div class="card-header"><div class="icon">🔌</div><div class="card-header-text"><h3>API Business</h3><span class="industry-tag">Tech & Data</span></div></div><div class="card-body"><p class="description">Monetiseer je data of functionaliteit via een API. Developers betalen per gebruik.</p><div class="tags"><span class="tag">API</span><span class="tag">Developer</span></div><div class="card-footer"><span class="price">€49</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="income"><div class="card-header"><div class="icon">📝</div><div class="card-header-text"><h3>Niche Vacaturesite</h3><span class="industry-tag">HR & Recruitment</span></div></div><div class="card-body"><p class="description">Job board voor jouw niche. Bedrijven betalen om vacatures te plaatsen.</p><div class="tags"><span class="tag">Jobs</span><span class="tag">Listings</span></div><div class="card-footer"><span class="price">€39</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="income"><div class="card-header"><div class="icon">🏠</div><div class="card-header-text"><h3>Niche Directory</h3><span class="industry-tag">Alle niches</span></div></div><div class="card-body"><p class="description">Overzichtssite voor een specifieke branche. Bedrijven betalen voor premium listings.</p><div class="tags"><span class="tag">Directory</span><span class="tag">Passief</span></div><div class="card-footer"><span class="price">€29</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="income"><div class="card-header"><div class="icon">🎤</div><div class="card-header-text"><h3>Podcast Platform</h3><span class="industry-tag">Media</span></div></div><div class="card-body"><p class="description">Host podcasts met premium episodes, abonnees en sponsorships.</p><div class="tags"><span class="tag">Podcast</span><span class="tag">Audio</span></div><div class="card-footer"><span class="price">€39</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="income"><div class="card-header"><div class="icon">🎁</div><div class="card-header-text"><h3>Subscription Box Business</h3><span class="industry-tag">E-commerce</span></div></div><div class="card-body"><p class="description">Maandelijkse verrassingsboxen. Recurring revenue en voorspelbare groei.</p><div class="tags"><span class="tag">Subscription</span><span class="tag">Box</span></div><div class="card-footer"><span class="price">€39</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="income"><div class="card-header"><div class="icon">🎮</div><div class="card-header-text"><h3>Challenge/Bootcamp Business</h3><span class="industry-tag">Educatie & Fitness</span></div></div><div class="card-body"><p class="description">Run betaalde challenges met dagelijkse opdrachten en community.</p><div class="tags"><span class="tag">Challenge</span><span class="tag">Community</span></div><div class="card-footer"><span class="price">€39</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="income"><div class="card-header"><div class="icon">🔧</div><div class="card-header-text"><h3>Micro-SaaS Tool</h3><span class="industry-tag">Tech</span></div></div><div class="card-body"><p class="description">Kleine tool die één probleem oplost. Low maintenance, recurring revenue.</p><div class="tags"><span class="tag">Micro-SaaS</span><span class="tag">Lean</span></div><div class="card-footer"><span class="price">€29</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="income"><div class="card-header"><div class="icon">💬</div><div class="card-header-text"><h3>White-label AI Chatbot</h3><span class="industry-tag">Tech & AI</span></div></div><div class="card-body"><p class="description">Verkoop AI chatbots aan klanten die ze embedden op hun site.</p><div class="tags"><span class="tag">AI</span><span class="tag">White-label</span></div><div class="card-footer"><span class="price">€49</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="income"><div class="card-header"><div class="icon">📊</div><div class="card-header-text"><h3>Niche Analytics Tool</h3><span class="industry-tag">Tech</span></div></div><div class="card-body"><p class="description">Analytics dashboard voor een specifieke branche. White-label mogelijk.</p><div class="tags"><span class="tag">Analytics</span><span class="tag">Niche</span></div><div class="card-footer"><span class="price">€49</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="income"><div class="card-header"><div class="icon">🏷️</div><div class="card-header-text"><h3>Kortingscode Site</h3><span class="industry-tag">Affiliate Marketing</span></div></div><div class="card-body"><p class="description">Verzamel kortingscodes, verdien affiliate commissie. SEO-geoptimaliseerd.</p><div class="tags"><span class="tag">Coupons</span><span class="tag">Affiliate</span></div><div class="card-footer"><span class="price">€29</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="income"><div class="card-header"><div class="icon">🎫</div><div class="card-header-text"><h3>Event Ticketing Platform</h3><span class="industry-tag">Events</span></div></div><div class="card-body"><p class="description">Verkoop tickets voor events. Service fee per ticket = jouw verdienmodel.</p><div class="tags"><span class="tag">Tickets</span><span class="tag">Events</span></div><div class="card-footer"><span class="price">€39</span><button class="btn-buy">Kopen</button></div></div></div>
+            
+            <div class="blueprint-card" data-category="income"><div class="card-header"><div class="icon">🗳️</div><div class="card-header-text"><h3>Crowdfunding Platform</h3><span class="industry-tag">Finance</span></div></div><div class="card-body"><p class="description">Niche crowdfunding site. Verdien per succesvolle campagne.</p><div class="tags"><span class="tag">Crowdfunding</span><span class="tag">Platform</span></div><div class="card-footer"><span class="price">€49</span><button class="btn-buy">Kopen</button></div></div></div>
 
-            <!-- Blueprint 5 -->
-            <div class="blueprint-card" data-category="saas">
-                <div class="card-header">
-                    <div class="icon">📅</div>
-                    <div>
-                        <h3>Booking Systeem</h3>
-                        <span class="category">SaaS</span>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <p class="description">Afspraken plannen met kalenderweergave, tijdslots, en email bevestigingen.</p>
-                    <div class="features">
-                        <span class="feature-tag">Kalender</span>
-                        <span class="feature-tag">Email</span>
-                        <span class="feature-tag">Slots</span>
-                    </div>
-                    <div class="card-footer">
-                        <span class="price">€39</span>
-                        <button class="btn-buy">Kopen</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Blueprint 6 -->
-            <div class="blueprint-card" data-category="websites">
-                <div class="card-header">
-                    <div class="icon">💼</div>
-                    <div>
-                        <h3>Portfolio Pro</h3>
-                        <span class="category">Websites</span>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <p class="description">Professionele portfolio website met project galerij, over mij, en contact formulier.</p>
-                    <div class="features">
-                        <span class="feature-tag">Galerij</span>
-                        <span class="feature-tag">Animaties</span>
-                    </div>
-                    <div class="card-footer">
-                        <span class="price">€19</span>
-                        <button class="btn-buy">Kopen</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Blueprint 7 -->
-            <div class="blueprint-card" data-category="apps">
-                <div class="card-header">
-                    <div class="icon">✅</div>
-                    <div>
-                        <h3>Task Manager</h3>
-                        <span class="category">Web Apps</span>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <p class="description">Kanban-style taakbeheer met drag & drop, prioriteiten, en deadlines.</p>
-                    <div class="features">
-                        <span class="feature-tag">Kanban</span>
-                        <span class="feature-tag">Drag & Drop</span>
-                    </div>
-                    <div class="card-footer">
-                        <span class="price">€29</span>
-                        <button class="btn-buy">Kopen</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Blueprint 8 -->
-            <div class="blueprint-card" data-category="games">
-                <div class="card-header">
-                    <div class="icon">🎮</div>
-                    <div>
-                        <h3>Mini Games Pack</h3>
-                        <span class="category">Games</span>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <p class="description">3 browser games: Snake, Tetris clone, en een memory spel. Perfect voor je portfolio.</p>
-                    <div class="features">
-                        <span class="feature-tag">3 Games</span>
-                        <span class="feature-tag">Canvas</span>
-                    </div>
-                    <div class="card-footer">
-                        <span class="price">€29</span>
-                        <button class="btn-buy">Kopen</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Blueprint 9 -->
-            <div class="blueprint-card" data-category="tools">
-                <div class="card-header">
-                    <div class="icon">📈</div>
-                    <div>
-                        <h3>Analytics Dashboard</h3>
-                        <span class="category">Tools</span>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <p class="description">Data visualisatie met lijngrafieken, staafdiagrammen, en pie charts. Google Analytics alternatief.</p>
-                    <div class="features">
-                        <span class="feature-tag">Charts.js</span>
-                        <span class="feature-tag">Real-time</span>
-                    </div>
-                    <div class="card-footer">
-                        <span class="price">€39</span>
-                        <button class="btn-buy">Kopen</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Blueprint 10 -->
-            <div class="blueprint-card" data-category="saas">
-                <div class="card-header">
-                    <div class="icon">💬</div>
-                    <div>
-                        <h3>Feedback Widget</h3>
-                        <span class="category">SaaS</span>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <p class="description">Embeddable feedback widget voor je website. Verzamel reviews en suggesties.</p>
-                    <div class="features">
-                        <span class="feature-tag">Embeddable</span>
-                        <span class="feature-tag">Dashboard</span>
-                    </div>
-                    <div class="card-footer">
-                        <span class="price">€29</span>
-                        <button class="btn-buy">Kopen</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Blueprint 11 -->
-            <div class="blueprint-card" data-category="websites">
-                <div class="card-header">
-                    <div class="icon">🍽️</div>
-                    <div>
-                        <h3>Restaurant Site</h3>
-                        <span class="category">Websites</span>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <p class="description">Complete restaurant website met menu, reserveringen, en locatie info.</p>
-                    <div class="features">
-                        <span class="feature-tag">Menu</span>
-                        <span class="feature-tag">Reservering</span>
-                    </div>
-                    <div class="card-footer">
-                        <span class="price">€19</span>
-                        <button class="btn-buy">Kopen</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Blueprint 12 -->
-            <div class="blueprint-card" data-category="apps">
-                <div class="card-header">
-                    <div class="icon">📧</div>
-                    <div>
-                        <h3>Newsletter Builder</h3>
-                        <span class="category">Web Apps</span>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <p class="description">Email template builder met drag & drop. Export naar HTML voor Mailchimp etc.</p>
-                    <div class="features">
-                        <span class="feature-tag">Drag & Drop</span>
-                        <span class="feature-tag">Export</span>
-                    </div>
-                    <div class="card-footer">
-                        <span class="price">€39</span>
-                        <button class="btn-buy">Kopen</button>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </section>
 
-<!-- Bundle Section -->
 <section class="bundle-section">
     <div class="container">
-        <div class="section-header">
-            <h2>💰 Bespaar met Bundels</h2>
-            <p>Koop meerdere blueprints samen voor een scherpe prijs</p>
+        <div class="bundle-header">
+            <h2>💰 Bespaar tot 70%</h2>
+            <p>Koop meerdere blueprints samen en bespaar flink</p>
         </div>
         <div class="bundle-grid">
             <div class="bundle-card">
@@ -636,7 +639,7 @@
                     <li><i class="fas fa-check"></i> Alle documentatie</li>
                     <li><i class="fas fa-check"></i> Email support</li>
                 </ul>
-                <button class="btn-bundle white">Kies je 5</button>
+                <a href="#" class="btn-bundle white">Kies je 5</a>
             </div>
             <div class="bundle-card featured">
                 <span class="popular-badge">MEEST GEKOZEN</span>
@@ -646,52 +649,66 @@
                 <div class="original-price">€285 waarde</div>
                 <ul>
                     <li><i class="fas fa-check"></i> 15 blueprints naar keuze</li>
-                    <li><i class="fas fa-check"></i> Alle documentatie</li>
                     <li><i class="fas fa-check"></i> Priority support</li>
                     <li><i class="fas fa-check"></i> Deployment guide</li>
+                    <li><i class="fas fa-check"></i> Bonus templates</li>
                 </ul>
-                <button class="btn-bundle">Kies je 15</button>
+                <a href="#" class="btn-bundle">Kies je 15</a>
             </div>
             <div class="bundle-card">
                 <h3>Complete Bundel</h3>
-                <p class="bundle-desc">Alle 50+ blueprints</p>
+                <p class="bundle-desc">Alle 80 blueprints</p>
                 <div class="price">€149</div>
-                <div class="original-price">€500+ waarde</div>
+                <div class="original-price">€800+ waarde</div>
                 <ul>
-                    <li><i class="fas fa-check"></i> Alle 50+ blueprints</li>
+                    <li><i class="fas fa-check"></i> Alle 80 blueprints</li>
                     <li><i class="fas fa-check"></i> Lifetime updates</li>
-                    <li><i class="fas fa-check"></i> 1-op-1 onboarding</li>
-                    <li><i class="fas fa-check"></i> Bonus templates</li>
+                    <li><i class="fas fa-check"></i> 1-op-1 onboarding call</li>
+                    <li><i class="fas fa-check"></i> Exclusieve bonussen</li>
                 </ul>
-                <button class="btn-bundle white">Alles Krijgen</button>
+                <a href="#" class="btn-bundle white">Alles Krijgen</a>
             </div>
         </div>
     </div>
 </section>
 
+<section class="guarantee-section">
+    <div class="container">
+        <div class="guarantee-card">
+            <div class="icon">🛡️</div>
+            <h3>14 Dagen Geld-Terug Garantie</h3>
+            <p>Niet tevreden? Geen probleem. Stuur een mailtje en je krijgt je geld terug. Geen vragen, geen gedoe.</p>
+        </div>
+    </div>
+</section>
+
 <script>
-// Filter functionality
+const categoryInfo = {
+    all: { title: "🎯 Alle Blueprints", text: "80 kant-en-klare prompts voor elke business uitdaging. Van lead generatie tot complete SaaS producten." },
+    leads: { title: "💰 Meer Klanten & Sales", text: "Blueprints die je helpen meer leads te genereren en om te zetten in betalende klanten. Landing pages, booking systemen en conversie tools." },
+    portals: { title: "👥 Klanten Beter Helpen", text: "Geef je klanten een professionele ervaring met portalen en dashboards. Verhoog klanttevredenheid en verminder support-vragen." },
+    automation: { title: "⏱️ Tijd Besparen", text: "Automatiseer repetitief werk en bespaar 10+ uur per week. Van taakbeheer tot AI-assistenten die het schrijfwerk doen." },
+    income: { title: "🚀 Nieuwe Inkomsten", text: "Start een nieuwe inkomstenstroom met SaaS producten, membership platforms of digitale producten. Bouw aan recurring revenue." }
+};
+
 document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-        // Update active state
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        
         const filter = btn.dataset.filter;
-        
+        const info = categoryInfo[filter];
+        document.getElementById('categoryTitle').textContent = info.title;
+        document.getElementById('categoryText').textContent = info.text;
         document.querySelectorAll('.blueprint-card').forEach(card => {
-            if (filter === 'all' || card.dataset.category === filter) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
+            card.style.display = (filter === 'all' || card.dataset.category === filter) ? 'block' : 'none';
         });
+        document.querySelector('.shop-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 });
 
-// Buy button placeholder
 document.querySelectorAll('.btn-buy, .btn-bundle').forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault();
         alert('Betaalfunctie komt binnenkort! Neem contact op voor early access.');
     });
 });
