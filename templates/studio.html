@@ -347,18 +347,153 @@
     }
 
     /* API Key Notice */
-    .api-notice {
-        padding: 16px 20px;
-        background: var(--red-light);
-        border-bottom: 1px solid var(--red);
-        display: none; align-items: center; justify-content: center; gap: 12px;
-        color: var(--red); font-size: 14px;
+    /* API Key Modal */
+    .api-key-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.85);
+        backdrop-filter: blur(8px);
+        z-index: 2000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        overflow-y: auto;
     }
-    .api-notice.show { display: flex; }
-    .api-notice button {
-        background: var(--red); border: none;
-        padding: 6px 16px; border-radius: 8px; color: white; cursor: pointer;
+    .api-key-overlay.show { display: flex; }
+    .api-key-modal {
+        background: var(--card-bg);
+        border-radius: 24px;
+        max-width: 600px;
+        width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: 0 25px 80px rgba(0,0,0,0.5);
     }
+    .api-key-header {
+        padding: 30px 30px 20px;
+        text-align: center;
+        border-bottom: 1px solid var(--border);
+    }
+    .api-key-icon {
+        font-size: 48px;
+        margin-bottom: 16px;
+    }
+    .api-key-header h2 {
+        font-size: 24px;
+        color: var(--text1);
+        margin-bottom: 8px;
+    }
+    .api-key-header p {
+        color: var(--text2);
+        font-size: 15px;
+    }
+    .api-key-body {
+        padding: 30px;
+    }
+    .api-info-block {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+    .api-info-block h4 {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 16px;
+        color: var(--text1);
+        margin-bottom: 12px;
+    }
+    .api-info-block h4 i {
+        color: var(--purple);
+    }
+    .api-info-block p {
+        color: var(--text2);
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 12px;
+    }
+    .api-info-block p:last-child {
+        margin-bottom: 0;
+    }
+    .api-info-block.security {
+        border-color: var(--green);
+        background: var(--green-light);
+    }
+    .api-info-block.security h4 i {
+        color: var(--green);
+    }
+    .api-info-block ol {
+        margin: 0;
+        padding-left: 20px;
+        color: var(--text2);
+        font-size: 14px;
+        line-height: 1.8;
+    }
+    .api-info-block ol li {
+        margin-bottom: 8px;
+    }
+    .api-info-block a {
+        color: var(--purple);
+        font-weight: 600;
+    }
+    .api-key-form {
+        margin-top: 24px;
+    }
+    .api-key-form label {
+        display: block;
+        font-size: 14px;
+        color: var(--text2);
+        margin-bottom: 8px;
+    }
+    .api-key-form input {
+        width: 100%;
+        padding: 14px 16px;
+        background: var(--bg2);
+        border: 2px solid var(--border);
+        border-radius: 12px;
+        font-size: 16px;
+        color: var(--text1);
+        margin-bottom: 16px;
+    }
+    .api-key-form input:focus {
+        outline: none;
+        border-color: var(--purple);
+    }
+    .api-key-form .submit-btn {
+        width: 100%;
+        padding: 16px;
+        background: linear-gradient(135deg, var(--green), #16a34a);
+        border: none;
+        border-radius: 12px;
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        transition: all 0.3s;
+    }
+    .api-key-form .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(34,197,94,0.3);
+    }
+    .api-key-error {
+        color: var(--red);
+        font-size: 14px;
+        margin-top: 12px;
+        display: none;
+    }
+    .api-key-error.show {
+        display: block;
+    }
+
+    /* Hide old api-notice */
+    .api-notice { display: none !important; }
 
     /* Responsive */
     @media (max-width: 1024px) {
@@ -550,7 +685,59 @@
 {% endblock %}
 
 {% block content %}
-<!-- API Key Notice -->
+<!-- API Key Modal -->
+<div class="api-key-overlay" id="apiKeyOverlay">
+    <div class="api-key-modal">
+        <div class="api-key-header">
+            <div class="api-key-icon">🔑</div>
+            <h2>OpenAI API Key Nodig</h2>
+            <p>Om de leeromgeving te gebruiken heb je een API key van OpenAI nodig.</p>
+        </div>
+        <div class="api-key-body">
+            <div class="api-info-block">
+                <h4><i class="fas fa-question-circle"></i> Wat is een API key?</h4>
+                <p>Een API key is een persoonlijke sleutel waarmee jij toegang krijgt tot de AI van OpenAI (dezelfde technologie achter ChatGPT). Het is als een wachtwoord dat alleen jij hebt.</p>
+            </div>
+            
+            <div class="api-info-block">
+                <h4><i class="fas fa-lightbulb"></i> Waarom heb ik dit nodig?</h4>
+                <p>De leeromgeving gebruikt AI om je opdrachten te genereren en feedback te geven op je werk. Hiervoor hebben we toegang tot OpenAI nodig via jouw eigen key.</p>
+                <p>Op deze manier betaal je alleen voor je eigen gebruik en hebben wij geen controle over je account.</p>
+            </div>
+            
+            <div class="api-info-block security">
+                <h4><i class="fas fa-shield-alt"></i> Veiligheid & Privacy</h4>
+                <p><strong>Wij slaan jouw API key NIET op onze servers op.</strong></p>
+                <p>Je key wordt alleen lokaal in je browser opgeslagen en direct naar OpenAI gestuurd. Wij hebben geen inzicht in je key, je verbruik, of je OpenAI account. Zodra je je browser sluit of de key verwijdert, is deze volledig weg.</p>
+            </div>
+            
+            <div class="api-info-block">
+                <h4><i class="fas fa-key"></i> Hoe krijg ik een API key?</h4>
+                <ol>
+                    <li>Ga naar <a href="https://platform.openai.com/api-keys" target="_blank">platform.openai.com/api-keys</a></li>
+                    <li>Maak een account aan of log in</li>
+                    <li>Klik op <strong>"Create new secret key"</strong></li>
+                    <li>Kopieer de key (begint met <code>sk-</code>)</li>
+                    <li>Plak hem hieronder</li>
+                </ol>
+                <p style="margin-top: 12px; font-size: 13px; color: var(--text3);">💡 Nieuwe gebruikers krijgen vaak gratis tegoed van OpenAI om te starten.</p>
+            </div>
+            
+            <div class="api-key-form">
+                <label for="apiKeyInput">Jouw API Key</label>
+                <input type="password" id="apiKeyInput" placeholder="sk-..." autocomplete="off">
+                <button class="submit-btn" onclick="submitApiKey()">
+                    <i class="fas fa-check"></i> Activeren en Starten
+                </button>
+                <div class="api-key-error" id="apiKeyError">
+                    <i class="fas fa-exclamation-circle"></i> <span id="apiKeyErrorText">Ongeldige API key</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Old API Notice (hidden, kept for backwards compatibility) -->
 <div class="api-notice" id="apiNotice">
     <i class="fas fa-key"></i>
     <span>Voer eerst je OpenAI API key in om te beginnen</span>
@@ -707,7 +894,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateUI();
     
     if (!apiKey) {
-        document.getElementById('apiNotice').classList.add('show');
+        document.getElementById('apiKeyOverlay').classList.add('show');
     } else {
         loadAssignment();
     }
@@ -725,14 +912,33 @@ function updateUI() {
     document.getElementById('xpFill').style.width = Math.min(progress, 100) + '%';
 }
 
-function openApiKeyModal() {
-    const key = prompt('Voer je OpenAI API key in:');
-    if (key && key.startsWith('sk-')) {
-        apiKey = key;
-        localStorage.setItem('openai_key', key);
-        document.getElementById('apiNotice').classList.remove('show');
-        loadAssignment();
+function submitApiKey() {
+    const input = document.getElementById('apiKeyInput');
+    const key = input.value.trim();
+    const errorEl = document.getElementById('apiKeyError');
+    const errorText = document.getElementById('apiKeyErrorText');
+    
+    if (!key) {
+        errorText.textContent = 'Voer een API key in';
+        errorEl.classList.add('show');
+        return;
     }
+    
+    if (!key.startsWith('sk-')) {
+        errorText.textContent = 'API key moet beginnen met "sk-"';
+        errorEl.classList.add('show');
+        return;
+    }
+    
+    errorEl.classList.remove('show');
+    apiKey = key;
+    localStorage.setItem('openai_key', key);
+    document.getElementById('apiKeyOverlay').classList.remove('show');
+    loadAssignment();
+}
+
+function openApiKeyModal() {
+    document.getElementById('apiKeyOverlay').classList.add('show');
 }
 
 async function loadAssignment() {
