@@ -839,6 +839,330 @@
             font-size: 28px;
         }
     }
+
+    /* ========== E-BOOK MODAL ========== */
+    .ebook-modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.85);
+        backdrop-filter: blur(8px);
+        z-index: 2000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        overflow-y: auto;
+    }
+    .ebook-modal-overlay.active {
+        display: flex;
+    }
+    .ebook-modal {
+        background: var(--card-bg);
+        border-radius: 24px;
+        max-width: 900px;
+        width: 100%;
+        position: relative;
+        box-shadow: 0 25px 80px rgba(0,0,0,0.5);
+        animation: modalSlideIn 0.3s ease;
+        max-height: 95vh;
+        overflow-y: auto;
+    }
+    @keyframes modalSlideIn {
+        from { transform: translateY(30px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+    .ebook-modal-close {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--glass);
+        border: 1px solid var(--border);
+        color: var(--text);
+        font-size: 18px;
+        cursor: pointer;
+        z-index: 10;
+        transition: all 0.3s;
+    }
+    .ebook-modal-close:hover {
+        background: var(--red);
+        color: white;
+        border-color: var(--red);
+    }
+    .ebook-modal-content {
+        display: grid;
+        grid-template-columns: 300px 1fr;
+    }
+    
+    /* E-book Visual / Cover */
+    .ebook-visual {
+        background: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
+        padding: 40px 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 24px 0 0 24px;
+    }
+    .ebook-cover {
+        width: 180px;
+        height: 240px;
+        perspective: 1000px;
+    }
+    .ebook-cover-inner {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(145deg, #ffffff, #f0f0f0);
+        border-radius: 4px 12px 12px 4px;
+        box-shadow: 
+            5px 5px 20px rgba(0,0,0,0.3),
+            inset -2px 0 4px rgba(0,0,0,0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        text-align: center;
+        position: relative;
+        transform: rotateY(-5deg);
+    }
+    .ebook-cover-inner::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 15px;
+        background: linear-gradient(90deg, #e0e0e0, #f5f5f5);
+        border-radius: 4px 0 0 4px;
+    }
+    .ebook-badge {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background: linear-gradient(135deg, #22c55e, #16a34a);
+        color: white;
+        font-size: 10px;
+        font-weight: 700;
+        padding: 6px 12px;
+        border-radius: 20px;
+        box-shadow: 0 4px 15px rgba(34,197,94,0.4);
+    }
+    .ebook-icon {
+        font-size: 36px;
+        margin-bottom: 12px;
+    }
+    .ebook-cover-inner h3 {
+        font-size: 16px;
+        color: #1e293b;
+        line-height: 1.3;
+        margin-bottom: 8px;
+    }
+    .ebook-cover-inner p {
+        font-size: 10px;
+        color: #64748b;
+    }
+    .ebook-pages {
+        position: absolute;
+        bottom: 12px;
+        font-size: 9px;
+        color: #94a3b8;
+        background: #f1f5f9;
+        padding: 4px 10px;
+        border-radius: 10px;
+    }
+    .ebook-stats {
+        margin-top: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .ebook-stats .stat {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: rgba(255,255,255,0.9);
+        font-size: 13px;
+    }
+    .ebook-stats .stat i {
+        color: #facc15;
+    }
+    
+    /* E-book Info */
+    .ebook-info {
+        padding: 40px;
+    }
+    .ebook-label {
+        display: inline-block;
+        background: linear-gradient(135deg, #22c55e, #16a34a);
+        color: white;
+        font-size: 12px;
+        font-weight: 700;
+        padding: 6px 14px;
+        border-radius: 20px;
+        margin-bottom: 16px;
+    }
+    .ebook-info h2 {
+        font-size: 28px;
+        margin-bottom: 12px;
+        color: var(--text1);
+        line-height: 1.3;
+    }
+    .ebook-subtitle {
+        font-size: 16px;
+        color: var(--text2);
+        margin-bottom: 24px;
+        line-height: 1.6;
+    }
+    .ebook-contents {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 20px;
+        margin-bottom: 24px;
+    }
+    .ebook-contents h4 {
+        font-size: 15px;
+        margin-bottom: 14px;
+        color: var(--text1);
+    }
+    .ebook-contents ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .ebook-contents li {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 8px 0;
+        font-size: 14px;
+        color: var(--text2);
+        border-bottom: 1px solid var(--border);
+    }
+    .ebook-contents li:last-child {
+        border-bottom: none;
+    }
+    .ebook-contents li i {
+        color: var(--green);
+        margin-top: 3px;
+        flex-shrink: 0;
+    }
+    .ebook-contents li strong {
+        color: var(--text1);
+    }
+    
+    /* E-book Form */
+    .ebook-form .form-group {
+        display: flex;
+        gap: 12px;
+    }
+    .ebook-form input {
+        flex: 1;
+        padding: 16px 20px;
+        background: var(--bg2);
+        border: 2px solid var(--border);
+        border-radius: 12px;
+        font-size: 16px;
+        color: var(--text);
+        transition: all 0.3s;
+    }
+    .ebook-form input:focus {
+        outline: none;
+        border-color: var(--purple);
+    }
+    .ebook-form input::placeholder {
+        color: var(--text3);
+    }
+    .ebook-submit-btn {
+        padding: 16px 28px;
+        background: linear-gradient(135deg, #22c55e, #16a34a);
+        border: none;
+        border-radius: 12px;
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        white-space: nowrap;
+        transition: all 0.3s;
+    }
+    .ebook-submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(34,197,94,0.4);
+    }
+    .ebook-submit-btn:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+        transform: none;
+    }
+    .ebook-privacy {
+        margin-top: 12px;
+        font-size: 12px;
+        color: var(--text3);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .ebook-privacy i {
+        color: var(--green);
+    }
+    
+    /* Success State */
+    .ebook-success {
+        text-align: center;
+        padding: 20px;
+    }
+    .ebook-success .success-icon {
+        font-size: 64px;
+        margin-bottom: 16px;
+    }
+    .ebook-success h3 {
+        font-size: 24px;
+        color: var(--green);
+        margin-bottom: 12px;
+    }
+    .ebook-success p {
+        color: var(--text2);
+        font-size: 16px;
+    }
+    .ebook-success .success-note {
+        margin-top: 16px;
+        font-size: 13px;
+        color: var(--text3);
+    }
+    
+    /* E-book Modal Responsive */
+    @media (max-width: 800px) {
+        .ebook-modal-content {
+            grid-template-columns: 1fr;
+        }
+        .ebook-visual {
+            border-radius: 24px 24px 0 0;
+            padding: 30px 20px;
+        }
+        .ebook-cover {
+            width: 140px;
+            height: 190px;
+        }
+        .ebook-info {
+            padding: 30px 24px;
+        }
+        .ebook-info h2 {
+            font-size: 24px;
+        }
+        .ebook-form .form-group {
+            flex-direction: column;
+        }
+        .ebook-submit-btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
 </style>
 {% endblock %}
 
@@ -855,9 +1179,9 @@
                     Je hoeft geen programmeur te zijn om software te bouwen. Met <strong>Vibecoding</strong> vertel je de computer gewoon wat je wilt in simpel Nederlands, en de AI bouwt het voor je. Geen ingewikkelde codes, geen jarenlange studie.
                 </p>
                 <div class="hero-cta">
-                    <a href="#demo" class="btn-primary">
-                        <i class="fas fa-eye"></i> Zie hoe simpel het is
-                    </a>
+                    <button onclick="openEbookModal()" class="btn-primary">
+                        <i class="fas fa-book"></i> Gratis E-book Downloaden
+                    </button>
                     <a href="/premium" class="btn-secondary">
                         <i class="fas fa-crown"></i> Bekijk Premium
                     </a>
@@ -1150,10 +1474,126 @@
     </div>
 </section>
 
+<!-- E-book Modal -->
+<div class="ebook-modal-overlay" id="ebookModal">
+    <div class="ebook-modal">
+        <button class="ebook-modal-close" onclick="closeEbookModal()">
+            <i class="fas fa-times"></i>
+        </button>
+        
+        <div class="ebook-modal-content">
+            <div class="ebook-visual">
+                <div class="ebook-cover">
+                    <div class="ebook-cover-inner">
+                        <div class="ebook-badge">GRATIS</div>
+                        <div class="ebook-icon">📘</div>
+                        <h3>Vibecoding<br>Masterguide</h3>
+                        <p>Van idee tot werkende app</p>
+                        <div class="ebook-pages">82 pagina's</div>
+                    </div>
+                </div>
+                <div class="ebook-stats">
+                    <div class="stat"><i class="fas fa-download"></i> 2.847+ downloads</div>
+                    <div class="stat"><i class="fas fa-star"></i> 4.9/5 rating</div>
+                </div>
+            </div>
+            
+            <div class="ebook-info">
+                <div class="ebook-label">🎁 GRATIS E-BOOK</div>
+                <h2>De Complete Vibecoding Masterguide</h2>
+                <p class="ebook-subtitle">Alles wat je nodig hebt om van totale beginner naar app-bouwer te gaan — zonder één regel code te typen.</p>
+                
+                <div class="ebook-contents">
+                    <h4>📖 Wat je leert in dit e-book:</h4>
+                    <ul>
+                        <li><i class="fas fa-check"></i> <strong>Hoofdstuk 1:</strong> Wat is vibecoding en waarom werkt het?</li>
+                        <li><i class="fas fa-check"></i> <strong>Hoofdstuk 2:</strong> De beste AI-tools vergelijken (Claude, ChatGPT, Cursor)</li>
+                        <li><i class="fas fa-check"></i> <strong>Hoofdstuk 3:</strong> Je eerste app bouwen in 30 minuten (stap-voor-stap)</li>
+                        <li><i class="fas fa-check"></i> <strong>Hoofdstuk 4:</strong> 25 copy-paste prompts die altijd werken</li>
+                        <li><i class="fas fa-check"></i> <strong>Hoofdstuk 5:</strong> Foutmeldingen oplossen als een pro</li>
+                        <li><i class="fas fa-check"></i> <strong>Hoofdstuk 6:</strong> Van prototype naar live website</li>
+                        <li><i class="fas fa-check"></i> <strong>Bonus:</strong> 10 app-ideeën om direct mee te starten</li>
+                    </ul>
+                </div>
+                
+                <form class="ebook-form" onsubmit="submitEbookForm(event)">
+                    <div class="form-group">
+                        <input type="email" id="ebookEmail" placeholder="jouw@email.nl" required>
+                        <button type="submit" class="ebook-submit-btn">
+                            <i class="fas fa-paper-plane"></i> Stuur mij het E-book
+                        </button>
+                    </div>
+                    <p class="ebook-privacy">
+                        <i class="fas fa-lock"></i> We respecteren je privacy. Geen spam, alleen waarde.
+                    </p>
+                </form>
+                
+                <div class="ebook-success" id="ebookSuccess" style="display: none;">
+                    <div class="success-icon">🎉</div>
+                    <h3>Check je inbox!</h3>
+                    <p>Het e-book is onderweg naar <strong id="emailConfirm"></strong></p>
+                    <p class="success-note">Niet ontvangen? Check je spam folder.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
 function toggleFaq(element) {
     const item = element.parentElement;
     item.classList.toggle('open');
 }
+
+// E-book Modal Functions
+function openEbookModal() {
+    document.getElementById('ebookModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeEbookModal() {
+    document.getElementById('ebookModal').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function submitEbookForm(e) {
+    e.preventDefault();
+    const email = document.getElementById('ebookEmail').value;
+    const btn = document.querySelector('.ebook-submit-btn');
+    
+    // Show loading
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Versturen...';
+    btn.disabled = true;
+    
+    // Simulate API call (replace with actual endpoint)
+    setTimeout(() => {
+        // Hide form, show success
+        document.querySelector('.ebook-form').style.display = 'none';
+        document.getElementById('ebookSuccess').style.display = 'block';
+        document.getElementById('emailConfirm').textContent = email;
+        
+        // Store email locally for now (replace with actual backend)
+        const emails = JSON.parse(localStorage.getItem('ebookEmails') || '[]');
+        emails.push({ email: email, date: new Date().toISOString() });
+        localStorage.setItem('ebookEmails', JSON.stringify(emails));
+        
+        // Optional: Send to webhook/API
+        // fetch('/api/ebook-signup', {
+        //     method: 'POST',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify({ email: email })
+        // });
+    }, 1500);
+}
+
+// Close modal on backdrop click
+document.getElementById('ebookModal').addEventListener('click', function(e) {
+    if (e.target === this) closeEbookModal();
+});
+
+// Close on Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeEbookModal();
+});
 </script>
 {% endblock %}
