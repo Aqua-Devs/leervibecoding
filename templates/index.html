@@ -129,13 +129,314 @@
         color: var(--purple);
     }
     .hero-note {
-        margin-top: 20px;
+        margin-top: 8px;
         font-size: 14px;
         color: var(--text3);
     }
     .hero-note i {
         color: var(--green);
         margin-right: 6px;
+    }
+    .hero-notes {
+        margin-top: 20px;
+    }
+
+    /* Comparison Mini Table */
+    .comparison-mini {
+        margin-top: 20px;
+        background: var(--bg2);
+        border-radius: 12px;
+        overflow: hidden;
+        font-size: 13px;
+    }
+    .comparison-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 4px;
+    }
+    .comparison-row span {
+        padding: 10px 8px;
+        text-align: center;
+    }
+    .comparison-row.header {
+        background: var(--purple-light);
+        font-weight: 600;
+    }
+    .comparison-row .red { color: var(--red); font-weight: 600; }
+    .comparison-row .orange { color: var(--orange); font-weight: 600; }
+    .comparison-row .green { color: var(--green); font-weight: 600; }
+
+    /* Demo Blueprints */
+    .demo-blueprints {
+        margin-bottom: 24px;
+        padding: 20px;
+        background: var(--purple-light);
+        border-radius: 12px;
+        border: 1px dashed var(--purple);
+    }
+    .demo-label {
+        display: block;
+        font-size: 13px;
+        color: var(--text3);
+        margin-bottom: 12px;
+    }
+    .demo-buttons {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    .demo-btn {
+        padding: 10px 16px;
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        font-size: 13px;
+        color: var(--text2);
+        cursor: pointer;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .demo-btn:hover {
+        border-color: var(--purple);
+        color: var(--purple);
+        background: white;
+    }
+    .demo-btn i {
+        color: var(--purple);
+    }
+
+    /* Blueprint Categories */
+    .blueprints-categories {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        margin-bottom: 40px;
+    }
+    .bp-category {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        overflow: hidden;
+        transition: all 0.3s;
+    }
+    .bp-category:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 15px 30px var(--shadow);
+        border-color: var(--purple);
+    }
+    .bp-category-header {
+        padding: 20px;
+        background: linear-gradient(135deg, var(--purple-light), var(--blue-light));
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .bp-cat-icon {
+        font-size: 24px;
+    }
+    .bp-category-header h4 {
+        font-size: 15px;
+        color: var(--text1);
+        margin: 0;
+    }
+    .bp-category-items {
+        padding: 16px;
+    }
+    .bp-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 12px;
+        margin-bottom: 8px;
+        background: var(--bg2);
+        border-radius: 8px;
+        font-size: 14px;
+        color: var(--text2);
+        text-decoration: none;
+        transition: all 0.2s;
+    }
+    .bp-item:last-child {
+        margin-bottom: 0;
+    }
+    .bp-item:hover {
+        background: var(--purple-light);
+        color: var(--purple);
+    }
+    .bp-item span {
+        font-weight: 600;
+        color: var(--purple);
+    }
+
+    /* Guarantee Banner */
+    .guarantee-banner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        margin-top: 40px;
+        padding: 20px 30px;
+        background: var(--green-light);
+        border: 2px solid var(--green);
+        border-radius: 16px;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .guarantee-banner i {
+        font-size: 32px;
+        color: var(--green);
+    }
+    .guarantee-text strong {
+        display: block;
+        color: var(--text1);
+        font-size: 16px;
+    }
+    .guarantee-text span {
+        font-size: 14px;
+        color: var(--text2);
+    }
+
+    /* App Gallery */
+    .app-gallery {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        margin-bottom: 50px;
+    }
+    .app-showcase {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        overflow: hidden;
+        transition: all 0.3s;
+    }
+    .app-showcase:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 15px 30px var(--shadow);
+    }
+    .app-screenshot {
+        padding: 16px;
+        background: var(--bg2);
+    }
+    .app-mock {
+        background: var(--card-bg);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px var(--shadow);
+    }
+    .mock-header {
+        padding: 8px 12px;
+        background: var(--bg2);
+        display: flex;
+        gap: 6px;
+    }
+    .mock-header span {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--border);
+    }
+    .mock-header span:first-child { background: #ff5f56; }
+    .mock-header span:nth-child(2) { background: #ffbd2e; }
+    .mock-header span:nth-child(3) { background: #27ca40; }
+    
+    /* Dashboard mock */
+    .app-mock.dashboard {
+        min-height: 120px;
+    }
+    .app-mock.dashboard .mock-sidebar {
+        position: absolute;
+        left: 0;
+        top: 28px;
+        width: 40px;
+        height: calc(100% - 28px);
+        background: var(--purple-light);
+    }
+    .app-mock.dashboard .mock-content {
+        margin-left: 40px;
+        padding: 10px;
+    }
+    .mock-chart {
+        height: 40px;
+        background: linear-gradient(135deg, var(--purple-light), var(--blue-light));
+        border-radius: 6px;
+        margin-bottom: 8px;
+    }
+    .mock-cards {
+        display: flex;
+        gap: 6px;
+    }
+    .mock-cards span {
+        flex: 1;
+        height: 20px;
+        background: var(--bg2);
+        border-radius: 4px;
+    }
+    
+    /* Booking mock */
+    .app-mock.booking {
+        min-height: 120px;
+    }
+    .mock-calendar {
+        margin: 10px;
+        height: 50px;
+        background: var(--purple-light);
+        border-radius: 6px;
+    }
+    .mock-slots {
+        display: flex;
+        gap: 6px;
+        padding: 0 10px 10px;
+    }
+    .mock-slots span {
+        flex: 1;
+        height: 24px;
+        background: var(--green-light);
+        border-radius: 4px;
+    }
+    
+    /* Landing mock */
+    .app-mock.landing {
+        min-height: 120px;
+    }
+    .mock-hero {
+        height: 40px;
+        background: linear-gradient(135deg, var(--purple), var(--blue));
+        margin: 10px;
+        border-radius: 6px;
+    }
+    .mock-features {
+        display: flex;
+        gap: 6px;
+        padding: 0 10px;
+    }
+    .mock-features span {
+        flex: 1;
+        height: 20px;
+        background: var(--bg2);
+        border-radius: 4px;
+    }
+    .mock-cta {
+        height: 16px;
+        width: 60px;
+        background: var(--green);
+        border-radius: 4px;
+        margin: 10px auto;
+    }
+    
+    .app-info {
+        padding: 16px;
+        text-align: center;
+    }
+    .app-info h4 {
+        font-size: 15px;
+        color: var(--text1);
+        margin-bottom: 4px;
+    }
+    .app-info span {
+        font-size: 12px;
+        color: var(--text3);
     }
 
     /* ========== PROBLEM SECTION ========== */
@@ -847,8 +1148,13 @@
 
     /* ========== RESPONSIVE ========== */
     @media (max-width: 1024px) {
-        .blueprints-grid {
+        .blueprints-categories {
             grid-template-columns: repeat(2, 1fr);
+        }
+        .app-gallery {
+            grid-template-columns: 1fr;
+            max-width: 400px;
+            margin: 0 auto 50px;
         }
         .pricing-grid {
             grid-template-columns: 1fr;
@@ -875,11 +1181,30 @@
         .try-content {
             grid-template-columns: 1fr;
         }
+        .blueprints-categories {
+            grid-template-columns: 1fr;
+        }
+        .comparison-mini {
+            font-size: 11px;
+        }
+        .comparison-row span {
+            padding: 8px 4px;
+        }
+        .demo-buttons {
+            flex-direction: column;
+        }
+        .demo-btn {
+            justify-content: center;
+        }
         .section-header h2 {
             font-size: 28px;
         }
         .final-cta h2 {
             font-size: 28px;
+        }
+        .guarantee-banner {
+            flex-direction: column;
+            text-align: center;
         }
     }
 
@@ -1168,6 +1493,29 @@
         font-size: 13px;
         color: var(--text3);
     }
+    .coupon-box {
+        margin: 20px 0;
+        padding: 16px;
+        background: var(--green-light);
+        border: 2px dashed var(--green);
+        border-radius: 12px;
+    }
+    .coupon-label {
+        display: block;
+        font-size: 14px;
+        color: var(--text2);
+        margin-bottom: 8px;
+    }
+    .coupon-code {
+        display: inline-block;
+        padding: 8px 20px;
+        background: var(--green);
+        color: white;
+        font-weight: 700;
+        font-size: 18px;
+        border-radius: 8px;
+        letter-spacing: 2px;
+    }
     @media (max-width: 800px) {
         .ebook-modal-content {
             grid-template-columns: 1fr;
@@ -1203,14 +1551,14 @@
     <div class="container">
         <div class="hero-content">
             <div class="hero-badge">
-                <i class="fas fa-bolt"></i> Nieuw: 50+ kant-en-klare blueprints
+                <i class="fas fa-bolt"></i> Nieuw: 80 kant-en-klare blueprints
             </div>
             <h1>
-                Bouw je eigen app.<br>
-                <span class="highlight">Zonder developer.</span>
+                Lanceer je app.<br>
+                <span class="highlight">In één weekend.</span>
             </h1>
             <p class="subtitle">
-                Stop met wachten op dure developers of freelancers. Met onze bewezen blueprints bouw je zelf professionele apps, websites en tools. Copy-paste de prompts, en je hebt een werkend resultaat.
+                Lanceer je MVP, automatiseer interne processen of bouw een SaaS-product — zonder technische overhead. Met onze bewezen blueprints krijg je exacte prompts die direct werken.
             </p>
             <div class="hero-stats">
                 <div class="hero-stat">
@@ -1219,24 +1567,29 @@
                 </div>
                 <div class="hero-stat">
                     <div class="number">1 weekend</div>
-                    <div class="label">Van idee naar app</div>
+                    <div class="label">Van idee naar werkende app</div>
                 </div>
                 <div class="hero-stat">
-                    <div class="number">50+</div>
+                    <div class="number">80+</div>
                     <div class="label">Kant-en-klare blueprints</div>
                 </div>
             </div>
             <div class="hero-cta">
                 <a href="/blueprints" class="btn-primary">
-                    <i class="fas fa-shopping-cart"></i> Bekijk Blueprints
+                    <i class="fas fa-rocket"></i> Bekijk Blueprints
                 </a>
                 <button onclick="openEbookModal()" class="btn-secondary">
                     <i class="fas fa-book"></i> Gratis E-book
                 </button>
             </div>
-            <p class="hero-note">
-                <i class="fas fa-check-circle"></i> Geen programmeerkennis nodig
-            </p>
+            <div class="hero-notes">
+                <p class="hero-note">
+                    <i class="fas fa-check-circle"></i> Geen programmeerkennis nodig
+                </p>
+                <p class="hero-note">
+                    <i class="fas fa-lock-open"></i> 100% eigendom van je code — geen maandelijkse no-code kosten
+                </p>
+            </div>
         </div>
     </div>
 </section>
@@ -1293,16 +1646,30 @@
             <div class="audience-card">
                 <div class="icon">💼</div>
                 <h3>De Ondernemer</h3>
-                <div class="tagline">Bespaar €10.000+ aan development kosten</div>
+                <div class="tagline">Bespaar €10.000+ én stop de vendor lock-in</div>
                 <p>
-                    Je hebt een app-idee maar geen budget voor een developer. Of je wilt snel een MVP testen voordat je investeert.
+                    Je hebt een app-idee maar geen budget voor een developer. Of je betaalt nu €50+/maand aan no-code tools die steeds duurder worden naarmate je groeit.
                 </p>
                 <ul>
-                    <li><i class="fas fa-check"></i> Bouw je eigen SaaS, tool of platform</li>
+                    <li><i class="fas fa-check"></i> Bouw je eigen SaaS, portal of platform</li>
+                    <li><i class="fas fa-check"></i> <strong>100% eigendom</strong> — geen maandelijkse kosten</li>
                     <li><i class="fas fa-check"></i> Test je idee voordat je investeert</li>
-                    <li><i class="fas fa-check"></i> Geen afhankelijkheid van developers</li>
-                    <li><i class="fas fa-check"></i> Schaal op wanneer jij wilt</li>
+                    <li><i class="fas fa-check"></i> Schaal zonder limieten van platforms</li>
                 </ul>
+                <div class="comparison-mini">
+                    <div class="comparison-row header">
+                        <span></span><span>Developer</span><span>No-code</span><span>Blueprint</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span>Kosten</span><span class="red">€150/uur</span><span class="orange">€50/mnd</span><span class="green">€29 éénmalig</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span>Eigendom</span><span class="green">✓</span><span class="red">✗</span><span class="green">✓</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span>Lock-in</span><span class="green">Geen</span><span class="red">Hoog</span><span class="green">Geen</span>
+                    </div>
+                </div>
             </div>
             <div class="audience-card">
                 <div class="icon">🎨</div>
@@ -1329,6 +1696,22 @@
             <div class="try-text">
                 <h2>🎮 Probeer het zelf — nu meteen</h2>
                 <p>Geen account nodig, geen installatie. Voer je eigen OpenAI API key in en begin direct met bouwen. Zie met je eigen ogen hoe makkelijk vibecoding is.</p>
+                
+                <div class="demo-blueprints">
+                    <span class="demo-label">Laad een demo blueprint:</span>
+                    <div class="demo-buttons">
+                        <button class="demo-btn" onclick="loadDemoBlueprint('dashboard')">
+                            <i class="fas fa-chart-bar"></i> Klant Dashboard
+                        </button>
+                        <button class="demo-btn" onclick="loadDemoBlueprint('content')">
+                            <i class="fas fa-robot"></i> AI Content Tool
+                        </button>
+                        <button class="demo-btn" onclick="loadDemoBlueprint('booking')">
+                            <i class="fas fa-calendar"></i> Booking Systeem
+                        </button>
+                    </div>
+                </div>
+                
                 <div class="try-features">
                     <div class="try-feature">
                         <i class="fas fa-clock"></i>
@@ -1407,7 +1790,7 @@
                 <h3>Blueprint Shop</h3>
                 <p>Kant-en-klare prompts voor complete apps. Copy-paste en je hebt een werkend resultaat.</p>
                 <ul>
-                    <li><i class="fas fa-check"></i> 50+ complete blueprints</li>
+                    <li><i class="fas fa-check"></i> 80 complete blueprints</li>
                     <li><i class="fas fa-check"></i> Exacte prompts (copy-paste)</li>
                     <li><i class="fas fa-check"></i> Bewezen resultaten</li>
                     <li><i class="fas fa-check"></i> Uren werk bespaard</li>
@@ -1437,62 +1820,58 @@
 <section class="blueprints-section">
     <div class="container">
         <div class="section-header">
-            <h2>Populaire Blueprints</h2>
-            <p>Direct toepasbare prompts voor complete apps</p>
+            <h2>Wat wil je bereiken?</h2>
+            <p>Kies je doel en ontdek de perfecte blueprints</p>
         </div>
-        <div class="blueprints-grid">
-            <div class="blueprint-card">
-                <div class="icon">📊</div>
-                <h4>SaaS Dashboard</h4>
-                <p>Complete admin dashboard met grafieken</p>
-                <div class="price">€29</div>
+        <div class="blueprints-categories">
+            <div class="bp-category">
+                <div class="bp-category-header">
+                    <span class="bp-cat-icon">💰</span>
+                    <h4>Meer Klanten & Sales</h4>
+                </div>
+                <div class="bp-category-items">
+                    <a href="/blueprints?filter=leads" class="bp-item">Landing Page <span>€19</span></a>
+                    <a href="/blueprints?filter=leads" class="bp-item">Booking Systeem <span>€39</span></a>
+                    <a href="/blueprints?filter=leads" class="bp-item">Quiz Funnel <span>€39</span></a>
+                </div>
             </div>
-            <div class="blueprint-card">
-                <div class="icon">🛒</div>
-                <h4>Webshop Landing</h4>
-                <p>Convertierende productpagina</p>
-                <div class="price">€19</div>
+            <div class="bp-category">
+                <div class="bp-category-header">
+                    <span class="bp-cat-icon">👥</span>
+                    <h4>Klanten Beter Helpen</h4>
+                </div>
+                <div class="bp-category-items">
+                    <a href="/blueprints?filter=portals" class="bp-item">Klant Dashboard <span>€39</span></a>
+                    <a href="/blueprints?filter=portals" class="bp-item">Support Portaal <span>€39</span></a>
+                    <a href="/blueprints?filter=portals" class="bp-item">Leerplatform <span>€49</span></a>
+                </div>
             </div>
-            <div class="blueprint-card">
-                <div class="icon">📝</div>
-                <h4>Blog Platform</h4>
-                <p>Complete blog met CMS</p>
-                <div class="price">€29</div>
+            <div class="bp-category">
+                <div class="bp-category-header">
+                    <span class="bp-cat-icon">⏱️</span>
+                    <h4>Tijd Besparen</h4>
+                </div>
+                <div class="bp-category-items">
+                    <a href="/blueprints?filter=automation" class="bp-item">AI Content Generator <span>€29</span></a>
+                    <a href="/blueprints?filter=automation" class="bp-item">CRM Systeem <span>€39</span></a>
+                    <a href="/blueprints?filter=automation" class="bp-item">Factuur Generator <span>€29</span></a>
+                </div>
             </div>
-            <div class="blueprint-card">
-                <div class="icon">🔧</div>
-                <h4>Calculator Tool</h4>
-                <p>Interactieve rekentool</p>
-                <div class="price">€19</div>
-            </div>
-            <div class="blueprint-card">
-                <div class="icon">📅</div>
-                <h4>Booking Systeem</h4>
-                <p>Afspraken inplannen</p>
-                <div class="price">€39</div>
-            </div>
-            <div class="blueprint-card">
-                <div class="icon">💬</div>
-                <h4>Contact Forms</h4>
-                <p>5 professionele formulieren</p>
-                <div class="price">€19</div>
-            </div>
-            <div class="blueprint-card">
-                <div class="icon">🎮</div>
-                <h4>Mini Games</h4>
-                <p>3 browser games</p>
-                <div class="price">€29</div>
-            </div>
-            <div class="blueprint-card">
-                <div class="icon">📈</div>
-                <h4>Analytics Dashboard</h4>
-                <p>Data visualisatie</p>
-                <div class="price">€39</div>
+            <div class="bp-category">
+                <div class="bp-category-header">
+                    <span class="bp-cat-icon">🚀</span>
+                    <h4>Nieuwe Inkomsten</h4>
+                </div>
+                <div class="bp-category-items">
+                    <a href="/blueprints?filter=income" class="bp-item">SaaS Starter Kit <span>€49</span></a>
+                    <a href="/blueprints?filter=income" class="bp-item">Membership Platform <span>€49</span></a>
+                    <a href="/blueprints?filter=income" class="bp-item">Cursus Platform <span>€49</span></a>
+                </div>
             </div>
         </div>
         <div class="blueprints-cta">
             <a href="/blueprints" class="btn-primary">
-                <i class="fas fa-th-large"></i> Bekijk Alle 50+ Blueprints
+                <i class="fas fa-th-large"></i> Bekijk Alle 80 Blueprints
             </a>
         </div>
     </div>
@@ -1503,7 +1882,7 @@
     <div class="container">
         <div class="section-header">
             <h2>Kies je pakket</h2>
-            <p>Eenmalige betaling, geen abonnement</p>
+            <p>Eenmalige betaling, geen abonnement — code is 100% van jou</p>
         </div>
         <div class="pricing-grid">
             <div class="pricing-card">
@@ -1519,18 +1898,19 @@
                 <a href="/blueprints" class="btn btn-outline">Kies Blueprints</a>
             </div>
             <div class="pricing-card featured">
-                <span class="popular">MEEST GEKOZEN</span>
+                <span class="popular">BESTE KEUZE VOOR PROJECTEN</span>
                 <h3>Ondernemer</h3>
-                <p class="desc">Voor serieuze projecten</p>
+                <p class="desc">Voor serieuze zakelijke projecten</p>
                 <div class="price">€99</div>
                 <p class="period">eenmalig</p>
                 <ul>
-                    <li><i class="fas fa-check"></i> 15 blueprints naar keuze</li>
+                    <li><i class="fas fa-check"></i> <strong>15 blueprints</strong> naar keuze</li>
                     <li><i class="fas fa-check"></i> Alle documentatie</li>
                     <li><i class="fas fa-check"></i> Priority support</li>
                     <li><i class="fas fa-check"></i> Bonus: deployment guide</li>
+                    <li><i class="fas fa-check"></i> <strong>65% besparing</strong> t.o.v. los</li>
                 </ul>
-                <a href="/blueprints" class="btn btn-primary">Kies Blueprints</a>
+                <a href="/blueprints" class="btn btn-primary">Start Nu</a>
             </div>
             <div class="pricing-card">
                 <h3>Complete Bundel</h3>
@@ -1538,12 +1918,19 @@
                 <div class="price">€149</div>
                 <p class="period">eenmalig</p>
                 <ul>
-                    <li><i class="fas fa-check"></i> Alle 50+ blueprints</li>
+                    <li><i class="fas fa-check"></i> Alle 80 blueprints</li>
                     <li><i class="fas fa-check"></i> Alle toekomstige updates</li>
                     <li><i class="fas fa-check"></i> 1-op-1 onboarding call</li>
                     <li><i class="fas fa-check"></i> Lifetime access</li>
                 </ul>
                 <a href="/blueprints" class="btn btn-outline">Alles Krijgen</a>
+            </div>
+        </div>
+        <div class="guarantee-banner">
+            <i class="fas fa-shield-alt"></i>
+            <div class="guarantee-text">
+                <strong>14 dagen geld-terug garantie</strong>
+                <span>Niet tevreden? Geld terug, geen vragen.</span>
             </div>
         </div>
     </div>
@@ -1553,39 +1940,85 @@
 <section class="social-proof">
     <div class="container">
         <div class="section-header">
-            <h2>Wat anderen zeggen</h2>
+            <h2>Gebouwd met onze blueprints</h2>
+            <p>Echte apps, live in productie</p>
         </div>
+        <div class="app-gallery">
+            <div class="app-showcase">
+                <div class="app-screenshot">
+                    <div class="app-mock dashboard">
+                        <div class="mock-header"><span></span><span></span><span></span></div>
+                        <div class="mock-sidebar"></div>
+                        <div class="mock-content">
+                            <div class="mock-chart"></div>
+                            <div class="mock-cards"><span></span><span></span><span></span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-info">
+                    <h4>Klant Dashboard</h4>
+                    <span>SaaS Startup • 500+ gebruikers</span>
+                </div>
+            </div>
+            <div class="app-showcase">
+                <div class="app-screenshot">
+                    <div class="app-mock booking">
+                        <div class="mock-header"><span></span><span></span><span></span></div>
+                        <div class="mock-calendar"></div>
+                        <div class="mock-slots"><span></span><span></span><span></span></div>
+                    </div>
+                </div>
+                <div class="app-info">
+                    <h4>Booking Systeem</h4>
+                    <span>Kapsalon • 200+ afspraken/maand</span>
+                </div>
+            </div>
+            <div class="app-showcase">
+                <div class="app-screenshot">
+                    <div class="app-mock landing">
+                        <div class="mock-hero"></div>
+                        <div class="mock-features"><span></span><span></span><span></span></div>
+                        <div class="mock-cta"></div>
+                    </div>
+                </div>
+                <div class="app-info">
+                    <h4>Landing Page</h4>
+                    <span>Consultancy • 15% conversie</span>
+                </div>
+            </div>
+        </div>
+        
         <div class="testimonials-grid">
             <div class="testimonial-card">
                 <div class="stars">★★★★★</div>
-                <p>"Ik heb mijn eerste SaaS gebouwd in een weekend. Een developer had me €15.000 gevraagd voor hetzelfde."</p>
+                <p>"Ik heb mijn eerste SaaS gebouwd in een weekend. Een developer had me €15.000 gevraagd voor hetzelfde. Nu draait het en levert het maandelijks op."</p>
                 <div class="author">
                     <div class="avatar">MV</div>
                     <div class="author-info">
                         <h4>Mark V.</h4>
-                        <span>Ondernemer</span>
+                        <span>Ondernemer, Amsterdam</span>
                     </div>
                 </div>
             </div>
             <div class="testimonial-card">
                 <div class="stars">★★★★★</div>
-                <p>"De blueprints zijn goud waard. Copy-paste en het werkt gewoon. Uren uitzoekwerk bespaard."</p>
+                <p>"Ik betaalde €89/maand aan Bubble. Nu heb ik mijn eigen code, geen maandelijkse kosten meer, en het is sneller ook nog. Blueprint betaalde zichzelf in 2 maanden terug."</p>
                 <div class="author">
                     <div class="avatar">SJ</div>
                     <div class="author-info">
                         <h4>Sophie J.</h4>
-                        <span>Freelancer</span>
+                        <span>Freelance Designer</span>
                     </div>
                 </div>
             </div>
             <div class="testimonial-card">
                 <div class="stars">★★★★★</div>
-                <p>"Eindelijk een manier om mijn ideeën zelf te bouwen. Geen gedoe met developers die niet snappen wat ik wil."</p>
+                <p>"Eindelijk een manier om mijn ideeën zelf te bouwen. Geen gedoe met developers die niet snappen wat ik wil. Copy-paste, aanpassen, klaar."</p>
                 <div class="author">
                     <div class="avatar">RK</div>
                     <div class="author-info">
                         <h4>Robin K.</h4>
-                        <span>Startup Founder</span>
+                        <span>Startup Founder, Utrecht</span>
                     </div>
                 </div>
             </div>
@@ -1721,6 +2154,10 @@
                     <div class="success-icon">🎉</div>
                     <h3>Check je inbox!</h3>
                     <p>Het e-book is onderweg naar <strong id="emailConfirm"></strong></p>
+                    <div class="coupon-box">
+                        <span class="coupon-label">🎁 Bonus: 10% korting op je eerste blueprint</span>
+                        <span class="coupon-code">EBOOK10</span>
+                    </div>
                     <p class="success-note">Niet ontvangen? Check je spam folder.</p>
                 </div>
             </div>
@@ -1770,5 +2207,18 @@ document.getElementById('ebookModal').addEventListener('click', function(e) {
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') closeEbookModal();
 });
+
+// Demo Blueprint Loader
+function loadDemoBlueprint(type) {
+    const demos = {
+        dashboard: 'Bouw een professioneel klant dashboard met: sidebar navigatie, 4 KPI cards bovenaan (omzet, klanten, orders, groei), een lijndiagram voor maandelijkse omzet, een tabel met recente bestellingen, en een dark/light mode toggle. Gebruik een moderne paarse kleurenschema.',
+        content: 'Maak een AI content generator tool met: een tekstveld voor onderwerp input, dropdown voor content type (blog, social media, email), een "Genereer" knop, en een resultaat sectie waar de gegenereerde tekst verschijnt. Voeg ook een "Kopieer" knop toe.',
+        booking: 'Bouw een online afsprakenplanner met: een weekkalender view, beschikbare tijdslots als klikbare knoppen (groen = vrij, grijs = bezet), een formulier voor naam + email + telefoon, en een bevestigingsscherm na boeking. Stijl het professioneel.'
+    };
+    
+    // Store in sessionStorage and redirect to studio
+    sessionStorage.setItem('demoBlueprint', demos[type]);
+    window.location.href = '/studio?demo=' + type;
+}
 </script>
 {% endblock %}
