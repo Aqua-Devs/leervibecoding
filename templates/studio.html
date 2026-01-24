@@ -1,802 +1,763 @@
 {% extends "base.html" %}
 
 {% block title %}Oefenruimte - Leer Vibecoding met Opdrachten | LeerVibeCoding{% endblock %}
-
-{% block meta_description %}Oefen vibecoding met interactieve opdrachten. Van HTML basics tot complete AI-apps. Krijg direct feedback op je prompts en zie je code live in actie.{% endblock %}
-
-{% block meta_keywords %}vibecoding oefenen, programmeren leren interactief, AI coding opdrachten, HTML leren, JavaScript leren, coding oefeningen Nederlands{% endblock %}
-
-{% block canonical %}https://leervibecoding.nl/oefenruimte{% endblock %}
-{% block og_url %}https://leervibecoding.nl/oefenruimte{% endblock %}
-{% block og_title %}Oefenruimte - Leer door te doen{% endblock %}
-{% block og_description %}Interactieve opdrachten om vibecoding te leren. Van beginner tot gevorderd, op je eigen tempo.{% endblock %}
+{% block meta_description %}Oefen vibecoding met interactieve opdrachten. Van HTML basics tot complete AI-apps.{% endblock %}
 
 {% block extra_css %}
 <style>
-    body { background: var(--bg); overflow-x: hidden; }
-    
-    /* Header */
-    .studio-header {
-        padding: 12px 0;
-        background: var(--nav-bg);
+/* ===========================================
+   OEFENRUIMTE - Dark Mode with Red Accent
+   =========================================== */
+
+body { overflow-x: hidden; }
+
+/* Studio Header */
+.studio-header {
+    padding: 12px 0;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 70px;
+    z-index: 100;
+}
+
+.studio-header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.studio-title {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text1);
+}
+
+.studio-title span {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+/* Level & XP */
+.stats-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.level-display {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--primary-light);
+    padding: 8px 16px;
+}
+
+.level-num {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.level-name {
+    font-size: 12px;
+    color: var(--text3);
+}
+
+.xp-display {
+    font-size: 16px;
+    color: var(--yellow);
+    font-weight: 600;
+}
+
+.xp-bar {
+    width: 120px;
+    height: 6px;
+    background: var(--border);
+    overflow: hidden;
+}
+
+.xp-fill {
+    height: 100%;
+    background: var(--primary);
+    transition: width 0.5s;
+}
+
+/* Main Studio Layout */
+.studio-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: calc(100vh - 140px);
+}
+
+/* Left Panel */
+.left-panel {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg2);
+    border-right: 1px solid var(--border);
+    overflow: hidden;
+}
+
+/* Assignment Section */
+.assignment-section {
+    padding: 20px;
+    flex: 1;
+    overflow-y: auto;
+    position: relative;
+}
+
+.assignment-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 24px;
+    margin-bottom: 16px;
+}
+
+.assignment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.assignment-level {
+    background: var(--primary-light);
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--primary);
+    text-transform: uppercase;
+}
+
+.assignment-level.ai {
+    background: var(--green-light);
+    color: var(--green);
+}
+
+.client-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.client-avatar {
+    font-size: 36px;
+}
+
+.client-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.scenario-text {
+    color: var(--text2);
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.task-box {
+    background: var(--primary-light);
+    border: 1px solid var(--primary);
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+.task-label {
+    font-size: 11px;
+    color: var(--primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.task-text {
+    color: var(--text1);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Requirements */
+.requirements-box {
+    margin-bottom: 20px;
+}
+
+.requirements-title {
+    font-size: 13px;
+    color: var(--text3);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.requirement-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px;
+    margin-bottom: 8px;
+    background: var(--bg);
+    font-size: 14px;
+    color: var(--text2);
+    line-height: 1.5;
+}
+
+.requirement-item.met {
+    background: var(--green-light);
+    color: var(--green);
+}
+
+.requirement-item::before {
+    content: "○";
+    color: var(--text3);
+    flex-shrink: 0;
+}
+
+.requirement-item.met::before {
+    content: "✓";
+    color: var(--green);
+    font-weight: bold;
+}
+
+/* Hints */
+.hints-toggle {
+    background: var(--blue-light);
+    border: 1px solid var(--blue);
+    padding: 12px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--blue);
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.hints-toggle:hover {
+    background: rgba(59,130,246,0.2);
+}
+
+.hints-content {
+    display: none;
+    padding: 12px;
+    background: rgba(59,130,246,0.05);
+    border: 1px solid var(--border);
+    border-top: none;
+}
+
+.hints-content.show {
+    display: block;
+}
+
+.hint-item {
+    color: var(--text2);
+    font-size: 14px;
+    margin-bottom: 8px;
+    padding-left: 24px;
+    position: relative;
+    line-height: 1.5;
+}
+
+.hint-item::before {
+    content: "💡";
+    position: absolute;
+    left: 0;
+}
+
+/* Input Section */
+.input-section {
+    padding: 20px;
+    background: var(--bg3);
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+}
+
+.input-label {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--text1);
+}
+
+.prompt-input {
+    width: 100%;
+    min-height: 100px;
+    padding: 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 14px;
+    resize: none;
+    transition: border-color 0.2s;
+}
+
+.prompt-input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.prompt-input::placeholder {
+    color: var(--text3);
+}
+
+.btn-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.btn-submit {
+    flex: 1;
+    padding: 16px;
+    background: var(--primary);
+    border: none;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background 0.2s;
+}
+
+.btn-submit:hover {
+    background: var(--primary-dark);
+}
+
+.btn-submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-new {
+    padding: 16px 24px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-new:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+/* Right Panel */
+.right-panel {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg);
+}
+
+/* Score Bar */
+.score-bar {
+    padding: 16px 20px;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.score-label {
+    font-size: 13px;
+    color: var(--text3);
+}
+
+.score-display {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.score-percent {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text3);
+}
+
+.score-percent.low { color: var(--red); }
+.score-percent.mid { color: var(--yellow); }
+.score-percent.high { color: var(--green); }
+
+.score-bar-visual {
+    width: 150px;
+    height: 8px;
+    background: var(--border);
+    overflow: hidden;
+}
+
+.score-bar-fill {
+    height: 100%;
+    background: var(--text3);
+    transition: all 0.5s;
+}
+
+/* Preview Area */
+.preview-area {
+    flex: 1;
+    position: relative;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.preview-placeholder {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--text3);
+}
+
+.preview-placeholder-icon {
+    font-size: 64px;
+    margin-bottom: 16px;
+    opacity: 0.3;
+}
+
+.preview-placeholder-text {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.preview-placeholder-sub {
+    font-size: 14px;
+}
+
+.preview-frame {
+    display: none;
+    width: 100%;
+    height: 100%;
+    background: white;
+    overflow: hidden;
+}
+
+.preview-frame.show {
+    display: block;
+}
+
+.preview-frame iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Feedback Section */
+.feedback-section {
+    padding: 20px;
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    display: none;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.feedback-section.show {
+    display: block;
+}
+
+.feedback-message {
+    padding: 14px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.feedback-message.success {
+    background: var(--green-light);
+    border: 1px solid var(--green);
+    color: var(--green);
+}
+
+.feedback-message.partial {
+    background: var(--yellow-light);
+    border: 1px solid var(--yellow);
+    color: var(--yellow);
+}
+
+.feedback-message.fail {
+    background: var(--red-light);
+    border: 1px solid var(--red);
+    color: var(--red);
+}
+
+/* Loading */
+.loading-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+    z-index: 10;
+}
+
+.loading-overlay.show {
+    display: flex;
+}
+
+.spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid var(--border);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-text {
+    color: white;
+    font-size: 14px;
+}
+
+/* Level Up Modal */
+.levelup-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.levelup-modal.show {
+    display: flex;
+}
+
+.levelup-box {
+    background: var(--card);
+    border: 2px solid var(--primary);
+    padding: 48px;
+    text-align: center;
+    max-width: 400px;
+}
+
+.levelup-emoji {
+    font-size: 64px;
+    margin-bottom: 16px;
+}
+
+.levelup-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--primary);
+}
+
+.levelup-text {
+    font-size: 16px;
+    color: var(--text2);
+    margin-bottom: 24px;
+}
+
+.levelup-btn {
+    padding: 14px 32px;
+    background: var(--primary);
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* API Key Notice */
+.api-notice {
+    background: var(--card);
+    border: 1px solid var(--primary);
+    padding: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.api-notice h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.api-notice p {
+    font-size: 14px;
+    color: var(--text2);
+    margin-bottom: 16px;
+}
+
+.api-notice .btn {
+    padding: 12px 24px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 48px 24px;
+}
+
+.empty-state .icon {
+    font-size: 64px;
+    margin-bottom: 16px;
+    opacity: 0.5;
+}
+
+.empty-state h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.empty-state p {
+    font-size: 14px;
+    color: var(--text3);
+    margin-bottom: 24px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .studio-main {
+        grid-template-columns: 1fr;
+    }
+    .left-panel {
+        border-right: none;
         border-bottom: 1px solid var(--border);
-        position: sticky; top: 0; z-index: 100;
+    }
+    .right-panel {
+        min-height: 50vh;
+    }
+}
+
+@media (max-width: 600px) {
+    .studio-header {
+        top: 65px;
     }
     .studio-header-inner {
-        display: flex; justify-content: space-between; align-items: center;
-        flex-wrap: wrap; gap: 12px;
+        flex-direction: column;
+        align-items: flex-start;
     }
-    .studio-title { font-size: 20px; display: flex; align-items: center; gap: 10px; color: var(--text1); }
-    .studio-title span { 
-        background: linear-gradient(135deg, var(--purple), var(--cyan));
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        font-weight: 700;
+    .stats-bar {
+        width: 100%;
+        justify-content: space-between;
     }
-    
-    /* Level & XP */
-    .stats-bar { display: flex; align-items: center; gap: 20px; }
     .level-display {
-        display: flex; align-items: center; gap: 10px;
-        background: var(--purple-light); padding: 8px 16px; border-radius: 20px;
+        padding: 6px 12px;
     }
-    .level-num { font-size: 18px; font-weight: 700; color: var(--purple); }
-    .level-name { font-size: 12px; color: var(--text3); }
-    .xp-display { font-size: 16px; color: var(--yellow); font-weight: 600; }
-    .xp-bar { width: 120px; height: 6px; background: var(--border); border-radius: 10px; overflow: hidden; }
-    .xp-fill { height: 100%; background: linear-gradient(90deg, var(--yellow), var(--orange)); border-radius: 10px; transition: width 0.5s; }
-
-    /* Main Studio Layout */
-    .studio-main {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        height: calc(100vh - 60px);
+    .level-num {
+        font-size: 14px;
     }
-
-    /* Left Panel - Assignment & Input */
-    .left-panel {
-        display: flex; flex-direction: column;
-        background: var(--bg2);
-        border-right: 1px solid var(--border);
-        overflow: hidden;
-    }
-
-    /* Assignment Section */
-    .assignment-section { padding: 20px; flex: 1; overflow-y: auto; position: relative; }
-    
     .assignment-card {
-        background: var(--card-bg);
-        border: 1px solid var(--border);
-        border-radius: 16px; padding: 20px; margin-bottom: 16px;
-        box-shadow: 0 4px 15px var(--shadow);
-    }
-    .assignment-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
-    .assignment-level {
-        background: var(--purple-light); padding: 4px 12px; border-radius: 12px;
-        font-size: 11px; font-weight: 600; color: var(--purple); text-transform: uppercase;
-    }
-    .assignment-level.ai { background: var(--green-light); color: var(--green); }
-    
-    .client-info { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-    .client-avatar { font-size: 36px; }
-    .client-name { font-size: 18px; font-weight: 600; color: var(--orange); }
-    
-    .scenario-text { color: var(--text); font-size: 15px; line-height: 1.6; margin-bottom: 16px; }
-    .scenario-text * {
-        font-size: inherit !important;
-        font-family: inherit !important;
-        line-height: inherit !important;
-        margin: 0 !important;
-        display: inline !important;
-    }
-    
-    .task-box {
-        background: var(--green-light); border: 1px solid var(--green);
-        border-radius: 12px; padding: 14px; margin-bottom: 16px;
-    }
-    .task-label { font-size: 11px; color: var(--green); font-weight: 600; text-transform: uppercase; margin-bottom: 6px; }
-    .task-text { color: var(--text1); font-size: 14px; line-height: 1.5; }
-    .task-text * {
-        font-size: inherit !important;
-        font-family: inherit !important;
-        line-height: inherit !important;
-        margin: 0 !important;
-        display: inline !important;
-    }
-    .task-text code {
-        font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace !important;
-        background: rgba(34,197,94,0.2) !important;
-        padding: 2px 6px !important;
-        border-radius: 4px !important;
-        font-size: 13px !important;
-    }
-
-    /* Requirements checklist */
-    .requirements-box { margin-bottom: 16px; }
-    .requirements-title { font-size: 13px; color: var(--text3); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
-    .requirement-item {
-        display: flex; align-items: flex-start; gap: 8px;
-        padding: 10px 14px; margin-bottom: 6px;
-        background: var(--glass); border-radius: 8px;
-        font-size: 14px; color: var(--text2);
-        line-height: 1.5;
-    }
-    /* Zorg dat ALLE tekst in requirements dezelfde stijl heeft */
-    .requirement-item * {
-        font-size: inherit !important;
-        font-family: inherit !important;
-        font-weight: inherit !important;
-        line-height: inherit !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        display: inline !important;
-        background: none !important;
-        border: none !important;
-    }
-    .requirement-item code,
-    .requirement-item pre {
-        font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace !important;
-        background: rgba(16,185,129,0.15) !important;
-        padding: 2px 6px !important;
-        border-radius: 4px !important;
-        font-size: 13px !important;
-        color: var(--purple) !important;
-    }
-    .requirement-item.met { background: var(--green-light); color: var(--green); }
-    .requirement-item.met::before { content: "✓"; color: var(--green); font-weight: bold; flex-shrink: 0; }
-    .requirement-item.unmet::before { content: "○"; color: var(--text3); flex-shrink: 0; }
-
-    /* Hints */
-    .hints-toggle {
-        background: rgba(59,130,246,0.1); border: 1px solid var(--blue);
-        border-radius: 10px; padding: 12px; cursor: pointer;
-        display: flex; justify-content: space-between; align-items: center;
-        color: var(--blue); font-size: 13px; font-weight: 500;
-    }
-    .hints-toggle:hover { background: rgba(59,130,246,0.15); }
-    .hints-content { display: none; padding: 12px; background: rgba(59,130,246,0.05); border-radius: 0 0 10px 10px; margin-top: -1px; }
-    .hints-content.show { display: block; }
-    .hint-item { color: var(--text2); font-size: 14px; margin-bottom: 8px; padding-left: 24px; position: relative; line-height: 1.5; }
-    .hint-item::before { content: "💡"; position: absolute; left: 0; }
-    .hint-item * {
-        font-size: inherit !important;
-        font-family: inherit !important;
-        font-weight: inherit !important;
-        line-height: inherit !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        display: inline !important;
-        background: none !important;
-        border: none !important;
-    }
-    .hint-item code,
-    .hint-item pre {
-        font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace !important;
-        background: rgba(59,130,246,0.15) !important;
-        padding: 2px 6px !important;
-        border-radius: 4px !important;
-        font-size: 13px !important;
-        color: var(--blue) !important;
-    }
-
-    /* Input Section */
-    .input-section {
-        padding: 16px 20px;
-        background: var(--bg3);
-        border-top: 1px solid var(--border);
-        flex-shrink: 0;
-    }
-    .input-label { font-size: 14px; font-weight: 600; margin-bottom: 10px; color: var(--text1); }
-    .prompt-input {
-        width: 100%; min-height: 80px; padding: 14px;
-        background: var(--card-bg); border: 2px solid var(--border);
-        border-radius: 12px; color: var(--text); font-family: inherit; font-size: 14px;
-        resize: none; transition: all 0.3s;
-    }
-    .prompt-input:focus { outline: none; border-color: var(--purple); box-shadow: 0 0 20px rgba(239,68,68,0.2); }
-    .prompt-input::placeholder { color: var(--text3); }
-    
-    .btn-row { display: flex; gap: 10px; margin-top: 12px; }
-    .btn-submit {
-        flex: 1; padding: 14px;
-        background: linear-gradient(135deg, var(--green), #16a34a);
-        border: none; border-radius: 10px; color: white;
-        font-size: 15px; font-weight: 600; cursor: pointer;
-        display: flex; align-items: center; justify-content: center; gap: 8px;
-        transition: all 0.3s;
-    }
-    .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(22,163,74,0.4); }
-    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-    
-    .btn-retry {
-        flex: 1; padding: 14px;
-        background: linear-gradient(135deg, var(--orange), #d97706);
-        border: none; border-radius: 10px; color: white;
-        font-size: 15px; font-weight: 600; cursor: pointer;
-        display: none; align-items: center; justify-content: center; gap: 8px;
-        transition: all 0.3s;
-    }
-    .btn-retry:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(234,88,12,0.4); }
-    .btn-retry.show { display: flex; }
-    
-    .btn-new {
-        padding: 14px 20px;
-        background: var(--purple-light); border: 1px solid var(--purple);
-        border-radius: 10px; color: var(--purple);
-        font-size: 14px; cursor: pointer;
-    }
-    .btn-new:hover { background: var(--purple); color: white; }
-
-    /* Right Panel - Preview */
-    .right-panel {
-        display: flex; flex-direction: column;
-        background: var(--bg);
-    }
-
-    /* Score Bar */
-    .score-bar {
-        padding: 12px 20px;
-        background: var(--bg2);
-        border-bottom: 1px solid var(--border);
-        display: flex; justify-content: space-between; align-items: center;
-    }
-    .score-label { font-size: 13px; color: var(--text3); }
-    .score-display { display: flex; align-items: center; gap: 12px; }
-    .score-percent { font-size: 24px; font-weight: 700; color: var(--text3); }
-    .score-percent.low { color: var(--red); }
-    .score-percent.mid { color: var(--orange); }
-    .score-percent.high { color: var(--green); }
-    .score-percent.perfect { color: var(--cyan); text-shadow: 0 0 20px rgba(8,145,178,0.5); }
-    .score-bar-visual { width: 150px; height: 8px; background: var(--border); border-radius: 10px; overflow: hidden; }
-    .score-bar-fill { height: 100%; border-radius: 10px; transition: all 0.5s; background: var(--text3); }
-
-    /* Preview Area */
-    .preview-area { flex: 1; position: relative; padding: 16px; overflow: hidden; }
-    
-    .preview-placeholder {
-        height: 100%;
-        display: flex; flex-direction: column;
-        align-items: center; justify-content: center;
-        text-align: center; color: var(--text3);
-    }
-    .preview-placeholder-icon { font-size: 80px; margin-bottom: 16px; opacity: 0.3; }
-    .preview-placeholder-text { font-size: 18px; margin-bottom: 8px; }
-    .preview-placeholder-sub { font-size: 14px; }
-    
-    .preview-frame {
-        display: none;
-        width: 100%; height: 100%;
-        background: white; border-radius: 12px;
-        overflow: hidden; box-shadow: 0 20px 60px var(--shadow);
-    }
-    .preview-frame.show { display: block; }
-    .preview-frame iframe { width: 100%; height: 100%; border: none; }
-
-    /* Feedback Section */
-    .feedback-section {
-        padding: 16px 20px;
-        background: var(--bg2);
-        border-top: 1px solid var(--border);
-        display: none; max-height: 200px; overflow-y: auto;
-    }
-    .feedback-section.show { display: block; }
-    
-    .feedback-message {
-        padding: 12px; border-radius: 10px; margin-bottom: 12px;
-        font-size: 14px; font-weight: 500;
-    }
-    .feedback-message.success { background: var(--green-light); border: 1px solid var(--green); color: var(--green); }
-    .feedback-message.partial { background: var(--yellow-light); border: 1px solid var(--yellow); color: var(--yellow); }
-    .feedback-message.fail { background: var(--red-light); border: 1px solid var(--red); color: var(--red); }
-    
-    .suggestions-box { background: var(--glass); border-radius: 10px; padding: 12px; border: 1px solid var(--border); }
-    .suggestions-title { font-size: 12px; color: var(--text3); margin-bottom: 8px; }
-    .suggestion-item {
-        display: flex; align-items: flex-start; gap: 8px;
-        padding: 8px; margin-bottom: 6px;
-        background: var(--purple-light); border-radius: 8px;
-        font-size: 13px; color: var(--text);
-        cursor: pointer; transition: all 0.2s;
-    }
-    .suggestion-item:hover { background: var(--purple); color: white; }
-    .suggestion-item i { color: var(--purple); margin-top: 2px; }
-    .suggestion-item:hover i { color: white; }
-
-    /* Loading States */
-    .loading-overlay {
-        position: absolute; inset: 0;
-        background: rgba(0,0,0,0.7);
-        display: none; align-items: center; justify-content: center;
-        flex-direction: column; gap: 16px; z-index: 10;
-    }
-    .loading-overlay.show { display: flex; }
-    .spinner {
-        width: 50px; height: 50px;
-        border: 4px solid var(--border);
-        border-top-color: var(--purple);
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .loading-text { color: white; font-size: 14px; }
-
-    /* Level Up Modal */
-    .modal-overlay {
-        position: fixed; inset: 0;
-        background: rgba(0,0,0,0.8);
-        display: none; align-items: center; justify-content: center;
-        z-index: 1000;
-    }
-    .modal-overlay.show { display: flex; }
-    .modal-box {
-        background: var(--card-bg);
-        border: 2px solid var(--purple);
-        border-radius: 24px; padding: 40px;
-        text-align: center; max-width: 400px;
-        animation: popIn 0.3s ease;
-        box-shadow: 0 20px 60px var(--shadow);
-    }
-    @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-    .modal-emoji { font-size: 64px; margin-bottom: 16px; }
-    .modal-title { font-size: 28px; font-weight: 700; margin-bottom: 8px; color: var(--purple); }
-    .modal-text { font-size: 16px; color: var(--text2); margin-bottom: 24px; }
-    .modal-btn {
-        padding: 14px 32px;
-        background: var(--primary);
-        border: none; border-radius: 12px; color: white;
-        font-size: 16px; font-weight: 600; cursor: pointer;
-    }
-
-    /* API Key Notice */
-    /* API Key Modal */
-    .api-key-overlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.85);
-        backdrop-filter: blur(8px);
-        z-index: 2000;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-        overflow-y: auto;
-    }
-    .api-key-overlay.show { display: flex; }
-    .api-key-modal {
-        background: var(--card-bg);
-        border-radius: 24px;
-        max-width: 600px;
-        width: 100%;
-        max-height: 90vh;
-        overflow-y: auto;
-        box-shadow: 0 25px 80px rgba(0,0,0,0.5);
-    }
-    .api-key-header {
-        padding: 30px 30px 20px;
-        text-align: center;
-        border-bottom: 1px solid var(--border);
-    }
-    .api-key-icon {
-        font-size: 48px;
-        margin-bottom: 16px;
-    }
-    .api-key-header h2 {
-        font-size: 24px;
-        color: var(--text1);
-        margin-bottom: 8px;
-    }
-    .api-key-header p {
-        color: var(--text2);
-        font-size: 15px;
-    }
-    .api-key-body {
-        padding: 30px;
-    }
-    .api-info-block {
-        background: var(--bg2);
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 20px;
-        margin-bottom: 20px;
-    }
-    .api-info-block h4 {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 16px;
-        color: var(--text1);
-        margin-bottom: 12px;
-    }
-    .api-info-block h4 i {
-        color: var(--purple);
-    }
-    .api-info-block p {
-        color: var(--text2);
-        font-size: 14px;
-        line-height: 1.6;
-        margin-bottom: 12px;
-    }
-    .api-info-block p:last-child {
-        margin-bottom: 0;
-    }
-    .api-info-block.security {
-        border-color: var(--green);
-        background: var(--green-light);
-    }
-    .api-info-block.security h4 i {
-        color: var(--green);
-    }
-    .api-info-block ol {
-        margin: 0;
-        padding-left: 20px;
-        color: var(--text2);
-        font-size: 14px;
-        line-height: 1.8;
-    }
-    .api-info-block ol li {
-        margin-bottom: 8px;
-    }
-    .api-info-block a {
-        color: var(--purple);
-        font-weight: 600;
-    }
-    .api-key-form {
-        margin-top: 24px;
-    }
-    .api-key-form label {
-        display: block;
-        font-size: 14px;
-        color: var(--text2);
-        margin-bottom: 8px;
-    }
-    .api-key-form input {
-        width: 100%;
-        padding: 14px 16px;
-        background: var(--bg2);
-        border: 2px solid var(--border);
-        border-radius: 12px;
-        font-size: 16px;
-        color: var(--text1);
-        margin-bottom: 16px;
-    }
-    .api-key-form input:focus {
-        outline: none;
-        border-color: var(--purple);
-    }
-    .api-key-form .submit-btn {
-        width: 100%;
         padding: 16px;
-        background: linear-gradient(135deg, var(--green), #16a34a);
-        border: none;
-        border-radius: 12px;
-        color: white;
-        font-size: 16px;
-        font-weight: 600;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        transition: all 0.3s;
     }
-    .api-key-form .submit-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 30px rgba(34,197,94,0.3);
+    .client-avatar {
+        font-size: 28px;
     }
-    .api-key-error {
-        color: var(--red);
-        font-size: 14px;
-        margin-top: 12px;
-        display: none;
+    .btn-row {
+        flex-direction: column;
     }
-    .api-key-error.show {
-        display: block;
-    }
-
-    /* Hide old api-notice */
-    .api-notice { display: none !important; }
-
-    /* Responsive */
-    @media (max-width: 1024px) {
-        .studio-header-inner {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 12px;
-        }
-        .stats-bar {
-            width: 100%;
-            justify-content: space-between;
-        }
-    }
-
-    @media (max-width: 900px) {
-        .studio-main {
-            grid-template-columns: 1fr;
-            height: auto;
-            min-height: calc(100vh - 120px);
-        }
-        .left-panel {
-            border-right: none;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            max-height: none;
-        }
-        .right-panel {
-            min-height: 60vh;
-        }
-        .assignment-section {
-            padding: 16px;
-        }
-        .prompt-section {
-            padding: 16px;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .studio-header {
-            padding: 10px 0;
-            top: 70px;
-        }
-        .studio-title {
-            font-size: 18px;
-        }
-        .stats-bar {
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        .level-display {
-            padding: 6px 12px;
-        }
-        .level-num {
-            font-size: 14px;
-        }
-        .xp-display {
-            font-size: 14px;
-        }
-        .xp-bar {
-            width: 80px;
-        }
-        .assignment-card {
-            padding: 16px;
-        }
-        .client-avatar {
-            font-size: 28px;
-        }
-        .client-name {
-            font-size: 16px;
-        }
-        .scenario-text {
-            font-size: 14px;
-        }
-        .task-box {
-            padding: 12px;
-        }
-        .task-text {
-            font-size: 13px;
-        }
-        .requirement-item {
-            font-size: 12px;
-            padding: 6px 10px;
-        }
-        .right-panel {
-            min-height: 50vh;
-        }
-        .preview-header {
-            padding: 12px;
-        }
-        .score-panel {
-            padding: 12px;
-        }
-        .score-value {
-            font-size: 42px;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .studio-header {
-            top: 65px;
-        }
-        .studio-header-inner {
-            gap: 8px;
-        }
-        .studio-title {
-            font-size: 16px;
-        }
-        .studio-title span {
-            font-size: 16px;
-        }
-        .stats-bar {
-            gap: 8px;
-        }
-        .level-display {
-            padding: 5px 10px;
-            gap: 6px;
-        }
-        .level-num {
-            font-size: 13px;
-        }
-        .level-name {
-            display: none;
-        }
-        .xp-display {
-            font-size: 13px;
-        }
-        .xp-bar {
-            width: 60px;
-            height: 4px;
-        }
-        .assignment-section,
-        .prompt-section {
-            padding: 12px;
-        }
-        .assignment-card {
-            padding: 14px;
-            border-radius: 12px;
-        }
-        .client-info {
-            gap: 10px;
-        }
-        .client-avatar {
-            font-size: 24px;
-        }
-        .client-name {
-            font-size: 15px;
-        }
-        .scenario-text {
-            font-size: 13px;
-            line-height: 1.5;
-        }
-        .task-label {
-            font-size: 10px;
-        }
-        .task-text {
-            font-size: 12px;
-        }
-        .prompt-label {
-            font-size: 13px;
-        }
-        .prompt-textarea {
-            font-size: 14px;
-            padding: 12px;
-            min-height: 100px;
-        }
-        .prompt-actions {
-            flex-direction: column;
-        }
-        .prompt-actions button {
-            width: 100%;
-            justify-content: center;
-        }
-        .preview-placeholder {
-            font-size: 14px;
-        }
-        .preview-placeholder .icon {
-            font-size: 40px;
-        }
-        .api-notice {
-            flex-direction: column;
-            text-align: center;
-            padding: 12px;
-            gap: 8px;
-        }
-        .api-notice button {
-            width: 100%;
-        }
-    }
+}
 </style>
 {% endblock %}
 
 {% block content %}
-<!-- API Key Modal -->
-<div class="api-key-overlay" id="apiKeyOverlay">
-    <div class="api-key-modal">
-        <div class="api-key-header">
-            <div class="api-key-icon">🔑</div>
-            <h2>OpenAI API Key Nodig</h2>
-            <p>Om de leeromgeving te gebruiken heb je een API key van OpenAI nodig.</p>
-        </div>
-        <div class="api-key-body">
-            <div class="api-info-block">
-                <h4><i class="fas fa-question-circle"></i> Wat is een API key?</h4>
-                <p>Een API key is een persoonlijke sleutel waarmee jij toegang krijgt tot de AI van OpenAI (dezelfde technologie achter ChatGPT). Het is als een wachtwoord dat alleen jij hebt.</p>
-            </div>
-            
-            <div class="api-info-block">
-                <h4><i class="fas fa-lightbulb"></i> Waarom heb ik dit nodig?</h4>
-                <p>De leeromgeving gebruikt AI om je opdrachten te genereren en feedback te geven op je werk. Hiervoor hebben we toegang tot OpenAI nodig via jouw eigen key.</p>
-                <p>Op deze manier betaal je alleen voor je eigen gebruik en hebben wij geen controle over je account.</p>
-            </div>
-            
-            <div class="api-info-block security">
-                <h4><i class="fas fa-shield-alt"></i> Veiligheid & Privacy</h4>
-                <p><strong>Wij slaan jouw API key NIET op onze servers op.</strong></p>
-                <p>Je key wordt alleen lokaal in je browser opgeslagen en direct naar OpenAI gestuurd. Wij hebben geen inzicht in je key, je verbruik, of je OpenAI account. Zodra je je browser sluit of de key verwijdert, is deze volledig weg.</p>
-            </div>
-            
-            <div class="api-info-block">
-                <h4><i class="fas fa-key"></i> Hoe krijg ik een API key?</h4>
-                <ol>
-                    <li>Ga naar <a href="https://platform.openai.com/api-keys" target="_blank">platform.openai.com/api-keys</a></li>
-                    <li>Maak een account aan of log in</li>
-                    <li>Klik op <strong>"Create new secret key"</strong></li>
-                    <li>Kopieer de key (begint met <code>sk-</code>)</li>
-                    <li>Plak hem hieronder</li>
-                </ol>
-                <p style="margin-top: 12px; font-size: 13px; color: var(--text3);">💡 Nieuwe gebruikers krijgen vaak gratis tegoed van OpenAI om te starten.</p>
-            </div>
-            
-            <div class="api-key-form">
-                <label for="apiKeyInput">Jouw API Key</label>
-                <input type="password" id="apiKeyInput" placeholder="sk-..." autocomplete="off">
-                <button class="submit-btn" onclick="submitApiKey()">
-                    <i class="fas fa-check"></i> Activeren en Starten
-                </button>
-                <div class="api-key-error" id="apiKeyError">
-                    <i class="fas fa-exclamation-circle"></i> <span id="apiKeyErrorText">Ongeldige API key</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Old API Notice (hidden, kept for backwards compatibility) -->
-<div class="api-notice" id="apiNotice">
-    <i class="fas fa-key"></i>
-    <span>Voer eerst je OpenAI API key in om te beginnen</span>
-    <button onclick="openApiKeyModal()">API Key Invoeren</button>
-</div>
-
-<!-- Header -->
-<header class="studio-header">
+<!-- Studio Header -->
+<div class="studio-header">
     <div class="container">
         <div class="studio-header-inner">
             <div class="studio-title">
-                <span>🎬 Oefenruimte</span>
+                🧪 <span>Oefenruimte</span>
             </div>
             <div class="stats-bar">
                 <div class="level-display">
-                    <span class="level-num">Level <span id="currentLevel">1</span></span>
+                    <span class="level-num" id="currentLevel">1</span>
                     <span class="level-name" id="levelName">HTML Basics</span>
                 </div>
-                <div class="xp-display"><span id="totalXp">0</span> XP</div>
-                <div class="xp-bar"><div class="xp-fill" id="xpFill" style="width: 0%"></div></div>
+                <div class="xp-display">
+                    <span id="currentXP">0</span> XP
+                </div>
+                <div class="xp-bar">
+                    <div class="xp-fill" id="xpFill" style="width: 0%"></div>
+                </div>
             </div>
         </div>
     </div>
-</header>
+</div>
 
 <!-- Main Studio -->
-<main class="studio-main">
-    <!-- Left: Assignment & Input -->
+<div class="studio-main">
+    <!-- Left Panel -->
     <div class="left-panel">
-        <div class="assignment-section" id="assignmentSection">
+        <div class="assignment-section">
+            <!-- API Key Notice -->
+            <div class="api-notice" id="apiNotice">
+                <h3>🔑 API Key Vereist</h3>
+                <p>Je hebt een OpenAI API key nodig om de oefenruimte te gebruiken.</p>
+                <button class="btn" onclick="openApiKeyModal()">API Key Instellen</button>
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <div class="icon">🎯</div>
+                <h3>Klaar om te beginnen?</h3>
+                <p>Klik op de knop om je eerste opdracht te ontvangen.</p>
+                <button class="btn btn-primary" onclick="generateAssignment()" style="padding: 14px 28px; background: var(--primary); color: white; border: none; font-size: 15px; font-weight: 600; cursor: pointer;">
+                    <i class="fas fa-play"></i> Start Opdracht
+                </button>
+            </div>
+
             <!-- Assignment Card -->
-            <div class="assignment-card" id="assignmentCard">
+            <div class="assignment-card" id="assignmentCard" style="display: none;">
                 <div class="assignment-header">
                     <span class="assignment-level" id="assignmentLevel">Level 1</span>
+                    <span id="assignmentXP" style="color: var(--yellow); font-weight: 600;">+30 XP</span>
                 </div>
+                
                 <div class="client-info">
-                    <span class="client-avatar" id="clientEmoji">🏪</span>
-                    <span class="client-name" id="clientName">Laden...</span>
+                    <span class="client-avatar" id="clientEmoji">👩‍💼</span>
+                    <span class="client-name" id="clientName">Klant</span>
                 </div>
-                <p class="scenario-text" id="scenarioText">Je opdracht wordt gegenereerd...</p>
+                
+                <p class="scenario-text" id="scenarioText">Laadt...</p>
                 
                 <div class="task-box">
-                    <div class="task-label">✅ Jouw Opdracht</div>
-                    <div class="task-text" id="taskText">Even geduld...</div>
+                    <div class="task-label">📋 Opdracht</div>
+                    <div class="task-text" id="taskText">Laadt...</div>
                 </div>
-
-                <div class="requirements-box" id="requirementsBox">
-                    <div class="requirements-title"><i class="fas fa-list-check"></i> Requirements</div>
+                
+                <div class="requirements-box">
+                    <div class="requirements-title"><i class="fas fa-check-circle"></i> Vereisten</div>
                     <div id="requirementsList"></div>
                 </div>
-
+                
                 <div class="hints-toggle" onclick="toggleHints()">
-                    <span><i class="fas fa-lightbulb"></i> Tips nodig?</span>
+                    <span>💡 Tips bekijken</span>
                     <i class="fas fa-chevron-down" id="hintsIcon"></i>
                 </div>
                 <div class="hints-content" id="hintsContent"></div>
             </div>
 
-            <!-- Loading for assignment -->
+            <!-- Loading -->
             <div class="loading-overlay" id="assignmentLoading">
                 <div class="spinner"></div>
                 <div class="loading-text">Opdracht genereren...</div>
@@ -805,71 +766,60 @@
 
         <!-- Input Section -->
         <div class="input-section">
-            <div class="input-label">💬 Vertel de AI wat je wilt bouwen:</div>
-            <textarea class="prompt-input" id="promptInput" placeholder="Beschrijf zo specifiek mogelijk wat je wilt. Denk aan: structuur, kleuren, functionaliteit, teksten..."></textarea>
+            <div class="input-label">✍️ Beschrijf wat je wilt bouwen</div>
+            <textarea class="prompt-input" id="promptInput" placeholder="Beschrijf in je eigen woorden wat de website moet doen en hoe het eruit moet zien..."></textarea>
             <div class="btn-row">
-                <button class="btn-submit" id="submitBtn" onclick="submitPrompt()">
-                    <i class="fas fa-wand-magic-sparkles"></i> Genereer!
+                <button class="btn-submit" id="submitBtn" onclick="submitPrompt()" disabled>
+                    <i class="fas fa-magic"></i> Genereer Code
                 </button>
-                <button class="btn-retry" id="retryBtn" onclick="retryPrompt()">
-                    <i class="fas fa-redo"></i> Opnieuw Proberen
-                </button>
-                <button class="btn-new" onclick="newAssignment()">
-                    <i class="fas fa-forward"></i> Volgende Opdracht
+                <button class="btn-new" onclick="generateAssignment()">
+                    <i class="fas fa-sync"></i> Nieuwe Opdracht
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Right: Preview -->
+    <!-- Right Panel -->
     <div class="right-panel">
-        <!-- Score Bar -->
         <div class="score-bar">
             <span class="score-label">Score</span>
             <div class="score-display">
-                <span class="score-percent" id="scorePercent">--%</span>
+                <span class="score-percent" id="scorePercent">-</span>
                 <div class="score-bar-visual">
-                    <div class="score-bar-fill" id="scoreFill" style="width: 0%;"></div>
+                    <div class="score-bar-fill" id="scoreFill" style="width: 0%"></div>
                 </div>
             </div>
         </div>
 
-        <!-- Preview Area -->
         <div class="preview-area">
             <div class="preview-placeholder" id="previewPlaceholder">
-                <div class="preview-placeholder-icon">🖼️</div>
-                <div class="preview-placeholder-text">Hier verschijnt je creatie</div>
-                <div class="preview-placeholder-sub">Schrijf je prompt en klik op "Genereer!"</div>
+                <div class="preview-placeholder-icon">👁️</div>
+                <div class="preview-placeholder-text">Preview</div>
+                <div class="preview-placeholder-sub">Je code verschijnt hier</div>
             </div>
-            
             <div class="preview-frame" id="previewFrame">
                 <iframe id="previewIframe"></iframe>
             </div>
 
-            <div class="loading-overlay" id="previewLoading">
+            <div class="loading-overlay" id="codeLoading">
                 <div class="spinner"></div>
-                <div class="loading-text">Code genereren & evalueren...</div>
+                <div class="loading-text">Code genereren...</div>
             </div>
         </div>
 
-        <!-- Feedback Section -->
         <div class="feedback-section" id="feedbackSection">
             <div class="feedback-message" id="feedbackMessage"></div>
-            <div class="suggestions-box" id="suggestionsBox">
-                <div class="suggestions-title">💡 Verbeter je prompt:</div>
-                <div id="suggestionsList"></div>
-            </div>
         </div>
     </div>
-</main>
+</div>
 
 <!-- Level Up Modal -->
-<div class="modal-overlay" id="levelUpModal">
-    <div class="modal-box">
-        <div class="modal-emoji">🎉</div>
-        <div class="modal-title">Level Up!</div>
-        <div class="modal-text" id="levelUpText">Je hebt level 2 bereikt: Styling</div>
-        <button class="modal-btn" onclick="closeLevelUpModal()">Doorgaan</button>
+<div class="levelup-modal" id="levelupModal">
+    <div class="levelup-box">
+        <div class="levelup-emoji">🎉</div>
+        <div class="levelup-title">Level Up!</div>
+        <div class="levelup-text" id="levelupText">Je bent nu Level 2!</div>
+        <button class="levelup-btn" onclick="closeLevelUp()">Doorgaan</button>
     </div>
 </div>
 {% endblock %}
@@ -877,147 +827,161 @@
 {% block extra_js %}
 <script>
 // State
-let apiKey = localStorage.getItem('openai_key') || '';
-let currentLevel = parseInt(localStorage.getItem('vibe_level') || '1');
-let totalXp = parseInt(localStorage.getItem('vibe_xp') || '0');
-let completedAssignments = JSON.parse(localStorage.getItem('vibe_completed') || '[]');
 let currentAssignment = null;
-let currentBestScore = 0; // Track best score for current assignment
-let hasEarnedXpThisAssignment = false;
+let apiKey = null;
+let stats = {
+    level: 1,
+    xp: 0,
+    completed: []
+};
 
 // Level thresholds
-const levelThresholds = [0, 50, 150, 300, 500, 750, 1000, 1500, 2500];
-const levelNames = ['', 'HTML Basics', 'Styling', 'Interactie', 'Formulieren', 'AI Tekst', 'AI Chat', 'AI Tools', 'AI Apps'];
+const LEVELS = [
+    { level: 1, name: "HTML Basics", minXP: 0 },
+    { level: 2, name: "Styling", minXP: 50 },
+    { level: 3, name: "Interactie", minXP: 150 },
+    { level: 4, name: "Formulieren", minXP: 300 },
+    { level: 5, name: "AI Tekst", minXP: 500 },
+    { level: 6, name: "AI Chat", minXP: 750 },
+    { level: 7, name: "AI Tools", minXP: 1000 },
+    { level: 8, name: "AI Apps", minXP: 1500 }
+];
 
 // Init
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    loadStats();
     updateUI();
-    
-    if (!apiKey) {
-        document.getElementById('apiKeyOverlay').classList.add('show');
-    } else {
-        loadAssignment();
-    }
+    await checkApiKey();
 });
 
-function updateUI() {
-    document.getElementById('currentLevel').textContent = currentLevel;
-    document.getElementById('levelName').textContent = levelNames[currentLevel] || 'Master';
-    document.getElementById('totalXp').textContent = totalXp;
-    
-    // XP progress to next level
-    const currentThreshold = levelThresholds[currentLevel - 1] || 0;
-    const nextThreshold = levelThresholds[currentLevel] || levelThresholds[levelThresholds.length - 1];
-    const progress = ((totalXp - currentThreshold) / (nextThreshold - currentThreshold)) * 100;
-    document.getElementById('xpFill').style.width = Math.min(progress, 100) + '%';
-}
-
-function submitApiKey() {
-    const input = document.getElementById('apiKeyInput');
-    const key = input.value.trim();
-    const errorEl = document.getElementById('apiKeyError');
-    const errorText = document.getElementById('apiKeyErrorText');
-    
-    if (!key) {
-        errorText.textContent = 'Voer een API key in';
-        errorEl.classList.add('show');
-        return;
+// Load/Save stats
+function loadStats() {
+    const saved = localStorage.getItem('oefenruimte_stats');
+    if (saved) {
+        stats = JSON.parse(saved);
     }
-    
-    if (!key.startsWith('sk-')) {
-        errorText.textContent = 'API key moet beginnen met "sk-"';
-        errorEl.classList.add('show');
-        return;
-    }
-    
-    errorEl.classList.remove('show');
-    apiKey = key;
-    localStorage.setItem('openai_key', key);
-    document.getElementById('apiKeyOverlay').classList.remove('show');
-    loadAssignment();
 }
 
-function openApiKeyModal() {
-    document.getElementById('apiKeyOverlay').classList.add('show');
+function saveStats() {
+    localStorage.setItem('oefenruimte_stats', JSON.stringify(stats));
 }
 
-async function loadAssignment() {
-    document.getElementById('assignmentLoading').classList.add('show');
-    
+// Check API key
+async function checkApiKey() {
     try {
-        const response = await fetch('/api/generate-assignment', {
+        const res = await fetch('/api/get-key');
+        const data = await res.json();
+        if (data.has_key) {
+            apiKey = data.key;
+            document.getElementById('apiNotice').style.display = 'none';
+            document.getElementById('emptyState').style.display = 'block';
+            document.getElementById('submitBtn').disabled = false;
+        } else {
+            document.getElementById('apiNotice').style.display = 'block';
+            document.getElementById('emptyState').style.display = 'none';
+        }
+    } catch(e) {
+        console.error(e);
+    }
+}
+
+// Update UI
+function updateUI() {
+    // Calculate level
+    let currentLevel = LEVELS[0];
+    for (const level of LEVELS) {
+        if (stats.xp >= level.minXP) {
+            currentLevel = level;
+        }
+    }
+    stats.level = currentLevel.level;
+    
+    document.getElementById('currentLevel').textContent = stats.level;
+    document.getElementById('levelName').textContent = currentLevel.name;
+    document.getElementById('currentXP').textContent = stats.xp;
+    
+    // XP bar progress to next level
+    const nextLevel = LEVELS.find(l => l.minXP > stats.xp) || LEVELS[LEVELS.length - 1];
+    const prevLevel = LEVELS[Math.max(0, LEVELS.indexOf(nextLevel) - 1)];
+    const progress = ((stats.xp - prevLevel.minXP) / (nextLevel.minXP - prevLevel.minXP)) * 100;
+    document.getElementById('xpFill').style.width = Math.min(100, progress) + '%';
+}
+
+// Generate assignment
+async function generateAssignment() {
+    if (!apiKey) {
+        openApiKeyModal();
+        return;
+    }
+
+    document.getElementById('assignmentLoading').classList.add('show');
+    document.getElementById('emptyState').style.display = 'none';
+    document.getElementById('assignmentCard').style.display = 'none';
+
+    try {
+        const res = await fetch('/api/generate-assignment', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 api_key: apiKey,
-                level: currentLevel,
-                completed: completedAssignments
+                level: stats.level,
+                completed: stats.completed
             })
         });
         
-        const data = await response.json();
+        const data = await res.json();
         
-        if (data.success) {
+        if (data.success && data.assignment) {
             currentAssignment = data.assignment;
-            displayAssignment(currentAssignment);
+            displayAssignment(data.assignment);
         } else {
-            alert('Fout: ' + data.error);
+            showToast(data.error || 'Kon geen opdracht genereren', 'error');
+            document.getElementById('emptyState').style.display = 'block';
         }
-    } catch (e) {
-        alert('Verbindingsfout: ' + e.message);
-    } finally {
-        document.getElementById('assignmentLoading').classList.remove('show');
+    } catch(e) {
+        showToast('Fout bij genereren opdracht', 'error');
+        document.getElementById('emptyState').style.display = 'block';
     }
+
+    document.getElementById('assignmentLoading').classList.remove('show');
 }
 
+// Display assignment
 function displayAssignment(assignment) {
+    document.getElementById('assignmentCard').style.display = 'block';
     document.getElementById('assignmentLevel').textContent = `Level ${assignment.level} - ${assignment.level_name}`;
-    document.getElementById('assignmentLevel').classList.toggle('ai', assignment.ai_integration);
+    document.getElementById('assignmentLevel').className = assignment.ai_integration ? 'assignment-level ai' : 'assignment-level';
+    document.getElementById('assignmentXP').textContent = `+${assignment.base_xp} XP`;
+    
     document.getElementById('clientEmoji').textContent = assignment.client_emoji || '👤';
     document.getElementById('clientName').textContent = assignment.client_name || 'Klant';
-    document.getElementById('scenarioText').textContent = assignment.scenario;
-    document.getElementById('taskText').textContent = assignment.task;
-    
-    // Helper functie om HTML tags te highlighten (niet renderen)
-    function formatRequirement(text) {
-        // Escape HTML eerst
-        let escaped = text
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;');
-        // Highlight code/tags met styled spans
-        escaped = escaped.replace(/&lt;(\/?[a-zA-Z0-9]+)&gt;/g, '<code>&lt;$1&gt;</code>');
-        return escaped;
-    }
+    document.getElementById('scenarioText').textContent = assignment.scenario || '';
+    document.getElementById('taskText').textContent = assignment.task || '';
     
     // Requirements
     const reqList = document.getElementById('requirementsList');
     reqList.innerHTML = (assignment.requirements || []).map(req => 
-        `<div class="requirement-item unmet">${formatRequirement(req)}</div>`
+        `<div class="requirement-item unmet">${req}</div>`
     ).join('');
     
     // Hints
     const hintsContent = document.getElementById('hintsContent');
-    hintsContent.innerHTML = (assignment.hints || []).map(hint =>
-        `<div class="hint-item">${formatRequirement(hint)}</div>`
+    hintsContent.innerHTML = (assignment.hints || []).map(hint => 
+        `<div class="hint-item">${hint}</div>`
     ).join('');
     hintsContent.classList.remove('show');
     
-    // Reset UI
+    // Reset preview
     document.getElementById('previewPlaceholder').style.display = 'flex';
     document.getElementById('previewFrame').classList.remove('show');
     document.getElementById('feedbackSection').classList.remove('show');
-    document.getElementById('scorePercent').textContent = '--%';
+    document.getElementById('scorePercent').textContent = '-';
     document.getElementById('scorePercent').className = 'score-percent';
     document.getElementById('scoreFill').style.width = '0%';
     document.getElementById('promptInput').value = '';
-    document.getElementById('retryBtn').classList.remove('show');
-    
-    // Reset score tracking
-    currentBestScore = 0;
-    hasEarnedXpThisAssignment = false;
 }
 
+// Toggle hints
 function toggleHints() {
     const content = document.getElementById('hintsContent');
     const icon = document.getElementById('hintsIcon');
@@ -1025,20 +989,23 @@ function toggleHints() {
     icon.style.transform = content.classList.contains('show') ? 'rotate(180deg)' : '';
 }
 
+// Submit prompt
 async function submitPrompt() {
     const prompt = document.getElementById('promptInput').value.trim();
     if (!prompt) {
-        alert('Schrijf eerst een prompt!');
+        showToast('Voer eerst een beschrijving in', 'error');
         return;
     }
-    
-    const btn = document.getElementById('submitBtn');
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Genereren...';
-    document.getElementById('previewLoading').classList.add('show');
-    
+    if (!currentAssignment) {
+        showToast('Genereer eerst een opdracht', 'error');
+        return;
+    }
+
+    document.getElementById('codeLoading').classList.add('show');
+    document.getElementById('submitBtn').disabled = true;
+
     try {
-        const response = await fetch('/api/submit-prompt', {
+        const res = await fetch('/api/submit-prompt', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -1048,169 +1015,93 @@ async function submitPrompt() {
             })
         });
         
-        const data = await response.json();
+        const data = await res.json();
         
         if (data.success) {
             displayResult(data);
         } else {
-            alert('Fout: ' + data.error);
+            showToast(data.error || 'Fout bij genereren', 'error');
         }
-    } catch (e) {
-        alert('Verbindingsfout: ' + e.message);
-    } finally {
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fas fa-wand-magic-sparkles"></i> Genereer!';
-        document.getElementById('previewLoading').classList.remove('show');
+    } catch(e) {
+        showToast('Fout bij verzenden', 'error');
     }
+
+    document.getElementById('codeLoading').classList.remove('show');
+    document.getElementById('submitBtn').disabled = false;
 }
 
+// Display result
 function displayResult(data) {
     // Show preview
+    const iframe = document.getElementById('previewIframe');
+    const previewCode = data.code.replace('window.OPENAI_API_KEY', `'${apiKey}'`);
+    iframe.srcdoc = previewCode;
     document.getElementById('previewPlaceholder').style.display = 'none';
     document.getElementById('previewFrame').classList.add('show');
     
-    // Inject API key into iframe for AI-powered features
-    let code = data.code;
-    if (currentAssignment.ai_integration) {
-        code = code.replace(
-            '</head>',
-            `<script>window.OPENAI_API_KEY = "${apiKey}";<\/script></head>`
-        );
-    }
-    
-    document.getElementById('previewIframe').srcdoc = code;
-    
-    // Update score
+    // Score
     const score = data.evaluation?.score || 0;
     const scoreEl = document.getElementById('scorePercent');
     scoreEl.textContent = score + '%';
-    scoreEl.className = 'score-percent ' + (
-        score >= 100 ? 'perfect' :
-        score >= 80 ? 'high' :
-        score >= 50 ? 'mid' : 'low'
-    );
+    scoreEl.className = 'score-percent ' + (score >= 85 ? 'high' : score >= 50 ? 'mid' : 'low');
     
-    const fillEl = document.getElementById('scoreFill');
-    fillEl.style.width = score + '%';
-    fillEl.style.background = 
-        score >= 100 ? 'linear-gradient(90deg, #22d3ee, #10b981)' :
-        score >= 80 ? '#22c55e' :
-        score >= 50 ? '#f59e0b' : '#ef4444';
-    
-    // Update requirements checklist
-    const criteriaResults = data.evaluation?.criteria_results || {};
-    const reqItems = document.querySelectorAll('.requirement-item');
-    Object.entries(criteriaResults).forEach(([key, met]) => {
-        // Find matching requirement item
-        reqItems.forEach(item => {
-            if (met && item.textContent.toLowerCase().includes(key.toLowerCase())) {
-                item.classList.remove('unmet');
-                item.classList.add('met');
-            }
-        });
-    });
+    document.getElementById('scoreFill').style.width = score + '%';
+    document.getElementById('scoreFill').style.background = score >= 85 ? 'var(--green)' : score >= 50 ? 'var(--yellow)' : 'var(--red)';
     
     // Feedback
     const feedbackSection = document.getElementById('feedbackSection');
     const feedbackMessage = document.getElementById('feedbackMessage');
-    
     feedbackSection.classList.add('show');
     
-    let feedbackText = data.evaluation?.feedback || 'Resultaat gegenereerd';
-    if (score >= 100) {
-        feedbackText = '🎉 Perfect! ' + feedbackText;
-    } else if (score >= 85) {
-        feedbackText = '👍 Uitstekend! ' + feedbackText + ' (+XP)';
-    } else if (score >= 70) {
-        feedbackText = '✅ Goed! ' + feedbackText + ' (+XP) — Wil je nog verbeteren?';
-    } else if (score >= 50) {
-        feedbackText = '😊 Op de goede weg! ' + feedbackText + ' — Nog even doorwerken!';
-    } else {
-        feedbackText = '💪 ' + feedbackText + ' — Pas je prompt aan!';
-    }
-    
-    feedbackMessage.textContent = feedbackText;
-    feedbackMessage.className = 'feedback-message ' + (
-        score >= 85 ? 'success' :
-        score >= 70 ? 'success' :
-        score >= 50 ? 'partial' : 'fail'
-    );
-    
-    // Suggestions
-    const suggestionsList = document.getElementById('suggestionsList');
-    const suggestions = data.evaluation?.suggestions || [];
-    const missing = data.evaluation?.missing || [];
-    
-    if (suggestions.length || missing.length) {
-        document.getElementById('suggestionsBox').style.display = 'block';
-        suggestionsList.innerHTML = [
-            ...missing.map(m => `<div class="suggestion-item"><i class="fas fa-exclamation-circle"></i> Mist: ${m}</div>`),
-            ...suggestions.map(s => `<div class="suggestion-item" onclick="addToPrompt(this.dataset.text)" data-text="${s.replace(/"/g, '&quot;')}"><i class="fas fa-plus"></i> ${s}</div>`)
-        ].join('');
-    } else {
-        document.getElementById('suggestionsBox').style.display = 'none';
-    }
-    
-    // XP - meer XP bij hogere scores (70%+)
-    if (score > currentBestScore) {
-        currentBestScore = score;
+    if (score >= 85) {
+        feedbackMessage.className = 'feedback-message success';
+        feedbackMessage.innerHTML = `<i class="fas fa-check-circle"></i> Uitstekend! ${data.evaluation?.feedback || ''}`;
         
-        // XP bij 70% of hoger
-        if (score >= 70 && !hasEarnedXpThisAssignment) {
-            totalXp += data.xp_earned;
-            localStorage.setItem('vibe_xp', totalXp);
-            hasEarnedXpThisAssignment = true;
+        // Add XP
+        if (data.xp_earned > 0) {
+            const oldLevel = stats.level;
+            stats.xp += data.xp_earned;
+            stats.completed.push(currentAssignment.title);
+            saveStats();
+            updateUI();
             
-            if (score >= 100) {
-                completedAssignments.push(currentAssignment.title);
-                localStorage.setItem('vibe_completed', JSON.stringify(completedAssignments));
+            showToast(`+${data.xp_earned} XP verdiend!`, 'success');
+            
+            // Check level up
+            if (stats.level > oldLevel) {
+                setTimeout(() => {
+                    document.getElementById('levelupText').textContent = `Je bent nu Level ${stats.level}!`;
+                    document.getElementById('levelupModal').classList.add('show');
+                }, 500);
             }
-            
-            checkLevelUp();
         }
-        updateUI();
+    } else if (score >= 50) {
+        feedbackMessage.className = 'feedback-message partial';
+        feedbackMessage.innerHTML = `<i class="fas fa-exclamation-circle"></i> Bijna! ${data.evaluation?.feedback || 'Probeer specifieker te zijn.'}`;
+    } else {
+        feedbackMessage.className = 'feedback-message fail';
+        feedbackMessage.innerHTML = `<i class="fas fa-times-circle"></i> Nog niet helemaal. ${data.evaluation?.feedback || 'Lees de vereisten goed door.'}`;
     }
     
-    // Show/hide retry button - altijd tonen behalve bij 100%
-    if (score < 100) {
-        document.getElementById('retryBtn').classList.add('show');
-    } else {
-        document.getElementById('retryBtn').classList.remove('show');
-    }
+    // Update requirements
+    const criteria = data.evaluation?.criteria_results || {};
+    document.querySelectorAll('.requirement-item').forEach((el, i) => {
+        const key = currentAssignment.success_criteria?.[i];
+        if (key && criteria[key]) {
+            el.classList.add('met');
+            el.classList.remove('unmet');
+        }
+    });
 }
 
-function addToPrompt(text) {
-    const input = document.getElementById('promptInput');
-    input.value += (input.value ? '\n' : '') + text;
-    input.focus();
+// Close level up modal
+function closeLevelUp() {
+    document.getElementById('levelupModal').classList.remove('show');
 }
 
-function retryPrompt() {
-    // Focus op het prompt input veld zodat gebruiker kan aanpassen
-    document.getElementById('promptInput').focus();
-    document.getElementById('promptInput').scrollIntoView({ behavior: 'smooth' });
-}
-
-function checkLevelUp() {
-    const nextThreshold = levelThresholds[currentLevel];
-    if (nextThreshold && totalXp >= nextThreshold && currentLevel < 8) {
-        currentLevel++;
-        localStorage.setItem('vibe_level', currentLevel);
-        
-        document.getElementById('levelUpText').textContent = 
-            `Je hebt Level ${currentLevel} bereikt: ${levelNames[currentLevel]}!`;
-        document.getElementById('levelUpModal').classList.add('show');
-    }
-}
-
-function closeLevelUpModal() {
-    document.getElementById('levelUpModal').classList.remove('show');
-    updateUI();
-    // NIET automatisch nieuwe opdracht laden - gebruiker beslist zelf
-}
-
-function newAssignment() {
-    loadAssignment();
-}
+// Enable submit when typing
+document.getElementById('promptInput').addEventListener('input', function() {
+    document.getElementById('submitBtn').disabled = !this.value.trim() || !apiKey;
+});
 </script>
 {% endblock %}
