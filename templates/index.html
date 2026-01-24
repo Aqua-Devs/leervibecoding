@@ -312,6 +312,124 @@
         color: var(--green);
     }
 
+    /* ========== TRY IT SECTION ========== */
+    .try-section {
+        padding: 100px 0;
+        background: var(--bg2);
+    }
+    .try-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+    }
+    .try-text h2 {
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--text1);
+        margin-bottom: 16px;
+    }
+    .try-text p {
+        font-size: 17px;
+        color: var(--text2);
+        line-height: 1.7;
+        margin-bottom: 24px;
+    }
+    .try-features {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 32px;
+    }
+    .try-feature {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 15px;
+        color: var(--text2);
+    }
+    .try-feature i {
+        color: var(--green);
+        width: 20px;
+    }
+    .btn-try {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 18px 36px;
+        background: linear-gradient(135deg, var(--green), #16a34a);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 17px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-decoration: none;
+    }
+    .btn-try:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 35px rgba(34,197,94,0.3);
+    }
+    .try-demo {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 20px 50px var(--shadow);
+    }
+    .try-demo .demo-header {
+        background: var(--bg2);
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        border-bottom: 1px solid var(--border);
+    }
+    .try-demo .demo-header .demo-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+    }
+    .try-demo .demo-header span {
+        margin-left: auto;
+        font-size: 12px;
+        color: var(--text3);
+    }
+    .try-demo .demo-body {
+        padding: 24px;
+        font-family: 'Courier New', monospace;
+        font-size: 14px;
+    }
+    .try-demo .demo-line {
+        color: var(--text2);
+        margin-bottom: 16px;
+    }
+    .try-demo .demo-line .prompt {
+        color: var(--green);
+        margin-right: 8px;
+    }
+    .try-demo .demo-response {
+        color: var(--purple);
+        margin-bottom: 16px;
+        padding: 12px;
+        background: var(--purple-light);
+        border-radius: 8px;
+    }
+    .try-demo .demo-response i {
+        margin-right: 8px;
+    }
+    .try-demo .demo-result {
+        color: var(--green);
+        padding: 12px;
+        background: var(--green-light);
+        border-radius: 8px;
+    }
+    @keyframes typing {
+        from { width: 0; }
+        to { width: 100%; }
+    }
+
     /* ========== WHAT YOU GET SECTION ========== */
     .offer-section {
         padding: 100px 0;
@@ -753,7 +871,8 @@
         .problem-grid,
         .audience-grid,
         .offer-grid,
-        .testimonials-grid {
+        .testimonials-grid,
+        .try-content {
             grid-template-columns: 1fr;
         }
         .section-header h2 {
@@ -1198,6 +1317,56 @@
                     <li><i class="fas fa-check"></i> Geen saaie theorie, direct resultaat</li>
                     <li><i class="fas fa-check"></i> Perfect voor in het weekend</li>
                 </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== PROBEER HET ZELF ========== -->
+<section class="try-section">
+    <div class="container">
+        <div class="try-content">
+            <div class="try-text">
+                <h2>🎮 Probeer het zelf — nu meteen</h2>
+                <p>Geen account nodig, geen installatie. Voer je eigen OpenAI API key in en begin direct met bouwen. Zie met je eigen ogen hoe makkelijk vibecoding is.</p>
+                <div class="try-features">
+                    <div class="try-feature">
+                        <i class="fas fa-clock"></i>
+                        <span>Binnen 5 minuten je eerste app</span>
+                    </div>
+                    <div class="try-feature">
+                        <i class="fas fa-key"></i>
+                        <span>Je eigen API key (veilig & privé)</span>
+                    </div>
+                    <div class="try-feature">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>30 oefenscenario's beschikbaar</span>
+                    </div>
+                </div>
+                <a href="/studio" class="btn-try">
+                    <i class="fas fa-play-circle"></i> Open de Speeltuin
+                </a>
+            </div>
+            <div class="try-visual">
+                <div class="try-demo">
+                    <div class="demo-header">
+                        <div class="demo-dot" style="background: #ef4444;"></div>
+                        <div class="demo-dot" style="background: #f59e0b;"></div>
+                        <div class="demo-dot" style="background: #22c55e;"></div>
+                        <span>VibeStudio</span>
+                    </div>
+                    <div class="demo-body">
+                        <div class="demo-line typing">
+                            <span class="prompt">&gt;</span> Maak een todo app met dark mode...
+                        </div>
+                        <div class="demo-response">
+                            <i class="fas fa-magic"></i> Generating your app...
+                        </div>
+                        <div class="demo-result">
+                            <i class="fas fa-check-circle"></i> ✅ App klaar! Preview beschikbaar
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

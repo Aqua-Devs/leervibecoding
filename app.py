@@ -331,22 +331,22 @@ Beoordeel eerlijk maar rechtvaardig."""
 def index():
     return render_template('index.html')
 
-# Oude oefenruimte routes redirecten naar premium
+# Oude routes redirecten
 @app.route('/bouwen')
 def bouwen():
-    return redirect('/premium')
+    return redirect('/studio')
 
 @app.route('/oefenruimte')
 def oefenruimte():
-    return redirect('/premium')
+    return redirect('/studio')
 
 @app.route('/studio')
 def studio():
-    return redirect('/premium')
+    return render_template('studio.html', levels=DIFFICULTY_LEVELS)
 
 @app.route('/oefeningen')
 def oefeningen():
-    return redirect('/premium')
+    return redirect('/studio')
 
 # Premium routes
 @app.route('/premium')
