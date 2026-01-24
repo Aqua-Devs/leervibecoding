@@ -1,0 +1,699 @@
+{% extends "base.html" %}
+
+{% block title %}Blueprint Shop - Kant-en-klare App Prompts | LeerVibeCoding.nl{% endblock %}
+
+{% block meta_description %}50+ kant-en-klare blueprints om je eigen apps te bouwen. Copy-paste prompts die bewezen werken. Vanaf €19.{% endblock %}
+
+{% block extra_css %}
+<style>
+    .shop-hero {
+        padding: 120px 0 60px;
+        background: linear-gradient(135deg, var(--bg1) 0%, var(--bg2) 100%);
+        text-align: center;
+    }
+    .shop-hero h1 {
+        font-size: clamp(32px, 5vw, 48px);
+        font-weight: 800;
+        color: var(--text1);
+        margin-bottom: 16px;
+    }
+    .shop-hero p {
+        font-size: 20px;
+        color: var(--text2);
+        max-width: 600px;
+        margin: 0 auto 32px;
+    }
+    .shop-stats {
+        display: flex;
+        gap: 40px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .shop-stat {
+        text-align: center;
+    }
+    .shop-stat .number {
+        font-size: 28px;
+        font-weight: 800;
+        color: var(--purple);
+    }
+    .shop-stat .label {
+        font-size: 14px;
+        color: var(--text3);
+    }
+
+    /* Filters */
+    .shop-filters {
+        padding: 30px 0;
+        background: var(--bg2);
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 70px;
+        z-index: 100;
+    }
+    .filter-row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .filter-btn {
+        padding: 10px 20px;
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 50px;
+        color: var(--text2);
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    .filter-btn:hover,
+    .filter-btn.active {
+        background: var(--purple);
+        color: white;
+        border-color: var(--purple);
+    }
+
+    /* Shop Grid */
+    .shop-section {
+        padding: 60px 0;
+        background: var(--bg1);
+    }
+    .shop-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 24px;
+        margin-bottom: 60px;
+    }
+    .blueprint-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        overflow: hidden;
+        transition: all 0.3s;
+    }
+    .blueprint-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px var(--shadow);
+        border-color: var(--purple);
+    }
+    .blueprint-card .card-header {
+        padding: 24px;
+        background: linear-gradient(135deg, var(--purple-light), var(--blue-light));
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+    .blueprint-card .icon {
+        width: 60px;
+        height: 60px;
+        background: var(--card-bg);
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+    }
+    .blueprint-card .card-header h3 {
+        font-size: 18px;
+        color: var(--text1);
+        margin-bottom: 4px;
+    }
+    .blueprint-card .card-header .category {
+        font-size: 12px;
+        color: var(--purple);
+        font-weight: 600;
+    }
+    .blueprint-card .card-body {
+        padding: 24px;
+    }
+    .blueprint-card .description {
+        color: var(--text2);
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 16px;
+    }
+    .blueprint-card .features {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+    .blueprint-card .feature-tag {
+        padding: 4px 10px;
+        background: var(--bg2);
+        border-radius: 20px;
+        font-size: 12px;
+        color: var(--text3);
+    }
+    .blueprint-card .card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 16px;
+        border-top: 1px solid var(--border);
+    }
+    .blueprint-card .price {
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--text1);
+    }
+    .blueprint-card .btn-buy {
+        padding: 10px 20px;
+        background: linear-gradient(135deg, var(--purple), #4f46e5);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    .blueprint-card .btn-buy:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(124,58,237,0.3);
+    }
+
+    /* Bundle Section */
+    .bundle-section {
+        padding: 80px 0;
+        background: linear-gradient(135deg, var(--purple) 0%, #4f46e5 100%);
+    }
+    .bundle-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    .bundle-card {
+        background: rgba(255,255,255,0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.2);
+        border-radius: 24px;
+        padding: 32px;
+        text-align: center;
+        color: white;
+    }
+    .bundle-card.featured {
+        background: white;
+        color: var(--text1);
+        transform: scale(1.05);
+    }
+    .bundle-card .popular-badge {
+        background: var(--orange);
+        color: white;
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 700;
+        margin-bottom: 16px;
+        display: inline-block;
+    }
+    .bundle-card h3 {
+        font-size: 22px;
+        margin-bottom: 8px;
+    }
+    .bundle-card .bundle-desc {
+        font-size: 14px;
+        opacity: 0.8;
+        margin-bottom: 20px;
+    }
+    .bundle-card.featured .bundle-desc {
+        color: var(--text3);
+    }
+    .bundle-card .price {
+        font-size: 48px;
+        font-weight: 800;
+        margin-bottom: 8px;
+    }
+    .bundle-card .original-price {
+        font-size: 18px;
+        text-decoration: line-through;
+        opacity: 0.6;
+        margin-bottom: 24px;
+    }
+    .bundle-card ul {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 24px;
+        text-align: left;
+    }
+    .bundle-card ul li {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 0;
+        font-size: 14px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .bundle-card.featured ul li {
+        border-color: var(--border);
+        color: var(--text2);
+    }
+    .bundle-card ul li:last-child {
+        border-bottom: none;
+    }
+    .bundle-card ul li i {
+        color: var(--green);
+    }
+    .bundle-card .btn-bundle {
+        width: 100%;
+        padding: 16px;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s;
+        border: none;
+    }
+    .bundle-card .btn-bundle.primary {
+        background: linear-gradient(135deg, var(--purple), #4f46e5);
+        color: white;
+    }
+    .bundle-card .btn-bundle.white {
+        background: white;
+        color: var(--purple);
+    }
+    .bundle-card.featured .btn-bundle {
+        background: linear-gradient(135deg, var(--green), #16a34a);
+        color: white;
+    }
+
+    /* Section Header */
+    .section-header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    .section-header h2 {
+        font-size: 32px;
+        color: white;
+        margin-bottom: 12px;
+    }
+    .section-header p {
+        color: rgba(255,255,255,0.8);
+        font-size: 18px;
+    }
+
+    @media (max-width: 768px) {
+        .bundle-grid {
+            grid-template-columns: 1fr;
+            max-width: 400px;
+        }
+        .bundle-card.featured {
+            transform: none;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="shop-hero">
+    <div class="container">
+        <h1>Blueprint Shop</h1>
+        <p>Kant-en-klare prompts voor complete apps. Copy-paste en je hebt een werkend resultaat.</p>
+        <div class="shop-stats">
+            <div class="shop-stat">
+                <div class="number">50+</div>
+                <div class="label">Blueprints</div>
+            </div>
+            <div class="shop-stat">
+                <div class="number">€19</div>
+                <div class="label">Vanaf</div>
+            </div>
+            <div class="shop-stat">
+                <div class="number">100%</div>
+                <div class="label">Geld-terug garantie</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Filters -->
+<div class="shop-filters">
+    <div class="container">
+        <div class="filter-row">
+            <button class="filter-btn active" data-filter="all">Alles</button>
+            <button class="filter-btn" data-filter="websites">Websites</button>
+            <button class="filter-btn" data-filter="apps">Web Apps</button>
+            <button class="filter-btn" data-filter="tools">Tools</button>
+            <button class="filter-btn" data-filter="saas">SaaS</button>
+            <button class="filter-btn" data-filter="games">Games</button>
+        </div>
+    </div>
+</div>
+
+<!-- Shop Grid -->
+<section class="shop-section">
+    <div class="container">
+        <div class="shop-grid">
+            <!-- Blueprint 1 -->
+            <div class="blueprint-card" data-category="saas">
+                <div class="card-header">
+                    <div class="icon">📊</div>
+                    <div>
+                        <h3>SaaS Dashboard</h3>
+                        <span class="category">SaaS</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="description">Complete admin dashboard met gebruikersbeheer, grafieken, en data tabellen. Perfect als startpunt voor je SaaS.</p>
+                    <div class="features">
+                        <span class="feature-tag">React</span>
+                        <span class="feature-tag">Charts</span>
+                        <span class="feature-tag">Auth</span>
+                    </div>
+                    <div class="card-footer">
+                        <span class="price">€29</span>
+                        <button class="btn-buy">Kopen</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blueprint 2 -->
+            <div class="blueprint-card" data-category="websites">
+                <div class="card-header">
+                    <div class="icon">🛒</div>
+                    <div>
+                        <h3>Webshop Landing</h3>
+                        <span class="category">Websites</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="description">Hoog-converterende productpagina met reviews, FAQ, en bestelformulier. Geoptimaliseerd voor conversie.</p>
+                    <div class="features">
+                        <span class="feature-tag">HTML/CSS</span>
+                        <span class="feature-tag">Responsive</span>
+                    </div>
+                    <div class="card-footer">
+                        <span class="price">€19</span>
+                        <button class="btn-buy">Kopen</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blueprint 3 -->
+            <div class="blueprint-card" data-category="apps">
+                <div class="card-header">
+                    <div class="icon">📝</div>
+                    <div>
+                        <h3>Blog Platform</h3>
+                        <span class="category">Web Apps</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="description">Complete blog met markdown editor, categorieën, zoekfunctie en SEO-optimalisatie.</p>
+                    <div class="features">
+                        <span class="feature-tag">CMS</span>
+                        <span class="feature-tag">SEO</span>
+                        <span class="feature-tag">Markdown</span>
+                    </div>
+                    <div class="card-footer">
+                        <span class="price">€29</span>
+                        <button class="btn-buy">Kopen</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blueprint 4 -->
+            <div class="blueprint-card" data-category="tools">
+                <div class="card-header">
+                    <div class="icon">🔧</div>
+                    <div>
+                        <h3>Calculator Suite</h3>
+                        <span class="category">Tools</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="description">5 verschillende calculators: hypotheek, BMI, tip splitter, leeftijd, en valuta converter.</p>
+                    <div class="features">
+                        <span class="feature-tag">5-in-1</span>
+                        <span class="feature-tag">Interactief</span>
+                    </div>
+                    <div class="card-footer">
+                        <span class="price">€19</span>
+                        <button class="btn-buy">Kopen</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blueprint 5 -->
+            <div class="blueprint-card" data-category="saas">
+                <div class="card-header">
+                    <div class="icon">📅</div>
+                    <div>
+                        <h3>Booking Systeem</h3>
+                        <span class="category">SaaS</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="description">Afspraken plannen met kalenderweergave, tijdslots, en email bevestigingen.</p>
+                    <div class="features">
+                        <span class="feature-tag">Kalender</span>
+                        <span class="feature-tag">Email</span>
+                        <span class="feature-tag">Slots</span>
+                    </div>
+                    <div class="card-footer">
+                        <span class="price">€39</span>
+                        <button class="btn-buy">Kopen</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blueprint 6 -->
+            <div class="blueprint-card" data-category="websites">
+                <div class="card-header">
+                    <div class="icon">💼</div>
+                    <div>
+                        <h3>Portfolio Pro</h3>
+                        <span class="category">Websites</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="description">Professionele portfolio website met project galerij, over mij, en contact formulier.</p>
+                    <div class="features">
+                        <span class="feature-tag">Galerij</span>
+                        <span class="feature-tag">Animaties</span>
+                    </div>
+                    <div class="card-footer">
+                        <span class="price">€19</span>
+                        <button class="btn-buy">Kopen</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blueprint 7 -->
+            <div class="blueprint-card" data-category="apps">
+                <div class="card-header">
+                    <div class="icon">✅</div>
+                    <div>
+                        <h3>Task Manager</h3>
+                        <span class="category">Web Apps</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="description">Kanban-style taakbeheer met drag & drop, prioriteiten, en deadlines.</p>
+                    <div class="features">
+                        <span class="feature-tag">Kanban</span>
+                        <span class="feature-tag">Drag & Drop</span>
+                    </div>
+                    <div class="card-footer">
+                        <span class="price">€29</span>
+                        <button class="btn-buy">Kopen</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blueprint 8 -->
+            <div class="blueprint-card" data-category="games">
+                <div class="card-header">
+                    <div class="icon">🎮</div>
+                    <div>
+                        <h3>Mini Games Pack</h3>
+                        <span class="category">Games</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="description">3 browser games: Snake, Tetris clone, en een memory spel. Perfect voor je portfolio.</p>
+                    <div class="features">
+                        <span class="feature-tag">3 Games</span>
+                        <span class="feature-tag">Canvas</span>
+                    </div>
+                    <div class="card-footer">
+                        <span class="price">€29</span>
+                        <button class="btn-buy">Kopen</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blueprint 9 -->
+            <div class="blueprint-card" data-category="tools">
+                <div class="card-header">
+                    <div class="icon">📈</div>
+                    <div>
+                        <h3>Analytics Dashboard</h3>
+                        <span class="category">Tools</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="description">Data visualisatie met lijngrafieken, staafdiagrammen, en pie charts. Google Analytics alternatief.</p>
+                    <div class="features">
+                        <span class="feature-tag">Charts.js</span>
+                        <span class="feature-tag">Real-time</span>
+                    </div>
+                    <div class="card-footer">
+                        <span class="price">€39</span>
+                        <button class="btn-buy">Kopen</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blueprint 10 -->
+            <div class="blueprint-card" data-category="saas">
+                <div class="card-header">
+                    <div class="icon">💬</div>
+                    <div>
+                        <h3>Feedback Widget</h3>
+                        <span class="category">SaaS</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="description">Embeddable feedback widget voor je website. Verzamel reviews en suggesties.</p>
+                    <div class="features">
+                        <span class="feature-tag">Embeddable</span>
+                        <span class="feature-tag">Dashboard</span>
+                    </div>
+                    <div class="card-footer">
+                        <span class="price">€29</span>
+                        <button class="btn-buy">Kopen</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blueprint 11 -->
+            <div class="blueprint-card" data-category="websites">
+                <div class="card-header">
+                    <div class="icon">🍽️</div>
+                    <div>
+                        <h3>Restaurant Site</h3>
+                        <span class="category">Websites</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="description">Complete restaurant website met menu, reserveringen, en locatie info.</p>
+                    <div class="features">
+                        <span class="feature-tag">Menu</span>
+                        <span class="feature-tag">Reservering</span>
+                    </div>
+                    <div class="card-footer">
+                        <span class="price">€19</span>
+                        <button class="btn-buy">Kopen</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blueprint 12 -->
+            <div class="blueprint-card" data-category="apps">
+                <div class="card-header">
+                    <div class="icon">📧</div>
+                    <div>
+                        <h3>Newsletter Builder</h3>
+                        <span class="category">Web Apps</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="description">Email template builder met drag & drop. Export naar HTML voor Mailchimp etc.</p>
+                    <div class="features">
+                        <span class="feature-tag">Drag & Drop</span>
+                        <span class="feature-tag">Export</span>
+                    </div>
+                    <div class="card-footer">
+                        <span class="price">€39</span>
+                        <button class="btn-buy">Kopen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Bundle Section -->
+<section class="bundle-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>💰 Bespaar met Bundels</h2>
+            <p>Koop meerdere blueprints samen voor een scherpe prijs</p>
+        </div>
+        <div class="bundle-grid">
+            <div class="bundle-card">
+                <h3>Starter Pack</h3>
+                <p class="bundle-desc">5 blueprints naar keuze</p>
+                <div class="price">€49</div>
+                <div class="original-price">€95 waarde</div>
+                <ul>
+                    <li><i class="fas fa-check"></i> 5 blueprints naar keuze</li>
+                    <li><i class="fas fa-check"></i> Alle documentatie</li>
+                    <li><i class="fas fa-check"></i> Email support</li>
+                </ul>
+                <button class="btn-bundle white">Kies je 5</button>
+            </div>
+            <div class="bundle-card featured">
+                <span class="popular-badge">MEEST GEKOZEN</span>
+                <h3>Ondernemer</h3>
+                <p class="bundle-desc">15 blueprints naar keuze</p>
+                <div class="price">€99</div>
+                <div class="original-price">€285 waarde</div>
+                <ul>
+                    <li><i class="fas fa-check"></i> 15 blueprints naar keuze</li>
+                    <li><i class="fas fa-check"></i> Alle documentatie</li>
+                    <li><i class="fas fa-check"></i> Priority support</li>
+                    <li><i class="fas fa-check"></i> Deployment guide</li>
+                </ul>
+                <button class="btn-bundle">Kies je 15</button>
+            </div>
+            <div class="bundle-card">
+                <h3>Complete Bundel</h3>
+                <p class="bundle-desc">Alle 50+ blueprints</p>
+                <div class="price">€149</div>
+                <div class="original-price">€500+ waarde</div>
+                <ul>
+                    <li><i class="fas fa-check"></i> Alle 50+ blueprints</li>
+                    <li><i class="fas fa-check"></i> Lifetime updates</li>
+                    <li><i class="fas fa-check"></i> 1-op-1 onboarding</li>
+                    <li><i class="fas fa-check"></i> Bonus templates</li>
+                </ul>
+                <button class="btn-bundle white">Alles Krijgen</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+// Filter functionality
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        // Update active state
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        const filter = btn.dataset.filter;
+        
+        document.querySelectorAll('.blueprint-card').forEach(card => {
+            if (filter === 'all' || card.dataset.category === filter) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+});
+
+// Buy button placeholder
+document.querySelectorAll('.btn-buy, .btn-bundle').forEach(btn => {
+    btn.addEventListener('click', () => {
+        alert('Betaalfunctie komt binnenkort! Neem contact op voor early access.');
+    });
+});
+</script>
+{% endblock %}

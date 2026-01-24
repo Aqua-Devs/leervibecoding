@@ -385,6 +385,10 @@ def verify_code():
 def tools():
     return render_template('tools.html')
 
+@app.route('/blueprints')
+def blueprints():
+    return render_template('blueprints.html')
+
 @app.route('/starten')
 def starten():
     return render_template('tools.html')
