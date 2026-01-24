@@ -480,20 +480,28 @@ def validate_key():
 @app.route('/api/generate-assignment', methods=['POST'])
 def api_generate_assignment():
     """Generate a new assignment"""
-    data = request.json
-    api_key = data.get('api_key')
-    level = data.get('level', 1)
-    completed = data.get('completed', [])
-    
-    if not api_key:
-        return jsonify({"success": False, "error": "API key vereist"})
-    
-    assignment = generate_assignment(api_key, level, completed)
-    
-    if assignment:
-        return jsonify({"success": True, "assignment": assignment})
-    else:
-        return jsonify({"success": False, "error": "Kon geen opdracht genereren"})
+    try:
+        data = request.json
+        api_key = data.get('api_key')
+        level = data.get('level', 1)
+        completed = data.get('completed', [])
+        
+        print(f"Generating assignment for level {level}")
+        
+        if not api_key:
+            return jsonify({"success": False, "error": "API key vereist"})
+        
+        assignment = generate_assignment(api_key, level, completed)
+        
+        if assignment:
+            print(f"Assignment generated: {assignment.get('title', 'Unknown')}")
+            return jsonify({"success": True, "assignment": assignment})
+        else:
+            print("Failed to generate assignment")
+            return jsonify({"success": False, "error": "Kon geen opdracht genereren. Controleer je API key en credits."})
+    except Exception as e:
+        print(f"Error in api_generate_assignment: {e}")
+        return jsonify({"success": False, "error": f"Server error: {str(e)}"})
 
 @app.route('/api/submit-prompt', methods=['POST'])
 def api_submit_prompt():

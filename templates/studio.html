@@ -109,6 +109,7 @@ body { overflow-x: hidden; }
     flex: 1;
     overflow-y: auto;
     position: relative;
+    min-height: 300px;
 }
 
 .assignment-card {
@@ -710,13 +711,13 @@ body { overflow-x: hidden; }
     <div class="left-panel">
         <div class="assignment-section">
             <!-- API Key Notice -->
-            <div class="api-notice" id="apiNotice">
+            <div class="api-notice" id="apiNotice" style="display: none;">
                 <h3>🔑 API Key Vereist</h3>
                 <p>Je hebt een OpenAI API key nodig om de oefenruimte te gebruiken.</p>
                 <button class="btn" onclick="openApiKeyModal()">API Key Instellen</button>
             </div>
 
-            <!-- Empty State -->
+            <!-- Empty State - shown when API key exists but no assignment yet -->
             <div class="empty-state" id="emptyState" style="display: none;">
                 <div class="icon">🎯</div>
                 <h3>Klaar om te beginnen?</h3>
@@ -757,10 +758,10 @@ body { overflow-x: hidden; }
                 <div class="hints-content" id="hintsContent"></div>
             </div>
 
-            <!-- Loading -->
-            <div class="loading-overlay" id="assignmentLoading">
+            <!-- Loading - initially shown -->
+            <div class="loading-overlay show" id="assignmentLoading">
                 <div class="spinner"></div>
-                <div class="loading-text">Opdracht genereren...</div>
+                <div class="loading-text">Laden...</div>
             </div>
         </div>
 
@@ -849,8 +850,11 @@ const LEVELS = [
 
 // Init
 document.addEventListener('DOMContentLoaded', async () => {
+    console.log('Oefenruimte init...');
     loadStats();
     updateUI();
+    
+    // Check API key en laad opdracht indien nodig
     await checkApiKey();
 });
 
@@ -871,19 +875,37 @@ async function checkApiKey() {
     try {
         const res = await fetch('/api/get-key');
         const data = await res.json();
-        if (data.has_key) {
+        console.log('API Key check result:', data);
+        
+        if (data.has_key && data.key) {
             apiKey = data.key;
             document.getElementById('apiNotice').style.display = 'none';
-            document.getElementById('emptyState').style.display = 'block';
             document.getElementById('submitBtn').disabled = false;
+            
+            // Automatisch eerste opdracht laden
+            console.log('API key found, generating assignment...');
+            await generateAssignment();
         } else {
+            console.log('No API key found');
+            document.getElementById('assignmentLoading').classList.remove('show');
             document.getElementById('apiNotice').style.display = 'block';
             document.getElementById('emptyState').style.display = 'none';
+            document.getElementById('assignmentCard').style.display = 'none';
         }
     } catch(e) {
-        console.error(e);
+        console.error('API Key check error:', e);
+        // Bij error, toon API notice zodat gebruiker key kan invoeren
+        document.getElementById('assignmentLoading').classList.remove('show');
+        document.getElementById('apiNotice').style.display = 'block';
+        document.getElementById('emptyState').style.display = 'none';
     }
 }
+
+// Called after API key is saved
+window.onApiKeySet = async function() {
+    console.log('API key was set, refreshing...');
+    await checkApiKey();
+};
 
 // Update UI
 function updateUI() {
@@ -914,7 +936,13 @@ async function generateAssignment() {
         return;
     }
 
-    document.getElementById('assignmentLoading').classList.add('show');
+    console.log('Generating assignment for level:', stats.level);
+    
+    // Update loading text en toon
+    const loadingEl = document.getElementById('assignmentLoading');
+    loadingEl.querySelector('.loading-text').textContent = 'Opdracht genereren...';
+    loadingEl.classList.add('show');
+    
     document.getElementById('emptyState').style.display = 'none';
     document.getElementById('assignmentCard').style.display = 'none';
 
@@ -930,16 +958,19 @@ async function generateAssignment() {
         });
         
         const data = await res.json();
+        console.log('Assignment response:', data);
         
         if (data.success && data.assignment) {
             currentAssignment = data.assignment;
             displayAssignment(data.assignment);
         } else {
+            console.error('Assignment error:', data.error);
             showToast(data.error || 'Kon geen opdracht genereren', 'error');
             document.getElementById('emptyState').style.display = 'block';
         }
     } catch(e) {
-        showToast('Fout bij genereren opdracht', 'error');
+        console.error('Generate assignment error:', e);
+        showToast('Fout bij genereren opdracht: ' + e.message, 'error');
         document.getElementById('emptyState').style.display = 'block';
     }
 

@@ -557,8 +557,13 @@
                     showToast('API key opgeslagen!', 'success');
                     closeApiKeyModal();
                     document.getElementById('apiKeyInput').value = '';
+                    
+                    // Notify page that key is set
+                    if (typeof window.onApiKeySet === 'function') {
+                        window.onApiKeySet();
+                    }
                 } else {
-                    showToast(data.error, 'error');
+                    showToast(data.error || 'Fout bij opslaan', 'error');
                 }
             } catch(e) {
                 showToast('Fout bij opslaan', 'error');
